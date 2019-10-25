@@ -44,7 +44,7 @@
 	</ParticleEmitterComponent>
 
   <ParticleEmitterComponent 
-		_enabled="1"
+		_enabled="0"
     _tags="emitter2"
 		emitted_material_name="spark"
 		gravity.y="0.0"
@@ -70,18 +70,15 @@
 	</ParticleEmitterComponent>
 
   <CollisionTriggerComponent
-    width="16"
-    height="96" 
-    radius="128"
-    required_tag="player_unit"
+    width="78"
+    height="60" 
+    required_tag="wand"
     destroy_this_entity_when_triggered="0"
-    timer_for_destruction="30"
     >
   </CollisionTriggerComponent>
 
   <LuaComponent
     script_collision_trigger_hit="mods/mymod/files/anvil_trigger.lua"
-    script_collision_trigger_timer_finished="mods/mymod/files/anvil_trigger.lua"
     execute_every_n_frame="-1"
     >
   </LuaComponent>
