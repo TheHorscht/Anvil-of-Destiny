@@ -4,7 +4,7 @@
     uid="1" 
     allow_sleep="1" 
     angular_damping="0" 
-    fixed_rotation="1" 
+    fixed_rotation="0" 
     is_bullet="0" 
     linear_damping="0"
     auto_clean="0"
@@ -18,83 +18,76 @@
   </PhysicsImageShapeComponent>
 
   <ParticleEmitterComponent 
-		_enabled="1"
+		_enabled="0"
+    _tags="emitter1"
 		emitted_material_name="spark"
 		gravity.y="0.0"
 		lifetime_min="0.5"
 		lifetime_max="1"
 		count_min="1"
 		count_max="1"
-		render_on_grid="1" 
+		render_on_grid="1"
 		fade_based_on_lifetime="1"
 		area_circle_radius.min="0"
 		area_circle_radius.max="0"
-		cosmetic_force_create="0"
-		emission_interval_min_frames="1"
-		emission_interval_max_frames="1"
-		emit_cosmetic_particles="1"
+		cosmetic_force_create="1"
     collide_with_grid="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="3"
+		emit_cosmetic_particles="1"
 		image_animation_file="mods/mymod/files/runes1.png"
 		image_animation_speed="5"
 		image_animation_loop="1"
-		is_emitting="1"
 		render_back="1"
+		is_emitting="1"
 		>
 	</ParticleEmitterComponent>
 
   <ParticleEmitterComponent 
 		_enabled="1"
+    _tags="emitter2"
 		emitted_material_name="spark"
 		gravity.y="0.0"
 		lifetime_min="0.5"
 		lifetime_max="1"
 		count_min="1"
 		count_max="1"
-		render_on_grid="1" 
+		render_on_grid="1"
 		fade_based_on_lifetime="1"
 		area_circle_radius.min="0"
 		area_circle_radius.max="0"
-		cosmetic_force_create="0"
-		emission_interval_min_frames="1"
-		emission_interval_max_frames="1"
-		emit_cosmetic_particles="1"
+		cosmetic_force_create="1"
     collide_with_grid="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="3"
+		emit_cosmetic_particles="1"
 		image_animation_file="mods/mymod/files/runes2.png"
 		image_animation_speed="5"
 		image_animation_loop="1"
-		is_emitting="1"
 		render_back="1"
+		is_emitting="1"
 		>
 	</ParticleEmitterComponent>
 
-<!-- from teleport -->
-	<ParticleEmitterComponent 
-		emitted_material_name="spark_purple"
-		gravity.y="0.0"
-		lifetime_min="3"
-		lifetime_max="4"
-		x_vel_min="0"
-		x_vel_max="0"
-		y_vel_min="0"
-		y_vel_max="0"
-		count_min="115"
-		count_max="115"
-		render_on_grid="1"
-		fade_based_on_lifetime="0"
-		area_circle_radius.min="15"
-		area_circle_radius.max="15"
-		cosmetic_force_create="1"
-		collide_with_grid="0"
-		airflow_force="0.051"
-		airflow_time="1.01"
-		airflow_scale="0.03"
-		emission_interval_min_frames="12"
-		emission_interval_max_frames="12"
-		emit_cosmetic_particles="1"
-		velocity_always_away_from_center="11"
-		render_back="1"
-		is_emitting="1" >
-	</ParticleEmitterComponent>
+  <CollisionTriggerComponent
+    width="16"
+    height="96" 
+    radius="128"
+    required_tag="player_unit"
+    destroy_this_entity_when_triggered="0"
+    timer_for_destruction="30"
+    >
+  </CollisionTriggerComponent>
+
+  <LuaComponent
+    script_collision_trigger_hit="mods/mymod/files/anvil_trigger.lua"
+    script_collision_trigger_timer_finished="mods/mymod/files/anvil_trigger.lua"
+    execute_every_n_frame="-1"
+    >
+  </LuaComponent>
+
+
+
 
 
 
