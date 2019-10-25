@@ -1,0 +1,185 @@
+<Entity name="mymod_anvil">
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="1" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="1" >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="mods/mymod/files/anvil_visuals.png"
+    material="metal_rust" >
+  </PhysicsImageShapeComponent>
+
+  <ParticleEmitterComponent 
+		_enabled="1"
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1" 
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+    collide_with_grid="0"
+		image_animation_file="mods/mymod/files/runes1.png"
+		image_animation_speed="5"
+		image_animation_loop="1"
+		is_emitting="1"
+		render_back="1"
+		>
+	</ParticleEmitterComponent>
+
+  <ParticleEmitterComponent 
+		_enabled="1"
+		emitted_material_name="spark"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1" 
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+    collide_with_grid="0"
+		image_animation_file="mods/mymod/files/runes2.png"
+		image_animation_speed="5"
+		image_animation_loop="1"
+		is_emitting="1"
+		render_back="1"
+		>
+	</ParticleEmitterComponent>
+
+<!-- from teleport -->
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_purple"
+		gravity.y="0.0"
+		lifetime_min="3"
+		lifetime_max="4"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="115"
+		count_max="115"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="15"
+		area_circle_radius.max="15"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+
+
+</Entity>
+
+<!-- <Entity name="unknown">
+
+  <PhysicsBodyComponent 
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="1" >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="data/props_gfx/minecart.png"
+    material="metal_rust" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsBodyComponent 
+    uid="2" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+    >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="2"
+    centered="1"
+    is_circle="1"
+    image_file="data/props_gfx/minecart_wheel_left.png"
+    z="-1"
+    material="metal_rust" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsBodyComponent 
+    uid="3" 
+    allow_sleep="1" 
+    angular_damping="0.1" 
+    fixed_rotation="0" 
+    is_bullet="0" 
+    linear_damping="0"
+    auto_clean="0" 
+    update_entity_transform="0"
+    on_death_leave_physics_body="1"
+    >
+  </PhysicsBodyComponent>
+  <PhysicsImageShapeComponent 
+    body_id="3"
+    centered="1"
+    is_circle="1"
+    image_file="data/props_gfx/minecart_wheel_right.png"
+    z="-1"
+    material="metal_rust" >
+  </PhysicsImageShapeComponent>
+
+  <PhysicsJointComponent 
+    body1_id="1"
+    body2_id="2"		
+    pos_x="4"		
+    pos_y="12"			
+  	>
+  </PhysicsJointComponent>
+
+  <PhysicsJointComponent 
+    body1_id="1"
+    body2_id="3"		
+    pos_x="13"		
+    pos_y="12"			
+  	>
+  </PhysicsJointComponent>
+  
+  <CameraBoundComponent
+    max_count="50"
+    distance="500">
+  </CameraBoundComponent>
+</Entity>
+ -->

@@ -35,6 +35,7 @@ function init( x, y, w, h )
 end
 
 function spawn_shit( x, y, w, h )
+	SetRandomSeed(1, 2)
 	if Random(1, 10) < 2 then
 		-- LoadPixelScene( "mods/mymod/files/metroid_B.png", "mods/mymod/files/metroid_B_visuals.png", x, y, "mods/mymod/files/blackness.png", true )
 		LoadPixelScene( "mods/mymod/files/metroid_B.png", "mods/mymod/files/metroid_B_visuals.png", x, y, "", true )
