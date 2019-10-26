@@ -5,6 +5,7 @@ dofile("data/scripts/director_helpers.lua")
 dofile("data/scripts/director_helpers_design.lua")
 dofile("data/scripts/biome_scripts.lua")
 dofile( "data/scripts/items/generate_shop_item.lua" )
+dofile( "mods/mymod/files/spawner.lua" )
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff0000ff, "spawn_nest" )
@@ -21,21 +22,6 @@ RegisterSpawnFunction( 0xff55FF8C, "spawn_chest" )
 RegisterSpawnFunction( 0xff4e175e, "load_oiltank_alt" )
 RegisterSpawnFunction( 0xff33934c, "spawn_shopitem" )
 RegisterSpawnFunction( 0xff50fafa, "spawn_trapwand" )
-
-RegisterSpawnFunction( 0xfffb0d50, "spawn_anvil_altar" )
-RegisterSpawnFunction( 0xffff0047, "spawn_anvil" )
-
-function spawn_anvil_altar( x, y )
-	local w = 184
-	local h = 96
-	LoadPixelScene( "mods/mymod/files/altar.png", "mods/mymod/files/altar_visual.png", x - (w / 2), y - h + 10, "mods/mymod/files/altar_background.png", true )
-end
-
-function spawn_anvil( x, y )
-	local w = 78
-	local h = 37
-	EntityLoad("mods/mymod/files/entities/anvil.xml", x, y - (h / 2))
-end
 
 ------------ small enemies -------------------------------
 
@@ -595,6 +581,15 @@ g_pixel_scene_01 =
 g_pixel_scene_02 =
 {
 	total_prob = 0,
+	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
+	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
+	{
+		prob   			= 4.0,
+		material_file 	= "mods/mymod/files/altar_loader_scene.png",
+		visual_file		= "",
+		background_file	= "",
+		is_unique		= 0
+	},
 	{
 		prob   			= 0.5,
 		material_file 	= "data/biome_impl/coalmine_shrine01.png",
@@ -676,15 +671,6 @@ g_pixel_scene_02 =
 		prob   			= 1.5,
 		material_file 	= "data/biome_impl/coalmine_wandtrap_h_02.png",
 		visual_file		= "data/biome_impl/coalmine_wandtrap_h_02_visual.png",
-		background_file	= "",
-		is_unique		= 0
-	},
-	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
-	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
-	{
-		prob   			= 4.0,
-		material_file 	= "mods/mymod/files/altar_loader_scene.png",
-		visual_file		= "",
 		background_file	= "",
 		is_unique		= 0
 	},
