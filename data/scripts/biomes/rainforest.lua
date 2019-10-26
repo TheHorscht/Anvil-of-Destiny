@@ -4,7 +4,7 @@ CHEST_LEVEL = 4
 dofile("data/scripts/director_helpers.lua")
 dofile("data/scripts/director_helpers_design.lua")
 dofile("data/scripts/biome_scripts.lua")
-
+dofile( "mods/mymod/files/spawner.lua" )
 
 RegisterSpawnFunction( 0xff400000, "spawn_scavengers" )
 RegisterSpawnFunction( 0xff400080, "spawn_large_enemies" )
@@ -481,6 +481,15 @@ g_pixel_scene_01 =
 g_pixel_scene_02 =
 {
 	total_prob = 0,
+	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
+	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
+	{
+		prob   			= 400000.0,
+		material_file 	= "mods/mymod/files/rainforest_altar_loader.png",
+		visual_file		= "",
+		background_file	= "",
+		is_unique		= 0
+	},
 	{
 		prob   			= 0.5,
 		material_file 	= "data/biome_impl/rainforest_hut01.png",
