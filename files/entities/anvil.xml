@@ -76,7 +76,7 @@
   <Entity>
 		<InheritTransformComponent>
 			<Transform 
-				position.x="0"
+				position.x="5"
 				position.y="-50" 
 				>
 			</Transform>
