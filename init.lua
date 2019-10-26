@@ -47,6 +47,36 @@ ModMaterialsFileAdd( "mods/example/files/materials_rainbow.xml" ) -- Adds a new 
 
 ]]
 
+ModRegisterAudioEventMappings( "mods/mymod/fmod/Build/GUIDs.txt" )
 ModMagicNumbersFileAdd("mods/mymod/files/magic_numbers.xml")
 
 --print("Example mod init done")
+
+
+
+function OnPlayerSpawned( player_entity )
+	-- Add two wands for debug testing to players inventory
+	local inventory = nil
+	local player_child_entities = EntityGetAllChildren( player_entity )
+	if ( player_child_entities ~= nil ) then
+		for i,child_entity in ipairs( player_child_entities ) do
+			local child_entity_name = EntityGetName( child_entity )
+			
+			if ( child_entity_name == "inventory_quick" ) then
+				inventory = child_entity
+			end
+		end
+	end
+
+	if ( inventory ~= nil ) then
+		local inventory_items = EntityGetAllChildren( inventory )
+
+		-- local wand1 = EntityLoad("data/entities/items/wand_level_02.xml")
+		--[[ local wand1 = EntityLoad("mods/starting_loadouts/files/fire/wands/wand_1.xml")
+		local wand2 = EntityLoad("data/entities/items/wand_level_02.xml")
+		EntityAddChild( inventory, wand1 )
+		EntityAddChild( inventory, wand2 ) ]]
+	end
+end
+
+

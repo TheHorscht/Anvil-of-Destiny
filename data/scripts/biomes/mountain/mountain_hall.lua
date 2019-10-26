@@ -25,7 +25,10 @@ function spawn_anvil_altar( x, y )
 	local w = 184
 	local h = 96
 	-- In the context of LoadPixelScene, x, y refers to the top left of the image
-	LoadPixelScene( "mods/mymod/files/altar.png", "data/biome_impl/altar_visual.png", x - (w / 2), y - h + 10, "", true )
+	LoadPixelScene( "mods/mymod/files/altar.png", "mods/mymod/files/altar_visual.png", x - (w / 2), y - h + 10, "mods/mymod/files/altar_background.png", true )
+
+	-- LoadPixelScene( "mods/mymod/files/altar.png", "mods/mymod/files/altar_visual.png", x - (w / 2), y - h + 10, "", true )
+
 	-- LoadPixelScene( "mods/mymod/files/altar.png", "data/biome_impl/altar_visual.png", x , y, "", true )
 	-- data/biome_impl/altar_visual.png
 end
@@ -37,10 +40,10 @@ function spawn_anvil( x, y )
 	-- In the context of EntityLoad, x, y refers to the center of the image if PhysicsImageShapeComponent::centered is 1 otherwise top left
 	EntityLoad("mods/mymod/files/entities/anvil.xml", x, y - (h / 2))
 	-- EntityLoad("mods/mymod/files/rune_emitter.xml", x, y - (h / 2))
+	EntityLoad("data/entities/items/wand_level_02.xml", x - 40, y)
+	SetRandomSeed(2,5)
+	EntityLoad("data/entities/items/wand_level_02.xml", x - 60, y)
 end
-
-
-
 
 
 g_small_enemies_helpless =
