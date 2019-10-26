@@ -7,9 +7,7 @@ dofile("data/scripts/biome_scripts.lua")
 dofile( "data/scripts/items/generate_shop_item.lua" )
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
-RegisterSpawnFunction( 0xffd23fba, "spawn_my_wands" )
-RegisterSpawnFunction( 0xff4aa2a7, "spawn_shit" )
---[[ RegisterSpawnFunction( 0xff0000ff, "spawn_nest" )
+RegisterSpawnFunction( 0xff0000ff, "spawn_nest" )
 RegisterSpawnFunction( 0xffB40000, "spawn_fungi" )
 RegisterSpawnFunction( 0xff969678, "load_structures" )
 RegisterSpawnFunction( 0xff967878, "load_large_structures" )
@@ -22,25 +20,27 @@ RegisterSpawnFunction( 0xff55AF8C, "spawn_skulls" )
 RegisterSpawnFunction( 0xff55FF8C, "spawn_chest" )
 RegisterSpawnFunction( 0xff4e175e, "load_oiltank_alt" )
 RegisterSpawnFunction( 0xff33934c, "spawn_shopitem" )
-RegisterSpawnFunction( 0xff50fafa, "spawn_trapwand" ) ]]
+RegisterSpawnFunction( 0xff50fafa, "spawn_trapwand" )
+
+RegisterSpawnFunction( 0xfffb0d50, "spawn_anvil_altar" )
+RegisterSpawnFunction( 0xffff0047, "spawn_anvil" )
+
+function spawn_anvil_altar( x, y )
+	local w = 184
+	local h = 96
+	LoadPixelScene( "mods/mymod/files/altar.png", "mods/mymod/files/altar_visual.png", x - (w / 2), y - h + 10, "mods/mymod/files/altar_background.png", true )
+end
+
+function spawn_anvil( x, y )
+	local w = 78
+	local h = 37
+	EntityLoad("mods/mymod/files/entities/anvil.xml", x, y - (h / 2))
+end
 
 ------------ small enemies -------------------------------
 
-function spawn_my_wands(x, y)
-	EntityLoad( "data/entities/items/wand_unshuffle_06.xml", x, y )
-end
-
 function init( x, y, w, h )
 	-- LoadPixelScene( "mods/mymod/files/metroid2.png", "mods/mymod/files/metroid.png", x, y - 32, "data/biome_impl/pyramid_hallway_background.png", true )
-end
-
-function spawn_shit( x, y, w, h )
-	SetRandomSeed(1, 2)
-	if Random(1, 10) < 2 then
-		-- LoadPixelScene( "mods/mymod/files/metroid_B.png", "mods/mymod/files/metroid_B_visuals.png", x, y, "mods/mymod/files/blackness.png", true )
-		LoadPixelScene( "mods/mymod/files/metroid_B.png", "mods/mymod/files/metroid_B_visuals.png", x, y, "", true )
-		LoadPixelScene( "mods/mymod/files/metroid_B_lava.png", "", x, y, "", true )
-	end
 end
 
 g_small_enemies =
@@ -679,6 +679,14 @@ g_pixel_scene_02 =
 		background_file	= "",
 		is_unique		= 0
 	},
+	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
+	{
+		prob   			= 4.0,
+		material_file 	= "mods/mymod/files/altar_loader_scene.png",
+		visual_file		= "",
+		background_file	= "",
+		is_unique		= 0
+	},
 	{
 		prob   			= 1.5,
 		material_file 	= "data/biome_impl/coalmine_wandtrap_h_04.png",
@@ -969,7 +977,7 @@ g_vines =
 --------------
 
 -- this is a special function tweaked for spawning things in coalmine
---[[ function spawn_items( pos_x, pos_y )
+function spawn_items( pos_x, pos_y )
 
 	local x_offset,y_offset = 5,5
 
@@ -987,7 +995,7 @@ g_vines =
 end
 
 -- actual functions that get called from the wang generator
---]]
+
 function spawn_small_enemies(x, y, w, h, is_open_path)
 	if( is_open_path ) then
 		local r = ProceduralRandom( x, y )
@@ -1002,7 +1010,6 @@ function spawn_small_enemies(x, y, w, h, is_open_path)
 	end
 end
 
---[[
 function spawn_big_enemies(x, y, w, h, is_open_path)
 	if( is_open_path ) then
 		local r = ProceduralRandom( x, y )
@@ -1017,7 +1024,6 @@ function spawn_big_enemies(x, y, w, h, is_open_path)
 	end
 end
 
-]]--
 function spawn_lamp(x, y)
 	spawn(g_lamp,x,y+2,0,0)
 end
@@ -1033,7 +1039,7 @@ end
 function spawn_props3(x, y)
 	spawn(g_props3,x,y,0,0)
 end
---[[
+
 function spawn_unique_enemy(x, y)
 	spawn(g_unique_enemy,x,y)
 end
@@ -1124,4 +1130,4 @@ function spawn_trapwand(x, y)
 	
 	local wand_id = EntityLoad( wand_to_spawn, x, y)
 	EntityAddTag( wand_id, "trap_wand" )
-end ]]
+end

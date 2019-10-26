@@ -72,7 +72,7 @@
 		>
 	</ParticleEmitterComponent>
 
-  <!-- Holy shine -->
+  <!-- Holy sparkles -->
   <Entity>
 		<InheritTransformComponent>
 			<Transform 
@@ -86,7 +86,7 @@
       emitted_material_name="spark_white_bright"
       x_pos_offset_min="-100"
       x_pos_offset_max="100"
-      y_pos_offset_min="-50"
+      y_pos_offset_min="-20"
       y_pos_offset_max="100"
       x_vel_min="-1"
       x_vel_max="1"

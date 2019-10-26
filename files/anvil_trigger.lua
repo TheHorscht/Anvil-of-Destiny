@@ -27,6 +27,7 @@ function collision_trigger(colliding_entity_id)
 
       EntityKill(colliding_entity_id)
       g_mymod_anvil_state.wands_sacrificed = g_mymod_anvil_state.wands_sacrificed + 1
+      GamePrint(g_mymod_anvil_state.wands_sacrificed)
       if wand_level < g_mymod_anvil_state.level_low then
         g_mymod_anvil_state.level_low = wand_level
       elseif wand_level > g_mymod_anvil_state.level_high then
