@@ -34,9 +34,9 @@ end
 
 -- This code runs when all mods' filesystems are registered
 
-function OnWorldPostUpdate() -- This is called every time the game has finished updating the world
+-- function OnWorldPostUpdate() -- This is called every time the game has finished updating the world
 	-- GamePrint( BiomeMapGetName() )
-end
+-- end
 
 --[[
 

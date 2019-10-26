@@ -680,6 +680,7 @@ g_pixel_scene_02 =
 		is_unique		= 0
 	},
 	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
+	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
 	{
 		prob   			= 4.0,
 		material_file 	= "mods/mymod/files/altar_loader_scene.png",
