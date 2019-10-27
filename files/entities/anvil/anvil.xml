@@ -15,7 +15,7 @@
   <PhysicsImageShapeComponent 
     body_id="1"
     centered="1"
-    image_file="mods/anvil_of_destiny/files/anvil_visual.png"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
     material="templebrick_static"
     >
   </PhysicsImageShapeComponent>
@@ -38,7 +38,7 @@
 		emission_interval_min_frames="1"
 		emission_interval_max_frames="3"
 		emit_cosmetic_particles="1"
-		image_animation_file="mods/anvil_of_destiny/files/runes1.png"
+		image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes1.png"
 		image_animation_speed="5"
 		image_animation_loop="1"
 		render_back="1"
@@ -64,7 +64,7 @@
 		emission_interval_min_frames="1"
 		emission_interval_max_frames="3"
 		emit_cosmetic_particles="1"
-		image_animation_file="mods/anvil_of_destiny/files/runes2.png"
+		image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes2.png"
 		image_animation_speed="5"
 		image_animation_loop="1"
 		render_back="1"
@@ -74,7 +74,7 @@
 
   <!-- God rays -->
   <SpriteComponent
-    image_file="mods/anvil_of_destiny/files/god_rays.png"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/god_rays.png"
     z_index="255"
     additive="1"
     alpha="0.5"
