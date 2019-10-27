@@ -140,7 +140,7 @@
   </CollisionTriggerComponent>
 
   <LuaComponent
-    script_collision_trigger_hit="mods/anvil_of_destiny/files/anvil_trigger.lua"
+    script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
     execute_every_n_frame="-1"
     >
   </LuaComponent>
