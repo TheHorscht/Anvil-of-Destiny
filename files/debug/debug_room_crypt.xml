@@ -2,8 +2,7 @@
   <Topology 
     name="_EMPTY_"
     type="BIOME_WANG_TILE"
-    background_image="data/weather_gfx/background_cave_02.png"
-    background_use_neighbor="1"
+    background_image="data/weather_gfx/background_crypt.png"
     lua_script="mods/mymod/files/debug/debug_room_crypt.lua"
     >
     <BitmapCaves 
