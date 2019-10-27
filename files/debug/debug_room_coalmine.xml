@@ -6,7 +6,7 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_coalmine.lua"
     >
- 	<BitmapCaves 
+ 	  <BitmapCaves 
       size_x="512"
       size_y="256"
       blob_caves_count_min="0"

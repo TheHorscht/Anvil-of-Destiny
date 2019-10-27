@@ -6,7 +6,7 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_neutral.lua"
     >
- <BitmapCaves 
+    <BitmapCaves 
       size_x="512"
       size_y="256"
       blob_caves_count_min="5"
@@ -33,7 +33,7 @@
       DEBUG_output_image=""
       >
       <structures>
-      <CaveStructure
+        <CaveStructure
           image_file="data/biome_impl/caves/mountain_rock.png"
           aabb_min_x="5"
           aabb_max_x="507"

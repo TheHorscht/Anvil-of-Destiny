@@ -6,6 +6,8 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_snowcastle.lua"
     >
+  </Topology>
+  
   <Materials 
     name="snowcastle" 
      >

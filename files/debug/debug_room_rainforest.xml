@@ -6,30 +6,30 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_rainforest.lua"
     >
-	<BitmapCaves
-	DEBUG_output_image=""
-	blob_caves_count_min="0"
-    blob_caves_count_max="0"
-    blob_caves_radius_min="0"
-    blob_caves_radius_max="0"
-    blob_caves_strength_min="0"
-    blob_caves_strength_max="0"
-    cave_childs_min="0"
-    cave_childs_max="0"
-    cave_count_min="0"
-    cave_count_max="0"
-    cave_strength_min="0"
-    cave_strength_max="0"
-    mountain_count_min="0"
-    mountain_count_max="0"
-    mountain_size_min="0"
-    mountain_size_max="0"
-    surface_cave_childs_min="0"
-    surface_cave_childs_max="0"
-    surface_caves_count_min="0" 
-    surface_caves_count_max="0" 
-	>
-	</BitmapCaves>
+    <BitmapCaves
+    DEBUG_output_image=""
+    blob_caves_count_min="0"
+      blob_caves_count_max="0"
+      blob_caves_radius_min="0"
+      blob_caves_radius_max="0"
+      blob_caves_strength_min="0"
+      blob_caves_strength_max="0"
+      cave_childs_min="0"
+      cave_childs_max="0"
+      cave_count_min="0"
+      cave_count_max="0"
+      cave_strength_min="0"
+      cave_strength_max="0"
+      mountain_count_min="0"
+      mountain_count_max="0"
+      mountain_size_min="0"
+      mountain_size_max="0"
+      surface_cave_childs_min="0"
+      surface_cave_childs_max="0"
+      surface_caves_count_min="0" 
+      surface_caves_count_max="0" 
+    >
+    </BitmapCaves>
   </Topology>
 
   <Materials 

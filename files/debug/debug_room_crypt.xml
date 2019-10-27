@@ -6,7 +6,7 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_crypt.lua"
     >
-  <BitmapCaves 
+    <BitmapCaves 
       size_x="516"
       size_y="256"
       spawn_percent="0"
