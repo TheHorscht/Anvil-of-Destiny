@@ -1,0 +1,5 @@
+v1.1.0:
+- Starter wands and the wands in coalmine should now also work, hurray! All hail the mighty Anvil of Destiny!
+
+v1.0.0:
+- First release (after 3 failed attempts because I forgot to remove some debug stuff)
