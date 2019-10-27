@@ -1,5 +1,6 @@
 dofile("data/scripts/biome_scripts.lua")
 dofile( "mods/mymod/files/spawner.lua" )
+dofile( "mods/mymod/files/debug/dummy_spawners.lua" )
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 
@@ -9,3 +10,5 @@ function init( x, y, w, h )
   local wang_h = wang_w / 2
   LoadPixelScene("mods/mymod/files/altar_loader_coalmine.png", "", x + (biome_chunk_size / 2) - (wang_w / 2), y + (biome_chunk_size / 2) - (wang_h / 2), "", true)
 end
+
+function spawn_lamp() end
