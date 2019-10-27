@@ -19,55 +19,55 @@
 		671556
 	-->
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_coalmine.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_coalmine.xml" 
 		height_index="0"
 		color="ffe822be" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_excavationsite.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_excavationsite.xml" 
 		height_index="0"
 		color="ffd21fac" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_snowcave.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_snowcave.xml" 
 		height_index="0"
 		color="ffb81e97" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_snowcastle.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_snowcastle.xml" 
 		height_index="0"
 		color="ffa61c89" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_rainforest.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_rainforest.xml" 
 		height_index="0"
 		color="ff9b197f" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_vault.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_vault.xml" 
 		height_index="0"
 		color="ff8f1675" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_crypt.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_crypt.xml" 
 		height_index="0"
 		color="ff82166b" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_pyramid.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_pyramid.xml" 
 		height_index="0"
 		color="ff751661" >
 	</Biome>
 
 	<Biome 
-		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		biome_filename="mods/anvil_of_destiny/files/debug/debug_room_neutral.xml" 
 		height_index="0"
 		color="ff671556" >
 	</Biome>

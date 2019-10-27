@@ -55,12 +55,12 @@ function collision_trigger(colliding_entity_id)
       
       if get_state().wands_sacrificed == 1 then
         EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
-        GamePlaySound("mods/mymod/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
       elseif get_state().wands_sacrificed == 2 then
         EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
         -- TODO: Localize this        
         GamePrintImportant("A gift from the gods", "")
-        GamePlaySound("mods/mymod/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/fanfare", x, y)
+        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/fanfare", x, y)
         edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
           EntityRemoveComponent(entity_id, comp)
         end)

@@ -47,13 +47,13 @@ ModMaterialsFileAdd( "mods/example/files/materials_rainbow.xml" ) -- Adds a new 
 
 ]]
 
-ModRegisterAudioEventMappings( "mods/mymod/fmod/Build/GUIDs.txt" )
-ModMagicNumbersFileAdd("mods/mymod/files/magic_numbers.xml")
-ModLuaFileAppend("data/scripts/biomes/coalmine.lua", "mods/mymod/files/biomes/coalmine.lua" )
-ModLuaFileAppend("data/scripts/biomes/excavationsite.lua", "mods/mymod/files/biomes/excavationsite.lua" )
-ModLuaFileAppend("data/scripts/biomes/crypt.lua", "mods/mymod/files/biomes/crypt.lua" )
-ModLuaFileAppend("data/scripts/biomes/pyramid.lua", "mods/mymod/files/biomes/pyramid.lua" )
-ModLuaFileAppend("data/scripts/biomes/rainforest.lua", "mods/mymod/files/biomes/rainforest.lua" )
-ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", "mods/mymod/files/biomes/snowcastle.lua" )
-ModLuaFileAppend("data/scripts/biomes/snowcave.lua", "mods/mymod/files/biomes/snowcave.lua" )
-ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/mymod/files/biomes/vault.lua" )
+ModRegisterAudioEventMappings( "mods/anvil_of_destiny/fmod/Build/GUIDs.txt" )
+ModMagicNumbersFileAdd("mods/anvil_of_destiny/files/magic_numbers.xml")
+ModLuaFileAppend("data/scripts/biomes/coalmine.lua", "mods/anvil_of_destiny/files/biomes/coalmine.lua" )
+ModLuaFileAppend("data/scripts/biomes/excavationsite.lua", "mods/anvil_of_destiny/files/biomes/excavationsite.lua" )
+ModLuaFileAppend("data/scripts/biomes/crypt.lua", "mods/anvil_of_destiny/files/biomes/crypt.lua" )
+ModLuaFileAppend("data/scripts/biomes/pyramid.lua", "mods/anvil_of_destiny/files/biomes/pyramid.lua" )
+ModLuaFileAppend("data/scripts/biomes/rainforest.lua", "mods/anvil_of_destiny/files/biomes/rainforest.lua" )
+ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", "mods/anvil_of_destiny/files/biomes/snowcastle.lua" )
+ModLuaFileAppend("data/scripts/biomes/snowcave.lua", "mods/anvil_of_destiny/files/biomes/snowcave.lua" )
+ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/biomes/vault.lua" )
