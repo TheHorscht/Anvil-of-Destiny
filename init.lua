@@ -48,7 +48,6 @@ ModMaterialsFileAdd( "mods/example/files/materials_rainbow.xml" ) -- Adds a new 
 ]]
 
 ModRegisterAudioEventMappings( "mods/anvil_of_destiny/fmod/Build/GUIDs.txt" )
-ModMagicNumbersFileAdd("mods/anvil_of_destiny/files/magic_numbers.xml")
 ModLuaFileAppend("data/scripts/biomes/coalmine.lua", "mods/anvil_of_destiny/files/biomes/coalmine.lua" )
 ModLuaFileAppend("data/scripts/biomes/excavationsite.lua", "mods/anvil_of_destiny/files/biomes/excavationsite.lua" )
 ModLuaFileAppend("data/scripts/biomes/crypt.lua", "mods/anvil_of_destiny/files/biomes/crypt.lua" )
