@@ -1,6 +1,5 @@
-dofile("data/scripts/biome_scripts.lua")
-dofile( "mods/mymod/files/spawner.lua" )
-dofile( "mods/mymod/files/debug/dummy_spawners.lua" )
+dofile("mods/mymod/files/debug/dummy_spawners.lua")
+dofile("mods/mymod/files/spawner.lua")
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 

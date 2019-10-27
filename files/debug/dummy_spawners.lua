@@ -1,4 +1,5 @@
 -- mass dummy functions to prevent errors
+
 function spawn_lamp() end
 function spawn_small_enemies() end
 function spawn_big_enemies() end
