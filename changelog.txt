@@ -1,4 +1,5 @@
 v1.1.0:
+- Better compatibility with other mods except for ones that modify coalmine wands
 - Starter wands and the wands in coalmine should now also work, hurray! All hail the mighty Anvil of Destiny!
 
 v1.0.0:
