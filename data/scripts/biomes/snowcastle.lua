@@ -3,6 +3,7 @@
 CHEST_LEVEL = 3
 dofile("data/scripts/director_helpers.lua")
 dofile("data/scripts/biome_scripts.lua")
+dofile( "mods/mymod/files/spawner.lua" )
 
 RegisterSpawnFunction( 0xffC8C800, "spawn_lamp2" )
 RegisterSpawnFunction( 0xffDC0060, "spawn_props4" )
@@ -452,6 +453,15 @@ g_pixel_scene_01 =
 g_pixel_scene_02 =
 {
 	total_prob = 0,
+	--[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
+	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
+	{
+		prob   			= 400000.0,
+		material_file 	= "mods/mymod/files/snowcastle_altar_loader.png",
+		visual_file		= "",
+		background_file	= "",
+		is_unique		= 0
+	},
 	{
 		prob   			= 0.4,
 		material_file 	= "data/biome_impl/snowcastle_cargobay.png",
