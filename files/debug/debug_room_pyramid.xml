@@ -6,52 +6,37 @@
     background_use_neighbor="1"
     lua_script="mods/mymod/files/debug/debug_room_pyramid.lua"
     >
- <BitmapCaves 
-      size_x="512"
+  <BitmapCaves 
+      size_x="516"
       size_y="256"
-      blob_caves_count_min="5"
-      blob_caves_count_max="15"
+      spawn_percent="0"
+      blob_caves_count_min="0"
+      blob_caves_count_max="1"
       blob_caves_radius_min="1"
-      blob_caves_radius_max="10"
-      blob_caves_strength_min="1.0"
-      blob_caves_strength_max="3"
-      do_beginning_paths="1"
+      blob_caves_radius_max="1"
+      blob_caves_strength_min="1.2"
+      blob_caves_strength_max="2"
       cave_childs_min="0"
-      cave_childs_max="2"
-      cave_count_min="10"
-      cave_count_max="30"
+      cave_childs_max="1"
+      cave_count_min="1"
+      cave_count_max="2"
       cave_strength_min="0.2"
-      cave_strength_max="1"
+      cave_strength_max="1.8"
       mountain_count_min="0"
-      mountain_count_max="3"
+      mountain_count_max="0"
       mountain_size_min="1"
-      mountain_size_max="5"
+      mountain_size_max="10"
       surface_cave_childs_min="0"
-      surface_cave_childs_max="4"
-      surface_caves_count_min="1" 
-      surface_caves_count_max="3" 
-      DEBUG_output_image=""
-      >
-      <structures>
-      <CaveStructure
-          image_file="data/biome_impl/caves/mountain_rock.png"
-          aabb_min_x="5"
-          aabb_max_x="507"
-          aabb_min_y="0"
-          aabb_max_y="20"
-          count_min="0"
-          count_max="4"
-          strength_min="1.45"
-          strength_max="1.55" >
-        </CaveStructure>
-      </structures>
+      surface_cave_childs_max="0"
+      surface_caves_count_min="0" 
+      surface_caves_count_max="0"
+	  >
     </BitmapCaves>
+	
   </Topology>
 
-  <!--  MATERIALS -->
-
   <Materials 
-    name="_ANVIL_DEBUG_ROOM_" 
+    name="pyramid" 
      >
 
     <MaterialComponent 
@@ -144,5 +129,63 @@
       rare_use_perlin="0" 
       rare_use_polka="1" >
     </MaterialComponent>
+    
+   
+  
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="1248" 
+      tree_extra_y="0" 
+      tree_image_file="data/vegetation/vine_growth_1.xml" 
+      tree_image_visual="" 
+      tree_material="ceiling_plant_material" 
+      tree_probability="0.24571" 
+      tree_radius_high="0.635286" 
+      tree_radius_low="0.146757" 
+      tree_width="110.123" 
+      visual_color="0x00b89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="0" 
+      is_ceiling_plant="1"
+      >
+    </VegetationComponent>
+    <VegetationComponent 
+      _enabled="1" 
+      is_visual="1" 
+      rand_seed="4575" 
+      tree_extra_y="0" 
+      tree_image_file="data/vegetation/ceiling_vegetation_00$[2-8].png" 
+      tree_image_visual="" 
+      tree_material="ceiling_plant_material" 
+      tree_probability="0.54571" 
+      tree_radius_high="0.635286" 
+      tree_radius_low="0.146757" 
+      tree_width="11.123" 
+      visual_color="0x00b89f6c" 
+      visual_offset_x="3" 
+      visual_offset_y="0" 
+      is_ceiling_plant="1"
+      >
+    </VegetationComponent>
+	
+	<VegetationComponent 
+      _enabled="1" 
+      is_visual="0" 
+      rand_seed="833676.86" 
+      tree_extra_y="9" 
+      tree_image_file="data/vegetation/skull_$[1-6].png" 
+      tree_image_visual="" 
+      tree_material="bone_static" 
+      tree_probability="0.128571" 
+      tree_radius_high="0.314286" 
+      tree_radius_low="0.088571" 
+      tree_width="48.1143" 
+      visual_color="0x00FFFF" 
+      visual_offset_x="0" 
+      visual_offset_y="1" >
+    </VegetationComponent>
+    
   </Materials>
+
 </Biome>
