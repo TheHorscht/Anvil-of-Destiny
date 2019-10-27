@@ -1,6 +1,10 @@
 <Mod
-	name="My Mod"
-	description="This is my mod :)!"
+	name="Anvil of Destiny"
+	description="
+Adds a semi-rare room with an anvil to most areas, where you can forge 2 wands into a new one\n
+with a level that's 1 higher than the lowest of the two. (e.g.: level 3 + level 5 = level 4)\n
+How? [spoilers] Just open your inventory and drag the wands out of the slots to throw them,\n
+right unto the anvil... OF DESTINY!"
 	request_no_api_restrictions="0" 
 > 
 </Mod>
