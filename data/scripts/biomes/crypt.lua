@@ -546,7 +546,7 @@ g_pixel_scene_03 =
 	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
 	{
 		prob   			= 400000.0,
-		material_file 	= "mods/mymod/files/crypt_altar_loader.png",
+		material_file 	= "mods/mymod/files/altar_loader_crypt.png",
 		visual_file		= "",
 		background_file	= "",
 		is_unique		= 0

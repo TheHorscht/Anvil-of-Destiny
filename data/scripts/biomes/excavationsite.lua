@@ -595,7 +595,7 @@ g_pixel_scene_04_alt =
 	-- TODO: Tweak the probability and maybe refactor this into a function that adds this less intrusively
 	{
 		prob   			= 400000.0,
-		material_file 	= "mods/mymod/files/excavationsite_altar_loader.png",
+		material_file 	= "mods/mymod/files/altar_loader_excavationsite.png",
 		visual_file		= "",
 		background_file	= "",
 		is_unique		= 0

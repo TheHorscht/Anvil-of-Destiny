@@ -4,7 +4,7 @@
     type="BIOME_WANG_TILE"
     background_image="data/weather_gfx/background_cave_02.png"
     background_use_neighbor="1"
-    lua_script="mods/mymod/files/debug/debug_room_coalmines.lua"
+    lua_script="mods/mymod/files/debug/debug_room_pyramid.lua"
     >
  <BitmapCaves 
       size_x="512"

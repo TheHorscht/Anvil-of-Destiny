@@ -15,7 +15,7 @@
   <PhysicsImageShapeComponent 
     body_id="1"
     centered="1"
-    image_file="mods/mymod/files/anvil_visuals.png"
+    image_file="mods/mymod/files/anvil_visual.png"
     material="templebrick_static"
     >
   </PhysicsImageShapeComponent>
