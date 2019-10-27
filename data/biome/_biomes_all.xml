@@ -7,11 +7,71 @@
   <!-- ground layer -->
 
 	<!-- for debugging purposes -->
+	<!--
+		e822be
+		d21fac
+		b81e97
+		a61c89
+		9b197f
+		8f1675
+		82166b
+		751661
+		671556
+	-->
 	<Biome 
-		biome_filename="mods/mymod/files/anvil_debug_room.xml" 
+		biome_filename="mods/mymod/files/debug/debug_room_coalmines.xml" 
 		height_index="0"
 		color="ffe822be" >
 	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ffd21fac" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ffb81e97" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ffa61c89" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ff9b197f" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ff8f1675" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ff82166b" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ff751661" >
+	</Biome>
+
+	<Biome 
+		biome_filename="mods/mymod/files/debug/debug_room_neutral.xml" 
+		height_index="0"
+		color="ff671556" >
+	</Biome>
+	<!-- /Debug -->
 
 	<Biome 
 		biome_filename="data/biome/hills.xml" 

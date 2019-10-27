@@ -4,5 +4,5 @@ dofile( "mods/mymod/files/spawner.lua" )
 RegisterSpawnFunction( 0xffffeedd, "init" )
 
 function init( x, y, w, h )
-  LoadPixelScene("mods/mymod/files/debug_room.png", "", x, y, "", true)
+  LoadPixelScene("mods/mymod/files/altar_loader_scene.png", "", x, y, "", true)
 end

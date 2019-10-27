@@ -72,7 +72,18 @@
 		>
 	</ParticleEmitterComponent>
 
-  <!-- Holy sparkles -->
+  <!-- God rays -->
+  <SpriteComponent
+    image_file="mods/mymod/files/god_rays.png"
+    z_index="255"
+    additive="1"
+    alpha="0.5"
+    offset_x="128"
+    offset_y="100"
+    >
+  </SpriteComponent>
+
+  <!-- Divine sparkles -->
   <Entity>
 		<InheritTransformComponent>
 			<Transform 
@@ -84,10 +95,10 @@
 
     <ParticleEmitterComponent 
       emitted_material_name="spark_white_bright"
-      x_pos_offset_min="-100"
-      x_pos_offset_max="100"
-      y_pos_offset_min="-20"
-      y_pos_offset_max="100"
+      x_pos_offset_min="-40"
+      x_pos_offset_max="40"
+      y_pos_offset_min="-30"
+      y_pos_offset_max="80"
       x_vel_min="-1"
       x_vel_max="1"
       y_vel_min="0"
@@ -110,17 +121,6 @@
       is_emitting="1" >
     </ParticleEmitterComponent>
   </Entity>
-
-<!--   <AudioLoopComponent 
-    _enabled="1" 
-    auto_play="1" 
-    auto_play_if_enabled="1"
-    file="mods/mymod/fmod/Build/Desktop/my_mod_audio.snd" 
-    event_name="snd_mod/high_drone" 
-    calculate_material_lowpass="0" 
-    volume_autofade_speed="0.5"
-    >
-  </AudioLoopComponent> -->
 
 	<AudioLoopComponent 
 		_enabled="1" 
