@@ -1,5 +1,5 @@
-RegisterSpawnFunction( 0xfffb0d50, "spawn_anvil_altar" )
-RegisterSpawnFunction( 0xffff0047, "spawn_anvil" )
+RegisterSpawnFunction( 0xfffb0d50, "spawn_anvil_altar")
+RegisterSpawnFunction( 0xffff0047, "spawn_anvil")	
 
 function spawn_anvil_altar( x, y )
 	local w = 184
