@@ -1,0 +1,11 @@
+diff a/WorkDir/wizard_physics/data/audio/build/fmod_project/Metadata/ParameterPreset/{42b49a58-831b-0c8d-2eb0-544b27ba46db}.xml b/WorkDir/wizard_physics/data/audio/build/fmod_project/Metadata/ParameterPreset/{42b49a58-831b-0c8d-2eb0-544b27ba46db}.xml	(rejected hunks)
+@@ -12,9 +12,6 @@
+         </relationship>
+     </object>
+     <object class="GameParameter" id="{02b05cf8-0b91-4f8a-9913-97f1d531857a}">
+-        <property name="seekSpeed">
+-            <value>0.32000002264976501</value>
+-        </property>
+         <property name="seekSpeedDescending">
+             <value>0.62000006437301636</value>
+         </property>

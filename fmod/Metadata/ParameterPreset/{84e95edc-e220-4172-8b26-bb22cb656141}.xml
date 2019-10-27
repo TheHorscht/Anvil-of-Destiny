@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{84e95edc-e220-4172-8b26-bb22cb656141}">
+        <property name="name">
+            <value>wandcave</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{5f23bb76-7afa-4529-a53f-862454afa04c}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{5f23bb76-7afa-4529-a53f-862454afa04c}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{5c94a926-54ec-0385-24b5-5a46cfcf8a46}">
+        <property name="name">
+            <value>snowcave</value>
+        </property>
+        <relationship name="folder">
+            <destination>{25a058a7-3ebc-4281-bfc9-066405be64bc}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{1c906f86-dc66-4082-9316-99fc3d4449e7}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{1c906f86-dc66-4082-9316-99fc3d4449e7}">
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>

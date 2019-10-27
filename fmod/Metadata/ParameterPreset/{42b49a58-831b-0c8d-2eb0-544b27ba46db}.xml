@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{42b49a58-831b-0c8d-2eb0-544b27ba46db}">
+        <property name="name">
+            <value>intensity</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{02b05cf8-0b91-4f8a-9913-97f1d531857a}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{02b05cf8-0b91-4f8a-9913-97f1d531857a}">
+        <property name="seekSpeedDescending">
+            <value>0.62000006437301636</value>
+        </property>
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>

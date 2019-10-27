@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPresetFolder" id="{eb95e38e-ea30-463e-8c6b-8fe4f1a30e4f}">
+        <property name="name">
+            <value>liquid_flow_glitching</value>
+        </property>
+        <relationship name="folder">
+            <destination>{cdfedcb4-c950-4d63-b27c-bc9617ca55f7}</destination>
+        </relationship>
+    </object>
+</objects>

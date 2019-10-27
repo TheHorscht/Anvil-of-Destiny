@@ -1,0 +1,21 @@
+diff a/WorkDir/wizard_physics/data/audio/build/fmod_project/Metadata/Event/{df179740-a98a-4c50-9c51-1107b7d71a43}.xml b/WorkDir/wizard_physics/data/audio/build/fmod_project/Metadata/Event/{df179740-a98a-4c50-9c51-1107b7d71a43}.xml	(rejected hunks)
+@@ -4,6 +4,9 @@
+         <property name="name">
+             <value>create</value>
+         </property>
++        <property name="note">
++            <value>OLLI: i muted this because this would play even when picking gold</value>
++        </property>
+         <property name="outputFormat">
+             <value>0</value>
+         </property>
+@@ -109,6 +112,9 @@
+         </relationship>
+     </object>
+     <object class="EventMixerGroup" id="{82ba457a-71c7-41e5-adbb-8af3e8b7c0e9}">
++        <property name="volume">
++            <value>-80</value>
++        </property>
+         <property name="name">
+             <value>Audio 1</value>
+         </property>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerReturn" id="{8f8e9fd3-8a5c-4873-8776-2d3f3be234a5}">
+        <property name="volume">
+            <value>-80</value>
+        </property>
+        <property name="name">
+            <value>lowpass</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{bb96e1bb-c589-49b9-b6a3-c740645cfd02}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{5760429b-04a1-420a-b6de-5e5533f12bd7}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{bb96e1bb-c589-49b9-b6a3-c740645cfd02}">
+        <relationship name="effects">
+            <destination>{fcea9b11-9adc-4279-8552-ebac7fea0fd1}</destination>
+            <destination>{73e4f2f8-2eb2-4f83-be45-8c22d06616b8}</destination>
+            <destination>{281de79b-ee33-4d24-87e4-c5125b861296}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{5760429b-04a1-420a-b6de-5e5533f12bd7}"/>
+    <object class="LowpassSimpleEffect" id="{fcea9b11-9adc-4279-8552-ebac7fea0fd1}">
+        <property name="cutoff">
+            <value>1500</value>
+        </property>
+    </object>
+    <object class="MixerSend" id="{73e4f2f8-2eb2-4f83-be45-8c22d06616b8}">
+        <property name="level">
+            <value>0</value>
+        </property>
+        <property name="inputFormat">
+            <value>2</value>
+        </property>
+        <relationship name="mixerReturn">
+            <destination>{8340afee-1bfb-481c-8b65-a1721703356c}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusFader" id="{281de79b-ee33-4d24-87e4-c5125b861296}"/>
+</objects>

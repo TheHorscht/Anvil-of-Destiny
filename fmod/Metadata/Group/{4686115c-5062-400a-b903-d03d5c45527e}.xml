@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerGroup" id="{4686115c-5062-400a-b903-d03d5c45527e}">
+        <property name="volume">
+            <value>-15.5</value>
+        </property>
+        <property name="name">
+            <value>music</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{f7ff24ac-1799-489f-b7ba-7ad09436e614}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{40a87f1d-8c5c-45f7-9b01-2ba15cc170fa}</destination>
+        </relationship>
+        <relationship name="output">
+            <destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{f7ff24ac-1799-489f-b7ba-7ad09436e614}">
+        <relationship name="effects">
+            <destination>{d29ae93b-90d0-4583-9639-8d984043dcef}</destination>
+            <destination>{7a247d0a-5c76-4a6d-9904-6cdea199f41d}</destination>
+            <destination>{87aece4c-fddb-4cc3-8361-160ffd7b2f72}</destination>
+            <destination>{da698861-dedb-4c99-92f5-119a181a3dcc}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{40a87f1d-8c5c-45f7-9b01-2ba15cc170fa}"/>
+    <object class="Sidechain" id="{d29ae93b-90d0-4583-9639-8d984043dcef}">
+        <relationship name="targets">
+            <destination>{d352b902-0dc0-4271-bc27-65ef2a57acc6}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusFader" id="{7a247d0a-5c76-4a6d-9904-6cdea199f41d}"/>
+    <object class="LowpassEffect" id="{87aece4c-fddb-4cc3-8361-160ffd7b2f72}">
+        <property name="cutoff">
+            <value>22000</value>
+        </property>
+    </object>
+    <object class="MixerSend" id="{da698861-dedb-4c99-92f5-119a181a3dcc}">
+        <property name="inputFormat">
+            <value>0</value>
+        </property>
+        <relationship name="mixerReturn">
+            <destination>{9e5f6674-ecca-4cb3-9e39-050604be24e9}</destination>
+        </relationship>
+    </object>
+</objects>

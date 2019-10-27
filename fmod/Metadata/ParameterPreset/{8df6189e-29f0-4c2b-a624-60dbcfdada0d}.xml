@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{8df6189e-29f0-4c2b-a624-60dbcfdada0d}">
+        <property name="name">
+            <value>excavationsite</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{d0fb7897-26a1-4f55-8fa6-4b37f8cee679}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{d0fb7897-26a1-4f55-8fa6-4b37f8cee679}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

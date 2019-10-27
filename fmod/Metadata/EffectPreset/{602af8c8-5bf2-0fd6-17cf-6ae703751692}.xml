@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="EffectPreset" id="{602af8c8-5bf2-0fd6-17cf-6ae703751692}">
+        <property name="name">
+            <value>FMOD Spatializer</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c8821c06-ec1f-07df-2c41-a295eaf7cfb0}</destination>
+        </relationship>
+        <relationship name="effect">
+            <destination>{5f4c3731-54d6-4d15-961f-6b100fe9cf9d}</destination>
+        </relationship>
+    </object>
+    <object class="SpatialiserEffect" id="{5f4c3731-54d6-4d15-961f-6b100fe9cf9d}">
+        <property name="minimumDistance">
+            <value>200</value>
+        </property>
+        <property name="maximumDistance">
+            <value>350</value>
+        </property>
+        <property name="extentMode">
+            <value>1</value>
+        </property>
+        <property name="minimumExtent">
+            <value>202</value>
+        </property>
+    </object>
+</objects>

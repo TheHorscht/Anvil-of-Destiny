@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="MixerMaster" id="{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}">
+        <property name="name">
+            <value>Master Bus</value>
+        </property>
+        <relationship name="effectChain">
+            <destination>{4cc240e4-bfe5-4e14-8cea-a299d6a9fdd4}</destination>
+        </relationship>
+        <relationship name="panner">
+            <destination>{92a5f722-f9ce-4dc6-b2ad-f95ed7918cf3}</destination>
+        </relationship>
+        <relationship name="mixer">
+            <destination>{7fde5421-f3cc-4733-a1af-e252d2eae830}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{4cc240e4-bfe5-4e14-8cea-a299d6a9fdd4}">
+        <relationship name="effects">
+            <destination>{8bf433e5-48f4-42ac-8a4e-6d5db54cb1da}</destination>
+            <destination>{7771ae25-6f06-4847-9c18-8a9cbbae2937}</destination>
+            <destination>{f7594853-183c-4f5d-8bcd-90e16d42a153}</destination>
+            <destination>{5959c863-31aa-49ca-9a9d-00eca11c67cd}</destination>
+            <destination>{9a6ee20a-ff79-44fd-9cf8-3591f1fa529e}</destination>
+            <destination>{19b00dbb-565d-45a2-97cc-f8d74fa0cfda}</destination>
+            <destination>{8be79f7e-5208-485b-81dc-e5ff51ee57e0}</destination>
+            <destination>{18bff41c-6090-46c9-a755-d5a5b280752f}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusPanner" id="{92a5f722-f9ce-4dc6-b2ad-f95ed7918cf3}">
+        <property name="overridingOutputFormat">
+            <value>2</value>
+        </property>
+        <property name="outputFormatOverridden">
+            <value>true</value>
+        </property>
+    </object>
+    <object class="MixerBusFader" id="{8bf433e5-48f4-42ac-8a4e-6d5db54cb1da}"/>
+    <object class="LowpassSimpleEffect" id="{7771ae25-6f06-4847-9c18-8a9cbbae2937}">
+        <property name="cutoff">
+            <value>17000</value>
+        </property>
+    </object>
+    <object class="GainEffect" id="{f7594853-183c-4f5d-8bcd-90e16d42a153}">
+        <property name="gain">
+            <value>10</value>
+        </property>
+    </object>
+    <object class="CompressorEffect" id="{5959c863-31aa-49ca-9a9d-00eca11c67cd}">
+        <property name="threshold">
+            <value>-5</value>
+        </property>
+        <property name="ratio">
+            <value>2.0999999</value>
+        </property>
+        <property name="attackTime">
+            <value>62</value>
+        </property>
+        <property name="releaseTime">
+            <value>88</value>
+        </property>
+        <property name="linkChannels">
+            <value>false</value>
+        </property>
+    </object>
+    <object class="CompressorEffect" id="{9a6ee20a-ff79-44fd-9cf8-3591f1fa529e}">
+        <property name="bypass">
+            <value>true</value>
+        </property>
+        <property name="threshold">
+            <value>-14</value>
+        </property>
+        <property name="ratio">
+            <value>2.0999999</value>
+        </property>
+        <property name="attackTime">
+            <value>62</value>
+        </property>
+        <property name="releaseTime">
+            <value>88</value>
+        </property>
+        <property name="linkChannels">
+            <value>false</value>
+        </property>
+    </object>
+    <object class="GainEffect" id="{19b00dbb-565d-45a2-97cc-f8d74fa0cfda}">
+        <property name="gain">
+            <value>8</value>
+        </property>
+    </object>
+    <object class="LimiterEffect" id="{8be79f7e-5208-485b-81dc-e5ff51ee57e0}">
+        <property name="ceiling">
+            <value>-1.29999995</value>
+        </property>
+        <property name="release">
+            <value>52</value>
+        </property>
+        <property name="linkChannels">
+            <value>false</value>
+        </property>
+    </object>
+    <object class="LoudnessMeter" id="{18bff41c-6090-46c9-a755-d5a5b280752f}">
+        <property name="loudnessTarget">
+            <value>-24</value>
+        </property>
+    </object>
+</objects>

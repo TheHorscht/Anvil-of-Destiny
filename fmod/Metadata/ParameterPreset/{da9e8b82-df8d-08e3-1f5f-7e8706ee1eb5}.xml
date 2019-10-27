@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{da9e8b82-df8d-08e3-1f5f-7e8706ee1eb5}">
+        <property name="name">
+            <value>send1</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{9a9a4d22-5707-4be4-a8fc-bd3df465dd14}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{9a9a4d22-5707-4be4-a8fc-bd3df465dd14}">
+        <property name="isExposedRecursively">
+            <value>false</value>
+        </property>
+    </object>
+</objects>

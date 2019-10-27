@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{95ac3adf-f865-41f8-bb14-dd65fe8391f7}">
+        <property name="name">
+            <value>fungicave</value>
+        </property>
+        <relationship name="folder">
+            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{d48deeb0-9c8c-49e2-b015-85b2d33e4da1}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{d48deeb0-9c8c-49e2-b015-85b2d33e4da1}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{ece2cc95-9ad4-4842-87b5-07d85dbaca69}">
+        <property name="assetPath">
+            <value>fanfare.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>9.8124943310657589</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{eb2a4d4a-1287-481b-8086-c8771a725107}</destination>
+        </relationship>
+    </object>
+</objects>
