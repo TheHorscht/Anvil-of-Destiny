@@ -1,5 +1,6 @@
 dofile("data/scripts/gun/procedural/gun_procedural.lua")
 
+-- This is used to generate wands in coalmine
 
 function do_level1( level )
 

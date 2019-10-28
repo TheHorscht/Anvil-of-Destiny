@@ -47,6 +47,8 @@ ModMaterialsFileAdd( "mods/example/files/materials_rainbow.xml" ) -- Adds a new 
 
 ]]
 
+-- ModMagicNumbersFileAdd( "mods/anvil_of_destiny/files/magic_numbers.xml" ) -- Will override some magic numbers using the specified file
+
 ModRegisterAudioEventMappings( "mods/anvil_of_destiny/fmod/Build/GUIDs.txt")
 ModLuaFileAppend("data/scripts/biomes/coalmine.lua", "mods/anvil_of_destiny/files/biomes/coalmine.lua")
 ModLuaFileAppend("data/scripts/biomes/excavationsite.lua", "mods/anvil_of_destiny/files/biomes/excavationsite.lua")
@@ -57,23 +59,9 @@ ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", "mods/anvil_of_destiny/fi
 ModLuaFileAppend("data/scripts/biomes/snowcave.lua", "mods/anvil_of_destiny/files/biomes/snowcave.lua")
 ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/biomes/vault.lua")
 
-function OnWorldInitialized()
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
-	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
-end
-
 -- TODO: Do this non intrusively
 -- ModLuaFileAppend("data/scripts/gun/procedural/level_1_wand.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
+-- And all the other things in data/scripts/gun/procedural...
 
 -- Set wand levels for players starting wands after he spawns
 
