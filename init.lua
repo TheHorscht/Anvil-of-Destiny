@@ -57,18 +57,20 @@ ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", "mods/anvil_of_destiny/fi
 ModLuaFileAppend("data/scripts/biomes/snowcave.lua", "mods/anvil_of_destiny/files/biomes/snowcave.lua")
 ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/biomes/vault.lua")
 
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_level_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
-ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
+function OnWorldInitialized()
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_01.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_02.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_2.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_03.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_3.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_04.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_4.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_05.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_5.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_level_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
+	ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_06.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_6.lua")
+end
 
 -- TODO: Do this non intrusively
 -- ModLuaFileAppend("data/scripts/gun/procedural/level_1_wand.lua", "mods/anvil_of_destiny/files/scripts/set_wand_level_1.lua")
@@ -79,8 +81,17 @@ function OnPlayerSpawned(player_entity)
 	local inventory_id = EntityGetWithName("inventory_quick")
 	local inventory_contents = EntityGetAllChildren(inventory_id)
 	if inventory_contents ~= nil then
+
+		local function is_wand(entity_id)
+			local comp = EntityGetComponent(entity_id, "ManaReloaderComponent")
+			return comp ~= nil
+		end
+
 		for i,id in ipairs(inventory_contents) do
-			if not EntityHasTag(id, "wand_level_1") and EntityHasTag(id, "wand") then
+			if not EntityHasTag(id, "wand_level_1") and is_wand(id) then
+				if not EntityHasTag(id, "wand") then
+					EntityAddTag(id, "wand")
+				end
 				EntityAddTag(id, "wand_level_1")
 			end
 		end

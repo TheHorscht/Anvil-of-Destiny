@@ -1,3 +1,8 @@
+UNRELEASED:
+- FIX: Wands SHOULD now be detected correctly
+- FIX: No more crashes in dev mode when respawning
+- FIX: Now works with Noita+ starter wands
+
 v1.1.0:
 - Better compatibility with other mods except for ones that modify coalmine wands
 - Starter wands and the wands in coalmine should now also work, hurray! All hail the mighty Anvil of Destiny!
