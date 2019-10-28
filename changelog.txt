@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.1.1:
 - FIX: Wands should now be detected correctly
 - FIX: No more crashes in dev mode when respawning
 - FIX: Now works with Noita+ starter wands
