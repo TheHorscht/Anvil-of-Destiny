@@ -1,0 +1,6 @@
+<MagicNumbers 
+  DESIGN_PLAYER_START_POS_X="-1266" 
+  DESIGN_PLAYER_START_POS_Y="1777" 
+  > <!-- some magic number defaults could be overridden here -->
+
+</MagicNumbers>
