@@ -75,13 +75,14 @@ ModLuaFileAppend("data/scripts/gun/procedural/wand_unshuffle_06.lua", "mods/anvi
 
 -- Set wand levels for players starting wands after he spawns
 
--- TODO: Fix crash in dev mode when de/respawning a bunch of times
 function OnPlayerSpawned(player_entity)
 	local inventory_id = EntityGetWithName("inventory_quick")
 	local inventory_contents = EntityGetAllChildren(inventory_id)
-	for i,id in ipairs(inventory_contents) do
-		if not EntityHasTag(id, "wand_level_1") and EntityHasTag(id, "wand") then
-			EntityAddTag(id, "wand_level_1")
+	if inventory_contents ~= nil then
+		for i,id in ipairs(inventory_contents) do
+			if not EntityHasTag(id, "wand_level_1") and EntityHasTag(id, "wand") then
+				EntityAddTag(id, "wand_level_1")
+			end
 		end
 	end
 end
