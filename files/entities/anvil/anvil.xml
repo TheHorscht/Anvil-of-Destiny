@@ -20,6 +20,8 @@
     >
   </PhysicsImageShapeComponent>
 
+  <!-- Wand 1 sacrificed indicator -->
+
   <ParticleEmitterComponent 
 		_enabled="0"
     _tags="emitter1"
@@ -45,6 +47,8 @@
 		is_emitting="1"
 		>
 	</ParticleEmitterComponent>
+
+  <!-- Wand 2 sacrificed indicator -->
 
   <ParticleEmitterComponent 
 		_enabled="0"
@@ -72,6 +76,41 @@
 		>
 	</ParticleEmitterComponent>
 
+  <!-- Power up indicator -->
+
+  <ParticleEmitterComponent 
+    _enabled="0"
+    _tags="emitter_powered_up"
+    emitted_material_name="spark_white"
+    gravity.y="-20.0"
+    lifetime_min="0.1"
+    lifetime_max="1"
+    emission_chance="100"
+    count_min="1"
+    count_max="1"
+    render_on_grid="1"
+    draw_as_long="1"
+    fade_based_on_lifetime="0"
+    area_circle_radius.min="0"
+    area_circle_radius.max="0"
+    velocity_always_away_from_center="0"
+    airflow_force="0.1"
+    airflow_time="1"
+    airflow_scale="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    collide_with_grid="0"
+    draw_as_long="1"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    image_animation_file="mods/anvil_of_destiny/files/entities/anvil/emitter.png"
+    image_animation_speed="4"
+    image_animation_loop="1"
+    render_back="1"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
+
   <!-- God rays -->
   <SpriteComponent
     image_file="mods/anvil_of_destiny/files/entities/anvil/god_rays.png"
@@ -94,6 +133,7 @@
 		</InheritTransformComponent>
 
     <ParticleEmitterComponent 
+      _enabled="1"
       emitted_material_name="spark_white_bright"
       x_pos_offset_min="-40"
       x_pos_offset_max="40"
@@ -135,6 +175,14 @@
     width="78"
     height="60" 
     required_tag="wand"
+    destroy_this_entity_when_triggered="0"
+    >
+  </CollisionTriggerComponent>
+
+  <CollisionTriggerComponent
+    width="78"
+    height="60" 
+    required_tag="tablet"
     destroy_this_entity_when_triggered="0"
     >
   </CollisionTriggerComponent>
