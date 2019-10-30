@@ -8,6 +8,7 @@ function do_level1( level )
 	local x, y = EntityGetTransform( entity_id )
 	SetRandomSeed( x, y )
 
+	-- Add a tag so we can later use it to get the wand level
 	EntityAddTag(entity_id, "wand_level_1")
 
 	local ability_comp = EntityGetFirstComponent( entity_id, "AbilityComponent" )
