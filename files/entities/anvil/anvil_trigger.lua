@@ -109,6 +109,7 @@ function collision_trigger(colliding_entity_id)
         EntitySetComponentsWithTagEnabled(entity_id, "emitter_powered_up", true)
         get_state().powered_up = true
         EntityKill(colliding_entity_id)
+        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
       end
     end
   end
