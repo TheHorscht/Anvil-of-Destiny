@@ -75,6 +75,8 @@ function collision_trigger(colliding_entity_id)
         if Random() < 0.5 then
           wand_type = "unshuffle"
         end
+        -- For now let's only spawn wands with no shuffle, otherwise the anvil is too weak
+        wand_type = "unshuffle"
         local generated_wand = EntityLoad("data/entities/items/wand_"..wand_type.."_0"..wand_level_to_spawn..".xml", x + 4, y - 25)
         if get_state().powered_up then
           local rand_spell_roll = Random()

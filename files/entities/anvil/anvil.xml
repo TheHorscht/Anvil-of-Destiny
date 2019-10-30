@@ -124,6 +124,7 @@
 
   <!-- Divine sparkles -->
   <Entity>
+    <!-- offset it slightly -->
 		<InheritTransformComponent>
 			<Transform 
 				position.x="5"
