@@ -1,7 +1,7 @@
 dofile("data/scripts/lib/utilities.lua")
-dofile("mods/anvil_of_destiny/files/wand_utils.lua")
 dofile("data/scripts/gun/gun_enums.lua")
-
+dofile("mods/anvil_of_destiny/files/wand_utils.lua")
+dofile("mods/anvil_of_destiny/anvil_of_destiny_config.lua")
 
 if g_mymod_anvil_state == nil then
   g_mymod_anvil_state = {}
@@ -71,12 +71,14 @@ function collision_trigger(colliding_entity_id)
         if wand_level_to_spawn > 6 then
           wand_level_to_spawn = 6
         end
-        local wand_type = "level"
-        if Random() < 0.5 then
-          wand_type = "unshuffle"
+        
+        local wand_type = "unshuffle"
+        if config_can_generate_shuffle_wands then
+          if Random() < 0.5 then
+            wand_type = "level"
+          end
         end
-        -- For now let's only spawn wands with no shuffle, otherwise the anvil is too weak
-        wand_type = "unshuffle"
+
         local generated_wand = EntityLoad("data/entities/items/wand_"..wand_type.."_0"..wand_level_to_spawn..".xml", x + 4, y - 25)
         if get_state().powered_up then
           local rand_spell_roll = Random()
