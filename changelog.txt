@@ -1,4 +1,5 @@
-UNRELEASED:
+v1.2.0:
+- Known issue: Starterwands sometimes don't get their wand level applied so they won't work
 - Changed how anvil room spawn probabilities are calculated and adjusted them
 - Added an alternative anvil room to The Vault and Underground Jungle
 - You can now tweak the mod by changing the values in anvil_of_destiny_config.lua
