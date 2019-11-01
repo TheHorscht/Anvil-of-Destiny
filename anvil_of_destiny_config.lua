@@ -13,9 +13,9 @@ config_altar_room_occurences_snowcastle = 1.5 -- max 2.262090729783
 -- Underground Jungle
 config_altar_room_occurences_rainforest = 1.5 -- max 3.9936
 -- The Vault
-config_altar_room_occurences_vault = 1.5 -- max 4.9152
+config_altar_room_occurences_vault = 2 -- max 4.9152
 -- Temple of the Art
-config_altar_room_occurences_crypt = 2 -- max 4.739173553719	
+config_altar_room_occurences_crypt = 3 -- max 4.739173553719	
 
 -- true = generated wands can have shuffle YES
 -- false = generated wands will always have NO shuffle
