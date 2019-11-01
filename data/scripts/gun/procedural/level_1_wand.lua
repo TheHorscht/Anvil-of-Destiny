@@ -9,7 +9,7 @@ function do_level1( level )
 	SetRandomSeed( x, y )
 
 	-- Add a tag so we can later use it to get the wand level
-	EntityAddTag(entity_id, "wand_level_1")
+	EntityAddTag(entity_id, "wand_level_0")
 
 	local ability_comp = EntityGetFirstComponent( entity_id, "AbilityComponent" )
 

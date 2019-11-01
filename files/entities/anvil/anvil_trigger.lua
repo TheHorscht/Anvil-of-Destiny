@@ -13,7 +13,7 @@ function init_state()
     g_mymod_anvil_state[entity_id] = {
       wands_sacrificed = 0,
       level_low = 999,
-      level_high = 0
+      level_high = -1
     }
   end
 end
@@ -34,7 +34,7 @@ function set_state_var(name, value)
 end
 
 function get_wand_level(entity_id)
-  for i=1,6 do
+  for i=0,6 do
     if EntityHasTag(entity_id, "wand_level_"..i) then
       return i
     end
@@ -71,7 +71,7 @@ function collision_trigger(colliding_entity_id)
         if wand_level_to_spawn > 6 then
           wand_level_to_spawn = 6
         end
-        
+
         local wand_type = "unshuffle"
         if config_can_generate_shuffle_wands then
           if Random() < 0.5 then
@@ -83,9 +83,9 @@ function collision_trigger(colliding_entity_id)
         if get_state().powered_up then
           local rand_spell_roll = Random()
           local always_cast_spell = nil
-          if rand_spell_roll < 0.50 then
+          if rand_spell_roll < 0.33 then
             always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_PROJECTILE)
-          elseif rand_spell_roll < 0.80 then
+          elseif rand_spell_roll < 0.67 then
             always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_MODIFIER)
           else
             always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_DRAW_MANY)
@@ -96,8 +96,6 @@ function collision_trigger(colliding_entity_id)
             -- If lowest sacrificed wand level is below 6, do not add another always cast spell if the generated wand already has one
             -- otherwise, get a chance of a second permanent spell!
             if get_state().level_low >= 6 or wand_get_attached_spells_count(generated_wand) == 0 then
-              GamePrint("Adding more power!")
-              --debug_print_table(always_cast_spell)
               AddGunActionPermanentSafely(generated_wand, always_cast_spell)
             end
           end

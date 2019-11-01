@@ -76,11 +76,11 @@ function OnPlayerSpawned(player_entity)
 		end
 
 		for i,id in ipairs(inventory_contents) do
-			if not EntityHasTag(id, "wand_level_1") and is_wand(id) then
+			if not EntityHasTag(id, "wand_level_0") and is_wand(id) then
 				if not EntityHasTag(id, "wand") then
 					EntityAddTag(id, "wand")
 				end
-				EntityAddTag(id, "wand_level_1")
+				EntityAddTag(id, "wand_level_0")
 			end
 		end
 	end
