@@ -47,7 +47,7 @@ ModMaterialsFileAdd( "mods/example/files/materials_rainbow.xml" ) -- Adds a new 
 
 ]]
 
-ModMagicNumbersFileAdd( "mods/anvil_of_destiny/files/magic_numbers.xml" ) -- Will override some magic numbers using the specified file
+-- ModMagicNumbersFileAdd( "mods/anvil_of_destiny/files/magic_numbers.xml" ) -- Will override some magic numbers using the specified file
 
 ModRegisterAudioEventMappings( "mods/anvil_of_destiny/fmod/Build/GUIDs.txt")
 ModLuaFileAppend("data/scripts/biomes/coalmine.lua", "mods/anvil_of_destiny/files/biomes/coalmine.lua")
