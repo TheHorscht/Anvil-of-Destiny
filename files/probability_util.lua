@@ -11,10 +11,9 @@ function get_probability_value_for_inserting(spawn_table, percent)
     end
   end
 
-  if percent == 100 then
-    percent= 99.9999
+  if percent >= 1 then
+    percent = 0.99999
   end
-  print("total_prob:"..total_prob)
-  print("output:"..(total_prob / (1 - percent / 100)) - total_prob)
-  return (total_prob / (1 - percent / 100)) - total_prob
+
+  return (total_prob / (1 - percent)) - total_prob
 end

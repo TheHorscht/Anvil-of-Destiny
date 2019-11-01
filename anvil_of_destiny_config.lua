@@ -1,23 +1,21 @@
--- The chance that a special room will get replaced by an anvil room in percent
--- between 0 and 100
--- 0 = never
--- 100 = always
+-- The occurence rate of anvil for each biome, on average (does not guarantee that many will spawn!)
+
 -- Pyramid
-config_altar_room_spawn_probability_pyramid = 100
+config_altar_room_occurences_pyramid = 1
 -- Mines
-config_altar_room_spawn_probability_coalmine = 100
+config_altar_room_occurences_coalmine = 1
 -- Coal Pits
-config_altar_room_spawn_probability_excavationsite = 100
+config_altar_room_occurences_excavationsite = 1.5
 -- Snowy Depths
-config_altar_room_spawn_probability_snowcave = 100
+config_altar_room_occurences_snowcave = 1.5
 -- Hiisi Base
-config_altar_room_spawn_probability_snowcastle = 100
+config_altar_room_occurences_snowcastle = 1.5
 -- Underground Jungle
-config_altar_room_spawn_probability_rainforest = 100
+config_altar_room_occurences_rainforest = 1.5
 -- The Vault
-config_altar_room_spawn_probability_vault = 100
+config_altar_room_occurences_vault = 1.5
 -- Temple of the Art
-config_altar_room_spawn_probability_crypt = 100
+config_altar_room_occurences_crypt = 3
 
 -- true = generated wands can have shuffle YES
 -- false = generated wands will always have NO shuffle
