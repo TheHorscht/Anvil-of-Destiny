@@ -3,6 +3,7 @@ dofile("mods/anvil_of_destiny/files/spawner.lua")
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff37ec48, "spawn_tablet")
+RegisterSpawnFunction( 0xff37ec1f, "spawn_coalmine_wand")
 RegisterSpawnFunction( 0xff37ec31, "spawn_wand_1")
 RegisterSpawnFunction( 0xff37ec32, "spawn_wand_2")
 RegisterSpawnFunction( 0xff37ec33, "spawn_wand_3")
@@ -22,6 +23,10 @@ end
 
 function spawn_tablet(x, y)
   EntityLoad("data/entities/items/books/book_01.xml", x, y)
+end
+
+function spawn_coalmine_wand(x, y)
+  EntityLoad("data/entities/items/wands/level_01/wand_00"..Random(1, 9)..".xml", x, y)
 end
 
 function spawn_wand_1(x, y)
