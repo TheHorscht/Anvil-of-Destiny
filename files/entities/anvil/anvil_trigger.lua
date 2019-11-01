@@ -84,11 +84,11 @@ function collision_trigger(colliding_entity_id)
           local rand_spell_roll = Random()
           local always_cast_spell = nil
           if rand_spell_roll < 0.33 then
-            always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_PROJECTILE)
+            always_cast_spell = GetRandomActionWithType(x, y, wand_level_to_spawn, ACTION_TYPE_PROJECTILE)
           elseif rand_spell_roll < 0.67 then
-            always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_MODIFIER)
+            always_cast_spell = GetRandomActionWithType(x, y, wand_level_to_spawn, ACTION_TYPE_MODIFIER)
           else
-            always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_DRAW_MANY)
+            always_cast_spell = GetRandomActionWithType(x, y, wand_level_to_spawn, ACTION_TYPE_DRAW_MANY)
           end
           if always_cast_spell == nil then
             print("Anvil of Destiny could not find a spell for your wand!")
