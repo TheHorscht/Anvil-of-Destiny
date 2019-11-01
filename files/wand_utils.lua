@@ -10,7 +10,7 @@ function AddGunActionPermanentSafely(wand_id, spell)
 		AddGunActionPermanent(wand_id, spell)
 	else
 		local error_msg = "Error: AddGunActionPermanentSafely() - AbilityComponent not found!"
-		GamePrint(error_msg)
+		-- GamePrint(error_msg)
 		print(error_msg)
 	end
 end

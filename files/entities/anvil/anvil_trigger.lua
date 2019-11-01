@@ -91,7 +91,7 @@ function collision_trigger(colliding_entity_id)
             always_cast_spell = GetRandomActionWithType(x, y, wand_level, ACTION_TYPE_DRAW_MANY)
           end
           if always_cast_spell == nil then
-            GamePrint("Anvil of Destiny could not find a spell for your wand!")
+            print("Anvil of Destiny could not find a spell for your wand!")
           else
             -- If lowest sacrificed wand level is below 6, do not add another always cast spell if the generated wand already has one
             -- otherwise, get a chance of a second permanent spell!
