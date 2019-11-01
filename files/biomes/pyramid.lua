@@ -5,7 +5,7 @@ dofile("mods/anvil_of_destiny/anvil_of_destiny_config.lua")
 --[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
 
 local wang_tile_short_side = 220
-local chunk_count = 42
+local chunk_count = 8
 local wang_tile_count_h = 18
 local wang_tile_count_v = 12
 local custom_pixel_scene_count_h = 0 -- out of how many h tiles, how many load our pixel scene?
