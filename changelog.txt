@@ -1,8 +1,10 @@
 UNRELEASED:
-- Changed/corrected biome spawn probabilities, now it should be exactly 50% that an anvil room spawns instead of a normal special room
-- FIX: Was only spawning shuffle wands
-- Make anvil only spawn no shuffle wands
-- Can now sacrifice tablets to power up anvil and add a perma spell (if lvl 6+6 also allow double perma)
+- Changed how anvil room spawn probabilities are calculated and adjusted them
+- Added an alternative anvil room to The Vault and Underground Jungle
+- You can now tweak the mod by changing the values in anvil_of_destiny_config.lua
+- Anvil was too weak that's why there's one new feature and one change:
+-- Created wands always had shuffle, now they're always no-shuffle
+-- Can now use tablets to power up anvil and give the created wand a random attached spell, if sacrificing two lvl 6 wands there's also a chance the new one has TWO attached spells!
 
 v1.1.1:
 - FIX: Wands should now be detected correctly
