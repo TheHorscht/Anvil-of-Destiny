@@ -139,24 +139,24 @@ function wand_get_spells(wand_id)
 		local inventory_x = -1
 		-- TODO: Refactor this when EntityGetComponent() returns disabled components...
 		for _, c in ipairs(all_comps) do
-				-- ItemActionComponent::action_id
-				local val = ComponentGetValue(c, "action_id")
-				if val ~= "" then
-					-- It's the ItemActionComponent
-					action_id = val
+			-- ItemActionComponent::action_id
+			local val = ComponentGetValue(c, "action_id")
+			if val ~= "" then
+				-- It's the ItemActionComponent
+				action_id = val
+			end
+			-- ItemComponent::permanently_attached
+			val = ComponentGetValue(c, "permanently_attached")
+			if val ~= "" then
+				-- It's the ItemComponent
+				if val == "1" then
+					permanent = true
 				end
-				-- ItemComponent::permanently_attached
-				val = ComponentGetValue(c, "permanently_attached")
-				if val ~= "" then
-					-- It's the ItemComponent
-					if val == "1" then
-						permanent = true
-					end
-					local inventory_y
-					-- ItemComponent::inventory_slot.x [0, count] gives the slot it's in
-					-- Does not work yet, always returns 0, 0...
-					inventory_x, inventory_y = ComponentGetValueVector2(c, "inventory_slot")
-				end
+				local inventory_y
+				-- ItemComponent::inventory_slot.x [0, count] gives the slot it's in
+				-- Does not work yet, always returns 0, 0...
+				inventory_x, inventory_y = ComponentGetValueVector2(c, "inventory_slot")
+			end
 		end
 		if action_id ~= nil then
 			if permanent == true then
