@@ -10,7 +10,7 @@ end
 function wand_add_spell(wand_id, spell)
 	AddGunAction(wand_id, spell)
 end
-
+-- Add an always cast spell without sacrificing a slot
 function wand_add_always_cast_spell(wand_id, spell)
 	-- Extend slots
 	local ability_comp = wand_get_ability_component(wand_id)
@@ -35,7 +35,6 @@ function wand_get_ability_component(wand_id)
 		end
 	end
 end
-
 -- Returns the number of permanently attached spells
 function wand_get_attached_spells_count(wand_id)
 	local children = EntityGetAllChildren(wand_id)
@@ -50,13 +49,11 @@ function wand_get_attached_spells_count(wand_id)
 	end
 	return count
 end
-
 -- Returns the number of spells on the wand (without permanently attached ones)
 function wand_get_spells_count(wand_id)
 	local num_children = #EntityGetAllChildren(wand_id)
 	return num_children - wand_get_attached_spells_count(wand_id)
 end
-
 -- Returns the number of free slots
 function wand_get_free_slots(wand_id)
 	local ability_comp = wand_get_ability_component(wand_id)
@@ -65,7 +62,7 @@ function wand_get_free_slots(wand_id)
 		return (capacity - (wand_get_spells_count(wand_id) + wand_get_attached_spells_count(wand_id)))
 	end
 end
-
+-- Returns a table { ability_component_members, gun_config, gunaction_config }
 function wand_get_properties(wand_id)
 	local ability_comp = wand_get_ability_component(wand_id)
 	local ability_component_members = ComponentGetMembers(ability_comp)
@@ -96,7 +93,6 @@ function wand_set_properties(wand_id, props)
 	ability_component_set_gun_config(ability_comp, props.gun_config)
 	ability_component_set_gunaction_config(ability_comp, props.gunaction_config)
 end
-
 -- Just an example on how to buff a wand
 function buff_wand(wand_id)
 	local props = wand_get_properties(wand_id)
@@ -107,12 +103,6 @@ function buff_wand(wand_id)
 	props.gun_config.reload_time = props.gun_config.reload_time * 0.8
 	props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * 0.8
 	props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * 0.8
-	-- gunaction_config.speed_multiplier = gunaction_config.speed_multiplier * 10.8
-
-	--[[ local spells, always_cast_spells = wand_get_spells(wand_id)
-	for i, v in ipairs(spells) do
-		AddGunAction(wand_id, v.action_id)
-	end ]]
 
 	wand_set_properties(wand_id, props)
 	wand_add_always_cast_spell(wand_id, "BLACK_HOLE")
@@ -137,9 +127,8 @@ function ability_component_set_gunaction_config(ability_component_id, gunaction_
 	end
 end
 
--- Returns [1] table of spells [2] table of attached spells
+-- Returns two values: 1: table of spells 2: table of attached spells
 function wand_get_spells(wand_id)
-	-- TODO: Implement
 	local spells = {}
 	local always_cast_spells = {}
 	local children = EntityGetAllChildren(wand_id)
@@ -151,12 +140,12 @@ function wand_get_spells(wand_id)
 		-- TODO: Refactor this when EntityGetComponent() returns disabled components...
 		for _, c in ipairs(all_comps) do
 				-- ItemActionComponent::action_id
-				-- ItemComponent::permanently_attached
 				local val = ComponentGetValue(c, "action_id")
 				if val ~= "" then
 					-- It's the ItemActionComponent
 					action_id = val
 				end
+				-- ItemComponent::permanently_attached
 				val = ComponentGetValue(c, "permanently_attached")
 				if val ~= "" then
 					-- It's the ItemComponent
