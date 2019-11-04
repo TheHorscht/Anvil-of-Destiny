@@ -24,6 +24,23 @@ function wand_add_always_cast_spell(wand_id, spell)
 		print(error_msg)
 	end
 end
+-- Remove all spells from a wand. All, only slotted, or only always cast spells.
+function wand_remove_all_spells(wand_id, remove_slotted_spells, remove_always_cast_spells)
+	local children = EntityGetAllChildren(wand_id)
+	for _, v in ipairs(children) do
+		local all_comps = EntityGetAllComponents(v)
+		-- local remove_this = false
+		-- TODO: Refactor this when EntityGetComponent() returns disabled components...
+		for _, c in ipairs(all_comps) do
+			local val = ComponentGetValue(c, "permanently_attached")
+			if val ~= "" and ((val == "0" and remove_slotted_spells) or (val == "1" and remove_always_cast_spells)) then
+				--remove_this = true
+				EntityKill(v)
+				break
+			end
+		end
+	end
+end
 
 function wand_get_ability_component(wand_id)
 	local components = EntityGetAllComponents(wand_id)
