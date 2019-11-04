@@ -71,13 +71,17 @@ function wand_get_spells_count(wand_id)
 	local num_children = #EntityGetAllChildren(wand_id)
 	return num_children - wand_get_attached_spells_count(wand_id)
 end
--- Returns the number of free slots
-function wand_get_free_slots(wand_id)
+-- Returns how many slots the wand has (not counting permanently attached spells)
+function wand_get_slot_count(wand_id)
 	local ability_comp = wand_get_ability_component(wand_id)
 	if ability_comp then
 		local capacity = ComponentObjectGetValue(ability_comp, "gun_config", "deck_capacity")
-		return (capacity - (wand_get_spells_count(wand_id) + wand_get_attached_spells_count(wand_id)))
+		return capacity - wand_get_attached_spells_count(wand_id)
 	end
+end
+-- Returns the number of free slots
+function wand_get_free_slot_count(wand_id)
+	return wand_get_slot_count(wand_id) - wand_get_spells_count(wand_id)
 end
 -- Returns a table { ability_component_members, gun_config, gunaction_config }
 function wand_get_properties(wand_id)
@@ -144,7 +148,11 @@ function ability_component_set_gunaction_config(ability_component_id, gunaction_
 	end
 end
 
--- Returns two values: 1: table of spells 2: table of attached spells
+-- Returns two values:
+-- 1: table of spells with each entry having the format { action_id = "BLACK_HOLE", inventory_x = 1 }
+-- 2: table of attached spells with the same format { action_id = "BLACK_HOLE", inventory_x = 1 }
+-- inventory_x should give the position in the wand slots, 1 = first up to num_slots
+-- inventory_x is not working yet
 function wand_get_spells(wand_id)
 	local spells = {}
 	local always_cast_spells = {}
@@ -189,12 +197,14 @@ end
 function wand_print_debug_info(wand_id)
 	local spells_count = wand_get_spells_count(wand_id)
 	local attached_spells_count = wand_get_attached_spells_count(wand_id)
-	local free_slots = wand_get_free_slots(wand_id)
+	local slot_count = wand_get_slot_count(wand_id)
+	local free_slots = wand_get_free_slot_count(wand_id)
 	local props = wand_get_properties(wand_id)
 	local spells, always_cast_spells = wand_get_spells(wand_id)
 
 	print("spells_count: " .. spells_count)
 	print("attached_spells_count: " .. attached_spells_count)
+	print("slot_count: " .. slot_count)
 	print("free_slots: " .. free_slots)
 	print("-- abilities --")
 	debug_print_table(props.ability_component_members)
