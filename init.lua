@@ -65,18 +65,14 @@ ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/b
 
 -- Set wand levels for players starting wands after he spawns
 
+dofile("mods/anvil_of_destiny/files/wand_utils.lua")
+
 function OnPlayerSpawned(player_entity)
 	local inventory_id = EntityGetWithName("inventory_quick")
 	local inventory_contents = EntityGetAllChildren(inventory_id)
 	if inventory_contents ~= nil then
-
-		local function is_wand(entity_id)
-			local comp = EntityGetComponent(entity_id, "ManaReloaderComponent")
-			return comp ~= nil
-		end
-
 		for i,id in ipairs(inventory_contents) do
-			if not EntityHasTag(id, "wand_level_0") and is_wand(id) then
+			if not EntityHasTag(id, "wand_level_0") and wand_entity_is_wand(id) then
 				if not EntityHasTag(id, "wand") then
 					EntityAddTag(id, "wand")
 				end
