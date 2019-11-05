@@ -38,6 +38,7 @@ function collision_trigger(colliding_entity_id)
   local entity_id = GetUpdatedEntityID()
   local x, y = EntityGetTransform(entity_id)
   -- Check if it's not being held by the player
+  -- TODO: Find a fix/workaround for held wand permanently triggering after switching actively held item
   if EntityGetParent(colliding_entity_id) == 0 then
     local wand_level = get_wand_level(colliding_entity_id)
     if wand_level ~= nil then
@@ -169,6 +170,7 @@ function respawn_buffed_wand(entity_id, x, y)
   props.ability_component_members.mana = props.ability_component_members.mana_max
   local slot_add_count = math.floor(props.gun_config.deck_capacity / 4) + 1
   slot_add_count = math.min(3, slot_add_count)
+  props.gun_config.shuffle_deck_when_empty = "0"
   props.gun_config.deck_capacity = props.gun_config.deck_capacity + slot_add_count
 	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - Random() * 0.15)
 	props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - Random() * 0.15)
