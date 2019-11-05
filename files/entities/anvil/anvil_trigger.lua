@@ -87,6 +87,7 @@ function collision_trigger(colliding_entity_id)
         if get_state().tablets_sacrificed == 1 then
           perma_spell_count = perma_spell_count + 1
         end
+        -- Always add an always cast spell if both wands are level 6
         if get_state().level_low == 6 then
           perma_spell_count = perma_spell_count + 1
         end
