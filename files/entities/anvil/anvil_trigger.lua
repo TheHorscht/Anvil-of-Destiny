@@ -25,16 +25,6 @@ function get_state()
   return g_mymod_anvil_state[entity_id]
 end
 
-function get_state_var(name)
-  local entity_id = GetUpdatedEntityID()
-  return g_mymod_anvil_state[entity_id][name]
-end
-
-function set_state_var(name, value)
-  local entity_id = GetUpdatedEntityID()
-  g_mymod_anvil_state[entity_id][name] = value
-end
-
 function get_wand_level(entity_id)
   for i=0,6 do
     if EntityHasTag(entity_id, "wand_level_"..i) then
