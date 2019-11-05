@@ -29,6 +29,19 @@
   </RectAnimation>
 
   <RectAnimation
+    name="?"
+    pos_x="9"
+    pos_y="10"
+    frame_count="1"
+    frame_width="3"
+    frame_height="5"
+    frame_wait="0"
+    frames_per_row="1"
+    loop="0"
+    >
+  </RectAnimation>
+
+  <RectAnimation
     name="1"
     pos_x="0"
     pos_y="5"
