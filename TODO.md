@@ -1,9 +1,8 @@
-- Indicate what level wands have?
 - Change the wand level logic?
 - Make anvil indestructible by black holes etc
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
-- IDEA: 2 tablets + 1 wand = improve that wands stats
-
+- IDEA: 2 tablets + 1 wand = improve that wands stats [DONE]
+- IDEA: Show a sprite that shows wand level when standing on anvil and holding wand!
 
 try:
 -- LifetimeComponent
