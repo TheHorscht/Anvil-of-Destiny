@@ -53,16 +53,12 @@ function collision_trigger(colliding_entity_id)
     if wand_level ~= nil then
       get_state().wands_sacrificed = get_state().wands_sacrificed + 1
       if get_state().wands_sacrificed == 1 then
-        -- Save a reference to it and hide it instead of removing it so we can buff and spit it back out again later
-        local ability_component_members, gun_config, gunaction_config = wand_get_properties(colliding_entity_id)
-        local spells, attached_spells = wand_get_spells(colliding_entity_id)
-        print("hiding wand :)")
         get_state().first_wand_id = colliding_entity_id
-        EntitySetTransform(colliding_entity_id, 20000, 20000)
+        hide_wand(colliding_entity_id)
       else
-        print("killing wand >:[")
         EntityKill(colliding_entity_id)
       end
+
       if wand_level < get_state().level_low then
         get_state().level_low = wand_level
       elseif wand_level > get_state().level_high then
@@ -74,11 +70,7 @@ function collision_trigger(colliding_entity_id)
         GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
       elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
         EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-        -- TODO: spit out improved wand by 25%
-        -- 
-        --local generated_wand = spawn_wand(shuffle, get_state().level_low, 0, x + 4, y - 25)
-        --wand_set_properties(generated_wand, get_state().first_wand.props)
-        spawn_buffed_wand(entity_id, x, y)
+        respawn_buffed_wand(entity_id, x, y)
       elseif get_state().wands_sacrificed == 2 then
         EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
         local wand_level_to_spawn = get_state().level_low + 1
@@ -98,15 +90,18 @@ function collision_trigger(colliding_entity_id)
         if get_state().level_low == 6 then
           perma_spell_count = perma_spell_count + 1
         end
-        local generated_wand = spawn_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
+        spawn_new_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
         finish(entity_id, x, y)
       end
     elseif EntityHasTag(colliding_entity_id, "tablet") then
-      EntityKill(colliding_entity_id)
-      get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
+      if get_state().tablets_sacrificed < 2 then
+        EntityKill(colliding_entity_id)
+        get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
+        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+        -- TODO: make this sound higher on second tablet to indicate more power!
+      end
       if get_state().tablets_sacrificed == 1 then
         EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
-        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
       elseif get_state().tablets_sacrificed == 2 then
         if get_state().wands_sacrificed == 0 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
@@ -114,10 +109,8 @@ function collision_trigger(colliding_entity_id)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-          spawn_buffed_wand(entity_id, x, y)
+          respawn_buffed_wand(entity_id, x, y)
         end
-        -- TODO: make this sound higher
-        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
       elseif get_state().tablets_sacrificed == 3 then
         -- Explode!
       end
@@ -137,7 +130,17 @@ function finish(entity_id, x, y)
   end)
 end
 
-function spawn_wand(shuffle, level, permaspell_count, x, y)
+function hide_wand(wand_id)
+  -- Just yeet the wand somewhere and make it float there forever
+  EntitySetTransform(wand_id, 200000, 200000)
+  -- Disable physics so it doesn't keep falling
+  edit_component(colliding_entity_id, "SimplePhysicsComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+    print("SimplePhysicsComponent: " .. comp)
+  end)
+end
+
+function spawn_new_wand(shuffle, level, permaspell_count, x, y)
   local wand_type = "unshuffle"
   if shuffle == true then
     wand_type = "level"
@@ -166,13 +169,10 @@ function spawn_wand(shuffle, level, permaspell_count, x, y)
   return generated_wand
 end
 
-function spawn_buffed_wand(entity_id, x, y)
+function respawn_buffed_wand(entity_id, x, y)
   local wand_id = get_state().first_wand_id
-  print("wand_id: " .. wand_id)
   local props = wand_get_properties(wand_id)
-  print("gotten props")
   local spells, attached_spells = wand_get_spells(wand_id)
-  print("gotten spells")
 	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + Random() * 0.15)
 	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + Random() * 0.15)
   props.ability_component_members.mana = props.ability_component_members.mana_max
@@ -183,22 +183,7 @@ function spawn_buffed_wand(entity_id, x, y)
 	props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - Random() * 0.15)
 	props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (0.9 - Random() * 0.15)
 
-  wand_remove_all_spells(wand_id, true, true)
-  for _, v in ipairs(spells) do
-    wand_add_spell(wand_id, v.action_id)
-  end
-  for _, v in ipairs(attached_spells) do
-    wand_add_always_cast_spell(wand_id, v.action_id)
-  end
-
   wand_set_properties(wand_id, props)
-  -- Copy over the spritecomponent
-  -- SpriteComponent
   wand_restore_to_unpicked_state(wand_id, x, y)
-  -- EntitySetTransform(wand_id, x + 4, y - 25)
-  local xx, yy = EntityGetTransform(wand_id)
-  print("xx: " .. xx)
-  print("yy: " .. yy)
-  print("POWER!")
   finish(entity_id, x, y)
 end
