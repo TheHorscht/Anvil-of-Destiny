@@ -130,6 +130,70 @@ function buff_wand(wand_id)
 	wand_add_spell(wand_id, "CHAOS_POLYMORPH_FIELD")
 end
 
+function wand_restore_to_unpicked_state(wand_id, x, y)
+	local ability_comp = wand_get_ability_component(wand_id)
+	EntitySetComponentIsEnabled(wand_id, ability_comp, true)
+	print("ability_comp: " .. ability_comp)
+
+	local function get_hotspot_component(entity_id)
+		local components = EntityGetAllComponents(entity_id)
+		for i, component_id in ipairs(components) do
+			for k, v2 in pairs(ComponentGetMembers(component_id)) do
+				if(k == "sprite_hotspot_name") then
+					return component_id
+				end
+			end
+		end
+	end
+
+	local function get_lua_component(entity_id)
+		local components = EntityGetAllComponents(entity_id)
+		for i, component_id in ipairs(components) do
+			for k, v2 in pairs(ComponentGetMembers(component_id)) do
+				if(k == "script_item_picked_up") then
+					return component_id
+				end
+			end
+		end
+	end
+
+	local function get_sprite_particle_emitter_component(entity_id)
+		local components = EntityGetAllComponents(entity_id)
+		for i, component_id in ipairs(components) do
+			for k, v2 in pairs(ComponentGetMembers(component_id)) do
+				if(k == "velocity_always_away_from_center") then
+					return component_id
+				end
+			end
+		end
+	end
+
+	local hotspot_comp = get_hotspot_component(wand_id)
+	EntitySetComponentIsEnabled(wand_id, hotspot_comp, true)
+	print("hotspot_comp: " .. hotspot_comp)
+
+	edit_component(wand_id, "ItemComponent", function(comp, vars)
+		ComponentSetValue(comp, "has_been_picked_by_player", "0")
+		ComponentSetValue(comp, "play_hover_animation", "1")
+		-- ItemComponent:spawn_pos
+		ComponentSetValueVector2(comp, "spawn_pos", x + 4, y - 25)
+	end)
+
+	local lua_comp = get_hotspot_component(wand_id)
+	EntitySetComponentIsEnabled(wand_id, lua_comp, true)
+	print("lua_comp: " .. lua_comp)
+
+	edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
+		EntitySetComponentIsEnabled(wand_id, comp, false)
+		print("SimplePhysicsComponent: " .. comp)
+	end)
+
+	local sprite_particle_emitter_comp = get_sprite_particle_emitter_component(wand_id)
+	if sprite_particle_emitter_comp ~= nil then
+		EntitySetComponentIsEnabled(wand_id, sprite_particle_emitter_comp, true)
+	end
+end
+
 function ability_component_set_members(ability_component_id, ability_component_members)
 	for k, v in pairs(ability_component_members) do
 		ComponentSetValue(ability_component_id, k, v)

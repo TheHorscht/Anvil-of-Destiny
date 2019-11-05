@@ -15,7 +15,7 @@ function init_state()
       tablets_sacrificed = 0,
       level_low = 999,
       level_high = -1,
-      first_wand_props = nil
+      first_wand_id = nil
     }
   end
 end
@@ -56,13 +56,13 @@ function collision_trigger(colliding_entity_id)
         -- Save a reference to it and hide it instead of removing it so we can buff and spit it back out again later
         local ability_component_members, gun_config, gunaction_config = wand_get_properties(colliding_entity_id)
         local spells, attached_spells = wand_get_spells(colliding_entity_id)
-        get_state().first_wand = {
-          props = wand_get_properties(colliding_entity_id),
-          spells = spells,
-          attached_spells = attached_spells
-        }
+        print("hiding wand :)")
+        get_state().first_wand_id = colliding_entity_id
+        EntitySetTransform(colliding_entity_id, 20000, 20000)
+      else
+        print("killing wand >:[")
+        EntityKill(colliding_entity_id)
       end
-      EntityKill(colliding_entity_id)
       if wand_level < get_state().level_low then
         get_state().level_low = wand_level
       elseif wand_level > get_state().level_high then
@@ -167,11 +167,12 @@ function spawn_wand(shuffle, level, permaspell_count, x, y)
 end
 
 function spawn_buffed_wand(entity_id, x, y)
-  local generated_wand = spawn_wand(false, 1, 0, x + 4, y - 25)
-  local props = get_state().first_wand.props
-  local spells = get_state().first_wand.spells
-  local attached_spells = get_state().first_wand.attached_spells
-
+  local wand_id = get_state().first_wand_id
+  print("wand_id: " .. wand_id)
+  local props = wand_get_properties(wand_id)
+  print("gotten props")
+  local spells, attached_spells = wand_get_spells(wand_id)
+  print("gotten spells")
 	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + Random() * 0.15)
 	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + Random() * 0.15)
   props.ability_component_members.mana = props.ability_component_members.mana_max
@@ -182,17 +183,22 @@ function spawn_buffed_wand(entity_id, x, y)
 	props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - Random() * 0.15)
 	props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (0.9 - Random() * 0.15)
 
-  wand_remove_all_spells(generated_wand, true, true)
+  wand_remove_all_spells(wand_id, true, true)
   for _, v in ipairs(spells) do
-    wand_add_spell(generated_wand, v.action_id)
+    wand_add_spell(wand_id, v.action_id)
   end
   for _, v in ipairs(attached_spells) do
-    wand_add_always_cast_spell(generated_wand, v.action_id)
+    wand_add_always_cast_spell(wand_id, v.action_id)
   end
 
-  wand_set_properties(generated_wand, props)
+  wand_set_properties(wand_id, props)
   -- Copy over the spritecomponent
   -- SpriteComponent
+  wand_restore_to_unpicked_state(wand_id, x, y)
+  -- EntitySetTransform(wand_id, x + 4, y - 25)
+  local xx, yy = EntityGetTransform(wand_id)
+  print("xx: " .. xx)
+  print("yy: " .. yy)
   print("POWER!")
   finish(entity_id, x, y)
 end
