@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.3.0:
 - Using two level 6 wands in a recipe will now always add one extra permanently attached spell
 - Standing on top of the anvil will now show you the level of the wand currently held in your hand
 - Improve detection when tablet or wand is thrown onto anvil
