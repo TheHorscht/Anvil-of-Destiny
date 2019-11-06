@@ -29,6 +29,7 @@ function get_state()
   return g_mymod_anvil_state[entity_id]
 end
 
+-- TODO: Extract this function so wand_utils or something
 function get_wand_level(entity_id)
   for i=0,6 do
     if EntityHasTag(entity_id, "wand_level_"..i) then
@@ -37,26 +38,11 @@ function get_wand_level(entity_id)
   end
 end
 
-function is_active_item(entity_id)
-  local player = EntityGetWithTag("player_unit")[1]
-  local inv = EntityGetComponent(player, "Inventory2Component")[1]
-  local active_item = ComponentGetValueInt(inv, "mActiveItem")   
-  if entity_id == active_item then
-    return true
-  else
-    return false
-  end
-end
-
 function collision_trigger(colliding_entity_id)
   init_state()
   get_state().collider_ticks = get_state().collider_ticks + 1
   -- while something is colliding, do our own custom "collision" check 10 times per second, to get ALL items instead of just one
-  if get_state().collider_ticks % 60 == 0 then
-    print("triggering: " .. get_state().collider_ticks)
-
--- TODO: make sure the level indicator disappears when nothing is here
-
+  if get_state().collider_ticks % 6 == 0 then
     local entity_id = GetUpdatedEntityID()
     local x, y = EntityGetTransform(entity_id)
     local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
@@ -111,24 +97,7 @@ function collision_trigger(colliding_entity_id)
             finish(entity_id, x, y)
           end
         end
-      elseif is_active_item(v) then
-        -- CHeck if it's the actively held item, if so show level
-        local level = get_wand_level(v)
-        local level_to_show = "?"
-        if level ~= nil then
-          level_to_show = tostring(level)
-        end
-        active_item_level = level_to_show
       end
-    end
-
-    if active_item_level ~= nil then
-      ComponentSetValue(get_state().level_indicator, "visible", "1")
-      ComponentSetValue(get_state().level_indicator_number, "visible", "1")
-      ComponentSetValue(get_state().level_indicator_number, "rect_animation", active_item_level)
-    else
-      ComponentSetValue(get_state().level_indicator, "visible", "0")
-      ComponentSetValue(get_state().level_indicator_number, "visible", "0")
     end
 
     local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
