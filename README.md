@@ -31,4 +31,6 @@ The resulting wands will also get their stats boosted by 25%, randomly split bet
 - Tablet + Wand(6) + Wand(6) = Wand(6) + 2 always cast spells
 ### 🌟 Tablet + Tablet + Wand = Buff every stat of that wand by a guaranteed 10% plus another 50% randomly split between the 5 stats listed above
 ***
+For releases head over to the releases tab or check out https://modworkshop.net/mydownloads.php?action=view_down&did=25873, don't just clone this repository, it has a lot of crap for developing only!
+
 That's it, have fun forging with the holy 🙏 __Anvil of DESTINY__ 🙏!
