@@ -3,11 +3,10 @@ v1.3.0:
 - Standing on top of the anvil will now show you the level of the wand currently held in your hand
 - Improve detection when tablet or wand is thrown onto anvil
 - All wands the anvil spits out will be no-shuffle
-- Normal generated wands (2 Wands or 2 Wands + 1 Tablet) will get their stats boosted by 25%,
-  randomly split between the following 5 stats, for instance:
+- Normal generated wands (2 Wands or 2 Wands + 1 Tablet) will get their stats boosted by 25%, randomly split between the following 5 stats, for instance:
   Mana charge speed + 5%
-	Mana max + 2%
-	Recharge time - 3%
+  Mana max + 2%
+  Recharge time - 3%
   Cast delay - 9%
   Spread - 6%
 - New recipe: 2 Tablets + 1 Wand:
