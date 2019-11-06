@@ -7,6 +7,7 @@ function collision_trigger(colliding_entity_id)
   local entity_id = GetUpdatedEntityID()
   EntityRemoveComponent(entity_id, GetUpdatedComponentID())
   local level_indicator = EntityAddComponent(entity_id, "LuaComponent", {
+    _tags="level_indicator",
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.lua",
     execute_on_added="0",
     execute_every_n_frame="10" -- This should be fast enough

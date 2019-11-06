@@ -137,8 +137,18 @@ function finish(entity_id, x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
-  local lua_component_anvil_trigger = EntityGetFirstComponent(entity_id, "LuaComponent", "lua_component_anvil_trigger")
-  EntityRemoveComponent(entity_id, lua_component_anvil_trigger)
+  --[[ local lua_component_anvil_trigger = EntityGetFirstComponent(entity_id, "LuaComponent", "lua_component_anvil_trigger")
+  EntityRemoveComponent(entity_id, lua_component_anvil_trigger) ]]
+  edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
+    EntityRemoveComponent(entity_id, comp)
+  end)
+  -- Remove level indicator and hide it's things
+  local level_indicator = EntityGetFirstComponent(entity_id, "LuaComponent", "level_indicator")
+  EntityRemoveComponent(entity_id, level_indicator)
+  local level_indicator_prefix = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator")
+  local level_indicator_number = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator_number")
+  ComponentSetValue(level_indicator_prefix, "visible", "0")
+  ComponentSetValue(level_indicator_number, "visible", "0")
 end
 
 function hide_wand(wand_id)
