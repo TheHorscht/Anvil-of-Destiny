@@ -203,15 +203,16 @@ end
 function buff_wand_slighty(wand_id)
   local rng = create_normalized_random_distribution(5)
   local props = wand_get_properties(wand_id)
-	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1 + rng[1] * 0.20)
-	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1 + rng[2] * 0.20)
+  local buff_percent = config_regular_wand_buff_percent / 100
+	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1 + rng[1] * buff_percent)
+	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1 + rng[2] * buff_percent)
   props.ability_component_members.mana = props.ability_component_members.mana_max
   -- Turn it into a no shuffle wand? yes
   props.gun_config.shuffle_deck_when_empty = "0"
-	props.gun_config.reload_time = props.gun_config.reload_time * (1 - rng[3] * 0.20)
-  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (1 - rng[4] * 0.20)
+	props.gun_config.reload_time = props.gun_config.reload_time * (1 - rng[3] * buff_percent)
+  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (1 - rng[4] * buff_percent)
   local spread_sign = get_sign(props.gunaction_config.spread_degrees)
-  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - rng[5] * 0.20 * spread_sign)
+  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - rng[5] * buff_percent * spread_sign)
 
   wand_set_properties(wand_id, props)
 end
@@ -235,17 +236,18 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
   local wand_id = get_state().first_wand_id
   local props = wand_get_properties(wand_id)
   local spells, attached_spells = wand_get_spells(wand_id)
-	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + rng[1] * 0.30)
-	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + rng[2] * 0.30)
+  local buff_percent = config_improved_wand_buff_percent / 100
+	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + rng[1] * buff_percent)
+	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + rng[2] * buff_percent)
   props.ability_component_members.mana = props.ability_component_members.mana_max
   local slot_add_count = math.floor(props.gun_config.deck_capacity / 4) + 1
   slot_add_count = math.min(3, slot_add_count)
   props.gun_config.shuffle_deck_when_empty = "0"
   props.gun_config.deck_capacity = props.gun_config.deck_capacity + slot_add_count
-	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - rng[3] * 0.30)
-  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - rng[4] * 0.30)
+	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - rng[3] * buff_percent)
+  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - rng[4] * buff_percent)
   local spread_sign = get_sign(props.gunaction_config.spread_degrees)
-  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - (0.1 + rng[5] * 0.30) * spread_sign)
+  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - (0.1 + rng[5] * buff_percent) * spread_sign)
 
   wand_set_properties(wand_id, props)
   wand_restore_to_unpicked_state(wand_id, x, y)
