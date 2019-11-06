@@ -1,0 +1,25 @@
+{
+  "name": "anvil_of_destiny",
+  "version": "1.3.0",
+  "description": "A mod for Noita (https://noitagame.com/) which adds an anvil into the default biomes, which lets you forge two wands into a new one!",
+  "main": "",
+  "scripts": {
+    "package": "node build.js",
+    "packagepreview": "node build.js --preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheHorscht/Anvil-of-Destiny.git"
+  },
+  "author": "TheHorscht <realhorscht+github@gmail.com> (https://github.com/TheHorscht)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TheHorscht/Anvil-of-Destiny/issues"
+  },
+  "homepage": "https://github.com/TheHorscht/Anvil-of-Destiny#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "adm-zip": "^0.4.13",
+    "minimatch": "^3.0.4"
+  }
+}
