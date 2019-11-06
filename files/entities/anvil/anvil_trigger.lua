@@ -72,7 +72,7 @@ function collision_trigger(colliding_entity_id)
             GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
           elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-            respawn_buffed_wand(entity_id, x, y)
+            buff_stored_wand_and_respawn_it(entity_id, x, y)
           elseif get_state().wands_sacrificed == 2 then
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
             local wand_level_to_spawn = get_state().level_low + 1
@@ -93,7 +93,8 @@ function collision_trigger(colliding_entity_id)
             if get_state().level_low == 6 then
               perma_spell_count = perma_spell_count + 1
             end
-            spawn_new_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
+            local new_wand = spawn_new_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
+            buff_wand_slighty(new_wand)
             finish(entity_id, x, y)
           end
         end
@@ -120,7 +121,7 @@ function collision_trigger(colliding_entity_id)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-          respawn_buffed_wand(entity_id, x, y)
+          buff_stored_wand_and_respawn_it(entity_id, x, y)
         end
       elseif get_state().tablets_sacrificed == 3 then
         -- TODO: Explode!
@@ -190,20 +191,61 @@ function spawn_new_wand(shuffle, level, permaspell_count, x, y)
   return generated_wand
 end
 
-function respawn_buffed_wand(entity_id, x, y)
+function get_sign(num)
+  num = tonumber(num)
+  if num >= 0 then
+    return 1
+  else
+    return -1
+  end
+end
+
+function buff_wand_slighty(wand_id)
+  local rng = create_normalized_random_distribution(5)
+  local props = wand_get_properties(wand_id)
+	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1 + rng[1] * 0.20)
+	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1 + rng[2] * 0.20)
+  props.ability_component_members.mana = props.ability_component_members.mana_max
+  -- Turn it into a no shuffle wand? yes
+  props.gun_config.shuffle_deck_when_empty = "0"
+	props.gun_config.reload_time = props.gun_config.reload_time * (1 - rng[3] * 0.20)
+  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (1 - rng[4] * 0.20)
+  local spread_sign = get_sign(props.gunaction_config.spread_degrees)
+  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - rng[5] * 0.20 * spread_sign)
+
+  wand_set_properties(wand_id, props)
+end
+
+function create_normalized_random_distribution(count)
+  local out = {}
+  local sum = 0
+  for i=1, count do
+    local random_number = Random()
+    sum = sum + random_number
+    table.insert(out, random_number)
+  end
+  for i=1, count do
+    out[i] = out[i] / sum
+  end
+  return out
+end
+
+function buff_stored_wand_and_respawn_it(entity_id, x, y)
+  local rng = create_normalized_random_distribution(5)
   local wand_id = get_state().first_wand_id
   local props = wand_get_properties(wand_id)
   local spells, attached_spells = wand_get_spells(wand_id)
-	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + Random() * 0.15)
-	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + Random() * 0.15)
+	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + rng[1] * 0.30)
+	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + rng[2] * 0.30)
   props.ability_component_members.mana = props.ability_component_members.mana_max
   local slot_add_count = math.floor(props.gun_config.deck_capacity / 4) + 1
   slot_add_count = math.min(3, slot_add_count)
   props.gun_config.shuffle_deck_when_empty = "0"
   props.gun_config.deck_capacity = props.gun_config.deck_capacity + slot_add_count
-	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - Random() * 0.15)
-	props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - Random() * 0.15)
-	props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (0.9 - Random() * 0.15)
+	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - rng[3] * 0.30)
+  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - rng[4] * 0.30)
+  local spread_sign = get_sign(props.gunaction_config.spread_degrees)
+  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - (0.1 + rng[5] * 0.30) * spread_sign)
 
   wand_set_properties(wand_id, props)
   wand_restore_to_unpicked_state(wand_id, x, y)
