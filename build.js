@@ -25,7 +25,7 @@ const ignore_list = [
   'gimp',
   '.*',
   '*.zip',
-  'anvil_preview.png',
+  'anvil_preview.gif',
   'idea.lua',
   'LICENSE',
   'README.md',
