@@ -1,7 +1,17 @@
 UNRELEASED:
-- 6 + 6 now always gives 2 permaspells
-- can sacrifice 2 tablets + 1 wand to increase that wands stats and slots by 25%
-- Shows level of wand held in hand when standing on anvil
+- Using two level 6 wands in a recipe will now always add one extra permanently attached spell
+- Standing on top of the anvil will now show you the level of the wand currently held in your hand
+- Improve detection when tablet or wand is thrown onto anvil
+- All wands the anvil spits out will be no-shuffle
+- Normal generated wands (2 Wands or 2 Wands + 1 Tablet) will get their stats boosted by 25%,
+  randomly split between the following 5 stats, for instance:
+  Mana charge speed + 5%
+	Mana max + 2%
+	Recharge time - 3%
+  Cast delay - 9%
+  Spread - 6%
+- New recipe: 2 Tablets + 1 Wand:
+  Boost that wand by 10% on each stat + 40% randomly split between 5 stats (see above), turn it into no-shuffle and increase slots
 
 v1.2.0:
 - Known issue: Starterwands sometimes don't get their wand level applied so they won't work

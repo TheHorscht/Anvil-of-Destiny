@@ -21,8 +21,16 @@ config_altar_room_occurences_crypt = 3 -- max 4.739173553719
 -- false = generated wands will always have NO shuffle
 config_can_generate_shuffle_wands = false
 
+-- Buff % are randomly split among the following 5 stats, for instance:
+-- 20% buff =
+-- Mana charge speed + 5%
+-- Mana max + 2%
+-- Recharge time - 3%
+-- Cast delay - 9%
+-- Spread - 1%
+
 -- By how much percent a new wand with 0 or 1 tablets sacrificed should be buffed
-config_regular_wand_buff_percent = 20
+config_regular_wand_buff_percent = 25
 
 -- By how much percent a wand should get buffed with 2 tablets
 config_improved_wand_buff_percent = 40
