@@ -1,7 +1,7 @@
 dofile("mods/anvil_of_destiny/files/spawner.lua")
 dofile("mods/anvil_of_destiny/files/probability_util.lua")
 dofile("mods/anvil_of_destiny/files/wang_utils.lua")
-dofile("mods/anvil_of_destiny/anvil_of_destiny_config.lua")
+dofile("mods/anvil_of_destiny/config.lua")
 --[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
 
 local wang_tile_short_side = 200

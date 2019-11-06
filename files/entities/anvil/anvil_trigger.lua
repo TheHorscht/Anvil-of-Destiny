@@ -1,7 +1,7 @@
 dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
 dofile("mods/anvil_of_destiny/files/wand_utils.lua")
-dofile("mods/anvil_of_destiny/anvil_of_destiny_config.lua")
+dofile("mods/anvil_of_destiny/config.lua")
 -- dofile("data/scripts/lib/coroutines.lua")
 
 if g_mymod_anvil_state == nil then
