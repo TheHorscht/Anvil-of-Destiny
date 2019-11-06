@@ -1,6 +1,7 @@
 UNRELEASED:
 - 6 + 6 now always gives 2 permaspells
 - can sacrifice 2 tablets + 1 wand to increase that wands stats and slots by 25%
+- Shows level of wand held in hand when standing on anvil
 
 v1.2.0:
 - Known issue: Starterwands sometimes don't get their wand level applied so they won't work
