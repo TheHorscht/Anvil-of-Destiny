@@ -15,7 +15,7 @@ args.forEach(val => {
 
 // Config
 const out_dir = __dirname + '/dist';
-const name = 'my_test_mod';
+const name = 'anvil_of_destiny';
 const version = '1.3.0';
 const root_folder = __dirname;
 const ignore_list = [
@@ -75,5 +75,5 @@ if(!preview) {
   if (!fs.existsSync(out_dir)) {
     fs.mkdirSync(out_dir);
   }
-  zip.writeZip(`./release/${name}_v${version}.zip`);
+  zip.writeZip(`${out_dir}/${name}_v${version}.zip`);
 }
