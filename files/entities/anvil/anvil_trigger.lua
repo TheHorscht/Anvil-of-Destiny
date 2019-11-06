@@ -2,6 +2,7 @@ dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
 dofile("mods/anvil_of_destiny/files/wand_utils.lua")
 dofile("mods/anvil_of_destiny/anvil_of_destiny_config.lua")
+-- dofile("data/scripts/lib/coroutines.lua")
 
 if g_mymod_anvil_state == nil then
   g_mymod_anvil_state = {}
@@ -11,11 +12,14 @@ function init_state()
   local entity_id = GetUpdatedEntityID()
   if g_mymod_anvil_state[entity_id] == nil then
     g_mymod_anvil_state[entity_id] = {
+      collider_ticks = 0,
       wands_sacrificed = 0,
       tablets_sacrificed = 0,
       level_low = 999,
       level_high = -1,
-      first_wand_id = nil
+      first_wand_id = nil,
+      level_indicator = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator"),
+      level_indicator_number = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator_number")
     }
   end
 end
@@ -33,61 +37,107 @@ function get_wand_level(entity_id)
   end
 end
 
+function is_active_item(entity_id)
+  local player = EntityGetWithTag("player_unit")[1]
+  local inv = EntityGetComponent(player, "Inventory2Component")[1]
+  local active_item = ComponentGetValueInt(inv, "mActiveItem")   
+  if entity_id == active_item then
+    return true
+  else
+    return false
+  end
+end
+
 function collision_trigger(colliding_entity_id)
   init_state()
-  local entity_id = GetUpdatedEntityID()
-  local x, y = EntityGetTransform(entity_id)
-  -- Check if it's not being held by the player
-  -- TODO: Find a fix/workaround for held wand permanently triggering after switching actively held item
-  if EntityGetParent(colliding_entity_id) == 0 then
-    local wand_level = get_wand_level(colliding_entity_id)
-    if wand_level ~= nil then
-      get_state().wands_sacrificed = get_state().wands_sacrificed + 1
-      if get_state().wands_sacrificed == 1 then
-        get_state().first_wand_id = colliding_entity_id
-        hide_wand(colliding_entity_id)
-      else
-        EntityKill(colliding_entity_id)
-      end
+  get_state().collider_ticks = get_state().collider_ticks + 1
+  -- while something is colliding, do our own custom "collision" check 10 times per second, to get ALL items instead of just one
+  if get_state().collider_ticks % 60 == 0 then
+    print("triggering: " .. get_state().collider_ticks)
 
-      if wand_level < get_state().level_low then
-        get_state().level_low = wand_level
-      elseif wand_level > get_state().level_high then
-        get_state().level_high = wand_level
-      end
-      
-      if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
-        EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
-        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
-      elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
-        EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-        respawn_buffed_wand(entity_id, x, y)
-      elseif get_state().wands_sacrificed == 2 then
-        EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
-        local wand_level_to_spawn = get_state().level_low + 1
-        if wand_level_to_spawn > 6 then
-          wand_level_to_spawn = 6
-        end
-        local shuffle = false
-        if config_can_generate_shuffle_wands then
-          if Random() < 0.5 then
-            shuffle = true
+-- TODO: make sure the level indicator disappears when nothing is here
+
+    local entity_id = GetUpdatedEntityID()
+    local x, y = EntityGetTransform(entity_id)
+    local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
+    -- local player = EntityGetWithTag("player_unit")[1]
+    local active_item_level = nil
+    for i, v in ipairs(wands) do
+      -- Check if wand is dropped on the floor
+      if EntityGetParent(v) == 0 then
+        local wand_level = get_wand_level(v)
+        if wand_level ~= nil then
+          get_state().wands_sacrificed = get_state().wands_sacrificed + 1
+          if get_state().wands_sacrificed == 1 then
+            get_state().first_wand_id = v
+            hide_wand(v)
+          else
+            EntityKill(v)
+          end
+    
+          if wand_level < get_state().level_low then
+            get_state().level_low = wand_level
+          elseif wand_level > get_state().level_high then
+            get_state().level_high = wand_level
+          end
+          
+          if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
+            GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+          elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+            respawn_buffed_wand(entity_id, x, y)
+          elseif get_state().wands_sacrificed == 2 then
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
+            local wand_level_to_spawn = get_state().level_low + 1
+            if wand_level_to_spawn > 6 then
+              wand_level_to_spawn = 6
+            end
+            local shuffle = false
+            if config_can_generate_shuffle_wands then
+              if Random() < 0.5 then
+                shuffle = true
+              end
+            end
+            local perma_spell_count = 0
+            if get_state().tablets_sacrificed == 1 then
+              perma_spell_count = perma_spell_count + 1
+            end
+            -- Always add an always cast spell if both wands are level 6
+            if get_state().level_low == 6 then
+              perma_spell_count = perma_spell_count + 1
+            end
+            spawn_new_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
+            finish(entity_id, x, y)
           end
         end
-        local perma_spell_count = 0
-        if get_state().tablets_sacrificed == 1 then
-          perma_spell_count = perma_spell_count + 1
+      elseif is_active_item(v) then
+        -- CHeck if it's the actively held item, if so show level
+        local level = get_wand_level(v)
+        local level_to_show = "?"
+        if level ~= nil then
+          level_to_show = tostring(level)
         end
-        -- Always add an always cast spell if both wands are level 6
-        if get_state().level_low == 6 then
-          perma_spell_count = perma_spell_count + 1
-        end
-        spawn_new_wand(shuffle, wand_level_to_spawn, perma_spell_count, x + 4, y - 25)
-        finish(entity_id, x, y)
+        active_item_level = level_to_show
       end
-    elseif EntityHasTag(colliding_entity_id, "tablet") then
+    end
+
+    if active_item_level ~= nil then
+      ComponentSetValue(get_state().level_indicator, "visible", "1")
+      ComponentSetValue(get_state().level_indicator_number, "visible", "1")
+      ComponentSetValue(get_state().level_indicator_number, "rect_animation", active_item_level)
+    else
+      ComponentSetValue(get_state().level_indicator, "visible", "0")
+      ComponentSetValue(get_state().level_indicator_number, "visible", "0")
+    end
+
+    local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
+    for i, v in ipairs(tablets) do
+      if EntityGetParent(v) ~= 0 then
+        break
+      end
       if get_state().tablets_sacrificed < 2 then
-        EntityKill(colliding_entity_id)
+        EntityKill(v)
         get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
         GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
         -- TODO: make this sound higher on second tablet to indicate more power!
@@ -104,7 +154,7 @@ function collision_trigger(colliding_entity_id)
           respawn_buffed_wand(entity_id, x, y)
         end
       elseif get_state().tablets_sacrificed == 3 then
-        -- Explode!
+        -- TODO: Explode!
       end
     end
   end
@@ -123,10 +173,10 @@ function finish(entity_id, x, y)
 end
 
 function hide_wand(wand_id)
-  -- Just yeet the wand somewhere and make it float there forever
+  -- Just yeet the wand into the nether and make it float there forever
   EntitySetTransform(wand_id, 200000, 200000)
-  -- Disable physics so it doesn't keep falling
-  edit_component(colliding_entity_id, "SimplePhysicsComponent", function(comp, vars)
+  -- Disable physics to stop it from falling endlessly
+  edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
     print("SimplePhysicsComponent: " .. comp)
   end)

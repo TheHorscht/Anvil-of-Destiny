@@ -25,6 +25,7 @@
   <SpriteComponent
     _tags="level_indicator"
     image_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.xml"
+    visible="0"
     offset_y="45"
     offset_x="9"
     rect_animation="level"
@@ -36,6 +37,7 @@
   <SpriteComponent
     _tags="level_indicator_number"
     image_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.xml"
+    visible="0"
     offset_y="45"
     offset_x="-14"
     rect_animation="1"
@@ -193,13 +195,6 @@
   <LuaComponent
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
     execute_every_n_frame="-1"
-    >
-  </LuaComponent>
-
-  <LuaComponent
-    script_source_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.lua"
-    execute_every_n_frame="10"
-    execute_times="-1"
     >
   </LuaComponent>
 
