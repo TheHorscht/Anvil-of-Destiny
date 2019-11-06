@@ -1,8 +1,7 @@
 - Change the wand level logic?
 - Make anvil indestructible by black holes etc
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
-- IDEA: 2 tablets + 1 wand = improve that wands stats [DONE]
-- IDEA: Show a sprite that shows wand level when standing on anvil and holding wand! [DONE]
+- BUG: In dev mode, while holding a level > 0 wand and teleporting, on player re-spawning attaches level 0 to all held wands
 
 try:
 -- LifetimeComponent

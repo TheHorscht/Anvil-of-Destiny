@@ -20,7 +20,7 @@ const version = '1.3.0';
 const root_folder = __dirname;
 const ignore_list = [
   'node_modules',
-  'release',
+  'dist',
   'files/debug',
   'gimp',
   '.*',
