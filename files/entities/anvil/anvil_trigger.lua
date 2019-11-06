@@ -130,15 +130,15 @@ function collision_trigger(colliding_entity_id)
 end
 
 function finish(entity_id, x, y)
+  -- TODO: Dont remove collision trigger but instead luacomp
   GameScreenshake(20, x, y)
   GamePrintImportant("A gift from the gods", "")
   GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/fanfare", x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
-  edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
-    EntityRemoveComponent(entity_id, comp)
-  end)
+  local lua_component_anvil_trigger = EntityGetFirstComponent(entity_id, "LuaComponent", "lua_component_anvil_trigger")
+  EntityRemoveComponent(entity_id, lua_component_anvil_trigger)
 end
 
 function hide_wand(wand_id)
