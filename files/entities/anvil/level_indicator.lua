@@ -67,7 +67,6 @@ else
   -- Remove itself and add level_indicator_trigger
   EntityRemoveComponent(entity_id, GetUpdatedComponentID())
   local level_indicator_trigger = EntityAddComponent(entity_id, "LuaComponent", {
-    _tags="level_indicator_trigger",
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/level_indicator_trigger.lua",
   })
 end
