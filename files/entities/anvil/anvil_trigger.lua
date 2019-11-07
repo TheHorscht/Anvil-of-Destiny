@@ -201,6 +201,10 @@ function get_sign(num)
 end
 
 function buff_wand_slighty(wand_id)
+  local x, y = EntityGetTransform(wand_id)
+  if type(x) == "number" and type(y) == number then
+    SetRandomSeed(x, y)
+  end
   local rng = create_normalized_random_distribution(5)
   local props = wand_get_properties(wand_id)
   local buff_percent = config_regular_wand_buff_percent / 100
@@ -232,6 +236,7 @@ function create_normalized_random_distribution(count)
 end
 
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
+  SetRandomSeed(x, y)
   local rng = create_normalized_random_distribution(5)
   local wand_id = get_state().first_wand_id
   local props = wand_get_properties(wand_id)
