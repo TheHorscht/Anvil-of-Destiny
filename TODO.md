@@ -1,7 +1,7 @@
 - Change the wand level logic?
 - Make anvil indestructible by black holes etc
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
-- BUG: In dev mode, while holding a level > 0 wand and teleporting, on player re-spawning attaches level 0 to all held wands
+- When buffing reload time and cast delay, use same algo as spread as to not go towards 0 when buffing negative values
 
 try:
 -- LifetimeComponent

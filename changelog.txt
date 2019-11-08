@@ -1,3 +1,8 @@
+UNRELEASED:
+- FIX: Wands in the players inventory should not have their level reset to level 0 on respawn (e.g.: Save&Quit + Resume)
+- FIX: Anvil state was never actually saved and restored on save&quit... huh, it should now
+- FIX: More improvements to hit detection etc...
+
 v1.3.0:
 - Using two level 6 wands in a recipe will now always add one extra permanently attached spell
 - Standing on top of the anvil will now show you the level of the wand currently held in your hand
