@@ -2,31 +2,32 @@ dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
 dofile("mods/anvil_of_destiny/files/wand_utils.lua")
 dofile("mods/anvil_of_destiny/config.lua")
+dofile("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
+dofile("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 -- dofile("data/scripts/lib/coroutines.lua")
-
-if g_mymod_anvil_state == nil then
-  g_mymod_anvil_state = {}
-end
 
 function init_state()
   local entity_id = GetUpdatedEntityID()
-  if g_mymod_anvil_state[entity_id] == nil then
-    g_mymod_anvil_state[entity_id] = {
-      collider_ticks = 0,
-      wands_sacrificed = 0,
-      tablets_sacrificed = 0,
-      level_low = 999,
-      level_high = -1,
-      first_wand_id = nil,
-      level_indicator = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator"),
-      level_indicator_number = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator_number")
-    }
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
+  if g_collider_ticks == nil then
+    g_collider_ticks = {}
+  end
+  if g_collider_ticks[entity_id] == nil then
+    g_collider_ticks[entity_id] = 0
+  end
+  if STATE_STORE.wands_sacrificed == nil then
+    STATE_STORE.wands_sacrificed = 0
+    STATE_STORE.tablets_sacrificed = 0
+    STATE_STORE.level_low = 999
+    STATE_STORE.level_high = -1
+    STATE_STORE.first_wand_tag = nil
   end
 end
 
 function get_state()
   local entity_id = GetUpdatedEntityID()
-  return g_mymod_anvil_state[entity_id]
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
+  return STATE_STORE
 end
 
 -- TODO: Extract this function so wand_utils or something
@@ -38,12 +39,25 @@ function get_wand_level(entity_id)
   end
 end
 
+function generate_unique_id(len, x, y)
+  SetRandomSeed(x, y)
+  local chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  local char_count = string.len(chars)
+  local output = ""
+  for i=1,len do
+    local randIndex = Random(char_count)
+    output = output .. string.sub(chars, randIndex, randIndex)
+  end
+  return output
+end
+
 function collision_trigger(colliding_entity_id)
+  local entity_id = GetUpdatedEntityID()
   init_state()
-  get_state().collider_ticks = get_state().collider_ticks + 1
+  g_collider_ticks[entity_id] = g_collider_ticks[entity_id] + 1
   -- while something is colliding, do our own custom "collision" check 10 times per second, to get ALL items instead of just one
-  if get_state().collider_ticks % 6 == 0 then
-    local entity_id = GetUpdatedEntityID()
+  if g_collider_ticks[entity_id] % 60 == 0 then
+    print("running in % 60 trigger")
     local x, y = EntityGetTransform(entity_id)
     local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
     -- local player = EntityGetWithTag("player_unit")[1]
@@ -55,7 +69,13 @@ function collision_trigger(colliding_entity_id)
         if wand_level ~= nil then
           get_state().wands_sacrificed = get_state().wands_sacrificed + 1
           if get_state().wands_sacrificed == 1 then
-            get_state().first_wand_id = v
+            local x, y = EntityGetTransform(colliding_entity_id)
+            local unique_tag = generate_unique_id(8, x, y)
+            print("UNIQUE_TAG: " ..  unique_tag)
+            -- Add a tag to the wand so we can get it anytime, even after a game relaunch
+            EntityAddTag(v, unique_tag)
+            get_state().first_wand_tag = unique_tag
+            print("success setting wand tag")
             hide_wand(v)
           else
             EntityKill(v)
@@ -102,29 +122,29 @@ function collision_trigger(colliding_entity_id)
     end
 
     local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
+    print("found " .. #tablets .. " tablets")
     for i, v in ipairs(tablets) do
-      if EntityGetParent(v) ~= 0 then
-        break
-      end
-      if get_state().tablets_sacrificed < 2 then
-        EntityKill(v)
-        get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
-        GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
-        -- TODO: make this sound higher on second tablet to indicate more power!
-      end
-      if get_state().tablets_sacrificed == 1 then
-        EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
-      elseif get_state().tablets_sacrificed == 2 then
-        if get_state().wands_sacrificed == 0 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
-        else
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-          buff_stored_wand_and_respawn_it(entity_id, x, y)
+      if EntityGetParent(v) == 0 then
+        if get_state().tablets_sacrificed < 2 then
+          EntityKill(v)
+          get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
+          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+          -- TODO: make this sound higher on second tablet to indicate more power!
         end
-      elseif get_state().tablets_sacrificed == 3 then
-        -- TODO: Explode!
+        if get_state().tablets_sacrificed == 1 then
+          EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
+        elseif get_state().tablets_sacrificed == 2 then
+          if get_state().wands_sacrificed == 0 then
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
+          else
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
+            EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+            buff_stored_wand_and_respawn_it(entity_id, x, y)
+          end
+        elseif get_state().tablets_sacrificed == 3 then
+          -- TODO: Explode!
+        end
       end
     end
   end
@@ -154,11 +174,23 @@ end
 
 function hide_wand(wand_id)
   -- Just yeet the wand into the nether and make it float there forever
-  EntitySetTransform(wand_id, 200000, 200000)
+  -- EntitySetTransform(wand_id, 200000, 200000)
+  local anvil_id = GetUpdatedEntityID()
+  local x, y = EntityGetTransform(anvil_id)
+  EntitySetTransform(wand_id, x, y - 100)
   -- Disable physics to stop it from falling endlessly
   edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
     print("SimplePhysicsComponent: " .. comp)
+  end)
+  edit_component(wand_id, "ItemComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+  edit_component(wand_id, "SpriteComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+  edit_component(wand_id, "LightComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
   end)
 end
 
@@ -238,7 +270,11 @@ end
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
   SetRandomSeed(x, y)
   local rng = create_normalized_random_distribution(5)
-  local wand_id = get_state().first_wand_id
+  local wand_id = EntityGetWithTag(get_state().first_wand_tag)
+  print("looking for tag: " .. get_state().first_wand_tag)
+  print("FUCK")
+  print("#wand_id: " .. #wand_id)
+  wand_id = wand_id[1]
   local props = wand_get_properties(wand_id)
   local spells, attached_spells = wand_get_spells(wand_id)
   local buff_percent = config_improved_wand_buff_percent / 100
@@ -256,5 +292,6 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
 
   wand_set_properties(wand_id, props)
   wand_restore_to_unpicked_state(wand_id, x, y)
+  EntityRemoveTag(wand_id, get_state().first_wand_tag)
   finish(entity_id, x, y)
 end

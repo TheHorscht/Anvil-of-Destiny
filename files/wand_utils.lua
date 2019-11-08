@@ -6,6 +6,41 @@ function wand_entity_is_wand(entity_id)
 	local comp = EntityGetComponent(entity_id, "ManaReloaderComponent")
 	return comp ~= nil
 end
+-- Returns a rough estimate of the wand "level"
+function wand_get_level(wand_id)
+	-- If we already computed the level before, just retrieve it
+	local tags = EntityGetTags(wand_id)
+	-- local tags = "bla,[init],whatever,anvil_of_destiny_wand_level_8,somemore"
+	local _, str_end  = string.find(tags, "anvil_of_destiny_wand_level_")
+	local wand_level = nil
+	if str_end ~= nil then
+		-- Tag already present, get the level
+		wand_level = string.sub(tags, str_end+1, str_end+1)
+	end
+
+	if wand_level ~= nil then
+		return wand_level
+	else
+		return wand_compute_level(wand_id)
+	end
+
+	return nil
+end
+-- Returns a rough estimate of the wand "level" by looking at the stats
+function wand_compute_level(wand_id)
+	local props = wand_get_properties(wand_id)
+	-- First, check if it's one of the coalmine pre-defined wands in data/scripts/gun/procedural/level_1_wand.lua
+	local mana_charge_speed_thresholds = { 55, 100, 150, 200, 250, 300, 350 }
+	local wand_level = -1
+	for i, v in ipairs(mana_charge_speed_thresholds) do
+		if tonumber(props.ability_component_members.mana_charge_speed) <= v then
+			-- print(tonumber(props.ability_component_members.mana_charge_speed))
+			wand_level = i - 1
+			break
+		end
+	end
+	return wand_level
+end
 -- Just for convenience so we can use a similarly named function
 function wand_add_spell(wand_id, spell)
 	AddGunAction(wand_id, spell)
@@ -149,6 +184,15 @@ function wand_restore_to_unpicked_state(wand_id, x, y)
 	local hotspot_comp = get_component_with_member(wand_id, "sprite_hotspot_name")
 	EntitySetComponentIsEnabled(wand_id, hotspot_comp, true)
 	print("hotspot_comp: " .. hotspot_comp)
+
+  local item_component = get_component_with_member(wand_id, "collect_nondefault_actions")
+	EntitySetComponentIsEnabled(wand_id, item_component, true)
+	
+	local sprite_component = get_component_with_member(wand_id, "rect_animation")
+	EntitySetComponentIsEnabled(wand_id, sprite_component, true)
+
+	local light_component = get_component_with_member(wand_id, "blinking_freq")
+	EntitySetComponentIsEnabled(wand_id, light_component, true)
 
 	edit_component(wand_id, "ItemComponent", function(comp, vars)
 		ComponentSetValue(comp, "has_been_picked_by_player", "0")
