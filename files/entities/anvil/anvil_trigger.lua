@@ -89,6 +89,7 @@ function collision_trigger(colliding_entity_id)
           elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
             buff_stored_wand_and_respawn_it(entity_id, x, y)
+            finish(entity_id, x, y)
           elseif get_state().wands_sacrificed == 2 then
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
             local wand_level_to_spawn = get_state().level_low + 1
@@ -136,6 +137,7 @@ function collision_trigger(colliding_entity_id)
             EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
             buff_stored_wand_and_respawn_it(entity_id, x, y)
+            finish(entity_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
           -- TODO: Explode!
@@ -172,7 +174,7 @@ function hide_wand(wand_id)
   local anvil_id = GetUpdatedEntityID()
   local x, y = EntityGetTransform(anvil_id)
   EntitySetTransform(wand_id, x, y - 100)
-  -- Disable physics to keet it floating
+  -- Disable physics to keep it floating
   edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
   end)
@@ -227,7 +229,7 @@ end
 
 function buff_wand_slighty(wand_id)
   local x, y = EntityGetTransform(wand_id)
-  if type(x) == "number" and type(y) == number then
+  if type(x) == "number" and type(y) == "number" then
     SetRandomSeed(x, y)
   end
   local rng = create_normalized_random_distribution(5)
@@ -283,5 +285,4 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
   wand_set_properties(wand_id, props)
   wand_restore_to_unpicked_state(wand_id, x, y)
   EntityRemoveTag(wand_id, get_state().first_wand_tag)
-  finish(entity_id, x, y)
 end
