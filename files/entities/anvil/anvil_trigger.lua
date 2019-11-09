@@ -56,8 +56,7 @@ function collision_trigger(colliding_entity_id)
   init_state()
   g_collider_ticks[entity_id] = g_collider_ticks[entity_id] + 1
   -- while something is colliding, do our own custom "collision" check 10 times per second, to get ALL items instead of just one
-  if g_collider_ticks[entity_id] % 60 == 0 then
-    print("running in % 60 trigger")
+  if g_collider_ticks[entity_id] % 6 == 0 then
     local x, y = EntityGetTransform(entity_id)
     local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
     -- local player = EntityGetWithTag("player_unit")[1]
@@ -71,11 +70,9 @@ function collision_trigger(colliding_entity_id)
           if get_state().wands_sacrificed == 1 then
             local x, y = EntityGetTransform(colliding_entity_id)
             local unique_tag = generate_unique_id(8, x, y)
-            print("UNIQUE_TAG: " ..  unique_tag)
             -- Add a tag to the wand so we can get it anytime, even after a game relaunch
             EntityAddTag(v, unique_tag)
             get_state().first_wand_tag = unique_tag
-            print("success setting wand tag")
             hide_wand(v)
           else
             EntityKill(v)
@@ -122,7 +119,6 @@ function collision_trigger(colliding_entity_id)
     end
 
     local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
-    print("found " .. #tablets .. " tablets")
     for i, v in ipairs(tablets) do
       if EntityGetParent(v) == 0 then
         if get_state().tablets_sacrificed < 2 then
@@ -173,15 +169,13 @@ function finish(entity_id, x, y)
 end
 
 function hide_wand(wand_id)
-  -- Just yeet the wand into the nether and make it float there forever
-  -- EntitySetTransform(wand_id, 200000, 200000)
+  -- teleport the wand 100 pixels above the anvil, and disable all components that make it visible
   local anvil_id = GetUpdatedEntityID()
   local x, y = EntityGetTransform(anvil_id)
   EntitySetTransform(wand_id, x, y - 100)
-  -- Disable physics to stop it from falling endlessly
+  -- Disable physics to keet it floating
   edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
-    print("SimplePhysicsComponent: " .. comp)
   end)
   edit_component(wand_id, "ItemComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
@@ -271,9 +265,6 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
   SetRandomSeed(x, y)
   local rng = create_normalized_random_distribution(5)
   local wand_id = EntityGetWithTag(get_state().first_wand_tag)
-  print("looking for tag: " .. get_state().first_wand_tag)
-  print("FUCK")
-  print("#wand_id: " .. #wand_id)
   wand_id = wand_id[1]
   local props = wand_get_properties(wand_id)
   local spells, attached_spells = wand_get_spells(wand_id)
