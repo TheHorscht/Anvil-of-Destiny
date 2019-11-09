@@ -59,7 +59,6 @@ function collision_trigger(colliding_entity_id)
   if g_collider_ticks[entity_id] % 6 == 0 then
     local x, y = EntityGetTransform(entity_id)
     local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
-    -- local player = EntityGetWithTag("player_unit")[1]
     local active_item_level = nil
     for i, v in ipairs(wands) do
       -- Check if wand is dropped on the floor
