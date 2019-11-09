@@ -161,12 +161,15 @@ function finish(entity_id, x, y)
     EntityRemoveComponent(entity_id, comp)
   end)
   -- Remove level indicator and hide it's things
-  local level_indicator = EntityGetFirstComponent(entity_id, "LuaComponent", "level_indicator")
-  EntityRemoveComponent(entity_id, level_indicator)
-  local level_indicator_prefix = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator")
-  local level_indicator_number = EntityGetFirstComponent(entity_id, "SpriteComponent", "level_indicator_number")
-  ComponentSetValue(level_indicator_prefix, "visible", "0")
-  ComponentSetValue(level_indicator_number, "visible", "0")
+  edit_component_with_tag(entity_id, "LuaComponent", "level_indicator", function(comp, vars)
+    EntityRemoveComponent(entity_id, comp)
+  end)
+  edit_component_with_tag(entity_id, "SpriteComponent", "level_indicator", function(comp, vars)
+    vars.visible = "0"
+  end)
+  edit_component_with_tag(entity_id, "SpriteComponent", "level_indicator_number", function(comp, vars)
+    vars.visible = "0"
+  end)
 end
 
 function hide_wand(wand_id)
@@ -263,7 +266,10 @@ function create_normalized_random_distribution(count)
 end
 
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
-  SetRandomSeed(x, y)
+  local x, y = EntityGetTransform(entity_id)
+  if type(x) == "number" and type(y) == "number" then
+    SetRandomSeed(x, y)
+  end
   local rng = create_normalized_random_distribution(5)
   local wand_id = EntityGetWithTag(get_state().first_wand_tag)
   wand_id = wand_id[1]

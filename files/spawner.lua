@@ -10,5 +10,5 @@ end
 function spawn_anvil( x, y )
 	local w = 78
 	local h = 37
-	EntityLoad("mods/anvil_of_destiny/files/entities/anvil/anvil.xml", x, y - (h / 2))
+	EntityLoad("mods/anvil_of_destiny/files/entities/anvil/anvil.xml", x, y - (h / 2) + 1)
 end
