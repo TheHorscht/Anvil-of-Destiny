@@ -16,7 +16,7 @@ args.forEach(val => {
 // Config
 const out_dir = __dirname + '/dist';
 const name = 'anvil_of_destiny';
-const version = '1.3.0';
+const version = '1.3.1';
 const root_folder = __dirname;
 const ignore_list = [
   'node_modules',
@@ -32,6 +32,8 @@ const ignore_list = [
   'TODO.md',
   '**/boop1.txt',
   'package*.json',
+  'rune_alphabet.png',
+  'Modworkshop Readme.txt'
 ];
 // Config end
 
