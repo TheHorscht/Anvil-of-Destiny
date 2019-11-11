@@ -1,3 +1,5 @@
+dofile("mods/anvil_of_destiny/files/wand_utils.lua")
+
 local entity_id = GetUpdatedEntityID()
 
 if g_mymod_anvil_state == nil then
@@ -32,11 +34,12 @@ function is_active_item(entity_id)
 end
 
 function get_wand_level(entity_id)
-  for i=0,6 do
+  return wand_get_level(entity_id)
+  --[[ for i=0,6 do
     if EntityHasTag(entity_id, "wand_level_"..i) then
       return i
     end
-  end
+  end ]]
 end
 
 

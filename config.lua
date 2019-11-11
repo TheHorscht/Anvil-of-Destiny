@@ -30,7 +30,7 @@ config_can_generate_shuffle_wands = false
 -- Spread - 1%
 
 -- By how much percent a new wand with 0 or 1 tablets sacrificed should be buffed
-config_regular_wand_buff_percent = 25
+config_regular_wand_buff_percent = 100
 
 -- By how much percent a wand should get buffed with 2 tablets
 config_improved_wand_buff_percent = 40
