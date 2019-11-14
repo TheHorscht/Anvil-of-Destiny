@@ -122,22 +122,19 @@ Spread              0.0deg				 7%
 
 	return score
 end
--- Just for convenience so we can use a similarly named function
-function wand_add_spell(wand_id, spell)
-	AddGunAction(wand_id, spell)
-end
--- Add an always cast spell without sacrificing a slot
-function wand_add_always_cast_spell(wand_id, spell)
-	-- Extend slots
-	local ability_comp = wand_get_ability_component(wand_id)
-	if ability_comp then
-		local capacity = ComponentObjectGetValue(ability_comp, "gun_config", "deck_capacity")
-		ComponentObjectSetValue(ability_comp, "gun_config", "deck_capacity", capacity + 1)
-		AddGunActionPermanent(wand_id, spell)
+-- Add a spell or an always cast spell without sacrificing a slot
+function wand_add_spell(wand_id, spell, attach)
+	attach = attach or false
+	if not attach then
+		AddGunAction(wand_id, spell)
 	else
-		local error_msg = "Error: wand_add_always_cast_spell() - AbilityComponent not found!"
-		-- GamePrint(error_msg)
-		print(error_msg)
+		-- Extend slots
+		local ability_comp = wand_get_ability_component(wand_id)
+		if ability_comp then
+			local capacity = ComponentObjectGetValue(ability_comp, "gun_config", "deck_capacity")
+			ComponentObjectSetValue(ability_comp, "gun_config", "deck_capacity", capacity + 1)
+			AddGunActionPermanent(wand_id, spell)
+		end
 	end
 end
 -- Remove all spells from a wand. All, only slotted, or only always cast spells.
@@ -247,7 +244,7 @@ function _buff_wand(wand_id)
 	props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * 0.8
 
 	wand_set_properties(wand_id, props)
-	wand_add_always_cast_spell(wand_id, "BLACK_HOLE")
+	wand_add_spell(wand_id, "BLACK_HOLE", true)
 	wand_add_spell(wand_id, "CHAOS_POLYMORPH_FIELD")
 end
 
@@ -411,10 +408,10 @@ function wand_merge(wand_id1, wand_id2, x, y)
   
   local capped_level = math.min(average_level + 1, 6)
   for i,v in ipairs(always_attached_spells1) do
-    wand_add_always_cast_spell(generated_wand, v.action_id)
+    wand_add_spell(generated_wand, v.action_id, true)
   end
   for i,v in ipairs(always_attached_spells2) do
-    wand_add_always_cast_spell(generated_wand, v.action_id)
+    wand_add_spell(generated_wand, v.action_id, true)
   end
 
   average_spell_count = math.min(average_spell_count, tonumber(props.gun_config.deck_capacity))
@@ -491,7 +488,7 @@ function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attache
   -- Attach always cast spells maybe
   for i=1, always_attached_spells_count do
     local action = get_random_action(level, 1, 1, 1, i)
-    wand_add_always_cast_spell(wand_id, action)
+    wand_add_spell(wand_id, action, true)
   end
 
 	-- This is so we get more variety, which might be interesting

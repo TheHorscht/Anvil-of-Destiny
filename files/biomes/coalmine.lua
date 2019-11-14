@@ -1,6 +1,6 @@
-dofile("mods/anvil_of_destiny/files/spawner.lua")
-dofile("mods/anvil_of_destiny/files/probability_util.lua")
-dofile("mods/anvil_of_destiny/files/wang_utils.lua")
+dofile("mods/anvil_of_destiny/files/scripts/spawner.lua")
+dofile("mods/anvil_of_destiny/files/scripts/probability_util.lua")
+dofile("mods/anvil_of_destiny/files/scripts/wang_utils.lua")
 dofile("mods/anvil_of_destiny/config.lua")
 --[[ This is a scene which loads the altar pixel scene which loads the anvil ]]
 

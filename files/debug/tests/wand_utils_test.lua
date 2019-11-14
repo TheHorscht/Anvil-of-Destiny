@@ -1,10 +1,7 @@
-dofile("mods/anvil_of_destiny/files/wand_utils.lua")
+dofile("mods/anvil_of_destiny/files/scripts/wand_utils.lua")
 
--- Just for convenience so we can use a similarly named function
+-- Add a spell or an always cast spell without sacrificing a slot
 -- function wand_add_spell(wand_id, spell)
-
--- Add an always cast spell without sacrificing a slot
--- function wand_add_always_cast_spell(wand_id, spell)
 
 -- Remove all spells from a wand. All, only slotted, or only always cast spells.
 -- function wand_remove_all_spells(wand_id, remove_slotted_spells, remove_always_cast_spells)

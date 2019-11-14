@@ -1,5 +1,5 @@
 dofile("mods/anvil_of_destiny/files/debug/dummy_spawners.lua")
-dofile("mods/anvil_of_destiny/files/spawner.lua")
+dofile("mods/anvil_of_destiny/files/scripts/spawner.lua")
 
 RegisterSpawnFunction( 0xffffeedd, "init" )
 RegisterSpawnFunction( 0xff37ec48, "spawn_tablet")

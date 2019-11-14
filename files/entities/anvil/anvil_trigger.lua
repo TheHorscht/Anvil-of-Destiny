@@ -1,6 +1,6 @@
 dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
-dofile("mods/anvil_of_destiny/files/wand_utils.lua")
+dofile("mods/anvil_of_destiny/files/scripts/wand_utils.lua")
 dofile("mods/anvil_of_destiny/files/scripts/wand_buff.lua")
 dofile("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
 dofile("mods/anvil_of_destiny/config.lua")
@@ -115,7 +115,7 @@ function path_one(entity_id, x, y)
   if get_state().tablets_sacrificed == 1 and always_cast_spells_count == 0 then
     local level = wand_compute_level(new_wand_id)
     local random_action = get_random_action(level, 1, 1, 1, x + y)
-    wand_add_always_cast_spell(new_wand_id, random_action)
+    wand_add_spell(new_wand_id, random_action, true)
   end
   wand_restore_to_unpicked_state(new_wand_id, x, y)
   finish(entity_id, x, y)
