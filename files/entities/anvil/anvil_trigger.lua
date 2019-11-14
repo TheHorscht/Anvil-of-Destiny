@@ -56,35 +56,9 @@ function collision_trigger(colliding_entity_id)
           GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-          buff_stored_wand_and_respawn_it(entity_id, x, y)
-          finish(entity_id, x, y)
+          path_two(entity_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
-          local shuffle = false
-          if config_can_generate_shuffle_wands then
-            if Random() < 0.5 then
-              shuffle = true
-            end
-          end
-          local perma_spell_count = 0
-          if get_state().tablets_sacrificed == 1 then
-            perma_spell_count = perma_spell_count + 1
-          end
-          local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
-          local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
-          local success, new_wand_id = pcall(function()
-            -- TODO: Add permaspell count and shuffle parameter
-            local buff_amount = config_regular_wand_buff_percent / 100
-            return combine_two_wands(stored_wand_id1, stored_wand_id2, buff_amount, x + 4, y - 100)
-          end)
-          if not success then
-            -- If the call was not successful, new_wand_id contains the error message
-            print(new_wand_id)
-          end
-          EntityKill(stored_wand_id1)
-          EntityKill(stored_wand_id2)
-          wand_restore_to_unpicked_state(new_wand_id, x + 4, y - 100)
-          finish(entity_id, x, y)
+          path_one(entity_id, x, y)
         end
       end
     end
@@ -106,8 +80,7 @@ function collision_trigger(colliding_entity_id)
             EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
             EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
             EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
-            buff_stored_wand_and_respawn_it(entity_id, x, y)
-            finish(entity_id, x, y)
+            path_two(entity_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
           -- TODO: Explode!?
@@ -116,7 +89,43 @@ function collision_trigger(colliding_entity_id)
     end
   end
 end
-
+-- Two wands
+function path_one(entity_id, x, y)
+  EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
+  local shuffle = false
+  if config_can_generate_shuffle_wands then
+    if Random() < 0.5 then
+      shuffle = true
+    end
+  end
+  local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
+  local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
+  local success, new_wand_id = pcall(function()
+    -- TODO: Add permaspell count and shuffle parameter
+    local buff_amount = config_regular_wand_buff_percent / 100
+    return combine_two_wands(stored_wand_id1, stored_wand_id2, buff_amount, x, y)
+  end)
+  if not success then
+    -- If the call was not successful, new_wand_id contains the error message
+    print(new_wand_id)
+  end
+  EntityKill(stored_wand_id1)
+  EntityKill(stored_wand_id2)
+  local always_cast_spells_count = wand_get_attached_spells_count(new_wand_id)
+  if get_state().tablets_sacrificed == 1 and always_cast_spells_count == 0 then
+    local level = wand_compute_level(new_wand_id)
+    local random_action = get_random_action(level, 1, 1, 1, x + y)
+    wand_add_always_cast_spell(new_wand_id, random_action)
+  end
+  wand_restore_to_unpicked_state(new_wand_id, x, y)
+  finish(entity_id, x, y)
+end
+-- 2 Tablet + 1 Wand
+function path_two(entity_id, x, y)
+  buff_stored_wand_and_respawn_it(entity_id, x, y)
+  finish(entity_id, x, y)
+end
+-- Play fanfare and make anvil un-reusable
 function finish(entity_id, x, y)
   -- TODO: Dont remove collision trigger but instead luacomp?
   GameScreenshake(20, x, y)
@@ -131,10 +140,10 @@ function finish(entity_id, x, y)
     EntityRemoveComponent(entity_id, comp)
   end)
 
-  get_state().wands_sacrificed = 0
+--[[   get_state().wands_sacrificed = 0
   get_state().tablets_sacrificed = 0
   get_state().first_wand_tag = nil
-  get_state().second_wand_tag = nil
+  get_state().second_wand_tag = nil ]]
 end
 -- "Hides" a wand by removing it's visible components and add a unique tag to it, so we can later retrieve it with EntityGetWithTag
 -- Returns the tag added
