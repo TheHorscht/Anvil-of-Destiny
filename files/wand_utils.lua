@@ -74,36 +74,8 @@ function wand_compute_level(wand_id)
 			return 0
 		end
 	end
-
 	-- Mana recharge goes in steps of 55
 	local mana_charge_speed_thresholds = { 55, 110, 165, 220, 275, 330 }
-
---[[ 
-	 	gun["mana_charge_speed"] = 50*level + Random(-5,5*level)
-	 	gun["mana_max"] = 50 + (150 * level) + (Random(-5,5)*10)
-
-	 	if( p < 20 ) then
-		 	gun["mana_charge_speed"] = ( 50*level + Random(-5,5*level) ) / 5
-			 gun["mana_max"] = ( 50 + (150 * level) + (Random(-5,5)*10) ) * 3
-			 
-
-		gun["mana_charge_speed"] = 50*level + Random(-5,5*level)
-		level 1		 45 -  55
-		level 2    95 - 110
-		level 3   145 - 165
-		level 4   195 - 220
-		level 5   245 - 275
-		level 6   295 - 330
-
-		gun["mana_max"] = 50 + (150 * level) + (Random(-5,5)*10)
-		level 1  150 - 250
-		level 2  300 - 400
-		level 3  450 - 550
-		level 4  600 - 700
-		level 5  750 - 850
-		level 6  900 - 1000
-
- ]]
 -- if mana max is 20x higher than charge speed, it's a "slow loader"
 	local wand_level = nil
 	local mana_charge_speed = tonumber(props.ability_component_members.mana_charge_speed)
@@ -114,13 +86,6 @@ function wand_compute_level(wand_id)
 		mana_charge_speed = mana_charge_speed * 5
 		mana_max = mana_max / 3
 	end
-
---[[ 	for i, v in ipairs(mana_charge_speed_thresholds) do
-		if mana_charge_speed <= v then
-			wand_level = i
-			break
-		end
-	end ]]
 	-- Clamp the max level to 6 for now
 	return math.min(6, math.ceil(mana_charge_speed / 55))
 end
@@ -137,6 +102,7 @@ function wand_calculate_score(wand_id)
 	local fire_rate_wait = tonumber(props.gunaction_config.fire_rate_wait)
 	
 --[[ 
+															Weights
 Spells/Cast        4							 7%
 Cast Delay         0.17s					16%
 Recharge Time      1.18s					16%
@@ -427,7 +393,8 @@ function action_get_by_id(action_id)
 		end
 	end
 end
-
+-- Generates and spawns a new wand based on the average stats of the input wands
+-- Re-adds spells randomly picked 50% from wand1 and wand2
 function wand_merge(wand_id1, wand_id2, x, y)
   local generated_wand = EntityLoad("data/entities/items/wand_level_04.xml", x, y)
   local props = wand_get_average_stats(wand_id1, wand_id2)
@@ -464,7 +431,8 @@ function wand_merge(wand_id1, wand_id2, x, y)
 
   return generated_wand
 end
-
+-- Increases the stats of a wand by buff_amount split across 5 stats
+-- A buff_amount of 1 means an increase of 100% split by 5 = roughly 20% of each stat
 function wand_buff(wand_id, buff_amount, flat_buff_amounts, seed_x, seed_y)
 	flat_buff_amounts = flat_buff_amounts or {}
 	flat_buff_amounts.mana_charge_speed = flat_buff_amounts.mana_charge_speed or Random(40, 60)
@@ -516,7 +484,7 @@ function action_get_level(action)
 	local avg = math.ceil(math_average(levels))
 	return math.min(6, math.max(1, avg))
 end
-
+-- Fills a wand with spells that aren't too chaotic, based on level and "controlled" randomness
 function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attached_spells_count, level)
 	local props = wand_get_properties(wand_id)
 	level = math.min(6, level)
@@ -562,7 +530,7 @@ function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attache
     wand_add_spell(wand_id, action)
   end
 end
-
+-- Returns a random spell based on specified chances by type
 function get_random_action(level, chance_projectile, chance_modifier, chance_draw_many, seed)
   local rand_spell_roll = Random()
   local chances = { chance_projectile, chance_modifier, chance_draw_many }
