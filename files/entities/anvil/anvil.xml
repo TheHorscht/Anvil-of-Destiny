@@ -20,30 +20,6 @@
     >
   </PhysicsImageShapeComponent>
 
-  <!-- Wand level indicator "Level" -->
-
-  <SpriteComponent
-    _tags="level_indicator"
-    image_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.xml"
-    visible="0"
-    offset_y="45"
-    offset_x="9"
-    rect_animation="level"
-    >
-  </SpriteComponent>
-
-  <!-- Wand level indicator number -->
-
-  <SpriteComponent
-    _tags="level_indicator_number"
-    image_file="mods/anvil_of_destiny/files/entities/anvil/level_indicator.xml"
-    visible="0"
-    offset_y="45"
-    offset_x="-14"
-    rect_animation="1"
-    >
-  </SpriteComponent>
-
   <!-- Wand 1 sacrificed indicator -->
 
   <Base file="mods/anvil_of_destiny/files/entities/anvil/rune_emitter.xml">
@@ -195,11 +171,6 @@
   <LuaComponent
     _tags="lua_component_anvil_trigger"
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
-    >
-  </LuaComponent>
-
-  <LuaComponent
-    script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/level_indicator_trigger.lua"
     >
   </LuaComponent>
 

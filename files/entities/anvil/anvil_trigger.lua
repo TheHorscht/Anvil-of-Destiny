@@ -40,7 +40,6 @@ function collision_trigger(colliding_entity_id)
   if g_collider_ticks[entity_id] % 6 == 0 then
     local x, y = EntityGetTransform(entity_id)
     local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
-    local active_item_level = nil
     for i, v in ipairs(wands) do
       -- Check if wand is dropped on the floor
       if EntityGetParent(v) == 0 then
@@ -129,17 +128,7 @@ function finish(entity_id, x, y)
   --[[ local lua_component_anvil_trigger = EntityGetFirstComponent(entity_id, "LuaComponent", "lua_component_anvil_trigger")
   EntityRemoveComponent(entity_id, lua_component_anvil_trigger) ]]
   edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
-    --EntityRemoveComponent(entity_id, comp)
-  end)
-  -- Remove level indicator and hide it's things
-  edit_component_with_tag(entity_id, "LuaComponent", "level_indicator", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
-  end)
-  edit_component_with_tag(entity_id, "SpriteComponent", "level_indicator", function(comp, vars)
-    vars.visible = "0"
-  end)
-  edit_component_with_tag(entity_id, "SpriteComponent", "level_indicator_number", function(comp, vars)
-    vars.visible = "0"
   end)
 
   get_state().wands_sacrificed = 0
