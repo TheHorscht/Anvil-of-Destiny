@@ -9,26 +9,6 @@ function wand_entity_is_wand(entity_id)
 	local comp = EntityGetComponent(entity_id, "ManaReloaderComponent")
 	return comp ~= nil
 end
--- Specific to Anvil of Destiny, returns the stored wand level or computes a rough estimate
-function wand_get_level(wand_id)
-	-- If we already computed the level before, just retrieve it
-	local tags = EntityGetTags(wand_id)
-	-- local tags = "bla,[init],whatever,anvil_of_destiny_wand_level_8,somemore"
-	local _, str_end  = string.find(tags, "anvil_of_destiny_wand_level_")
-	local wand_level = nil
-	if str_end ~= nil then
-		-- Tag already present, get the level
-		wand_level = string.sub(tags, str_end+1, str_end+1)
-	end
-
-	if wand_level ~= nil then
-		return wand_level
-	else
-		return wand_compute_level(wand_id)
-	end
-
-	return nil
-end
 -- Returns an averga of both wands stats. WARNING! Only averages handpicked values (see function body)
 function wand_get_average_stats(wand_id1, wand_id2)
 	local props1 = wand_get_properties(wand_id1)
@@ -87,7 +67,7 @@ function wand_compute_level(wand_id)
 		{ "data/items_gfx/wands/wand_0898.png", "Solid Rapid bolt wand"},
 		{ "data/items_gfx/wands/wand_0724.png", "Turbo Rapid bolt wand"},
 	}
-
+	-- Check if the attributes match one of the coalmine wands, if so it's a coalmine wand, aka level 0
 	for i, v in ipairs(coalmine_wand_uniques) do
 		if props.ability_component_members.sprite_file == v[1]
 			 and props.ability_component_members.ui_name == v[2] then
@@ -144,7 +124,7 @@ function wand_compute_level(wand_id)
 	-- Clamp the max level to 6 for now
 	return math.min(6, math.ceil(mana_charge_speed / 55))
 end
--- UNUSED -- Self explanatory
+-- UNUSED -- Should return a rough score of how good a wand is
 function wand_calculate_score(wand_id)
 	local score = 0
 	local props = wand_get_properties(wand_id)
@@ -283,13 +263,14 @@ function wand_get_properties(wand_id)
 end
 
 function wand_set_properties(wand_id, props)
+	props = props or {}
 	local ability_comp = wand_get_ability_component(wand_id)
-	ability_component_set_members(ability_comp, props.ability_component_members)
-	ability_component_set_gun_config(ability_comp, props.gun_config)
-	ability_component_set_gunaction_config(ability_comp, props.gunaction_config)
+	ability_component_set_members(ability_comp, props.ability_component_members or {})
+	ability_component_set_gun_config(ability_comp, props.gun_config or {})
+	ability_component_set_gunaction_config(ability_comp, props.gunaction_config or {})
 end
 -- Just an example on how to buff a wand
-function buff_wand(wand_id)
+function _buff_wand(wand_id)
 	local props = wand_get_properties(wand_id)
 	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * 1.2
 	props.ability_component_members.mana_max = props.ability_component_members.mana_max * 1.2
@@ -302,17 +283,6 @@ function buff_wand(wand_id)
 	wand_set_properties(wand_id, props)
 	wand_add_always_cast_spell(wand_id, "BLACK_HOLE")
 	wand_add_spell(wand_id, "CHAOS_POLYMORPH_FIELD")
-end
-
-function get_component_with_member(entity_id, member_name)
-	local components = EntityGetAllComponents(entity_id)
-	for _, component_id in ipairs(components) do
-		for k, v in pairs(ComponentGetMembers(component_id)) do
-			if(k == member_name) then
-				return component_id
-			end
-		end
-	end
 end
 
 function wand_restore_to_unpicked_state(wand_id, x, y)
@@ -449,7 +419,7 @@ function wand_print_debug_info(wand_id)
 	print("-- always_cast_spells --")
 	debug_print_table(always_cast_spells)
 end
-
+-- Returns an entry of data/scripts/gun/gun_actions.lua
 function action_get_by_id(action_id)
 	for i, action in ipairs(actions) do
 		if (action.id == action_id) then
@@ -497,11 +467,11 @@ end
 
 function wand_buff(wand_id, buff_amount, flat_buff_amounts, seed_x, seed_y)
 	flat_buff_amounts = flat_buff_amounts or {}
-	flat_buff_amounts.mana_charge_speed = flat_buff_amounts.mana_charge_speed or 50
-	flat_buff_amounts.mana_max = flat_buff_amounts.mana_max or 25
-	flat_buff_amounts.reload_time = flat_buff_amounts.reload_time or 1
-	flat_buff_amounts.fire_rate_wait = flat_buff_amounts.fire_rate_wait or 1
-	flat_buff_amounts.spread_degrees = flat_buff_amounts.spread_degrees or 5
+	flat_buff_amounts.mana_charge_speed = flat_buff_amounts.mana_charge_speed or Random(40, 60)
+	flat_buff_amounts.mana_max = flat_buff_amounts.mana_max or Random(25, 40)
+	flat_buff_amounts.reload_time = flat_buff_amounts.reload_time or Random(1, 2)
+	flat_buff_amounts.fire_rate_wait = flat_buff_amounts.fire_rate_wait or Random(1, 2)
+	flat_buff_amounts.spread_degrees = flat_buff_amounts.spread_degrees or Random(4, 8)
 	SetRandomSeed(seed_x, seed_y)
   local rng = create_normalized_random_distribution(5, 0.4)
   local props = wand_get_properties(wand_id)
@@ -509,14 +479,11 @@ function wand_buff(wand_id, buff_amount, flat_buff_amounts, seed_x, seed_y)
     rng[i] = rng[i] - 0.1 -- Remove 10% of each stat
   end
 	buff_amount = buff_amount + 0.5 -- Add the removed 5x10% back ]]
-
 	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1 + rng[1] * buff_amount) 
 	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed + flat_buff_amounts.mana_charge_speed
 	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1 + rng[2] * buff_amount)
 	props.ability_component_members.mana_max = props.ability_component_members.mana_max + flat_buff_amounts.mana_max
   props.ability_component_members.mana = props.ability_component_members.mana_max
-  -- Turn it into a no shuffle wand? yes
-  props.gun_config.shuffle_deck_when_empty = "0"
 	local sign = get_sign(props.gun_config.reload_time)
 	if sign == 1 then
 		props.gun_config.reload_time = props.gun_config.reload_time / (1 + rng[3] * buff_amount) --  0.50s + 100% buff = 0.25s
@@ -543,65 +510,11 @@ function wand_buff(wand_id, buff_amount, flat_buff_amounts, seed_x, seed_y)
 	
   return generated_wand
 end
-
+-- Returns a spells average "level" based on spawn_level, which is the level of wands it can spawn in, for instance "3,4,5"
 function action_get_level(action)
 	local levels = string_split(action.spawn_level, ",")
 	local avg = math.ceil(math_average(levels))
 	return math.min(6, math.max(1, avg))
-end
-
-function anvil_combine_two_wands(wand_id1, wand_id2, x, y)
-	local spells1, always_attached_spells1 = wand_get_spells(wand_id1)
-	local spells2, always_attached_spells2 = wand_get_spells(wand_id2)
-	local wand_id = wand_merge(wand_id1, wand_id2)
-	wand_buff(wand_id, 1, nil, x, y) -- TODO: Seed this with something different?
-	local props = wand_get_properties(wand_id)
-	-- Increase slots by 1 for each 4 slots
-	local capacity_old = props.gun_config.deck_capacity
-	props.gun_config.deck_capacity = props.gun_config.deck_capacity + math.ceil(props.gun_config.deck_capacity / 4)
-	-- Limit capacity to 26 or the old capacity, we don't want to reduce the capacity in case the wand already had more slots to begin with
-	props.gun_config.deck_capacity = math.min(math.max(26, capacity_old), props.gun_config.deck_capacity)
-	wand_set_properties(wand_id, props)
-	wand_remove_all_spells(wand_id, true, true)
-	-- ############################
-	-- ###### Regular spells ######
-	-- ############################
-	local average_spell_count = math.ceil((#spells1 + #spells2) / 2)
-	for i,v in ipairs(spells1) do
-		table.insert(spells2, v)
-	end
-	-- Calculate the average spell level, so we can fill the resulting wand with spells of a similar level
-	local spell_levels = {}
-	for i,v in ipairs(spells2) do
-		local action = action_get_by_id(v.action_id)
-		table.insert(spell_levels, action_get_level(action))
-	end
-	local average_spell_level = math.ceil(math_average(spell_levels))
-	-- For every 4 spells add one bonus spell on the house
-	local spells_to_add_count = average_spell_count + math.ceil(average_spell_count / 4)
-	-- Make sure we don't add more spells than capacity
-	spells_to_add_count = math.min(props.gun_config.deck_capacity, spells_to_add_count)
-	-- ################################
-	-- ###### Always cast spells ######
-	-- ################################
-	local average_always_cast_spell_count = (#always_attached_spells1 + #always_attached_spells2) / 2
-	for i,v in ipairs(always_attached_spells1) do
-		table.insert(always_attached_spells2, v)
-	end
-	-- Calculate the average spell level, so we can fill the resulting wand with spells of a similar level
-	local always_cast_spell_levels = {}
-	for i,v in ipairs(always_attached_spells2) do
-		local action = action_get_by_id(v.action_id)
-		table.insert(always_cast_spell_levels, action_get_level(action))
-	end
-	local average_always_cast_spell_level = math.ceil(math_average(always_cast_spell_levels))
-	-- Make it so at odd counts of spells, we randomly round up or down
-	-- e.g.: 1 always cast spell has a 50% chance of resulting in 0 or 1
-	-- e.g.: 3 always cast spells have a 50% chance of resulting in 1 or 2
-	local always_cast_spells_to_add_count = Random(math.floor(average_always_cast_spell_count), math.ceil(average_always_cast_spell_count))
-	wand_fill_with_semi_random_spells(wand_id, spells_to_add_count, always_cast_spells_to_add_count, average_spell_level)
-
-	return wand_id
 end
 
 function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attached_spells_count, level)
@@ -640,8 +553,8 @@ function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attache
           -- Has enough mana, we're done
           break
         end
-        -- If not then reroll
-        action = GetRandomActionWithType(x, y, randomly_alter_level(level), ACTION_TYPE_PROJECTILE, seed)
+        -- If not then reroll with lower level
+        action = GetRandomActionWithType(x, y, randomly_alter_level(level-(i-1)), ACTION_TYPE_PROJECTILE, seed)
       end
     else
       action = get_random_action(randomly_alter_level(level), 8, 1, 2, seed)
