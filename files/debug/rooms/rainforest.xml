@@ -3,7 +3,7 @@
     name="_EMPTY_"
     type="BIOME_WANG_TILE"
     background_image="data/weather_gfx/background_rainforest.png"
-    lua_script="mods/anvil_of_destiny/files/debug/debug_room_rainforest_v.lua"
+    lua_script="mods/anvil_of_destiny/files/debug/rooms/rainforest.lua"
     >
     <BitmapCaves
     DEBUG_output_image=""

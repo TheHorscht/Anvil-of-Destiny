@@ -18,7 +18,7 @@ RegisterSpawnFunction( 0xff37ec25, "spawn_wand_5_no_shuffle")
 RegisterSpawnFunction( 0xff37ec26, "spawn_wand_6_no_shuffle")
 
 function init( x, y, w, h )
-  LoadPixelScene("mods/anvil_of_destiny/files/debug/debug_room_neutral.png", "", x, y, "", true)
+  LoadPixelScene("mods/anvil_of_destiny/files/debug/rooms/neutral.png", "", x, y, "", true)
 end
 
 function spawn_tablet(x, y)

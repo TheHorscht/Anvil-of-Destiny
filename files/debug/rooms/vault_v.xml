@@ -3,7 +3,7 @@
     name="_EMPTY_"
     type="BIOME_WANG_TILE"
     background_image="data/weather_gfx/background_vault.png"
-    lua_script="mods/anvil_of_destiny/files/debug/debug_room_vault_h.lua"
+    lua_script="mods/anvil_of_destiny/files/debug/rooms/vault_v.lua"
     >
   <BitmapCaves 
       size_x="512"
