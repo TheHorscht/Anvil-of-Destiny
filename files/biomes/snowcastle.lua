@@ -22,7 +22,7 @@ end
 
 table.insert(g_pixel_scene_02, {
   prob   		    	= get_probability_value_for_inserting(g_pixel_scene_02, probability_to_replace_pixelscene),
-  material_file 	= "mods/anvil_of_destiny/files/altar_loader_snowcastle.png",
+  material_file 	= "mods/anvil_of_destiny/files/loader_scenes/snowcastle.png",
   visual_file		  = "",
   background_file	= "",
   is_unique		    = 0

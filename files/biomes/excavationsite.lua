@@ -22,7 +22,7 @@ end
 
 table.insert(g_pixel_scene_04, {
   prob   		    	= get_probability_value_for_inserting(g_pixel_scene_04, probability_to_replace_pixelscene),
-  material_file 	= "mods/anvil_of_destiny/files/altar_loader_excavationsite.png",
+  material_file 	= "mods/anvil_of_destiny/files/loader_scenes/excavationsite.png",
   visual_file		  = "",
   background_file	= "",
   is_unique		    = 0
@@ -30,7 +30,7 @@ table.insert(g_pixel_scene_04, {
 
 table.insert(g_pixel_scene_04_alt, {
   prob   		    	= get_probability_value_for_inserting(g_pixel_scene_04_alt, probability_to_replace_pixelscene),
-  material_file 	= "mods/anvil_of_destiny/files/altar_loader_excavationsite.png",
+  material_file 	= "mods/anvil_of_destiny/files/loader_scenes/excavationsite.png",
   visual_file		  = "",
   background_file	= "",
   is_unique		    = 0
