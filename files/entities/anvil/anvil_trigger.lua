@@ -2,7 +2,9 @@ dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
 dofile("mods/anvil_of_destiny/files/wand_utils.lua")
 dofile("mods/anvil_of_destiny/files/scripts/wand_buff.lua")
+dofile("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
 dofile("mods/anvil_of_destiny/config.lua")
+dofile("mods/anvil_of_destiny/files/scripts/utils.lua")
 dofile("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
 dofile("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 -- dofile("data/scripts/lib/coroutines.lua")
@@ -28,18 +30,6 @@ function get_state()
   local entity_id = GetUpdatedEntityID()
   local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
   return STATE_STORE
-end
-
-function generate_unique_id(len, x, y)
-  SetRandomSeed(x, y)
-  local chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  local char_count = string.len(chars)
-  local output = ""
-  for i=1,len do
-    local randIndex = Random(char_count)
-    output = output .. string.sub(chars, randIndex, randIndex)
-  end
-  return output
 end
 
 function collision_trigger(colliding_entity_id)
@@ -81,17 +71,20 @@ function collision_trigger(colliding_entity_id)
           if get_state().tablets_sacrificed == 1 then
             perma_spell_count = perma_spell_count + 1
           end
-          --local new_wand = combine_two_wands(shuffle, 1, perma_spell_count, x + 4, y - 100)
           local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
           local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
-          local success, new_wand = pcall(function() return combine_two_wands(stored_wand_id1, stored_wand_id2, shuffle, 1, perma_spell_count, x + 4, y - 100) end)
+          local success, new_wand_id = pcall(function()
+            -- TODO: Add permaspell count and shuffle parameter
+            local buff_amount = config_regular_wand_buff_percent / 100
+            return combine_two_wands(stored_wand_id1, stored_wand_id2, buff_amount, x + 4, y - 100)
+          end)
           if not success then
-            print("error?")
-            print(new_wand)
+            -- If the call was not successful, new_wand_id contains the error message
+            print(new_wand_id)
           end
           EntityKill(stored_wand_id1)
           EntityKill(stored_wand_id2)
-          buff_wand_slighty(new_wand)
+          wand_restore_to_unpicked_state(new_wand_id, x + 4, y - 100)
           finish(entity_id, x, y)
         end
       end

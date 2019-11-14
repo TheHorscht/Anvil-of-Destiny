@@ -64,3 +64,26 @@ function get_sign(num)
     return -1
   end
 end
+
+function get_component_with_member(entity_id, member_name)
+	local components = EntityGetAllComponents(entity_id)
+	for _, component_id in ipairs(components) do
+		for k, v in pairs(ComponentGetMembers(component_id)) do
+			if(k == member_name) then
+				return component_id
+			end
+		end
+	end
+end
+
+function generate_unique_id(len, x, y)
+  SetRandomSeed(x, y)
+  local chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  local char_count = string.len(chars)
+  local output = ""
+  for i=1,len do
+    local randIndex = Random(char_count)
+    output = output .. string.sub(chars, randIndex, randIndex)
+  end
+  return output
+end
