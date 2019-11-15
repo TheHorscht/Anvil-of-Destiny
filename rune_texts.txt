@@ -1,0 +1,32 @@
+coalmine
+Welcome chosen one
+
+excavationsite
+This land holds many secrets
+
+snowcave
+Be courageous and venture forth into the depths
+
+snowcastle
+Fulfill your destiny
+
+rainforest_h
+Immeasurable riches await you below
+
+rainforest_v
+The anvil bestows power unto the worthy
+
+vault_h
+Divine providence brought you here
+
+vault_v
+You came far, brave one. keep going
+
+crypt
+Just a little farther.
+ Then take what is
+  rightfully yours
+
+pyramid
+ Turn around, Curious one
+you are going the wrong way

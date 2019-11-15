@@ -22,6 +22,7 @@
       width: 600px;
       height: 600px;
       resize: none;
+      padding: 10px;
       background: rgb(202, 202, 202);
     }
     .wrapper {
@@ -73,6 +74,8 @@
     };
     const canvas_width = output.width = parseInt(getComputedStyle(output).width);
     const canvas_height = output.height = parseInt(getComputedStyle(output).height);
+    const zoom = 1;
+    const padding = 10;
     drawRuneText('');
     function drawRuneText(text) {
       ctx.imageSmoothingEnabled = false;
@@ -88,10 +91,10 @@
           x = 0;
         } else if(offsets[letter] != null) {
           const offset = offsets[letter];
-          ctx.drawImage(rune_alphabet, offset.x, offset.y, 6, 6, x * 6*4, y * 6*4, 6*4, 6*4);
+          // (img,sx,sy,swidth,sheight,x,y,width,height);
+          ctx.drawImage(rune_alphabet, offset.x, offset.y, 6, 6, x*5*zoom+padding, y*6*zoom+padding, 6*zoom, 6*zoom);
           console.log(letter)
           x++;
-          // (img,sx,sy,swidth,sheight,x,y,width,height);
         }
       });
     }
