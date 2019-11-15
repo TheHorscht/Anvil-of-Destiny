@@ -33,4 +33,4 @@ config_can_generate_shuffle_wands = false
 config_regular_wand_buff_percent = 100
 
 -- By how much percent a wand should get buffed with 2 tablets
-config_improved_wand_buff_percent = 40
+config_improved_wand_buff_percent = 200

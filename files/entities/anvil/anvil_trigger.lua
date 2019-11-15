@@ -58,6 +58,7 @@ function collision_trigger(colliding_entity_id)
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
           path_two(entity_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
+          EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
           path_one(entity_id, x, y)
         end
       end
@@ -91,7 +92,6 @@ function collision_trigger(colliding_entity_id)
 end
 -- Two wands
 function path_one(entity_id, x, y)
-  EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
   local shuffle = false
   if config_can_generate_shuffle_wands then
     if Random() < 0.5 then
@@ -134,16 +134,9 @@ function finish(entity_id, x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
-  --[[ local lua_component_anvil_trigger = EntityGetFirstComponent(entity_id, "LuaComponent", "lua_component_anvil_trigger")
-  EntityRemoveComponent(entity_id, lua_component_anvil_trigger) ]]
   edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
-
---[[   get_state().wands_sacrificed = 0
-  get_state().tablets_sacrificed = 0
-  get_state().first_wand_tag = nil
-  get_state().second_wand_tag = nil ]]
 end
 -- "Hides" a wand by removing it's visible components and add a unique tag to it, so we can later retrieve it with EntityGetWithTag
 -- Returns the tag added
@@ -172,29 +165,16 @@ function hide_wand(wand_id)
 end
 
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
-  local x, y = EntityGetTransform(entity_id)
-  if type(x) == "number" and type(y) == "number" then
-    SetRandomSeed(x, y)
+  local stored_wand_id = EntityGetWithTag(get_state().first_wand_tag)[1]
+  local success, new_wand_id = pcall(function()
+    local buff_amount = config_improved_wand_buff_percent / 100
+    return wand_buff(stored_wand_id, buff_amount, nil, x, y)
+  end)
+  if not success then
+    -- If the call was not successful, new_wand_id contains the error message
+    print(new_wand_id)
   end
-  local rng = create_normalized_random_distribution(5)
-  local wand_id = EntityGetWithTag(get_state().first_wand_tag)
-  wand_id = wand_id[1]
-  local props = wand_get_properties(wand_id)
-  local spells, attached_spells = wand_get_spells(wand_id)
-  local buff_percent = config_improved_wand_buff_percent / 100
-	props.ability_component_members.mana_charge_speed = props.ability_component_members.mana_charge_speed * (1.1 + rng[1] * buff_percent)
-	props.ability_component_members.mana_max = props.ability_component_members.mana_max * (1.1 + rng[2] * buff_percent)
-  props.ability_component_members.mana = props.ability_component_members.mana_max
-  local slot_add_count = math.floor(props.gun_config.deck_capacity / 4) + 1
-  slot_add_count = math.min(3, slot_add_count)
-  props.gun_config.shuffle_deck_when_empty = "0"
-  props.gun_config.deck_capacity = props.gun_config.deck_capacity + slot_add_count
-	props.gun_config.reload_time = props.gun_config.reload_time * (0.9 - rng[3] * buff_percent)
-  props.gunaction_config.fire_rate_wait = props.gunaction_config.fire_rate_wait * (0.9 - rng[4] * buff_percent)
-  local spread_sign = get_sign(props.gunaction_config.spread_degrees)
-  props.gunaction_config.spread_degrees = props.gunaction_config.spread_degrees * (1 - (0.1 + rng[5] * buff_percent) * spread_sign)
-
-  wand_set_properties(wand_id, props)
-  wand_restore_to_unpicked_state(wand_id, x, y)
-  EntityRemoveTag(wand_id, get_state().first_wand_tag)
+  
+  EntityRemoveTag(stored_wand_id, get_state().first_wand_tag)
+  wand_restore_to_unpicked_state(stored_wand_id, x, y)
 end
