@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rune Alphabet Typer</title>
+  <style>
+    body, html, textarea {
+      margin: 0;
+      padding: 0;
+    }
+    img {
+      display: none;
+    }
+    #input, canvas {
+      display: inline-block;
+      width: -webkit-fill-available;
+      height: -webkit-fill-available;
+    }
+    textarea {
+      width: 600px;
+      height: 600px;
+      resize: none;
+      background: rgb(202, 202, 202);
+    }
+    .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      width: 100vw;
+    height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <textarea id="input" placeholder="Type text here"></textarea>
+    <canvas id="output" stlye="image-rendering: pixelated;"></canvas>
+  </div>
+  <img id="rune_alphabet" src="rune_alphabet_sprites.png">
+  <script>
+    const input = document.getElementById('input');
+    const output = document.getElementById('output');
+    const rune_alphabet = document.getElementById('rune_alphabet');
+    const ctx = output.getContext('2d');
+    const offsets = {
+      'a': { x: 0, y: 0 },
+      'b': { x: 6, y: 0 },
+      'c': { x: 12, y: 0 },
+      'd': { x: 18, y: 0 },
+      'e': { x: 24, y: 0 },
+      'f': { x: 30, y: 0 },
+      'g': { x: 36, y: 0 },
+      'h': { x: 42, y: 0 },
+      'i': { x: 48, y: 0 },
+      'k': { x: 0, y: 6 },
+      'l': { x: 6, y: 6 },
+      'm': { x: 12, y: 6 },
+      'n': { x: 18, y: 6 },
+      'o': { x: 24, y: 6 },
+      'p': { x: 30, y: 6 },
+      'r': { x: 36, y: 6 },
+      's': { x: 42, y: 6 },
+      't': { x: 48, y: 6 },
+      'u': { x: 0, y: 12 },
+      'v': { x: 6, y: 12 },
+      'w': { x: 12, y: 12 },
+      'y': { x: 18, y: 12 },
+      'z': { x: 24, y: 12 },
+      ',': { x: 30, y: 12 },
+      '.': { x: 36, y: 12 },
+      ' ': { x: 666, y: 666 },
+    };
+    const canvas_width = output.width = parseInt(getComputedStyle(output).width);
+    const canvas_height = output.height = parseInt(getComputedStyle(output).height);
+    drawRuneText('');
+    function drawRuneText(text) {
+      ctx.imageSmoothingEnabled = false;
+      ctx.fillStyle = 'black';
+      ctx.beginPath();
+      ctx.rect(0, 0, canvas_width, canvas_height);
+      ctx.fill();
+      let x = 0, y = 0;
+      Array.from(text).forEach(letter => {
+        letter = letter.toLowerCase();
+        if(letter == '\n') {
+          y++;
+          x = 0;
+        } else if(offsets[letter] != null) {
+          const offset = offsets[letter];
+          ctx.drawImage(rune_alphabet, offset.x, offset.y, 6, 6, x * 6*4, y * 6*4, 6*4, 6*4);
+          console.log(letter)
+          x++;
+          // (img,sx,sy,swidth,sheight,x,y,width,height);
+        }
+      });
+    }
+    input.addEventListener('keyup', ev => {
+      const text = ev.target.value;
+      drawRuneText(text);
+    });
+  </script>
+</body>
+</html>
