@@ -58,3 +58,72 @@ function combine_two_wands(wand_id1, wand_id2, buff_amount, x, y)
 
 	return wand_id
 end
+
+-- For testing, not done yet
+function _new_anvil()
+	local o = {
+		wands_sacrificed = 0,
+		tablets_sacrificed = 0,
+		first_wand_tag = nil,
+		second_wand_tag = nil
+	}
+	local function hide_wand() print("hiding wand") return 5 end
+	o.input = function(input_type)
+		if input_type == "wand" then
+			print("wand detected, sacrifice + 1")
+			o.wands_sacrificed = o.wands_sacrificed + 1
+			local tag = hide_wand(v)
+			if o.wands_sacrificed == 1 then
+				o.first_wand_tag = tag
+			else
+				o.second_wand_tag = tag
+			end
+			
+			if o.tablets_sacrificed <= 1 and o.wands_sacrificed == 1 then
+				--EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
+				print("Powering emitter 1")
+				--GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+				print("Playing jingle")
+			elseif o.tablets_sacrificed == 2 and o.wands_sacrificed == 1 then
+				--EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+				print("Powering emitter 2")
+				--path_two(entity_id, x, y)
+				print("======== path_two() ========")
+			elseif o.wands_sacrificed == 2 then
+				--path_one(entity_id, x, y)
+				print("======== path_one() ========")
+			end
+		elseif input_type == "tablet" then
+			if o.tablets_sacrificed < 2 then
+				-- EntityKill(v)
+				print("Killing tablet")
+				o.tablets_sacrificed = o.tablets_sacrificed + 1
+				--GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+				print("playing jingle")
+			end
+			if o.tablets_sacrificed == 1 then
+				--EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
+				print("setting emitter base on")
+			elseif o.tablets_sacrificed == 2 then
+				if o.wands_sacrificed == 0 then
+					--EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
+					print("setting emitter1 powered on")
+				else
+					--EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
+					print("setting emitter1 off")
+					--EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
+					print("setting emitter1 powered on")
+					--EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+					print("setting emitter2 powered on")
+					--path_two(entity_id, x, y)
+					print("======== path_two() ========")
+				end
+			elseif o.tablets_sacrificed == 3 then
+				-- TODO: Explode!?
+			end
+		else
+			error("Unknown input_type: " .. tostring(input_type))
+		end
+	end
+	return o
+end
