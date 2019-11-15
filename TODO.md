@@ -1,15 +1,12 @@
-- Change the wand level logic?
-- Get rid of wand level logic, instead use stats?
 - Make anvil indestructible by black holes etc
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
-- When buffing reload time and cast delay, use same algo as spread as to not go towards 0 when buffing negative values
-- Refactor wand hiding/respawning
 - FIX RandomSeed usage in anvil_trigger, only once?
 - FIX Different sprites in world vs inventory
-- FIX Anvil still taking tablets after WAND + WAND
 - Update mod.xml description
 - Test if empty wands combine well
 - Somehow set the wand sprite according to deck capacity
+- Make wand_utils.lua:wand_add_spell accept a table to add multiple at once?
+- Does the anvil sound keep playing forever even when not visible anymore?
 
 try:
 -- LifetimeComponent

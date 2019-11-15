@@ -125,6 +125,29 @@ function path_two(entity_id, x, y)
   buff_stored_wand_and_respawn_it(entity_id, x, y)
   finish(entity_id, x, y)
 end
+-- Happens in path_two, buff a wand by a lot
+function buff_stored_wand_and_respawn_it(entity_id, x, y)
+  local stored_wand_id = EntityGetWithTag(get_state().first_wand_tag)[1]
+  local success, new_wand_id = pcall(function()
+    local buff_amount = config_improved_wand_buff_percent / 100
+    return wand_buff(stored_wand_id, buff_amount, nil, x, y)
+  end)
+  if not success then
+    -- If the call was not successful, new_wand_id contains the error message
+    print(new_wand_id)
+  end
+  
+	local props = wand_get_properties(stored_wand_id)
+	-- Increase slots by 1 for each 4 slots
+	local capacity_old = props.gun_config.deck_capacity
+	props.gun_config.deck_capacity = props.gun_config.deck_capacity + math.ceil(props.gun_config.deck_capacity / 4)
+	-- Limit capacity to 26 or the old capacity, we don't want to reduce the capacity in case the wand already had more slots to begin with
+	props.gun_config.deck_capacity = math.min(math.max(26, capacity_old), props.gun_config.deck_capacity)
+	wand_set_properties(stored_wand_id, props)
+
+  EntityRemoveTag(stored_wand_id, get_state().first_wand_tag)
+  wand_restore_to_unpicked_state(stored_wand_id, x, y)
+end
 -- Play fanfare and make anvil un-reusable
 function finish(entity_id, x, y)
   -- TODO: Dont remove collision trigger but instead luacomp?
@@ -162,19 +185,4 @@ function hide_wand(wand_id)
     EntitySetComponentIsEnabled(wand_id, comp, false)
   end)
   return unique_tag
-end
-
-function buff_stored_wand_and_respawn_it(entity_id, x, y)
-  local stored_wand_id = EntityGetWithTag(get_state().first_wand_tag)[1]
-  local success, new_wand_id = pcall(function()
-    local buff_amount = config_improved_wand_buff_percent / 100
-    return wand_buff(stored_wand_id, buff_amount, nil, x, y)
-  end)
-  if not success then
-    -- If the call was not successful, new_wand_id contains the error message
-    print(new_wand_id)
-  end
-  
-  EntityRemoveTag(stored_wand_id, get_state().first_wand_tag)
-  wand_restore_to_unpicked_state(stored_wand_id, x, y)
 end
