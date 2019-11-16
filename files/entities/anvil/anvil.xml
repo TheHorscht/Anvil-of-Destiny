@@ -1,4 +1,4 @@
-<Entity name="mymod_anvil">
+<Entity>
 
   <PhysicsBodyComponent 
     uid="1" 
@@ -171,6 +171,16 @@
   <LuaComponent
     _tags="lua_component_anvil_trigger"
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
+    >
+  </LuaComponent>
+
+  <!-- For checking if the anvil has lost too many pixels -->
+
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua"
+    execute_on_added="0"
+    execute_every_n_frame="30"
+    execute_times="-1"
     >
   </LuaComponent>
 
