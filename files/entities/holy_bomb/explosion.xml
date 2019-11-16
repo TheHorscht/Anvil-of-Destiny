@@ -1,0 +1,47 @@
+<Entity name="$projectile_default" >
+
+  <ProjectileComponent
+    on_lifetime_out_explode="1"
+    on_death_explode="1"
+    lifetime="0"
+    damage="0"
+    muzzle_flash_file="data/entities/particles/muzzle_flashes/muzzle_flash_magic_launcher_holy.xml"
+    shoot_light_flash_radius="120"
+    shoot_light_flash_r="255"
+    shoot_light_flash_g="240"
+    shoot_light_flash_b="30"
+      ><config_explosion
+    never_cache="0" 
+    damage="50"
+    camera_shake="60" 
+    explosion_radius="400" 
+    explosion_sprite="data/particles/explosion_128.xml" 
+    explosion_sprite_lifetime="0" 
+    load_this_entity="data/entities/particles/particle_explosion/main_large_radius.xml,data/entities/misc/loose_ground.xml"
+    create_cell_probability="40" 
+    hole_destroy_liquid="0" 
+    hole_enabled="1" 
+    ray_energy="6400000"
+    particle_effect="1" 
+    damage_mortals="1"
+    physics_explosion_power.min="9"
+    physics_explosion_power.max="15" 
+    shake_vegetation="1" 
+    sparks_count_max="1500" 
+    sparks_count_min="1600" 
+    sparks_enabled="1" 
+    stains_enabled="1" 
+    stains_radius="35"
+    background_lightning_count="5" 
+    max_durability_to_destroy="12" 
+    audio_event_name="explosion_nuke" 
+    >
+    </config_explosion>
+  </ProjectileComponent>
+
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.snd"
+      event_root="player_projectiles/bomb">
+  </AudioComponent>
+  
+</Entity>
