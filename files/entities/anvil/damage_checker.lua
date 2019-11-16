@@ -39,7 +39,6 @@ if physics_body ~= nil then
     end
 
     EntityLoad("mods/anvil_of_destiny/files/entities/anvil/laser_activation_sequencer.xml", x, y)
-    EntityKill(entity_id)
-
+    EntityConvertToMaterial(entity_id, "lava")
   end
 end
