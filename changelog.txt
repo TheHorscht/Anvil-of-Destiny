@@ -1,3 +1,10 @@
+UNRELEASED:
+- No more data overwrites!
+- Got rid of levels, now buffs are based on stats instead, which should improve inter-mod compatibility
+- The runes are not randomly put together anymore and actually make sense
+- When too many pixels of the anvil get destroyed, something bad happens and that anvil will stop working
+- Slightly changed altar color
+
 v1.3.1:
 - FIX: Wands in the players inventory should not have their level reset to level 0 on respawn (e.g.: Save&Quit + Resume)
 - FIX: Anvil state was never actually saved and restored properly on save&quit... huh, it should now
