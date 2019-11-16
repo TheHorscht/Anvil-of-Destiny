@@ -1,0 +1,11 @@
+<Entity
+  tags="anvil_of_destiny_statue"
+  >
+
+  <SpriteComponent
+    _enabled="1"
+    _tags="enabled_at_start"
+    >
+  </SpriteComponent>
+
+</Entity>

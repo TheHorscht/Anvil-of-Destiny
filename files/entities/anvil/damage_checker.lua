@@ -1,7 +1,13 @@
+dofile("data/scripts/lib/utilities.lua")
+
+if not async then
+  dofile("data/scripts/lib/coroutines.lua")
+end
+
 local entity_id = GetUpdatedEntityID()
-local physics_body = EntityGetFirstComponent(entity_id, "PhysicsBodyComponent")
 local x, y = EntityGetTransform(entity_id)
- 
+local physics_body = EntityGetFirstComponent(entity_id, "PhysicsBodyComponent")
+
 function disable_all_components(entity_id, component_type_name)
   local components = EntityGetComponent(entity_id, component_type_name)
   if components ~= nil then
@@ -12,14 +18,23 @@ function disable_all_components(entity_id, component_type_name)
 end
 
 function wrath_of_the_gods()
-  GameScreenshake(100, x, y)
-  GamePrintImportant("An anvil has been defiled!", "This vile act shall not go unpunished!")
-  EntityAddComponent(entity_id, "LuaComponent", {
-    script_source_file = "mods/anvil_of_destiny/files/entities/anvil/statues_angery.lua",
-    execute_on_added="0",
-    execute_every_n_frame="20",
-    execute_times="-1"
-  })
+  GameScreenshake(100)
+  GamePlaySound("data/audio/Desktop/event_cues.snd", "event_cues/sampo_pick/create", x, y)
+  GamePrintImportant("A holy relic has been defiled!", "This vile act shall not go unpunished")
+  async(function()
+    local statues = EntityGetInRadiusWithTag(x, y, 100, "anvil_of_destiny_statue")
+    if statues ~= nil then
+      for i,statue in ipairs(statues) do
+        EntityConvertToMaterial(statue, "sand")
+        EntitySetComponentsWithTagEnabled(statue, "enabled_at_start", false)
+      end
+    end
+    wait(200)
+    EntityConvertToMaterial(entity_id, "lava")
+    wait(100)
+    print("spawning earthquake")
+    shoot_projectile(0, "data/entities/projectiles/deck/crumbling_earth.xml", x, y - 40, 0, 0, false)
+  end)
 end
 
 if physics_body ~= nil then
@@ -36,7 +51,6 @@ if physics_body ~= nil then
     if children ~= nil and children[1] ~= nil then
       EntityKill(children[1])
     end
-
     wrath_of_the_gods()
   end
 end

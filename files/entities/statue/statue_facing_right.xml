@@ -1,0 +1,13 @@
+<Entity
+  tags="facing_right">
+
+  <Base file="mods/anvil_of_destiny/files/entities/statue/statue_base.xml">
+
+    <SpriteComponent
+      image_file="mods/anvil_of_destiny/files/entities/statue/statue_facing_right.png" 
+      >
+    </SpriteComponent>
+
+  </Base>
+
+</Entity>
