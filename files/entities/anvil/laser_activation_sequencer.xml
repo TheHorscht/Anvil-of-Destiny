@@ -1,0 +1,16 @@
+<Entity>
+
+  <LuaComponent
+    _tags="counter_example_script"
+    execute_every_n_frame="30"
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/laser_activation_sequencer.lua"
+    >
+  </LuaComponent>
+
+  <VariableStorageComponent
+    name="current_frame"
+    value_int="0"
+    >
+  </VariableStorageComponent>
+
+</Entity>

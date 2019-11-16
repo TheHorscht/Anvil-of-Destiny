@@ -8,4 +8,29 @@
     >
   </SpriteComponent>
 
+  <ParticleEmitterComponent 
+		_enabled="0"
+    _tags="glowing_eyes"
+		emitted_material_name="spark_teal"
+		gravity.y="0.0"
+		lifetime_min="30"
+		lifetime_max="30"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+    y_pos_offset_min="5"
+    y_pos_offset_max="5"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="1"
+    collide_with_grid="0"
+		emission_interval_min_frames="30"
+		emission_interval_max_frames="30"
+		emit_cosmetic_particles="1"
+		render_back="1"
+		is_emitting="1"
+		>
+	</ParticleEmitterComponent>
+
 </Entity>

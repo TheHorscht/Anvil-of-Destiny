@@ -34,13 +34,11 @@ if physics_body ~= nil then
     local statues = EntityGetInRadiusWithTag(x, y, 100, "anvil_of_destiny_statue")
     if statues ~= nil then
       for i,statue in ipairs(statues) do
-        local x, y = EntityGetTransform(statue)
-        EntityLoad("mods/anvil_of_destiny/files/entities/anvil/spawn_necro_delayed.xml", x + 20, y - 5)
-        EntityConvertToMaterial(statue, "bone")
-        EntitySetComponentsWithTagEnabled(statue, "enabled_at_start", false)
+        EntitySetComponentsWithTagEnabled(statue, "glowing_eyes", true)
       end
     end
 
+    EntityLoad("mods/anvil_of_destiny/files/entities/anvil/laser_activation_sequencer.xml", x, y)
     EntityKill(entity_id)
 
   end
