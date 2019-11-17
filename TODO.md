@@ -4,7 +4,6 @@
 - Somehow set the wand sprite according to deck capacity
 - Make wand_utils.lua:wand_add_spell accept a table to add multiple at once?
 - Does the anvil sound keep playing forever even when not visible anymore?
-- seed with GameGetFrameNum()? RandomSeed usage in anvil_trigger, only once?
 - Smithing animation?
 - Think about implementing Twitch ws api wand tooltip for Pyry
 - Make wand_fill_with_semi_random_spells spit out more projectiles in a row
