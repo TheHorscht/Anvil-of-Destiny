@@ -18,9 +18,9 @@ if STATE.tick <= 3 then
     ComponentSetValue(sprite_component[1], "rect_animation", number_to_show)
     ComponentSetValue(sprite_component[1], "alpha", "1")
     if STATE.tick < 3 then
-      GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "tick_low", x, y)
+      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "tick_low", x, y)
     else
-      GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "tick_high", x, y)
+      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "tick_high", x, y)
     end
     local shrink_script = EntityGetFirstComponent(entity_id, "LuaComponent", "script_shrink")
     if shrink_script ~= nil then

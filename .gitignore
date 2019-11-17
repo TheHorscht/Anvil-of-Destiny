@@ -1,4 +1,4 @@
-fmod/.cache
+fmod/.*
 node_modules
 *.zip
 dist

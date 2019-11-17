@@ -52,7 +52,7 @@ function collision_trigger(colliding_entity_id)
         
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
-          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
+          GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
           path_two(entity_id, x, y)
@@ -69,7 +69,7 @@ function collision_trigger(colliding_entity_id)
         if get_state().tablets_sacrificed < 3 then
           EntityKill(v)
           get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
-          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
+          GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         end
         if get_state().tablets_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
@@ -155,7 +155,7 @@ function finish(entity_id, x, y, alternative)
   else
     GamePrintImportant("A gift from the gods", "")
   end
-  GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "fanfare", x, y)
+  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "fanfare", x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)

@@ -102,7 +102,7 @@ function _new_anvil()
 			if o.tablets_sacrificed <= 1 and o.wands_sacrificed == 1 then
 				--EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
 				print("Powering emitter 1")
-				--GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
+				--GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
 				print("Playing jingle")
 			elseif o.tablets_sacrificed == 2 and o.wands_sacrificed == 1 then
 				--EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
@@ -118,7 +118,7 @@ function _new_anvil()
 				-- EntityKill(v)
 				print("Killing tablet")
 				o.tablets_sacrificed = o.tablets_sacrificed + 1
-				--GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
+				--GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
 				print("playing jingle")
 			end
 			if o.tablets_sacrificed == 1 then

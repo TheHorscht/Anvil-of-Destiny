@@ -31,12 +31,12 @@ config_flat_buff_amounts = {
 }
 
 -- Buff % are randomly split among the following 5 stats, for instance:
--- 20% buff =
--- Mana charge speed + 5%
--- Mana max + 2%
--- Recharge time - 3%
--- Cast delay - 9%
--- Spread - 1%
+-- 100% buff =
+-- Mana charge speed + 25%
+-- Mana max + 12%
+-- Recharge time - 13%
+-- Cast delay - 19%
+-- Spread - 31%
 
 -- By how much percent a new wand with 0 or 1 tablets sacrificed should be buffed
 config_regular_wand_buff_percent = 100
