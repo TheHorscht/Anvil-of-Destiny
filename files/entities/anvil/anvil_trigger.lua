@@ -92,6 +92,7 @@ function collision_trigger(colliding_entity_id)
 end
 -- Two wands
 function path_one(entity_id, x, y)
+  set_random_seed_with_player_position()
   local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
   local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
   local always_cast_spell_count = 0
@@ -113,6 +114,7 @@ function path_one(entity_id, x, y)
 end
 -- 2 Tablet + 1 Wand
 function path_two(entity_id, x, y)
+  set_random_seed_with_player_position()
   buff_stored_wand_and_respawn_it(entity_id, x, y)
   finish(entity_id, x, y)
 end

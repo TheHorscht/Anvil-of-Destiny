@@ -96,3 +96,11 @@ function config_populate_flat_buffs(flat_buff_amounts, rand_seed_x, rand_seed_y)
   end
   return o
 end
+
+function set_random_seed_with_player_position()
+  local players = EntityGetWithTag("player_unit")
+  if players ~= nil and players[1] ~= nil then
+    local x, y = EntityGetTransform(players[1])
+    SetRandomSeed(x, y)
+  end
+end
