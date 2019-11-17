@@ -1,24 +1,23 @@
 <Entity>
 
   <PhysicsBodyComponent 
-    uid="1" 
-    allow_sleep="1" 
-    angular_damping="0" 
     fixed_rotation="1" 
-    is_bullet="0" 
-    linear_damping="0"
     auto_clean="0"
-    on_death_leave_physics_body="1"
     >
   </PhysicsBodyComponent>
 
   <PhysicsImageShapeComponent 
-    body_id="1"
     centered="1"
     image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
-    material="templebrick_static"
+    material="anvilofdestinium"
     >
   </PhysicsImageShapeComponent>
+
+<!-- 	<PhysicsJointComponent 
+		nail_to_wall="1" 
+		pos_x="10"
+		pos_y="-2" >
+	</PhysicsJointComponent> -->
 
   <!-- Wand 1 sacrificed indicator -->
 

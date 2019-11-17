@@ -1,0 +1,25 @@
+<Materials>
+  
+  <CellData
+    name="anvilofdestinium"
+    ui_name="Anvil of Destiny"
+    tags="[box2d],[static],[solid]"
+    burnable="0"
+    on_fire="0"
+    density="10"
+    cell_type="solid"
+    wang_color="ff6F5739"
+    liquid_gravity="1.2"
+    liquid_sand="1"
+    liquid_static="1"
+    solid_static_type="2"
+    wang_noise_percent="0.15"
+    hp="100000000" 
+    platform_type="1"
+    durability="14"
+    audio_physics_material_wall="metalwall"
+    audio_physics_material_solid="metalwall"
+    >
+  </CellData>
+
+</Materials>
