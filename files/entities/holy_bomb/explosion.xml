@@ -14,7 +14,7 @@
     never_cache="0" 
     damage="50"
     camera_shake="60" 
-    explosion_radius="400" 
+    explosion_radius="500" 
     explosion_sprite="data/particles/explosion_128.xml" 
     explosion_sprite_lifetime="0" 
     load_this_entity="data/entities/particles/particle_explosion/main_large_radius.xml,data/entities/misc/loose_ground.xml"
@@ -33,7 +33,7 @@
     stains_enabled="1" 
     stains_radius="35"
     background_lightning_count="5" 
-    max_durability_to_destroy="12" 
+    max_durability_to_destroy="16" 
     audio_event_name="explosion_nuke" 
     >
     </config_explosion>
