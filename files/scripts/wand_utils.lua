@@ -431,13 +431,13 @@ end
 -- Increases the stats of a wand by buff_amount split across 5 stats
 -- A buff_amount of 1 means an increase of 100% split by 5 = roughly 20% of each stat
 function wand_buff(wand_id, buff_amount, flat_buff_amounts, seed_x, seed_y)
+	SetRandomSeed(seed_x, seed_y)
 	flat_buff_amounts = flat_buff_amounts or {}
 	flat_buff_amounts.mana_charge_speed = flat_buff_amounts.mana_charge_speed or Random(40, 60)
 	flat_buff_amounts.mana_max = flat_buff_amounts.mana_max or Random(25, 40)
 	flat_buff_amounts.reload_time = flat_buff_amounts.reload_time or Random(1, 2)
 	flat_buff_amounts.fire_rate_wait = flat_buff_amounts.fire_rate_wait or Random(1, 2)
 	flat_buff_amounts.spread_degrees = flat_buff_amounts.spread_degrees or Random(4, 8)
-	SetRandomSeed(seed_x, seed_y)
   local rng = create_normalized_random_distribution(5, 0.4)
   local props = wand_get_properties(wand_id)
 --[[   for i,v in ipairs(rng) do
@@ -507,7 +507,8 @@ function wand_fill_with_semi_random_spells(wand_id, spells_count, always_attache
     -- 50% chance to increase the seed which will generate a different action
     -- This is so that we neither get a chaotic array of spells nor the same ones over and over
     seed = seed + Random(0, 1)
-    local action = nil
+		local action = nil
+		-- Give the wand at least one projectile it has enough mana to cast
     if i == guaranteed_projectile_index then
       action = GetRandomActionWithType(x, y, randomly_alter_level(level), ACTION_TYPE_PROJECTILE, seed)
       -- Check if wand has enough max mana to cast it
