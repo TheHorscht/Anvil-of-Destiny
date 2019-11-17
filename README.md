@@ -1,7 +1,9 @@
 # Anvil of Destiny
 A mod for Noita (https://noitagame.com/) which adds a bunch of anvils into the default biomes, which lets you forge and improve wands!
 
-## To download head over to the releases tab or check out http://modwork.shop/25873, don't just download/clone this master branch, it has a lot of crap for developing only and will have lots of bugs!
+### Download here: https://github.com/TheHorscht/Anvil-of-Destiny/releases 
+### Or here: http://modwork.shop/25873
+## Do NOT just download/clone this master branch, it has a lot of crap for developing only and will have lots of bugs!
 
 ![alt text](anvil_preview.gif "The majesticly divine anvil of destiny!")
 
