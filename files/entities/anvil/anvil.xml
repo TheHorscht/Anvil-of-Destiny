@@ -147,8 +147,8 @@
 		_enabled="1" 
 		auto_play="1" 
 		calculate_material_lowpass="0" 
-    file="mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd" 
-    event_name="snd_mod/high_drone" 
+    file="mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd" 
+    event_name="high_drone" 
     >
 	</AudioLoopComponent>
 

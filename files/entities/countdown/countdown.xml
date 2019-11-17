@@ -1,0 +1,40 @@
+<Entity>
+
+  <_Transform
+    scale.x="0.5"
+    scale.y="0.5"
+    >
+  </_Transform>
+
+  <SpriteComponent 
+    _enabled="1" 
+    image_file="mods/anvil_of_destiny/files/entities/countdown/sprite.xml" 
+    rect_animation="5"
+    offset_x="18"
+    offset_y="24"
+    >
+  </SpriteComponent>
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/countdown/tick.lua"
+    execute_on_added="1"
+    execute_every_n_frame="60"
+    execute_times="-1"
+    >
+  </LuaComponent>
+
+  <LuaComponent
+    _tags="script_shrink"
+    script_source_file="mods/anvil_of_destiny/files/entities/countdown/shrink.lua"
+    execute_on_added="1"
+    execute_every_n_frame="1"
+    execute_times="60"
+    >
+  </LuaComponent>
+
+  <LifetimeComponent
+    lifetime="300"
+    >
+  </LifetimeComponent>
+
+</Entity>

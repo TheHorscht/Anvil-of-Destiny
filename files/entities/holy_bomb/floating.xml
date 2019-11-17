@@ -55,7 +55,7 @@
   <LuaComponent
     script_source_file="mods/anvil_of_destiny/files/entities/holy_bomb/fuse.lua"
     execute_on_added="0"
-    execute_every_n_frame="200"
+    execute_every_n_frame="460"
     execute_times="1"
     >
   </LuaComponent>
@@ -68,9 +68,40 @@
     >
   </LuaComponent>
 
+  <AudioLoopComponent
+    file="data/audio/Desktop/projectiles.snd"
+    event_name="projectiles/fuse_burn_slow"
+    auto_play="1">
+  </AudioLoopComponent>
+
   <LifetimeComponent
-    lifetime="210"
+    lifetime="470"
     >
   </LifetimeComponent>
+
+  <!-- The countdown, offset it slightly to the right because I have no idea how to ensure it's sprites are always on top of the bomb -->
+
+  <Entity>
+
+    <InheritTransformComponent>
+
+      <Transform 
+        position.x="20"
+        position.y="0"
+        >
+      </Transform>
+
+    </InheritTransformComponent>
+
+    <LoadEntitiesComponent
+      entity_file="mods/anvil_of_destiny/files/entities/countdown/countdown.xml"
+      kill_entity="0"
+      count.min="1"
+      count.max="1"
+      timeout_frames="290"
+      >
+    </LoadEntitiesComponent>
+
+  </Entity>
 
 </Entity>

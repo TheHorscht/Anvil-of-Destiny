@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
-    <object class="AudioFile" id="{144e94b1-f5f8-443b-bf1a-c33c046c6851}">
-        <property name="assetPath"/>
+    <object class="AudioFile" id="{a69270de-c7ce-4442-a690-69acbd33e24b}">
+        <property name="assetPath">
+            <value>tick.wav</value>
+        </property>
         <property name="frequencyInKHz">
-            <value>48</value>
+            <value>44.0999985</value>
         </property>
         <property name="channelCount">
-            <value>1</value>
+            <value>2</value>
         </property>
         <property name="length">
-            <value>0.61524999999999996</value>
+            <value>0.18902494331065758</value>
         </property>
         <relationship name="masterAssetFolder">
             <destination>{eb2a4d4a-1287-481b-8086-c8771a725107}</destination>

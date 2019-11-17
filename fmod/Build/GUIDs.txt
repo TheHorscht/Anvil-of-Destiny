@@ -1,6 +1,8 @@
-{e34a0fe6-67b4-441d-b5ce-6fa9236ab25f} event:/snd_mod/fanfare
-{870a429b-5d72-459c-8dbc-c11e2ff64ce1} event:/snd_mod/high_drone
-{c7d655d8-ec85-4d25-bc91-cf2cca64fbb7} event:/snd_mod/jingle
+{e34a0fe6-67b4-441d-b5ce-6fa9236ab25f} event:/fanfare
+{870a429b-5d72-459c-8dbc-c11e2ff64ce1} event:/high_drone
+{c7d655d8-ec85-4d25-bc91-cf2cca64fbb7} event:/jingle
+{95b6be91-1c78-43c0-b592-7fccfa5bc1a4} event:/tick_low
+{a982d52c-ad52-416e-b6d9-2ff45f782011} event:/tick_high
 {fd1ec6a6-24b7-4a2e-9988-9733b99dc81e} bus:/
 {f34de4a2-1c20-4c14-99a0-eeb17d2f30a1} bus:/ambient
 {af5b14c7-ccc0-43a9-aa70-65cd8f5344a4} bus:/game_sfx
@@ -23,5 +25,5 @@
 {8c3abc6b-141a-42fe-9d0f-eefcf03cd52f} snapshot:/teleport_nearby
 {2aa42396-4f12-4e40-9319-c51683cc06d1} snapshot:/music_duck
 {53a7180c-9635-4a37-a2b8-fb8001ac66ff} snapshot:/music_reverb
-{91582d81-bc04-4e28-971c-5f71aeefedd7} bank:/my_mod_audio
+{91582d81-bc04-4e28-971c-5f71aeefedd7} bank:/anvil_of_destiny
 {d3d376b6-af21-4ae3-917c-3e8fb781b724} bank:/Master Bank

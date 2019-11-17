@@ -53,7 +53,7 @@ function collision_trigger(colliding_entity_id)
         
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
-          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
           path_two(entity_id, x, y)
@@ -67,10 +67,10 @@ function collision_trigger(colliding_entity_id)
     local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
     for i, v in ipairs(tablets) do
       if EntityGetParent(v) == 0 then
-        if get_state().tablets_sacrificed < 2 then
+        if get_state().tablets_sacrificed < 3 then
           EntityKill(v)
           get_state().tablets_sacrificed = get_state().tablets_sacrificed + 1
-          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/jingle", x, y)
+          GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "jingle", x, y)
         end
         if get_state().tablets_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
@@ -84,7 +84,8 @@ function collision_trigger(colliding_entity_id)
             path_two(entity_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
-          -- TODO: Explode!?
+          EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+          path_easter_egg(entity_id, x, y)
         end
       end
     end
@@ -148,12 +149,21 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
   EntityRemoveTag(stored_wand_id, get_state().first_wand_tag)
   wand_restore_to_unpicked_state(stored_wand_id, x, y)
 end
+-- :)
+function path_easter_egg(entity_id, x, y)
+  EntityLoad("mods/anvil_of_destiny/files/entities/holy_bomb/floating.xml", x + 3, y - 42)
+  finish(entity_id, x, y, true)
+end
 -- Play fanfare and make anvil un-reusable
-function finish(entity_id, x, y)
+function finish(entity_id, x, y, alternative)
   -- TODO: Dont remove collision trigger but instead luacomp?
   GameScreenshake(20, x, y)
-  GamePrintImportant("A gift from the gods", "")
-  GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/my_mod_audio.snd", "snd_mod/fanfare", x, y)
+  if alternative then
+    GamePrintImportant("A gift from the gods...?", "Or is it?")
+  else
+    GamePrintImportant("A gift from the gods", "")
+  end
+  GamePlaySound("mods/anvil_of_destiny/fmod/Build/Desktop/anvil_of_destiny.snd", "fanfare", x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
