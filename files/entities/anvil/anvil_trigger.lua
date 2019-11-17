@@ -1,7 +1,6 @@
 dofile("data/scripts/lib/utilities.lua")
 dofile("data/scripts/gun/gun_enums.lua")
 dofile("mods/anvil_of_destiny/files/scripts/wand_utils.lua")
-dofile("mods/anvil_of_destiny/files/scripts/wand_buff.lua")
 dofile("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
 dofile("mods/anvil_of_destiny/config.lua")
 dofile("mods/anvil_of_destiny/files/scripts/utils.lua")
@@ -93,31 +92,22 @@ function collision_trigger(colliding_entity_id)
 end
 -- Two wands
 function path_one(entity_id, x, y)
-  local shuffle = false
-  if config_can_generate_shuffle_wands then
-    if Random() < 0.5 then
-      shuffle = true
-    end
-  end
   local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
   local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
+  local always_cast_spell_count = 0
+  if get_state().tablets_sacrificed == 1 then
+    always_cast_spell_count = 1
+  end
   local success, new_wand_id = pcall(function()
-    -- TODO: Add permaspell count and shuffle parameter
     local buff_amount = config_regular_wand_buff_percent / 100
-    return combine_two_wands(stored_wand_id1, stored_wand_id2, buff_amount, x, y)
+    local flat_buff_amounts = config_populate_flat_buffs(config_flat_buff_amounts, x, y)
+    return anvil_buff1(stored_wand_id1, stored_wand_id2, buff_amount, always_cast_spell_count, flat_buff_amounts, config_can_generate_shuffle_wands, x, y)
   end)
   if not success then
-    -- If the call was not successful, new_wand_id contains the error message
-    print(new_wand_id)
+    error("Anvil of Destiny error: " .. new_wand_id)
   end
   EntityKill(stored_wand_id1)
   EntityKill(stored_wand_id2)
-  local always_cast_spells_count = wand_get_attached_spells_count(new_wand_id)
-  if get_state().tablets_sacrificed == 1 and always_cast_spells_count == 0 then
-    local level = wand_compute_level(new_wand_id)
-    local random_action = get_random_action(level, 1, 1, 1, x + y)
-    wand_add_spell(new_wand_id, random_action, true)
-  end
   wand_restore_to_unpicked_state(new_wand_id, x, y)
   finish(entity_id, x, y)
 end

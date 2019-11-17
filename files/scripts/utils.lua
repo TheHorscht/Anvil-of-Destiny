@@ -87,3 +87,12 @@ function generate_unique_id(len, x, y)
   end
   return output
 end
+-- converts the subtables { min=2, max=5 } to a value using Random(min, max)
+function config_populate_flat_buffs(flat_buff_amounts, rand_seed_x, rand_seed_y)
+  local o = {}
+  SetRandomSeed(rand_seed_x, rand_seed_y)
+  for k,v in pairs(flat_buff_amounts) do
+    o[k] = Random(v.min, v.max)
+  end
+  return o
+end

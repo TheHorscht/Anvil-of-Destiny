@@ -21,6 +21,15 @@ config_altar_room_occurences_crypt = 3 -- max 4.739173553719
 -- false = generated wands will always have NO shuffle
 config_can_generate_shuffle_wands = false
 
+-- These will always get added to a wand, regardless of % buff, Random(min, max)
+config_flat_buff_amounts = {
+  mana_charge_speed = { min = 40, max = 60 },
+  mana_max = { min = 25, max = 40 },
+  reload_time = { min = 1, max = 2 }, -- Recharge time in frames
+  fire_rate_wait = { min = 1, max = 2 }, -- Cast delay in frames
+  spread_degrees = { min = 4, max = 8 },
+}
+
 -- Buff % are randomly split among the following 5 stats, for instance:
 -- 20% buff =
 -- Mana charge speed + 5%

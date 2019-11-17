@@ -1,21 +1,41 @@
 
+function anvil_buff1(wand_id1, wand_id2, buff_amount, permaspell_count, flat_buff_amounts, shuffle, x, y)
 
+	--[[ config_flat_buff_amounts = {
+		mana_charge_speed = { min = 40, max = 60 },
+		mana_max = { min = 25, max = 40 },
+		reload_time = { min = 1, max = 2 }, -- Recharge time in frames
+		fire_rate_wait = { min = 1, max = 2 }, -- Cast delay in frames
+		spread_degrees = { min = 4, max = 8 },
+	} ]]
+	local new_wand_id = combine_two_wands(wand_id1, wand_id2, buff_amount, flat_buff_amounts, shuffle, x, y)
+	local always_attached_spells_count = wand_get_attached_spells_count(new_wand_id)
+	if permaspell_count == 1 and always_attached_spells_count == 0 then
+		local level = wand_compute_level(new_wand_id)
+		local random_action = get_random_action(level, 1, 1, 1, x + y)
+		wand_add_spell(new_wand_id, random_action, true)
+	else
+		wand_remove_all_spells(new_wand_id, false, true)
+	end
+  return new_wand_id
+end
 -- Combines two wands using wand_merge, then buffs the resulting wand,
 -- increases the capacity and fills it with new spells based on the input wands spell count and levels
 -- Returns the entity ID of the new wand, does not EntityKill the inputs
-function combine_two_wands(wand_id1, wand_id2, buff_amount, x, y)
+function combine_two_wands(wand_id1, wand_id2, buff_amount, flat_buff_amounts, shuffle, x, y)
 	local spells1, always_attached_spells1 = wand_get_spells(wand_id1)
 	local spells2, always_attached_spells2 = wand_get_spells(wand_id2)
 	local wand_id = wand_merge(wand_id1, wand_id2)
-	wand_buff(wand_id, buff_amount, nil, x, y) -- TODO: Seed this with something different?
+	wand_buff(wand_id, buff_amount, flat_buff_amounts, x, y) -- TODO: Seed this with something different?
 	local props = wand_get_properties(wand_id)
 	-- Increase slots by 1 for each 4 slots
 	local capacity_old = props.gun_config.deck_capacity
 	props.gun_config.deck_capacity = props.gun_config.deck_capacity + math.ceil(props.gun_config.deck_capacity / 4)
 	-- Limit capacity to 26 or the old capacity, we don't want to reduce the capacity in case the wand already had more slots to begin with
 	props.gun_config.deck_capacity = math.min(math.max(26, capacity_old), props.gun_config.deck_capacity)
-  -- Always turn it into a no-shuffle wand
-  props.gun_config.shuffle_deck_when_empty = "0"
+  if not shuffle then
+		props.gun_config.shuffle_deck_when_empty = "0"
+	end
 	wand_set_properties(wand_id, props)
 	wand_remove_all_spells(wand_id, true, true)
 	-- ################################

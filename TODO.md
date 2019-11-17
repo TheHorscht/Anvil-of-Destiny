@@ -6,7 +6,9 @@
 - Does the anvil sound keep playing forever even when not visible anymore?
 - seed with GameGetFrameNum()? RandomSeed usage in anvil_trigger, only once?
 - Smithing animation?
-- THink about implementing Twitch ws api wand tooltip for Pyry
+- Improve config
+- Think about implementing Twitch ws api wand tooltip for Pyry
+- Make wand_fill_with_semi_random_spells spit out more projectiles in a row
 
 try:
 -- LifetimeComponent
