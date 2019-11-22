@@ -2,7 +2,6 @@
 - Update Github description
 - Update modworkshop destription
 - Somehow set the wand sprite according to deck capacity
-- Make wand_utils.lua:wand_add_spell accept a table to add multiple at once?
 - Does the anvil sound keep playing forever even when not visible anymore?
 - Smithing animation?
 - Think about implementing Twitch ws api wand tooltip for Pyry

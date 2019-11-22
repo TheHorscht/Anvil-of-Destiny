@@ -39,7 +39,7 @@ config_flat_buff_amounts = {
 -- Spread - 31%
 
 -- By how much percent a new wand with 0 or 1 tablets sacrificed should be buffed
-config_regular_wand_buff_percent = 0
+config_regular_wand_buff_percent = 75
 
 -- By how much percent a wand should get buffed with 2 tablets
-config_improved_wand_buff_percent = 200
+config_improved_wand_buff_percent = 150
