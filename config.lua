@@ -25,9 +25,9 @@ config_can_generate_shuffle_wands = false
 config_flat_buff_amounts = {
   mana_charge_speed = { min = 40, max = 60 },
   mana_max = { min = 25, max = 40 },
-  reload_time = { min = 1, max = 2 }, -- Recharge time in frames
-  fire_rate_wait = { min = 1, max = 2 }, -- Cast delay in frames
-  spread_degrees = { min = 4, max = 8 },
+  reload_time = { min = 0, max = 1 }, -- Recharge time in frames
+  fire_rate_wait = { min = 0, max = 1 }, -- Cast delay in frames
+  spread_degrees = { min = 0, max = 1 },
 }
 
 -- Buff % are randomly split among the following 5 stats, for instance:
@@ -39,7 +39,7 @@ config_flat_buff_amounts = {
 -- Spread - 31%
 
 -- By how much percent a new wand with 0 or 1 tablets sacrificed should be buffed
-config_regular_wand_buff_percent = 100
+config_regular_wand_buff_percent = 0
 
 -- By how much percent a wand should get buffed with 2 tablets
 config_improved_wand_buff_percent = 200

@@ -151,6 +151,12 @@
     >
 	</AudioLoopComponent>
 
+  <!-- This is where we will parent the wands to that we want to hide/store -->
+
+  <Entity
+    tags="wand_storage">
+  </Entity>
+
   <CollisionTriggerComponent
     width="78"
     height="60" 

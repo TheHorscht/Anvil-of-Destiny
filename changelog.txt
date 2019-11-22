@@ -1,3 +1,7 @@
+UNRELEASED:
+- Fix a bug that would crash the game (FINALLY)
+- Slightly lower the power level of generated wands
+
 v1.4.0:
 - No more data overwrites!
 - Got rid of levels, now buffs are based on stats instead, which should improve inter-mod compatibility and reduce bugs

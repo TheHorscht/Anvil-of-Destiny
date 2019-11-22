@@ -20,8 +20,6 @@ function init_state()
   if STATE_STORE.wands_sacrificed == nil then
     STATE_STORE.wands_sacrificed = 0
     STATE_STORE.tablets_sacrificed = 0
-    STATE_STORE.first_wand_tag = nil
-    STATE_STORE.second_wand_tag = nil
   end
 end
 
@@ -43,13 +41,7 @@ function collision_trigger(colliding_entity_id)
       -- Check if wand is dropped on the floor
       if EntityGetParent(v) == 0 then
         get_state().wands_sacrificed = get_state().wands_sacrificed + 1
-        local tag = hide_wand(v)
-        if get_state().wands_sacrificed == 1 then
-          get_state().first_wand_tag = tag
-        else
-          get_state().second_wand_tag = tag
-        end
-        
+        hide_wand(v)
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
           EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
@@ -93,8 +85,8 @@ end
 -- Two wands
 function path_one(entity_id, x, y)
   set_random_seed_with_player_position()
-  local stored_wand_id1 = EntityGetWithTag(get_state().first_wand_tag)[1]
-  local stored_wand_id2 = EntityGetWithTag(get_state().second_wand_tag)[1]
+  local stored_wand_id1 = retrieve_wand(1)
+  local stored_wand_id2 = retrieve_wand(2)
   local always_cast_spell_count = 0
   if get_state().tablets_sacrificed == 1 then
     always_cast_spell_count = 1
@@ -107,8 +99,12 @@ function path_one(entity_id, x, y)
   if not success then
     error("Anvil of Destiny error: " .. new_wand_id)
   end
-  EntityKill(stored_wand_id1)
-  EntityKill(stored_wand_id2)
+  --EntityKill(stored_wand_id1)
+  --EntityKill(stored_wand_id2)
+  EntityRemoveFromParent(stored_wand_id1)
+  EntityRemoveFromParent(stored_wand_id2)
+  wand_restore_to_unpicked_state(stored_wand_id1, x - 20, y)
+  wand_restore_to_unpicked_state(stored_wand_id2, x + 20, y)
   wand_restore_to_unpicked_state(new_wand_id, x, y)
   finish(entity_id, x, y)
 end
@@ -120,7 +116,7 @@ function path_two(entity_id, x, y)
 end
 -- Happens in path_two, buff a wand by a lot
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
-  local stored_wand_id = EntityGetWithTag(get_state().first_wand_tag)[1]
+  local stored_wand_id = retrieve_wand()
   local success, new_wand_id = pcall(function()
     local buff_amount = config_improved_wand_buff_percent / 100
     return wand_buff(stored_wand_id, buff_amount, nil, x, y)
@@ -163,16 +159,21 @@ function finish(entity_id, x, y, alternative)
     EntityRemoveComponent(entity_id, comp)
   end)
 end
+
+function get_wand_storage()
+  local children = EntityGetAllChildren(GetUpdatedEntityID())
+  for i, child in ipairs(children) do
+    if EntityGetTags(child) == "wand_storage" then
+      return child
+    end
+  end
+end
+
 -- "Hides" a wand by removing it's visible components and add a unique tag to it, so we can later retrieve it with EntityGetWithTag
 -- Returns the tag added
 function hide_wand(wand_id)
-  -- teleport the wand 200 pixels above the anvil, and disable all components that make it visible
-  local anvil_id = GetUpdatedEntityID()
-  local x, y = EntityGetTransform(wand_id)
-  -- Add a tag to the wand so we can get it anytime, even after a game relaunch
-  local unique_tag = generate_unique_id(8, x, y)
-  EntityAddTag(wand_id, unique_tag)
-  EntitySetTransform(wand_id, x, y - 200)
+  -- Put the wand in the storage and disable all components that make it visible 
+  EntityAddChild(get_wand_storage(), wand_id)
   -- Disable physics to keep it floating
   edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
@@ -186,5 +187,11 @@ function hide_wand(wand_id)
   edit_component(wand_id, "LightComponent", function(comp, vars)
     EntitySetComponentIsEnabled(wand_id, comp, false)
   end)
-  return unique_tag
+end
+
+function retrieve_wand(index)
+  local wand_storage = get_wand_storage()
+  local stored_wands = EntityGetAllChildren(wand_storage)
+
+  return stored_wands[index]
 end
