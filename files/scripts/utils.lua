@@ -36,23 +36,25 @@ function normalize_table(t)
   for i=1, #t do
     sum = sum + t[i]
   end
-  for i=1, #t do
-    t[i] = t[i] / sum
+  if sum == 0 then
+    for i=1, #t do
+      t[i] = 1 / #t
+    end
+  else
+    for i=1, #t do
+      t[i] = t[i] / sum
+    end
   end
 end
 -- Setting min higher than 0, close to 1 reduces the variance, for instance min=1 would result in {0.2, 0.2, 0.2, 0.2, 0.2}
 function create_normalized_random_distribution(count, min)
   min = min or 0
   local out = {}
-  local sum = 0
   for i=1, count do
     local random_number = min + Random() * (1 - min)
-    sum = sum + random_number
     table.insert(out, random_number)
   end
-  for i=1, count do
-    out[i] = out[i] / sum
-  end
+  table.normalize(out)
   return out
 end
 
@@ -103,4 +105,28 @@ function set_random_seed_with_player_position()
     local x, y = EntityGetTransform(players[1])
     SetRandomSeed(x, y)
   end
+end
+
+function table.imerge(t1, t2)
+  local out = {}
+  for i, v in ipairs(t1) do
+    table.insert(out, v)
+  end
+  for i, v in ipairs(t2) do
+    table.insert(out, v)
+  end
+  return out
+end
+-- Randomly either rounds up or down
+function randround(val)
+  if Random() < 0.5 then
+    return math.ceil(val)
+  else
+    return math.floor(val)
+  end
+end
+
+function clamp(val, lower, upper)
+  if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
+  return math.max(lower, math.min(upper, val))
 end
