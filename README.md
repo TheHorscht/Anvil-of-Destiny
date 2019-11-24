@@ -14,9 +14,9 @@ You can throw wands and items by opening your inventory and dragging them out in
 __Here's a video showing how it works: https://youtu.be/iO5c9LrOjlU__
 
 Here are the current recipes:
-### 🌟 2 Wands = New wand roughly 1 level better + buff (split randomly between 5 stats)
+### 🌟 2 Wands = New wand roughly 1 level better
 The output is based on the stats and rough spell level of the input wand
 ### 🌟 1 Tablet + 2 Wands = Same as above but the new wand will have 1 additional random guaranteed always cast spell
-### 🌟 2 Tablets + 1 Wand = Buff that wand by a lot
+### 🌟 2 Tablets + 1 Wand = Just buff the input wand's stats
 
 ## That's it, have fun forging with the holy 🙏 __Anvil of DESTINY__ 🙏!
