@@ -54,7 +54,7 @@ function create_normalized_random_distribution(count, min)
     local random_number = min + Random() * (1 - min)
     table.insert(out, random_number)
   end
-  table.normalize(out)
+  normalize_table(out)
   return out
 end
 

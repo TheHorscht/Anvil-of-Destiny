@@ -1,12 +1,12 @@
-dofile("data/scripts/lib/utilities.lua")
-dofile("data/scripts/gun/gun_enums.lua")
-dofile("mods/anvil_of_destiny/files/scripts/wand_utils.lua")
-dofile("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
-dofile("mods/anvil_of_destiny/config.lua")
-dofile("mods/anvil_of_destiny/files/scripts/utils.lua")
-dofile("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
-dofile("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
--- dofile("data/scripts/lib/coroutines.lua")
+if not DOFILE_CACHE then dofile("mods/anvil_of_destiny/files/scripts/dofile_cacher.lua") end
+dofile_cached("data/scripts/lib/utilities.lua")
+dofile_cached("data/scripts/gun/gun_enums.lua")
+dofile_cached("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
+dofile_cached("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
+dofile_cached("mods/anvil_of_destiny/config.lua")
+dofile_cached("mods/anvil_of_destiny/files/scripts/utils.lua")
+dofile_cached("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
+dofile_cached("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 
 function init_state()
   local entity_id = GetUpdatedEntityID()
@@ -92,20 +92,16 @@ function path_one(entity_id, x, y)
     always_cast_spell_count = 1
   end
   local success, new_wand_id = pcall(function()
-    local buff_amount = config_regular_wand_buff_percent / 100
-    local flat_buff_amounts = config_populate_flat_buffs(config_flat_buff_amounts, x, y)
-    return anvil_buff1(stored_wand_id1, stored_wand_id2, buff_amount, always_cast_spell_count, flat_buff_amounts, config_can_generate_shuffle_wands, x, y)
+    local seed_x = Random() * 1000
+    local seed_y = Random() * 1000
+    return anvil_buff1(stored_wand_id1, stored_wand_id2, config_regular_wand_buff, always_cast_spell_count, seed_x, seed_y)
   end)
   if not success then
     error("Anvil of Destiny error: " .. new_wand_id)
   end
-  --EntityKill(stored_wand_id1)
-  --EntityKill(stored_wand_id2)
-  EntityRemoveFromParent(stored_wand_id1)
-  EntityRemoveFromParent(stored_wand_id2)
-  wand_restore_to_unpicked_state(stored_wand_id1, x - 20, y)
-  wand_restore_to_unpicked_state(stored_wand_id2, x + 20, y)
-  wand_restore_to_unpicked_state(new_wand_id, x, y)
+  EntityKill(stored_wand_id1)
+  EntityKill(stored_wand_id2)
+  EZWand(new_wand_id):PlaceAt(x + 4, y - 30)
   finish(entity_id, x, y)
 end
 -- 2 Tablet + 1 Wand
@@ -116,26 +112,30 @@ function path_two(entity_id, x, y)
 end
 -- Happens in path_two, buff a wand by a lot
 function buff_stored_wand_and_respawn_it(entity_id, x, y)
-  local stored_wand_id = retrieve_wand()
+  local stored_wand_id = retrieve_wand(1)
+  local stored_wand = EZWand(stored_wand_id)
   local success, new_wand_id = pcall(function()
-    local buff_amount = config_improved_wand_buff_percent / 100
-    return wand_buff(stored_wand_id, buff_amount, nil, x, y)
+    local variation = 0.1 - Random() * 0.2
+    return buff_wand(stored_wand, config_improved_wand_buff + variation, false)
   end)
   if not success then
     -- If the call was not successful, new_wand_id contains the error message
-    print(new_wand_id)
+    print("Anvil of Destiny error: " .. new_wand_id)
   end
-  
-	local props = wand_get_properties(stored_wand_id)
-	-- Increase slots by 1 for each 4 slots
-	local capacity_old = props.gun_config.deck_capacity
-	props.gun_config.deck_capacity = props.gun_config.deck_capacity + math.ceil(props.gun_config.deck_capacity / 4)
-	-- Limit capacity to 26 or the old capacity, we don't want to reduce the capacity in case the wand already had more slots to begin with
-	props.gun_config.deck_capacity = math.min(math.max(26, capacity_old), props.gun_config.deck_capacity)
-	wand_set_properties(stored_wand_id, props)
 
-  EntityRemoveTag(stored_wand_id, get_state().first_wand_tag)
-  wand_restore_to_unpicked_state(stored_wand_id, x, y)
+  -- TODO: Fix this
+  local simple_physics_component = get_component_with_member(stored_wand_id, "can_go_up")
+  local item_component = get_component_with_member(stored_wand_id, "preferred_inventory")
+  local sprite_component = get_component_with_member(stored_wand_id, "next_rect_animation")
+  local light_component = get_component_with_member(stored_wand_id, "fade_out_time")
+
+  EntitySetComponentIsEnabled(stored_wand_id, simple_physics_component, true)
+  EntitySetComponentIsEnabled(stored_wand_id, item_component, true)
+  EntitySetComponentIsEnabled(stored_wand_id, sprite_component, true)
+  EntitySetComponentIsEnabled(stored_wand_id, light_component, true)
+
+  EntityRemoveFromParent(stored_wand.entity_id)
+  stored_wand:PlaceAt(x + 4, y - 30)
 end
 -- :)
 function path_easter_egg(entity_id, x, y)

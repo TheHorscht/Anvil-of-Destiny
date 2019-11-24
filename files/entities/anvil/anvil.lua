@@ -1,9 +1,10 @@
-dofile("data/scripts/lib/utilities.lua")
-dofile("data/scripts/gun/gun_actions.lua")
+if not DOFILE_CACHE then dofile("mods/anvil_of_destiny/files/scripts/dofile_cacher.lua") end
+dofile_cached("data/scripts/lib/utilities.lua")
+dofile_cached("data/scripts/gun/gun_actions.lua")
 -- TODO: make this local again
-EZWand = loadfile("mods/anvil_of_destiny/lib/EZWand.lua")()
+if not EZWand then EZWand = loadfile("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")() end
 -- This gets called by path_one
-function anvil_buff1(wand_id1, wand_id2, buff_amount, seed_x, seed_y)
+function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_x, seed_y)
 	local wand1 = EZWand(wand_id1)
 	local wand2 = EZWand(wand_id2)
 	local new_wand = wand_merge(wand1, wand2)
@@ -17,9 +18,14 @@ function anvil_buff1(wand_id1, wand_id2, buff_amount, seed_x, seed_y)
 		spell_stats.average_attached_spell_level,
 		seed_x, seed_y)
 
-	buff_wand(new_wand, buff_amount)
+	buff_wand(new_wand, buff_amount, true)
 
-	-- TODO: Attach a spell and
+	for i=1,attach_spells_count do
+		local level = wand_compute_level(new_wand.entity_id)
+		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		local action = GetRandomActionWithType(Random()*100, Random()*100, level, action_type, Random()*100)
+		new_wand:AttachSpells(action)
+	end
 
 	new_wand:UpdateSprite()
 
@@ -254,11 +260,13 @@ function action_get_by_id(action_id)
 	end
 end
 
-function buff_wand(wand, buff_amount)
+function buff_wand(wand, buff_amount, reduce_one_stat)
 	local rng = create_normalized_random_distribution(3, 0.1)
 	-- one of castDelay rechargeTime or spread should get nerfed, the other 2 buffed
 	local randIndex = Random(1, #rng)
-	rng[randIndex] = rng[randIndex] * -1
+	if reduce_one_stat then
+		rng[randIndex] = rng[randIndex] * -1
+	end
 	-- Diminishes the bonus by scale if it's above threshold
 	local function limit_buff(value, threshold, scale)
 		if value > threshold then
