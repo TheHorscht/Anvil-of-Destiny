@@ -1,15 +1,6 @@
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
-- Update Github description
-- Update modworkshop destription
-- Somehow set the wand sprite according to deck capacity
 - Does the anvil sound keep playing forever even when not visible anymore?
 - Smithing animation?
-- Think about implementing Twitch ws api wand tooltip for Pyry
-- Make wand_fill_with_semi_random_spells spit out more projectiles in a row
-- Put include guards everywhere?
-if not some_lib then
-    dofile("mods/my_mod/files/some_lib.lua")
-end
 
 try:
 -- LifetimeComponent
