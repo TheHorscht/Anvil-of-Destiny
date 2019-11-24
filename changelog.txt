@@ -1,6 +1,7 @@
-UNRELEASED:
-- Fix a bug that would crash the game (FINALLY)
-- Lower the power level of generated wands, changed the generation algorithm
+v1.4.1:
+- Fix a bug that would crash the game (FINALLY) (hopefully that's all of them)
+- Lowered the power level of generated wands
+- Changed the wand generation algorithm
 - Anvil room occurence rates lowered slightly
 
 v1.4.0:
