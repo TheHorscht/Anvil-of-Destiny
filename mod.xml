@@ -4,7 +4,7 @@
 Adds a semi-rare room with an anvil to most biomes, where you can improve your wands!\n
 Just open your inventory and drag your wands out to throw them onto the anvil.\n
 Wand + Wand = New better wand based on the stats of the input wands and spells
-Tablet + Wand + Wand = Same as above but with 1 random always cast spell\n
+Tablet + Wand + Wand = Same as above but with 1 additional random always cast spell\n
 Tablet + Tablet + Wand = Get back same wand with improved stats!\n
 The order in which you sacrifice items doesn't matter. Have fun!"
 	request_no_api_restrictions="0" 
