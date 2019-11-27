@@ -1,8 +1,7 @@
-if not DOFILE_CACHE then dofile("mods/anvil_of_destiny/files/scripts/dofile_cacher.lua") end
-dofile_cached("data/scripts/lib/utilities.lua")
-dofile_cached("data/scripts/gun/gun_actions.lua")
+dofile("data/scripts/lib/utilities.lua")
+dofile("data/scripts/gun/gun_actions.lua")
 -- TODO: make this local again
-if not EZWand then EZWand = loadfile("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")() end
+EZWand = dofile("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
 -- This gets called by path_one
 function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_x, seed_y)
 	local wand1 = EZWand(wand_id1)
@@ -36,13 +35,13 @@ function wand_merge(wand1, wand2)
 	local new_wand = EZWand{
 		shuffle = randround((wand1.shuffle + wand2.shuffle) / 2),
 		spellsPerCast = randround((wand1.spellsPerCast + wand2.spellsPerCast) / 2),
-		castDelay = randround((wand1.castDelay + wand2.castDelay) / 2),
-		rechargeTime = randround((wand1.rechargeTime + wand2.rechargeTime) / 2),
+		castDelay = (wand1.castDelay + wand2.castDelay) / 2,
+		rechargeTime = (wand1.rechargeTime + wand2.rechargeTime) / 2,
 		manaMax = randround((wand1.manaMax + wand2.manaMax) / 2),
 		manaChargeSpeed = randround((wand1.manaChargeSpeed + wand2.manaChargeSpeed) / 2),
 		capacity = randround((wand1.capacity + wand2.capacity) / 2),
-		spread = randround((wand1.spread + wand2.spread) / 2),
-		speedMultiplier = randround((wand1.speedMultiplier + wand2.speedMultiplier) / 2),
+		spread = (wand1.spread + wand2.spread) / 2,
+		speedMultiplier = (wand1.speedMultiplier + wand2.speedMultiplier) / 2,
 	}
 	return new_wand
 end

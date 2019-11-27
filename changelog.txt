@@ -1,3 +1,7 @@
+v1.4.2:
+- FIX: Stats of merged wands were being rounded when they shouldn't, resulting in a speedMultiplier of 0... Oops!
+- FIX: Updated for the games Nov 26 Beta Update
+
 v1.4.1:
 - Fix a bug that would crash the game (FINALLY) (hopefully that's all of them)
 - Lowered the power level of generated wands
