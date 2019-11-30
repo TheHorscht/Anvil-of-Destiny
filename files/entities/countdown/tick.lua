@@ -22,12 +22,18 @@ if STATE.tick <= 3 then
     else
       GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "tick_high", x, y)
     end
-    local shrink_script = EntityGetFirstComponent(entity_id, "LuaComponent", "script_shrink")
-    if shrink_script ~= nil then
-      EntityRemoveComponent(entity_id, shrink_script)
+    local shrink_script_file = "mods/anvil_of_destiny/files/entities/countdown/shrink.lua"
+    local lua_components = EntityGetComponent(entity_id, "LuaComponent")
+    if lua_components ~= nil then
+      for i, lua_component in ipairs(lua_components) do
+        local script_source_file = ComponentGetValue(lua_component, "script_source_file")
+        if script_source_file == shrink_script_file then
+          EntityRemoveComponent(entity_id, lua_component)
+        end
+      end
     end
     EntityAddComponent(entity_id, "LuaComponent", {
-      script_source_file="mods/anvil_of_destiny/files/entities/countdown/shrink.lua",
+      script_source_file=shrink_script_file,
       execute_on_added="1",
       execute_every_n_frame="1",
       execute_times="60"
