@@ -1,5 +1,4 @@
-<Entity
-  tags="facing_left">
+<Entity>
 
   <Base file="mods/anvil_of_destiny/files/entities/statue/statue_base.xml">
 
@@ -15,5 +14,13 @@
     </ParticleEmitterComponent>
 
   </Base>
+
+  <!-- This is a workaround for tags, so we can identify this entity without using tags -->
+
+  <VariableStorageComponent
+    name="entity_type"
+    value_string="statue_facing_left"
+    >
+  </VariableStorageComponent>
 
 </Entity>

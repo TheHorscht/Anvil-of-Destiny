@@ -33,13 +33,19 @@ if physics_body ~= nil then
     GamePrintImportant("A holy relic has been defiled!", "This vile act shall not go unpunished")
     local entity_id = GetUpdatedEntityID()
     local x, y = EntityGetTransform(entity_id)
-    local statues = EntityGetInRadiusWithTag(x, y, 100, "anvil_of_destiny_statue")
-    if statues ~= nil then
-      for i,statue in ipairs(statues) do
-        local particle_emitter_component = get_component_with_member(statue, "emitted_material_name")
-        if particle_emitter_component ~= nil then
-          EntitySetComponentIsEnabled(statue, particle_emitter_component, true)
-        end
+    -- Get the statues and enable their glowing eyes
+    local entities_in_radius = EntityGetInRadius(x, y, 100)
+    local statues = {}
+    for i, entity in ipairs(entities_in_radius) do
+      local entity_type = get_stored_entity_type(entity)
+      if entity_type == "statue_facing_left" or entity_type == "statue_facing_right" then
+        table.insert(statues, entity)
+      end
+    end
+    for i,statue in ipairs(statues) do
+      local particle_emitter_component = get_component_with_member(statue, "emitted_material_name")
+      if particle_emitter_component ~= nil then
+        EntitySetComponentIsEnabled(statue, particle_emitter_component, true)
       end
     end
 

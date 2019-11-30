@@ -1,4 +1,5 @@
-dofile("data/scripts/lib/utilities.lua")
+dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
+dofile_once("data/scripts/lib/utilities.lua")
 
 local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform(entity_id)
@@ -44,7 +45,8 @@ if player_entity ~= nil and player_entity[1] ~= nil then
   local px, py = EntityGetTransform(player_entity[1])
   local p = { x = px, y = py - 4 }
   local statue_eyes_pos = nil
-  if EntityHasTag(entity_id, "facing_left") then
+
+  if get_stored_entity_type(entity_id) == "statue_facing_left" then
     statue_eyes_pos = { x = x + 24, y = y + 5 }
   else
     statue_eyes_pos = { x = x + 11, y = y + 5 }

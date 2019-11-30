@@ -130,3 +130,16 @@ function clamp(val, lower, upper)
   if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
   return math.max(lower, math.min(upper, val))
 end
+
+function get_stored_entity_type(entity_id)
+  local variable_storage_components = EntityGetComponent(entity_id, "VariableStorageComponent")
+  if variable_storage_components ~= nil then
+    for i, component in ipairs(variable_storage_components) do
+      local name = ComponentGetValue(component, "name")
+      local value_string = ComponentGetValue(component, "value_string")
+      if name == "entity_type" then
+        return value_string
+      end
+    end
+  end
+end

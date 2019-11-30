@@ -1,6 +1,4 @@
-<Entity
-  tags="anvil_of_destiny_statue"
-  >
+<Entity>
 
   <SpriteComponent
     _enabled="1"
