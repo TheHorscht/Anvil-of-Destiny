@@ -10,7 +10,6 @@
 
   <ParticleEmitterComponent 
 		_enabled="0"
-    _tags="glowing_eyes"
 		emitted_material_name="spark_teal"
 		gravity.y="0.0"
 		lifetime_min="30"

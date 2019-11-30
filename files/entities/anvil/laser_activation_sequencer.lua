@@ -46,5 +46,5 @@ if current_frame == 270 then
   end
   -- We are done
   local entity = GetUpdatedEntityID()
-  EntityRemoveComponent(entity, EntityGetFirstComponent(entity, "LuaComponent", "counter_example_script"))
+  EntityRemoveComponent(entity, EntityGetFirstComponent(entity, "LuaComponent"))
 end

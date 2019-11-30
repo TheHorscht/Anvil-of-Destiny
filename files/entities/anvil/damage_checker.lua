@@ -1,3 +1,5 @@
+dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
+
 local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform(entity_id)
 local physics_body = EntityGetFirstComponent(entity_id, "PhysicsBodyComponent")
@@ -34,7 +36,10 @@ if physics_body ~= nil then
     local statues = EntityGetInRadiusWithTag(x, y, 100, "anvil_of_destiny_statue")
     if statues ~= nil then
       for i,statue in ipairs(statues) do
-        EntitySetComponentsWithTagEnabled(statue, "glowing_eyes", true)
+        local particle_emitter_component = get_component_with_member(statue, "emitted_material_name")
+        if particle_emitter_component ~= nil then
+          EntitySetComponentIsEnabled(statue, particle_emitter_component, true)
+        end
       end
     end
 
