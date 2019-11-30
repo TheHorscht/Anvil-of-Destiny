@@ -154,7 +154,8 @@
   <!-- This is where we will parent the wands to that we want to hide/store -->
 
   <Entity
-    tags="wand_storage">
+    name="wand_storage"
+    >
   </Entity>
 
   <CollisionTriggerComponent

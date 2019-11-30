@@ -162,7 +162,7 @@ end
 function get_wand_storage()
   local children = EntityGetAllChildren(GetUpdatedEntityID())
   for i, child in ipairs(children) do
-    if EntityGetTags(child) == "wand_storage" then
+    if EntityGetName(child) == "wand_storage" then
       return child
     end
   end
