@@ -42,13 +42,13 @@ function collision_trigger(colliding_entity_id)
         get_state().wands_sacrificed = get_state().wands_sacrificed + 1
         hide_wand(v)
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter1", true)
+          set_runes_enabled(entity_id, "emitter1", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+          set_runes_enabled(entity_id, "emitter2_powered", true)
           path_two(entity_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter2", true)
+          set_runes_enabled(entity_id, "emitter2", true)
           path_one(entity_id, x, y)
         end
       end
@@ -63,18 +63,18 @@ function collision_trigger(colliding_entity_id)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         end
         if get_state().tablets_sacrificed == 1 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter_base_powered_up", true)
+          set_runes_enabled(entity_id, "base", true)
         elseif get_state().tablets_sacrificed == 2 then
           if get_state().wands_sacrificed == 0 then
-            EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
+            set_runes_enabled(entity_id, "emitter1_powered", true)
           else
-            EntitySetComponentsWithTagEnabled(entity_id, "emitter1", false)
-            EntitySetComponentsWithTagEnabled(entity_id, "emitter1_powered", true)
-            EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+            set_runes_enabled(entity_id, "emitter1", false)
+            set_runes_enabled(entity_id, "emitter1_powered", true)
+            set_runes_enabled(entity_id, "emitter2_powered", true)
             path_two(entity_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
-          EntitySetComponentsWithTagEnabled(entity_id, "emitter2_powered", true)
+          set_runes_enabled(entity_id, "emitter2_powered", true)
           path_easter_egg(entity_id, x, y)
         end
       end
@@ -168,8 +168,7 @@ function get_wand_storage()
   end
 end
 
--- "Hides" a wand by removing it's visible components and add a unique tag to it, so we can later retrieve it with EntityGetWithTag
--- Returns the tag added
+-- "Hides" a wand by removing it's visible components and adds it to the wand storage as a child entity so we can later retrieve it
 function hide_wand(wand_id)
   -- Put the wand in the storage and disable all components that make it visible 
   EntityAddChild(get_wand_storage(), wand_id)
@@ -193,4 +192,51 @@ function retrieve_wand(index)
   local stored_wands = EntityGetAllChildren(wand_storage)
 
   return stored_wands[index]
+end
+
+function set_runes_enabled(entity_id, which, enabled)
+  local emitter1, emitter2
+  local emitter1_powered, emitter2_powered
+  local emitter_base_powered_up
+
+  -- Find the emitters and save them into variables
+  local all_components = EntityGetAllComponents(entity_id)
+  local particle_emitter_components --, "ParticleEmitterComponent"
+	for _, component in ipairs(all_components) do
+		for k, v in pairs(ComponentGetMembers(component)) do
+			if(k == "image_animation_file") then
+        if v == "mods/anvil_of_destiny/files/entities/anvil/runes1.png" then
+          local emitted_material_name = ComponentGetValue(component, "emitted_material_name")
+          if emitted_material_name == "spark" then
+            emitter1 = component
+          elseif emitted_material_name == "spark_white_bright" then
+            emitter1_powered = component
+          end
+        elseif v == "mods/anvil_of_destiny/files/entities/anvil/runes2.png" then
+          local emitted_material_name = ComponentGetValue(component, "emitted_material_name")
+          if emitted_material_name == "spark" then
+            emitter2 = component
+          elseif emitted_material_name == "spark_white_bright" then
+            emitter2_powered = component
+          end
+        elseif v == "mods/anvil_of_destiny/files/entities/anvil/emitter.png" then
+          emitter_base = component
+        end
+			end
+		end
+  end
+  
+  if which == "base" then
+    EntitySetComponentIsEnabled(entity_id, emitter_base, enabled)
+  elseif which == "emitter1" then
+    EntitySetComponentIsEnabled(entity_id, emitter1, enabled)
+  elseif which == "emitter1_powered" then
+    EntitySetComponentIsEnabled(entity_id, emitter1_powered, enabled)
+  elseif which == "emitter2" then
+    EntitySetComponentIsEnabled(entity_id, emitter2, enabled)
+  elseif which == "emitter2_powered" then
+    EntitySetComponentIsEnabled(entity_id, emitter2_powered, enabled)
+  else
+    error("Argument 'which' is invalid.")
+  end
 end

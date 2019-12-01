@@ -13,17 +13,10 @@
     >
   </PhysicsImageShapeComponent>
 
-<!-- 	<PhysicsJointComponent 
-		nail_to_wall="1" 
-		pos_x="10"
-		pos_y="-2" >
-	</PhysicsJointComponent> -->
-
   <!-- Wand 1 sacrificed indicator -->
 
   <Base file="mods/anvil_of_destiny/files/entities/anvil/rune_emitter.xml">
     <ParticleEmitterComponent
-      _tags="emitter1"
       image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes1.png"
       />
   </Base>
@@ -32,7 +25,6 @@
 
   <Base file="mods/anvil_of_destiny/files/entities/anvil/rune_emitter.xml">
     <ParticleEmitterComponent
-      _tags="emitter2"
       image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes2.png"
       />
   </Base>
@@ -41,7 +33,6 @@
 
   <Base file="mods/anvil_of_destiny/files/entities/anvil/rune_emitter_powered.xml">
     <ParticleEmitterComponent
-      _tags="emitter1_powered"
       image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes1.png"
       />
   </Base>
@@ -50,7 +41,6 @@
 
   <Base file="mods/anvil_of_destiny/files/entities/anvil/rune_emitter_powered.xml">
     <ParticleEmitterComponent
-      _tags="emitter2_powered"
       image_animation_file="mods/anvil_of_destiny/files/entities/anvil/runes2.png"
       />
   </Base>
@@ -59,7 +49,6 @@
 
   <ParticleEmitterComponent 
     _enabled="0"
-    _tags="emitter_base_powered_up"
     emitted_material_name="spark_white"
     gravity.y="-20.0"
     lifetime_min="0.1"
@@ -175,7 +164,6 @@
   </CollisionTriggerComponent>
 
   <LuaComponent
-    _tags="lua_component_anvil_trigger"
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
     >
   </LuaComponent>
