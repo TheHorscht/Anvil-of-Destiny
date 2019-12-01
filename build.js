@@ -16,7 +16,7 @@ args.forEach(val => {
 // Config
 const out_dir = __dirname + '/dist';
 const name = 'anvil_of_destiny';
-const version = '1.4.2';
+const version = '1.4.3';
 const root_folder = __dirname;
 const ignore_list = [
   'node_modules',
