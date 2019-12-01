@@ -1,3 +1,6 @@
+v1.4.3:
+-FIX: No more crashes because of too many tags, because I removed ALL of them!
+
 v1.4.2:
 - FIX: Stats of merged wands were being rounded when they shouldn't, resulting in a speedMultiplier of 0... Oops!
 - FIX: Updated for the games Nov 26 Beta Update
