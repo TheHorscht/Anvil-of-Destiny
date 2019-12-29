@@ -10,8 +10,13 @@ function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_
 	SetRandomSeed(seed_x, seed_y)
 	local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
 	
+	local wand1_spell_count = #wand1:GetSpells()
+	local wand2_spell_count = #wand2:GetSpells()
+	-- 100% of the highest spellcount wand and 50% of the lower
+	local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
+	spell_count_to_add = spell_count_to_add + Random(-2, 2)
 	wand_fill_with_semi_random_spells(new_wand,
-		spell_stats.average_spell_count + Random(-1, 1) * math.floor(spell_stats.average_spell_count / 4),
+		spell_count_to_add,
 		spell_stats.average_attached_spell_count,
 		spell_stats.average_spell_level,
 		spell_stats.average_attached_spell_level,
@@ -273,7 +278,7 @@ function buff_wand(wand, buff_amount, reduce_one_stat)
 		end
 		return value
 	end
-	wand.manaChargeSpeed = wand.manaChargeSpeed + Random(40, 55) * buff_amount
+	wand.manaChargeSpeed = wand.manaChargeSpeed + Random(45, 60)
 	local bonus_mana = wand.manaMax * (1.05 + Random() * 0.1) * buff_amount
 	wand.manaMax = wand.manaMax + limit_buff(bonus_mana, 50, 0.2)
 	local function apply_buff_percent(value, max_change, direction, buff_amount)

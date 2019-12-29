@@ -1,3 +1,6 @@
+v1.4.4:
+- Increased mana recharge rate and spell count of generated wands.
+
 v1.4.3:
 - FIX: No more crashes because of too many tags, because I removed ALL of them!
 
