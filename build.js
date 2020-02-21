@@ -2,6 +2,7 @@ const AdmZip = require('adm-zip');
 const fs = require('fs');
 const path = require('path');
 const minimatch = require("minimatch")
+const pjson = require('./package.json');
 
 const scriptName = path.basename(__filename);
 let preview = false;
@@ -16,7 +17,7 @@ args.forEach(val => {
 // Config
 const out_dir = __dirname + '/dist';
 const name = 'anvil_of_destiny';
-const version = '1.4.4';
+const version = pjson.version;
 const root_folder = __dirname;
 const ignore_list = [
   'node_modules',
