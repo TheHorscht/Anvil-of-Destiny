@@ -37,7 +37,11 @@ const ignore_list = [
   'rune_alphabet_typer.htm',
   'rune_texts.txt',
   'Modworkshop Readme.txt',
-  'fmod'
+  'fmod',
+  'workshop.xml',
+  'workshop_id.txt',
+  'workshop_preview_image.png',
+  'mod_id.txt',
 ];
 // Config end
 
