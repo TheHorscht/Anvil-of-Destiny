@@ -1,5 +1,5 @@
 <Entity>
-
+  <!-- TODO: Use MaterialAreaCheckerComponent instead? -->
   <PhysicsBodyComponent 
     fixed_rotation="1" 
     auto_clean="0"
