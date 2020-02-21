@@ -1,3 +1,6 @@
+v1.4.5:
+- FIX: Temporary workaround for the anvil being movable. It's immovable now again, but the check if it's damaged doesn't work, and the statues won't get angry. I'll re-add that later.
+
 v1.4.4:
 - Increased mana recharge rate and spell count of generated wands.
 

@@ -1,17 +1,13 @@
 <Entity>
   <!-- TODO: Use MaterialAreaCheckerComponent instead? -->
-  <PhysicsBodyComponent 
-    fixed_rotation="1" 
-    auto_clean="0"
+  <PixelSceneComponent
+    pixel_scene="mods/anvil_of_destiny/files/entities/anvil/anvil_material.png"
+    pixel_scene_visual="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
+    skip_biome_checks="1"
+    offset_x="-39"
+    offset_y="-18"
     >
-  </PhysicsBodyComponent>
-
-  <PhysicsImageShapeComponent 
-    centered="1"
-    image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
-    material="anvilofdestinium"
-    >
-  </PhysicsImageShapeComponent>
+  </PixelSceneComponent>
 
   <!-- Wand 1 sacrificed indicator -->
 
