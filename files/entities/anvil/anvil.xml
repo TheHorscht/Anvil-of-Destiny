@@ -127,6 +127,8 @@
     </ParticleEmitterComponent>
   </Entity>
 
+  <!-- the _enabled attribute MUST be present and set to 1 otherwise it doesn't work -->
+
 	<AudioLoopComponent 
 		_enabled="1" 
 		auto_play="1" 
