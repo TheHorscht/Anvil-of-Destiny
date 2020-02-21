@@ -5,7 +5,7 @@
     pixel_scene_visual="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
     skip_biome_checks="1"
     offset_x="-39"
-    offset_y="-18"
+    offset_y="-19"
     >
   </PixelSceneComponent>
 
