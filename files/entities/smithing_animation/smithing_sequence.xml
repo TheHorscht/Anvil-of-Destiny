@@ -15,7 +15,8 @@
     >
   </HotspotComponent>
 
-  <!-- Sparks -->
+  <!-- The sparks will be spawned at this entities position.
+  Since it inherits the hotspot position we can essentially spawn the sparks at the hotspot position. -->
 
   <Entity>
 
@@ -23,15 +24,6 @@
       parent_hotspot_tag="shoot_pos"
       >
     </InheritTransformComponent>
-
-<!--     <LoadEntitiesComponent
-      _enabled="0"
-      count.min="1"
-      count.max="1"
-      kill_entity="0"
-      entity_file="mods/anvil_of_destiny/files/entities/smithing_animationsparks.xml"
-      >
-    </LoadEntitiesComponent> -->
 
   </Entity>
 

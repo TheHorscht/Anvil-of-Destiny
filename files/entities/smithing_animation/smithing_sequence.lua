@@ -13,7 +13,6 @@ SetRandomSeed(GameGetFrameNum(), GameGetFrameNum())
 
 async(function()
   local x, y, rot, scale_x = EntityGetTransform(entity_id)
-  -- EntitySetTransform(entity_id, x, y, 3.141592 / 2)
   -- PI/2 = 90° to the right
   -- -PI/2 = 90° to the left
   while (scale_x > 0 and rot > -PI / 2) or (scale_x < 0 and rot < PI / 2) do
@@ -26,18 +25,7 @@ async(function()
       rot = rot - rotational_speed * scale_x
       EntitySetTransform(entity_id, x, y, rot)
       spawn_sparks()
-      -- 46 * direction, mouse_y - 10
       GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit"..Random(1,3), x - 46 * scale_x, y + 10)
-      --data/debug/box_10x10.png
-
---[[       local debug_indicator = EntityCreateNew()
-      EntitySetTransform(debug_indicator, x - 46 * scale_x, y + 10)
-      EntityAddComponent(debug_indicator, "SpriteComponent", {
-        image_file="data/debug/box_10x10.png",
-        offset_x="5",
-        offset_y="5"
-      }) ]]
-
       break
     end
     rotational_speed = rotational_speed + rotational_acceleration
@@ -81,11 +69,4 @@ end
 function spawn_sparks()
   local x, y = EntityGetTransform(sparks_entity)
   EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/sparks.xml", x, y + 9)
-  --[[ local comp = EntityAddComponent(sparks_entity, "LoadEntitiesComponent", {
-    kill_entity="0",
-    entity_file="mods/anvil_of_destiny/files/entities/smithing_animation/sparks.xml",
-  })
-  ComponentSetValueValueRange(comp, "count", 1, 1) ]]
-  --[[ local load_entities_component = get_component_with_member(sparks_entity, "emitted_material_name")
-  EntitySetComponentIsEnabled(sparks_entity, load_entities_component, true) ]]
 end
