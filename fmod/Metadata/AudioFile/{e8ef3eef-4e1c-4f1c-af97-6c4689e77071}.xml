@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{e8ef3eef-4e1c-4f1c-af97-6c4689e77071}">
+        <property name="assetPath">
+            <value>Metal-Hammer-Anvil-Hit-A3-www.fesliyanstudios.com.mp3</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>48</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.224</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{eb2a4d4a-1287-481b-8086-c8771a725107}</destination>
+        </relationship>
+    </object>
+</objects>

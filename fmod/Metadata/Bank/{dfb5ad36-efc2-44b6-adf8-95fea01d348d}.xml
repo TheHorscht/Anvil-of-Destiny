@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.10.00">
-    <object class="Bank" id="{91582d81-bc04-4e28-971c-5f71aeefedd7}">
+    <object class="Bank" id="{dfb5ad36-efc2-44b6-adf8-95fea01d348d}">
         <property name="name">
             <value>anvil_of_destiny</value>
         </property>
