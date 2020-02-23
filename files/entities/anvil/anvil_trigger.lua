@@ -100,8 +100,16 @@ function path_one(entity_id, x, y)
   end
   EntityKill(stored_wand_id1)
   EntityKill(stored_wand_id2)
-  EZWand(new_wand_id):PlaceAt(x + 4, y - 30)
-  finish(entity_id, x, y)
+  EntityAddChild(get_wand_storage(), new_wand_id)
+
+  -- TODO: Don't hardcode these values?
+  local offset_x = x + 50
+  local offset_y = y - 33
+  local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", offset_x, offset_y)
+  EntitySetTransform(smithing_sequence, offset_x, offset_y, 0, 1, 1)
+
+  --EZWand(new_wand_id):PlaceAt(x + 4, y - 30)
+  --finish(entity_id, x, y)
 end
 -- 2 Tablet + 1 Wand
 function path_two(entity_id, x, y)

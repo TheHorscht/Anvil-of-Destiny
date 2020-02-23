@@ -53,6 +53,13 @@ async(function()
   end
 
   EntityKill(entity_id)
+  -- First hammer is non rotated (scale_x 1), if it's the first hammer, spawn the second one, otherwise we're done
+  if scale_x > 0 then
+    local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", x - 92, y)
+    EntitySetTransform(smithing_sequence, x - 92, y, 0, -1, 1)
+  else
+    -- Spit out the stored wand
+  end
 end)
 
 local function get_component_with_member(entity_id, member_name)
@@ -68,5 +75,5 @@ end
 
 function spawn_sparks()
   local x, y = EntityGetTransform(sparks_entity)
-  EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/sparks.xml", x, y + 9)
+  EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/sparks.xml", x, y + 8)
 end
