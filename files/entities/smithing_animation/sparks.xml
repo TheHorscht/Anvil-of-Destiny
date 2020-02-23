@@ -1,0 +1,38 @@
+<Entity>
+
+  <Entity>
+
+    <Base
+      file="mods/anvil_of_destiny/files/entities/smithing_animation/sparks_base.xml"
+      >
+
+      <ParticleEmitterComponent
+        emitted_material_name="spark_white"
+        >
+      </ParticleEmitterComponent>
+
+    </Base>
+
+  </Entity>
+
+  <Entity>
+
+    <Base
+      file="mods/anvil_of_destiny/files/entities/smithing_animation/sparks_base.xml"
+      >
+
+      <ParticleEmitterComponent
+        emitted_material_name="spark_yellow"
+        >
+      </ParticleEmitterComponent>
+
+    </Base>
+
+  </Entity>
+
+  <LifetimeComponent
+    lifetime="2"
+    >
+  </LifetimeComponent>
+
+</Entity>

@@ -1,0 +1,47 @@
+<Entity>
+
+  <SpriteComponent 
+    _enabled="1" 
+    image_file="mods/anvil_of_destiny/files/entities/smithing_animation/hammer_sprite.xml"
+    offset_x="14"
+    offset_y="50"
+    rect_animation="default"
+    >
+  </SpriteComponent>
+
+  <HotspotComponent
+    _tags="shoot_pos"
+    sprite_hotspot_name="sparks_origin"
+    >
+  </HotspotComponent>
+
+  <!-- Sparks -->
+
+  <Entity>
+
+    <InheritTransformComponent
+      parent_hotspot_tag="shoot_pos"
+      >
+    </InheritTransformComponent>
+
+<!--     <LoadEntitiesComponent
+      _enabled="0"
+      count.min="1"
+      count.max="1"
+      kill_entity="0"
+      entity_file="mods/anvil_of_destiny/files/entities/smithing_animationsparks.xml"
+      >
+    </LoadEntitiesComponent> -->
+
+  </Entity>
+
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.lua"
+		vm_type="ONE_PER_COMPONENT_INSTANCE"
+		enable_coroutines="1"
+		execute_on_added="1"
+		execute_every_n_frame="-1"
+		execute_times="1" >
+	</LuaComponent>
+
+</Entity>

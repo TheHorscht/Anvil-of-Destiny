@@ -1,0 +1,22 @@
+<Sprite
+	filename="mods/anvil_of_destiny/files/entities/smithing_animation/hammer.png"
+	hotspots_filename="mods/anvil_of_destiny/files/entities/smithing_animation/hammer_hotspots.png"
+	>
+
+	<Hotspot
+		color="00ff0000"
+		name="sparks_origin"
+		>
+	</Hotspot>
+
+ <RectAnimation
+    name="default"
+    pos_x="0"
+    pos_y="0"
+    frame_count="1"
+    frame_width="25"
+    frame_height="33"
+    >
+ </RectAnimation>
+
+</Sprite>
