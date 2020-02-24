@@ -235,7 +235,6 @@ local function SetWandSprite(entity_id, ability_comp, item_file, offset_x, offse
     }
     for i, value_name in ipairs(value_names) do
       values_out[value_name] = ComponentGetValue(comp, value_name)
-      print(value_name .. ": " .. values_out[value_name])
     end
     return values_out
   end
