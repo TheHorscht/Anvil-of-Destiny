@@ -49,6 +49,7 @@ function collision_trigger(colliding_entity_id)
           path_two(entity_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
           set_runes_enabled(entity_id, "emitter2", true)
+          GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
           path_one(entity_id, x, y)
         end
       end
@@ -106,7 +107,10 @@ function path_one(entity_id, x, y)
   local offset_x = x + 50
   local offset_y = y - 33
   local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", offset_x, offset_y)
-  EntitySetTransform(smithing_sequence, offset_x, offset_y, 0, 1, 1)
+  -- We add the smithing animation as a child so it can later get a reference to it because it is it's parent
+  EntityAddChild(entity_id, smithing_sequence)
+  --EntitySetTransform(smithing_sequence, 50, -33, 0, 1, 1)
+
 
   --EZWand(new_wand_id):PlaceAt(x + 4, y - 30)
   --finish(entity_id, x, y)
