@@ -6,6 +6,7 @@ dofile("mods/anvil_of_destiny/config.lua")
 dofile("mods/anvil_of_destiny/files/scripts/utils.lua")
 dofile("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
 dofile("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
+dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 
 function init_state()
   local entity_id = GetUpdatedEntityID()
@@ -83,14 +84,46 @@ function collision_trigger(colliding_entity_id)
   end
 end
 
+function EntityLoadDelayed(file_path, x, y, delay)
+  local entity_id = EntityCreateNew()
+  EntitySetTransform(entity_id, x, y)
+  local comp = EntityAddComponent(entity_id, "LoadEntitiesComponent", {
+    entity_file=file_path,
+    timeout_frames=tostring(delay),
+    kill_entity="1",
+  })
+  ComponentSetValueValueRangeInt(comp, "count", "1", "1")
+end
+
 function spawn_result_spawner(entity_id, x, y)
-  local offset_x = x + 50
-  local offset_y = y - 33
-  local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", offset_x, offset_y)
+  local offset_x = x + 4
+  local offset_y = y - 20
+  GameCreateSpriteForXFrames("data/debug/box_10x10.png", offset_x, offset_y, true, 0, 0, 1200)
+  spawn_hammer_animation(offset_x, offset_y, 1, 0)
+  spawn_hammer_animation(offset_x, offset_y, -1, 60)
+
   EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
     execute_on_added="0",
     execute_every_n_frame="135",
+    remove_after_executed="1",
+  })
+end
+-- This is for the easter egg path, it's hammer time!
+function spawn_result_spawner2(entity_id, x, y)
+  local offset_x = x + 4
+  local offset_y = y - 20
+  local delays = { 0, 55, 50, 45, 40, 35, 30, 25, 18, 12, 8, 8, 8, 8 }
+  local total_delay = 0
+  for i, v in ipairs(delays) do
+    total_delay = total_delay + v
+    local direction = i % 2 == 0 and -1 or 1
+    spawn_hammer_animation(offset_x, offset_y, direction, total_delay)
+  end
+  EntityAddComponent(entity_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
+    execute_on_added="0",
+    execute_every_n_frame=tostring(total_delay + 110),
     remove_after_executed="1",
   })
 end
@@ -144,7 +177,7 @@ end
 -- :)
 function path_easter_egg(entity_id, x, y)
   -- EntityAddChild(get_output_storage(), holy_bomb)
-  spawn_result_spawner(entity_id, x, y)
+  spawn_result_spawner2(entity_id, x, y)
   disable_interactivity(entity_id, x, y)
 end
 
