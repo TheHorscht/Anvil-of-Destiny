@@ -2,7 +2,7 @@
 
   <SpriteComponent 
     _enabled="1" 
-    image_file="mods/anvil_of_destiny/files/entities/smithing_animation/hammer_sprite.xml"
+    image_file="mods/anvil_of_destiny/files/entities/hammer_animation/hammer_sprite.xml"
     offset_x="14"
     offset_y="50"
     rect_animation="default"
@@ -28,7 +28,7 @@
   </Entity>
 
 	<LuaComponent
-		script_source_file="mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.lua"
+		script_source_file="mods/anvil_of_destiny/files/entities/hammer_animation/hammer_animation.lua"
 		vm_type="ONE_PER_COMPONENT_INSTANCE"
 		enable_coroutines="1"
 		execute_on_added="1"

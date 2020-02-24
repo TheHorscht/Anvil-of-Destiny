@@ -32,7 +32,7 @@ async(function()
       spawn_sparks()
       local event_x, event_y = x - scale_x * 46, y + 10
       GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit"..Random(1,3), event_x, event_y)
-      GameScreenshake(10, event_x, event_y)
+      GameScreenshake(8, event_x, event_y)
       break
     end
     rotational_speed = rotational_speed + rotational_acceleration
@@ -75,5 +75,5 @@ end
 
 function spawn_sparks()
   local x, y = EntityGetTransform(sparks_entity)
-  EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/sparks.xml", x, y + 6)
+  EntityLoad("mods/anvil_of_destiny/files/entities/hammer_animation/sparks.xml", x, y + 7)
 end

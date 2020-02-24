@@ -5,7 +5,7 @@ if scale_x < 0 then
 else
   x = x + 46
 end
-y = y - 13
-local hammer = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", x, y)
+y = y - 14
+local hammer = EntityLoad("mods/anvil_of_destiny/files/entities/hammer_animation/hammer_animation.xml", x, y)
 EntitySetTransform(hammer, x, y, 0, scale_x, 1)
 EntityKill(entity_id)

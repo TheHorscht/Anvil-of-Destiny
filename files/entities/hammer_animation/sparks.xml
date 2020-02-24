@@ -3,7 +3,7 @@
   <Entity>
 
     <Base
-      file="mods/anvil_of_destiny/files/entities/smithing_animation/sparks_base.xml"
+      file="mods/anvil_of_destiny/files/entities/hammer_animation/sparks_base.xml"
       >
 
       <ParticleEmitterComponent
@@ -18,7 +18,7 @@
   <Entity>
 
     <Base
-      file="mods/anvil_of_destiny/files/entities/smithing_animation/sparks_base.xml"
+      file="mods/anvil_of_destiny/files/entities/hammer_animation/sparks_base.xml"
       >
 
       <ParticleEmitterComponent

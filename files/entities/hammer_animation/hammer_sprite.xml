@@ -1,6 +1,6 @@
 <Sprite
-	filename="mods/anvil_of_destiny/files/entities/smithing_animation/hammer.png"
-	hotspots_filename="mods/anvil_of_destiny/files/entities/smithing_animation/hammer_hotspots.png"
+	filename="mods/anvil_of_destiny/files/entities/hammer_animation/hammer.png"
+	hotspots_filename="mods/anvil_of_destiny/files/entities/hammer_animation/hammer_hotspots.png"
 	>
 
 	<Hotspot
