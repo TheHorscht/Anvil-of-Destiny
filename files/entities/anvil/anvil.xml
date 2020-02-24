@@ -145,6 +145,13 @@
     >
   </Entity>
 
+  <!-- This is where we put the output wands (or later other entities?) to later retrieve and spit out -->
+
+  <Entity
+    name="output_storage"
+    >
+  </Entity>
+
   <CollisionTriggerComponent
     width="78"
     height="60" 

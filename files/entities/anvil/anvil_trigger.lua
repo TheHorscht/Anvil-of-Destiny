@@ -82,7 +82,20 @@ function collision_trigger(colliding_entity_id)
     end
   end
 end
--- Two wands
+
+function spawn_result_spawner(entity_id, x, y)
+  local offset_x = x + 50
+  local offset_y = y - 33
+  local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", offset_x, offset_y)
+  EntityAddComponent(entity_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
+    execute_on_added="0",
+    execute_every_n_frame="135",
+    remove_after_executed="1",
+  })
+end
+
+-- Two wands (+1 tablet optionally)
 function path_one(entity_id, x, y)
   set_random_seed_with_player_position()
   local stored_wand_id1 = retrieve_wand(1)
@@ -101,31 +114,24 @@ function path_one(entity_id, x, y)
   end
   EntityKill(stored_wand_id1)
   EntityKill(stored_wand_id2)
-  EntityAddChild(get_wand_storage(), new_wand_id)
-
-  -- TODO: Don't hardcode these values?
-  local offset_x = x + 50
-  local offset_y = y - 33
-  local smithing_sequence = EntityLoad("mods/anvil_of_destiny/files/entities/smithing_animation/smithing_sequence.xml", offset_x, offset_y)
-  -- We add the smithing animation as a child so it can later get a reference to it because it is it's parent
-  EntityAddChild(entity_id, smithing_sequence)
-  --EntitySetTransform(smithing_sequence, 50, -33, 0, 1, 1)
-
-
-  --EZWand(new_wand_id):PlaceAt(x + 4, y - 30)
-  --finish(entity_id, x, y)
+  EntityAddChild(get_output_storage(), new_wand_id)
+  spawn_result_spawner(entity_id, x, y)
+  disable_interactivity(entity_id, x, y)
 end
 -- 2 Tablet + 1 Wand
 function path_two(entity_id, x, y)
-  set_random_seed_with_player_position()
-  buff_stored_wand_and_respawn_it(entity_id, x, y)
-  finish(entity_id, x, y)
+  local wand_id = buff_stored_wand(entity_id, x, y)
+  EntityRemoveFromParent(wand_id)
+  EntityAddChild(get_output_storage(), wand_id)
+  spawn_result_spawner(entity_id, x, y)
+  disable_interactivity(entity_id, x, y)
 end
 -- Happens in path_two, buff a wand by a lot
-function buff_stored_wand_and_respawn_it(entity_id, x, y)
+function buff_stored_wand()
   local stored_wand_id = retrieve_wand(1)
   local stored_wand = EZWand(stored_wand_id)
   local success, new_wand_id = pcall(function()
+    set_random_seed_with_player_position()
     local variation = 0.1 - Random() * 0.2
     return buff_wand(stored_wand, config_improved_wand_buff + variation, false)
   end)
@@ -133,36 +139,17 @@ function buff_stored_wand_and_respawn_it(entity_id, x, y)
     -- If the call was not successful, new_wand_id contains the error message
     print("Anvil of Destiny error: " .. new_wand_id)
   end
-
-  -- TODO: Fix this
-  local simple_physics_component = get_component_with_member(stored_wand_id, "can_go_up")
-  local item_component = get_component_with_member(stored_wand_id, "preferred_inventory")
-  local sprite_component = get_component_with_member(stored_wand_id, "next_rect_animation")
-  local light_component = get_component_with_member(stored_wand_id, "fade_out_time")
-
-  EntitySetComponentIsEnabled(stored_wand_id, simple_physics_component, true)
-  EntitySetComponentIsEnabled(stored_wand_id, item_component, true)
-  EntitySetComponentIsEnabled(stored_wand_id, sprite_component, true)
-  EntitySetComponentIsEnabled(stored_wand_id, light_component, true)
-
-  EntityRemoveFromParent(stored_wand.entity_id)
-  stored_wand:PlaceAt(x + 4, y - 30)
+  return stored_wand.entity_id
 end
 -- :)
 function path_easter_egg(entity_id, x, y)
-  EntityLoad("mods/anvil_of_destiny/files/entities/holy_bomb/floating.xml", x + 3, y - 42)
-  finish(entity_id, x, y, true)
+  -- EntityAddChild(get_output_storage(), holy_bomb)
+  spawn_result_spawner(entity_id, x, y)
+  disable_interactivity(entity_id, x, y)
 end
--- Play fanfare and make anvil un-reusable
-function finish(entity_id, x, y, alternative)
+
+function disable_interactivity(entity_id, x, y, alternative)
   -- TODO: Dont remove collision trigger but instead luacomp?
-  GameScreenshake(20, x, y)
-  if alternative then
-    GamePrintImportant("A gift from the gods...?", "Or is it?")
-  else
-    GamePrintImportant("A gift from the gods", "")
-  end
-  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "fanfare", x, y)
   edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
@@ -175,6 +162,15 @@ function get_wand_storage()
   local children = EntityGetAllChildren(GetUpdatedEntityID())
   for i, child in ipairs(children) do
     if EntityGetName(child) == "wand_storage" then
+      return child
+    end
+  end
+end
+
+function get_output_storage()
+  local children = EntityGetAllChildren(GetUpdatedEntityID())
+  for i, child in ipairs(children) do
+    if EntityGetName(child) == "output_storage" then
       return child
     end
   end
