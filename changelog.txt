@@ -1,9 +1,11 @@
-UNRELEASED:
+v1.4.6:
 - Anvil damage detection is working again (albeit slightly different) and statues are willing to get angry again
 - Added smithing animation!
 - When spawning the wand, the appropriate sprite now shows instantly
 - Fixed audio incompatibility with other mods
 - Improved easter egg slightly
+- Output wands should now always have at least 1 spell in them
+- Balance tweak: New wand should not get capacity reduced by 2 anymore (was 10% chance before)
 
 v1.4.5:
 - FIX: Temporary workaround for the anvil being movable. It's immovable now again, but the check if it's damaged doesn't work, and the statues won't get angry. I'll re-add that later.
