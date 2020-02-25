@@ -23,7 +23,7 @@ function material_area_checker_failed(x, y)
 
   GameScreenshake(50)
   GamePlaySound("data/audio/Desktop/event_cues.snd", "event_cues/sampo_pick/create", x, y)
-  GamePrintImportant("A holy relic has been defiled!", "This vile act shall not go unpunished")
+  GamePrintImportant("A holy artifact has been defiled!", "This vile act shall not go unpunished")
   local entity_id = GetUpdatedEntityID()
   local x, y = EntityGetTransform(entity_id)
   -- Get the statues and enable their glowing eyes
