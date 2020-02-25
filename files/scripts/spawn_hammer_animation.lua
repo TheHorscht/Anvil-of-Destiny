@@ -11,6 +11,5 @@ function spawn_hammer_animation(x, y, direction, delay)
     execute_on_added="0",
     execute_every_n_frame=tostring(delay),
     remove_after_executed="1",
-    kill_entity="1",
   })
 end
