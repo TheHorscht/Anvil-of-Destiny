@@ -1,5 +1,5 @@
 # Anvil of Destiny
-A mod for Noita (https://noitagame.com/) which adds a bunch of anvils into the default biomes, which lets you forge and improve wands!
+A mod for Noita (https://noitagame.com/) which adds rooms with an anvil into the default biomes, which lets you forge and improve wands!
 
 ### Download here: https://github.com/TheHorscht/Anvil-of-Destiny/releases 
 ### Or here: http://modwork.shop/25873
@@ -11,7 +11,7 @@ Where can you find these anvils? They appear randomly in the default biomes (Min
 
 You can throw wands and items by opening your inventory and dragging them out into the gameworld.
 
-__Here's a video showing how it works: https://youtu.be/iO5c9LrOjlU__
+__Here's a video showing how it works: https://youtu.be/0bQ_mSQb-8E__
 
 Here are the current recipes:
 ### 🌟 2 Wands = New wand roughly 1 level better

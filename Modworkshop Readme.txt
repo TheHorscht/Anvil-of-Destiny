@@ -1,9 +1,9 @@
-Adds a bunch of anvils into the default biomes, which lets you forge and improve wands!
+Adds rooms with an anvil into the default biomes, which lets you forge and improve wands!
 They appear randomly in the default biomes (Mines, Coal Pits etc), roughly once per biome, with more in the later ones because the biomes are bigger.
 
 You can throw wands and items by opening your inventory and dragging them out into the gameworld.
 
-[b]Here's a video showing how it works: https://youtu.be/iO5c9LrOjlU[/b]
+[b]Here's a video showing how it works: https://youtu.be/0bQ_mSQb-8E[/b]
 
 Here are the current recipes:
 [size=large][color=#66cc66]2 Wands = New wand roughly 1 level better[/color][/size]
