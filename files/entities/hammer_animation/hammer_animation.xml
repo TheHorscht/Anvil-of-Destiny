@@ -6,6 +6,7 @@
     offset_x="14"
     offset_y="50"
     rect_animation="default"
+    z_index="-100"
     >
   </SpriteComponent>
 
