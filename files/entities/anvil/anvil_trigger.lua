@@ -98,14 +98,12 @@ end
 function spawn_result_spawner(entity_id, x, y)
   local offset_x = x + 4
   local offset_y = y - 19
-  GameCreateSpriteForXFrames("data/debug/box_10x10.png", offset_x, offset_y, true, 0, 0, 1200)
   spawn_hammer_animation(offset_x, offset_y, 1, 0)
   spawn_hammer_animation(offset_x, offset_y, -1, 55)
-
   EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
     execute_on_added="0",
-    execute_every_n_frame="135",
+    execute_every_n_frame="125",
     remove_after_executed="1",
   })
 end
@@ -113,7 +111,7 @@ end
 function spawn_result_spawner2(entity_id, x, y)
   local offset_x = x + 4
   local offset_y = y - 19
-  local delays = { 0, 55, 50, 45, 40, 35, 30, 25, 18, 12, 8, 8, 8, 8 }
+  local delays = { 0, 55, 50, 45, 40, 35, 30, 25, 18, 12, 8, 8 }
   local total_delay = 0
   for i, v in ipairs(delays) do
     total_delay = total_delay + v
