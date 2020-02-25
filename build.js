@@ -22,7 +22,6 @@ const root_folder = __dirname;
 const ignore_list = [
   'node_modules',
   'dist',
-  'files/debug',
   'gimp',
   '.*',
   '*.zip',
@@ -31,7 +30,6 @@ const ignore_list = [
   'LICENSE',
   'README.md',
   'TODO.md',
-  '**/boop1.txt',
   'package*.json',
   'rune_alphabet.png',
   'rune_alphabet_sprites.png',
