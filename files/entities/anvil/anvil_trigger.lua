@@ -152,6 +152,7 @@ end
 -- 2 Tablet + 1 Wand
 function path_two(entity_id, x, y)
   local wand_id = buff_stored_wand(entity_id, x, y)
+  -- Move wand from wand_storage to output_storage
   EntityRemoveFromParent(wand_id)
   EntityAddChild(get_output_storage(), wand_id)
   spawn_result_spawner(entity_id, x, y)
