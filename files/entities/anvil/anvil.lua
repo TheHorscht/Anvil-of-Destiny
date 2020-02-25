@@ -306,8 +306,6 @@ function buff_wand(wand, buff_amount, reduce_one_stat)
 		wand.capacity = wand.capacity + 1
 	elseif rand < 0.70 and wand.capacity > 1 then
 		wand.capacity = wand.capacity - 1
-	elseif rand < 0.90 and wand.capacity > 2 then
-		wand.capacity = wand.capacity - 2
 	end
 	-- Limit capacity to 26 but not if the old capacity is higher, we don't want to reduce it
 	wand.capacity = math.max(old_capacity, math.min(26, wand.capacity))
