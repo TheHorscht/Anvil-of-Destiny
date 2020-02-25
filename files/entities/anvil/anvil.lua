@@ -14,7 +14,10 @@ function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_
 	local wand2_spell_count = #wand2:GetSpells()
 	-- 100% of the highest spellcount wand and 50% of the lower
 	local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
-	spell_count_to_add = spell_count_to_add + Random(-2, 2)
+	spell_count_to_add = spell_count_to_add + Random(-1, 2)
+	if spell_count_to_add <= 0 then
+		spell_count_to_add = 1
+	end
 	wand_fill_with_semi_random_spells(new_wand,
 		spell_count_to_add,
 		spell_stats.average_attached_spell_count,
