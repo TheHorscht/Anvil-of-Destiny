@@ -1,8 +1,8 @@
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
 - Does the anvil sound keep playing forever even when not visible anymore?
 - Change how 2 tablet buff works so it increases capacity
-- Make anvil material destroy test work again
 - Improve loader scenes visually
+- Add anvil to sand biome?
 
 try:
 -- LifetimeComponent
