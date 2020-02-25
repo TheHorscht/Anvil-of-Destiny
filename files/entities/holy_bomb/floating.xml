@@ -55,7 +55,7 @@
   <LuaComponent
     script_source_file="mods/anvil_of_destiny/files/entities/holy_bomb/fuse.lua"
     execute_on_added="0"
-    execute_every_n_frame="460"
+    execute_every_n_frame="570"
     execute_times="1"
     >
   </LuaComponent>
@@ -75,7 +75,7 @@
   </AudioLoopComponent>
 
   <LifetimeComponent
-    lifetime="470"
+    lifetime="580"
     >
   </LifetimeComponent>
 
