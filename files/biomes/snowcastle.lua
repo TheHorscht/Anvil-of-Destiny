@@ -20,8 +20,10 @@ if probability_to_replace_pixelscene > 1 then
   print("max_prob for snowcastle: " .. max_prob)
 end
 
+local probability = ANVIL_OF_DESTINY_PROB or get_probability_value_for_inserting(g_pixel_scene_02, probability_to_replace_pixelscene)
+
 table.insert(g_pixel_scene_02, {
-  prob   		    	= get_probability_value_for_inserting(g_pixel_scene_02, probability_to_replace_pixelscene),
+  prob   		    	= probability,
   material_file 	= "mods/anvil_of_destiny/files/loader_scenes/snowcastle.png",
   visual_file		  = "",
   background_file	= "",

@@ -154,7 +154,7 @@
 
   <!-- For checking if the anvil got damaged (small area inside top part) -->
 
-  <MaterialAreaCheckerComponent
+<!--   <MaterialAreaCheckerComponent
     area_aabb.min_x="-3"
     area_aabb.min_y="-14"
     area_aabb.max_x="10"
@@ -164,11 +164,11 @@
     kill_after_message="0"
     look_for_failure="1"
     >
-  </MaterialAreaCheckerComponent>
+  </MaterialAreaCheckerComponent> -->
 
-  <LuaComponent
+<!--   <LuaComponent
     script_material_area_checker_failed="mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" >
-  </LuaComponent>
+  </LuaComponent> -->
 
   <CollisionTriggerComponent
     width="78"
