@@ -1,3 +1,6 @@
+v1.4.8:
+- Add more inter-mod compatibility support
+
 v1.4.7:
 - Added support for other mod authors to influence anvil spawn probability
 - Removed the anvil damage check again because it triggered even though nothing was damaged...

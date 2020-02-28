@@ -21,10 +21,13 @@ if probability_to_replace_pixelscene > 1 then
 end
 
 local probability = ANVIL_OF_DESTINY_PROB or get_probability_value_for_inserting(g_pixel_scene_03, probability_to_replace_pixelscene)
+local material_file = ANVIL_OF_DESTINY_MATERIAL_FILE or "mods/anvil_of_destiny/files/loader_scenes/crypt.png"
+local visual_file = ANVIL_OF_DESTINY_VISUAL_FILE or ""
+local background_file = ANVIL_OF_DESTINY_BACKGROUND_FILE or ""
 
 table.insert(g_pixel_scene_03, {
   prob   		    	= probability,
-  material_file 	= "mods/anvil_of_destiny/files/loader_scenes/crypt.png",
+  material_file 	= material_file,
   visual_file		  = "",
   background_file	= "",
   is_unique		    = 0
