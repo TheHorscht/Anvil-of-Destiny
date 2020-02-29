@@ -2,6 +2,8 @@
   <ParticleEmitterComponent 
 		_enabled="0"
 		emitted_material_name="spark_white_bright"
+		y_pos_offset_min="19"
+    y_pos_offset_max="19"
 		gravity.y="-50.0"
 		lifetime_min="0.5"
     emission_chance="100"

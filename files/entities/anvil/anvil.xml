@@ -1,21 +1,36 @@
 <Entity>
 
-  <!--  GAME BUG: For now setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
-  <!--  Which means if we use a static PhysicsBodyComponent, centered but me 0 and we can't use any offsets -->
+  <!--  GAME BUG: For now, setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
+  <!--  Which means if we use a static PhysicsBodyComponent, we can't use centered or offsets, so we have to shift it manually with InheritTransformComponent -->
 
-  <PhysicsBodyComponent 
-    fixed_rotation="1" 
-    auto_clean="0"
-    is_static="1"
-    >
-  </PhysicsBodyComponent>
+  <Entity>
 
-  <PhysicsImageShapeComponent 
-    centered="0"
-    image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
-    material="anvilofdestinium"
-    >
-  </PhysicsImageShapeComponent>
+		<InheritTransformComponent>
+
+      <Transform 
+        position.x="-39"
+        position.y="0"
+        >
+
+      </Transform>
+
+    </InheritTransformComponent>
+
+    <PhysicsBodyComponent 
+      fixed_rotation="1" 
+      auto_clean="0"
+      is_static="1"
+      >
+    </PhysicsBodyComponent>
+
+    <PhysicsImageShapeComponent 
+      centered="0"
+      image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
+      material="anvilofdestinium"
+      >
+    </PhysicsImageShapeComponent>
+
+  </Entity>
 
   <!-- Wand 1 sacrificed indicator -->
 
@@ -54,18 +69,14 @@
   <ParticleEmitterComponent 
     _enabled="0"
     emitted_material_name="spark_white"
+    y_pos_offset_min="19"
+    y_pos_offset_max="19"
     gravity.y="-20.0"
     lifetime_min="0.1"
     lifetime_max="1"
     emission_chance="100"
     count_min="1"
     count_max="1"
-
-    x_pos_offset_min="39"
-    y_pos_offset_min="19"
-    x_pos_offset_max="39"
-    y_pos_offset_max="19"
-
     render_on_grid="1"
     draw_as_long="1"
     fade_based_on_lifetime="0"
@@ -95,7 +106,7 @@
     z_index="255"
     additive="1"
     alpha="0.5"
-    offset_x="90"
+    offset_x="128"
     offset_y="81"
     >
   </SpriteComponent>
@@ -108,8 +119,8 @@
     <ParticleEmitterComponent 
       _enabled="1"
       emitted_material_name="spark_white_bright"
-      x_pos_offset_min="0"
-      x_pos_offset_max="80"
+      x_pos_offset_min="-40"
+      x_pos_offset_max="40"
       y_pos_offset_min="-60"
       y_pos_offset_max="40"
       x_vel_min="-1"
@@ -186,24 +197,12 @@
     >
   </CollisionTriggerComponent> -->
 
-  <Entity>
-
-		<InheritTransformComponent>
-
-      <Transform 
-        position.x="39"
-        position.y="-4"
-        >
-
-      </Transform>
-
-    </InheritTransformComponent>
 
     <!-- Hitbox goes out from the center in a rectangle, max width/height seems to be around 60? Maybe 64? -->
 
     <CollisionTriggerComponent
       width="60"
-      height="10" 
+      height="20" 
       required_tag="testpixel"
       destroy_this_entity_when_triggered="0"
       >
@@ -211,7 +210,7 @@
 
     <CollisionTriggerComponent
       width="60"
-      height="10" 
+      height="20" 
       required_tag="wand"
       destroy_this_entity_when_triggered="0"
       >
@@ -219,7 +218,7 @@
 
     <CollisionTriggerComponent
       width="60"
-      height="10" 
+      height="20" 
       required_tag="tablet"
       destroy_this_entity_when_triggered="0"
       >
@@ -230,7 +229,6 @@
       >
     </LuaComponent>
 
-  </Entity>
 
 <!--   <LuaComponent
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"

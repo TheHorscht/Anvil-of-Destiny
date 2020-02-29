@@ -3,6 +3,7 @@
 - Change how 2 tablet buff works so it increases capacity
 - Improve loader scenes visually
 - Add anvil to sand biome?
+- Make sure at least 1 projectile spell gets added ALWAYS
 
 try:
 -- LifetimeComponent

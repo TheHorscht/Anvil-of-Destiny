@@ -10,8 +10,7 @@ dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 
 function init_state()
   local entity_id = GetUpdatedEntityID()
-  local anvil_entity = EntityGetParent(entity_id)
-  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(anvil_entity))
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
   if g_collider_ticks == nil then
     g_collider_ticks = {}
   end
@@ -26,14 +25,12 @@ end
 
 function get_state()
   local entity_id = GetUpdatedEntityID()
-  local anvil_entity = EntityGetParent(entity_id)
-  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(anvil_entity))
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
   return STATE_STORE
 end
 
 function collision_trigger(colliding_entity_id)
   local entity_id = GetUpdatedEntityID()
-  local anvil_id = EntityGetParent(entity_id)
   init_state()
   -- Aproximate the same hitbox as the CollisionTriggerComponent by getting everything inside a circle,
   -- then filter the results by cutting off the top and bottom of the circle to re-create the same rectangle
@@ -41,7 +38,7 @@ function collision_trigger(colliding_entity_id)
     local entities = EntityGetInRadiusWithTag(x, y, 28, tag)
     for i, v in ipairs(entities) do
       local tx, ty = EntityGetTransform(v)
-      if ty > y + 5 or ty < y - 5 then
+      if ty > y + 5 or ty < y - 10 then
         table.remove(entities, i)
       end
     end
@@ -58,15 +55,15 @@ function collision_trigger(colliding_entity_id)
         get_state().wands_sacrificed = get_state().wands_sacrificed + 1
         hide_wand(v)
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
-          set_runes_enabled(anvil_id, "emitter1", true)
+          set_runes_enabled(entity_id, "emitter1", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
-          set_runes_enabled(anvil_id, "emitter2_powered", true)
-          path_two(anvil_id, x, y)
+          set_runes_enabled(entity_id, "emitter2_powered", true)
+          path_two(entity_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
-          set_runes_enabled(anvil_id, "emitter2", true)
+          set_runes_enabled(entity_id, "emitter2", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
-          path_one(anvil_id, x, y)
+          path_one(entity_id, x, y)
         end
       end
     end
@@ -87,19 +84,19 @@ function collision_trigger(colliding_entity_id)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         end
         if get_state().tablets_sacrificed == 1 then
-          set_runes_enabled(anvil_id, "base", true)
+          set_runes_enabled(entity_id, "base", true)
         elseif get_state().tablets_sacrificed == 2 then
           if get_state().wands_sacrificed == 0 then
-            set_runes_enabled(anvil_id, "emitter1_powered", true)
+            set_runes_enabled(entity_id, "emitter1_powered", true)
           else
-            set_runes_enabled(anvil_id, "emitter1", false)
-            set_runes_enabled(anvil_id, "emitter1_powered", true)
-            set_runes_enabled(anvil_id, "emitter2_powered", true)
-            path_two(anvil_id, x, y)
+            set_runes_enabled(entity_id, "emitter1", false)
+            set_runes_enabled(entity_id, "emitter1_powered", true)
+            set_runes_enabled(entity_id, "emitter2_powered", true)
+            path_two(entity_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
-          set_runes_enabled(anvil_id, "emitter2_powered", true)
-          path_easter_egg(anvil_id, x, y)
+          set_runes_enabled(entity_id, "emitter2_powered", true)
+          path_easter_egg(entity_id, x, y)
         end
       end
     end
@@ -119,7 +116,7 @@ end
 
 function spawn_result_spawner(entity_id, x, y)
   local offset_x = x + 4
-  local offset_y = y - 19
+  local offset_y = y
   spawn_hammer_animation(offset_x, offset_y, 1, 0)
   spawn_hammer_animation(offset_x, offset_y, -1, 55)
   EntityAddComponent(entity_id, "LuaComponent", {
@@ -132,7 +129,7 @@ end
 -- This is for the easter egg path, it's hammer time!
 function spawn_result_spawner2(entity_id, x, y)
   local offset_x = x + 4
-  local offset_y = y - 19
+  local offset_y = y
   local delays = { 0, 55, 50, 45, 40, 35, 30, 25, 18, 12, 8, 8 }
   local total_delay = 0
   for i, v in ipairs(delays) do
@@ -214,8 +211,7 @@ end
 
 function get_wand_storage()
   local entity_id = GetUpdatedEntityID() 
-  local anvil_id = EntityGetParent(entity_id)
-  local children = EntityGetAllChildren(anvil_id)
+  local children = EntityGetAllChildren(entity_id)
   for i, child in ipairs(children) do
     if EntityGetName(child) == "wand_storage" then
       return child
@@ -225,8 +221,7 @@ end
 
 function get_output_storage()
   local entity_id = GetUpdatedEntityID() 
-  local anvil_id = EntityGetParent(entity_id)
-  local children = EntityGetAllChildren(anvil_id)
+  local children = EntityGetAllChildren(entity_id)
   for i, child in ipairs(children) do
     if EntityGetName(child) == "output_storage" then
       return child
