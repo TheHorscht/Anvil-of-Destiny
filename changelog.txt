@@ -1,3 +1,6 @@
+UNRELEASED:
+- FIX: Output wand should now have at least one projectile spell
+
 v1.4.8:
 - Add more inter-mod compatibility support
 
