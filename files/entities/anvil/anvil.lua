@@ -225,7 +225,7 @@ function wand_fill_with_semi_random_spells(wand, spells_count, attached_spells_c
 			-- Check if wand has enough max mana to cast it
 			local action_info = action_get_by_id(action)
 			-- Try a maximum of 5 times to get a projectile that the wand has enough mana for
-			for i=1,5 do
+			for i=1,10 do
 				if action_info.mana < wand.manaMax then
 					-- Has enough mana, we're done
 					break
