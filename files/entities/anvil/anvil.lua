@@ -217,7 +217,7 @@ function wand_fill_with_semi_random_spells(wand, spells_count, attached_spells_c
 
 	local action = nil
 	local action_type = nil
-  local guaranteed_projectile_index = 50--Random(1, spells_count)
+  local guaranteed_projectile_index = Random(1, spells_count)
   for i=1, spells_count do
 		-- Give the wand at least one projectile it has enough mana to cast
 		if i == guaranteed_projectile_index then
