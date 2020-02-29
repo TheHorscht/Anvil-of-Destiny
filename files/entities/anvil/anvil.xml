@@ -1,13 +1,21 @@
 <Entity>
-  <!-- TODO: Use MaterialAreaCheckerComponent instead? -->
-  <PixelSceneComponent
-    pixel_scene="mods/anvil_of_destiny/files/entities/anvil/anvil_material.png"
-    pixel_scene_visual="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
-    skip_biome_checks="1"
-    offset_x="-39"
-    offset_y="-19"
+
+  <!--  GAME BUG: For now setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
+  <!--  Which means if we use a static PhysicsBodyComponent, centered but me 0 and we can't use any offsets -->
+
+  <PhysicsBodyComponent 
+    fixed_rotation="1" 
+    auto_clean="0"
+    is_static="1"
     >
-  </PixelSceneComponent>
+  </PhysicsBodyComponent>
+
+  <PhysicsImageShapeComponent 
+    centered="0"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/anvil_visual.png"
+    material="anvilofdestinium"
+    >
+  </PhysicsImageShapeComponent>
 
   <!-- Wand 1 sacrificed indicator -->
 
@@ -52,6 +60,12 @@
     emission_chance="100"
     count_min="1"
     count_max="1"
+
+    x_pos_offset_min="39"
+    y_pos_offset_min="19"
+    x_pos_offset_max="39"
+    y_pos_offset_max="19"
+
     render_on_grid="1"
     draw_as_long="1"
     fade_based_on_lifetime="0"
@@ -81,29 +95,23 @@
     z_index="255"
     additive="1"
     alpha="0.5"
-    offset_x="128"
-    offset_y="100"
+    offset_x="90"
+    offset_y="81"
     >
   </SpriteComponent>
 
   <!-- Divine sparkles -->
   <Entity name="anvil_of_destiny_divine_sparkles">
-    <!-- offset it slightly -->
-		<InheritTransformComponent>
-			<Transform 
-				position.x="5"
-				position.y="-50" 
-				>
-			</Transform>
-		</InheritTransformComponent>
+
+		<InheritTransformComponent />
 
     <ParticleEmitterComponent 
       _enabled="1"
       emitted_material_name="spark_white_bright"
-      x_pos_offset_min="-40"
-      x_pos_offset_max="40"
-      y_pos_offset_min="-30"
-      y_pos_offset_max="80"
+      x_pos_offset_min="0"
+      x_pos_offset_max="80"
+      y_pos_offset_min="-60"
+      y_pos_offset_max="40"
       x_vel_min="-1"
       x_vel_max="1"
       y_vel_min="0"
@@ -170,25 +178,63 @@
     script_material_area_checker_failed="mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" >
   </LuaComponent> -->
 
-  <CollisionTriggerComponent
+<!--   <CollisionTriggerComponent
     width="78"
     height="60" 
-    required_tag="wand"
+    required_tag="wandy"
     destroy_this_entity_when_triggered="0"
     >
-  </CollisionTriggerComponent>
+  </CollisionTriggerComponent> -->
 
-  <CollisionTriggerComponent
-    width="78"
-    height="60" 
-    required_tag="tablet"
-    destroy_this_entity_when_triggered="0"
-    >
-  </CollisionTriggerComponent>
+  <Entity>
 
-  <LuaComponent
+		<InheritTransformComponent>
+
+      <Transform 
+        position.x="39"
+        position.y="-4"
+        >
+
+      </Transform>
+
+    </InheritTransformComponent>
+
+    <!-- Hitbox goes out from the center in a rectangle, max width/height seems to be around 60? Maybe 64? -->
+
+    <CollisionTriggerComponent
+      width="60"
+      height="10" 
+      required_tag="testpixel"
+      destroy_this_entity_when_triggered="0"
+      >
+    </CollisionTriggerComponent>
+
+    <CollisionTriggerComponent
+      width="60"
+      height="10" 
+      required_tag="wand"
+      destroy_this_entity_when_triggered="0"
+      >
+    </CollisionTriggerComponent>
+
+    <CollisionTriggerComponent
+      width="60"
+      height="10" 
+      required_tag="tablet"
+      destroy_this_entity_when_triggered="0"
+      >
+    </CollisionTriggerComponent>
+
+    <LuaComponent
+      script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
+      >
+    </LuaComponent>
+
+  </Entity>
+
+<!--   <LuaComponent
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
     >
-  </LuaComponent>
+  </LuaComponent> -->
 
 </Entity>

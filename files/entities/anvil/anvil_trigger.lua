@@ -10,7 +10,8 @@ dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 
 function init_state()
   local entity_id = GetUpdatedEntityID()
-  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
+  local anvil_entity = EntityGetParent(entity_id)
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(anvil_entity))
   if g_collider_ticks == nil then
     g_collider_ticks = {}
   end
@@ -25,38 +26,59 @@ end
 
 function get_state()
   local entity_id = GetUpdatedEntityID()
-  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
+  local anvil_entity = EntityGetParent(entity_id)
+  local STATE_STORE = stringstore.open_store(stringstore.noita.variable_storage_components(anvil_entity))
   return STATE_STORE
 end
 
 function collision_trigger(colliding_entity_id)
   local entity_id = GetUpdatedEntityID()
+  local anvil_id = EntityGetParent(entity_id)
   init_state()
+  -- Aproximate the same hitbox as the CollisionTriggerComponent by getting everything inside a circle,
+  -- then filter the results by cutting off the top and bottom of the circle to re-create the same rectangle
+  local function get_entities_with_tag(x, y, tag)
+    local entities = EntityGetInRadiusWithTag(x, y, 28, tag)
+    for i, v in ipairs(entities) do
+      local tx, ty = EntityGetTransform(v)
+      if ty > y + 5 or ty < y - 5 then
+        table.remove(entities, i)
+      end
+    end
+    return entities
+  end
   g_collider_ticks[entity_id] = g_collider_ticks[entity_id] + 1
   -- while something is colliding, do our own custom "collision" check 10 times per second, to get ALL items instead of just one
   if g_collider_ticks[entity_id] % 6 == 0 then
     local x, y = EntityGetTransform(entity_id)
-    local wands = EntityGetInRadiusWithTag(x, y - 30, 30, "wand")
+    local wands = get_entities_with_tag(x, y, "wand")
     for i, v in ipairs(wands) do
       -- Check if wand is dropped on the floor
       if EntityGetParent(v) == 0 then
         get_state().wands_sacrificed = get_state().wands_sacrificed + 1
         hide_wand(v)
         if get_state().tablets_sacrificed <= 1 and get_state().wands_sacrificed == 1 then
-          set_runes_enabled(entity_id, "emitter1", true)
+          set_runes_enabled(anvil_id, "emitter1", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         elseif get_state().tablets_sacrificed == 2 and get_state().wands_sacrificed == 1 then
-          set_runes_enabled(entity_id, "emitter2_powered", true)
-          path_two(entity_id, x, y)
+          set_runes_enabled(anvil_id, "emitter2_powered", true)
+          path_two(anvil_id, x, y)
         elseif get_state().wands_sacrificed == 2 then
-          set_runes_enabled(entity_id, "emitter2", true)
+          set_runes_enabled(anvil_id, "emitter2", true)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
-          path_one(entity_id, x, y)
+          path_one(anvil_id, x, y)
         end
       end
     end
 
-    local tablets = EntityGetInRadiusWithTag(x, y - 30, 30, "tablet")
+    local testpixels = get_entities_with_tag(x, y, "testpixel")
+    for i, v in ipairs(testpixels) do
+      local tx, ty = EntityGetTransform(v)
+      GameCreateSpriteForXFrames("mods/test2/1x1.png", tx, ty, false, 0, 0, 20000)
+      do return end
+    end
+
+    local tablets = get_entities_with_tag(x, y, "tablet")
     for i, v in ipairs(tablets) do
       if EntityGetParent(v) == 0 then
         if get_state().tablets_sacrificed < 3 then
@@ -65,19 +87,19 @@ function collision_trigger(colliding_entity_id)
           GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
         end
         if get_state().tablets_sacrificed == 1 then
-          set_runes_enabled(entity_id, "base", true)
+          set_runes_enabled(anvil_id, "base", true)
         elseif get_state().tablets_sacrificed == 2 then
           if get_state().wands_sacrificed == 0 then
-            set_runes_enabled(entity_id, "emitter1_powered", true)
+            set_runes_enabled(anvil_id, "emitter1_powered", true)
           else
-            set_runes_enabled(entity_id, "emitter1", false)
-            set_runes_enabled(entity_id, "emitter1_powered", true)
-            set_runes_enabled(entity_id, "emitter2_powered", true)
-            path_two(entity_id, x, y)
+            set_runes_enabled(anvil_id, "emitter1", false)
+            set_runes_enabled(anvil_id, "emitter1_powered", true)
+            set_runes_enabled(anvil_id, "emitter2_powered", true)
+            path_two(anvil_id, x, y)
           end
         elseif get_state().tablets_sacrificed == 3 then
-          set_runes_enabled(entity_id, "emitter2_powered", true)
-          path_easter_egg(entity_id, x, y)
+          set_runes_enabled(anvil_id, "emitter2_powered", true)
+          path_easter_egg(anvil_id, x, y)
         end
       end
     end
@@ -191,7 +213,9 @@ function disable_interactivity(entity_id, x, y, alternative)
 end
 
 function get_wand_storage()
-  local children = EntityGetAllChildren(GetUpdatedEntityID())
+  local entity_id = GetUpdatedEntityID() 
+  local anvil_id = EntityGetParent(entity_id)
+  local children = EntityGetAllChildren(anvil_id)
   for i, child in ipairs(children) do
     if EntityGetName(child) == "wand_storage" then
       return child
@@ -200,7 +224,9 @@ function get_wand_storage()
 end
 
 function get_output_storage()
-  local children = EntityGetAllChildren(GetUpdatedEntityID())
+  local entity_id = GetUpdatedEntityID() 
+  local anvil_id = EntityGetParent(entity_id)
+  local children = EntityGetAllChildren(anvil_id)
   for i, child in ipairs(children) do
     if EntityGetName(child) == "output_storage" then
       return child
