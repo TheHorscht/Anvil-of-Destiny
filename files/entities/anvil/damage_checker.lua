@@ -31,17 +31,9 @@ if physics_body ~= nil then
     disable_all_components(entity_id, "CollisionTriggerComponent")
     disable_all_components(entity_id, "LuaComponent")
     disable_all_components(entity_id, "SpriteComponent")
-    -- remove divine sparkles (the only child entity)
-    local children = EntityGetAllChildren(entity_id)
-    if children ~= nil and children[1] ~= nil then
-      EntityKill(children[1])
-    end
-
     GameScreenshake(100)
     GamePlaySound("data/audio/Desktop/event_cues.snd", "event_cues/sampo_pick/create", x, y)
     GamePrintImportant("A holy relic has been defiled!", "This vile act shall not go unpunished")
-    local entity_id = GetUpdatedEntityID()
-    local x, y = EntityGetTransform(entity_id)
     -- Get the statues and enable their glowing eyes
     local entities_in_radius = EntityGetInRadius(x, y, 100)
     local statues = {}
@@ -59,6 +51,6 @@ if physics_body ~= nil then
     end
 
     EntityLoad("mods/anvil_of_destiny/files/entities/anvil/laser_activation_sequencer.xml", x, y)
-    EntityConvertToMaterial(entity_id, "lava")
+    EntityLoad("mods/anvil_of_destiny/files/entities/anvil/converter.xml", x, y)
   end
 end

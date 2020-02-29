@@ -1,0 +1,14 @@
+<Entity>
+
+  <MagicConvertMaterialComponent
+    kill_when_finished="1"
+    from_material="anvilofdestinium"
+    to_material="lava"
+    steps_per_frame="1"
+    is_circle="0"
+    loop="0"
+    radius="80"
+    >
+  </MagicConvertMaterialComponent>
+
+</Entity>

@@ -136,12 +136,14 @@ function spawn_result_spawner2(entity_id, x, y)
     total_delay = total_delay + v
     local direction = i % 2 == 0 and -1 or 1
     spawn_hammer_animation(offset_x, offset_y, direction, total_delay)
-    EntityAddComponent(entity_id, "LuaComponent", {
-      script_source_file="mods/anvil_of_destiny/files/entities/anvil/loosen_random_chunk.lua",
-      execute_on_added="0",
-      execute_every_n_frame=tostring(total_delay + 40),
-      remove_after_executed="1",
-    })
+    if i > 3 then
+      EntityAddComponent(entity_id, "LuaComponent", {
+        script_source_file="mods/anvil_of_destiny/files/entities/anvil/loosen_random_chunk.lua",
+        execute_on_added="0",
+        execute_every_n_frame=tostring(total_delay + 40),
+        remove_after_executed="1",
+      })
+    end
   end
   EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/deactivate_emitters.lua",
@@ -219,6 +221,16 @@ function disable_interactivity(entity_id, x, y, alternative)
   edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
     EntityRemoveComponent(entity_id, comp)
   end)
+  -- Remove damage checker component
+  local lua_components = EntityGetComponent(entity_id, "LuaComponent")
+  if lua_components ~= nil then
+    for i, v in ipairs(lua_components) do
+      if ComponentGetValue(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+        EntityRemoveComponent(entity_id, v)
+        break
+      end
+    end
+  end
 end
 
 function get_wand_storage()

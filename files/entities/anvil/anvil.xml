@@ -112,39 +112,36 @@
   </SpriteComponent>
 
   <!-- Divine sparkles -->
-  <Entity name="anvil_of_destiny_divine_sparkles">
 
-		<InheritTransformComponent />
-
-    <ParticleEmitterComponent 
-      _enabled="1"
-      emitted_material_name="spark_white_bright"
-      x_pos_offset_min="-40"
-      x_pos_offset_max="40"
-      y_pos_offset_min="-60"
-      y_pos_offset_max="40"
-      x_vel_min="-1"
-      x_vel_max="1"
-      y_vel_min="0"
-      y_vel_max="1"
-      gravity.y="10"
-      lifetime_min="2"
-      lifetime_max="5"
-      count_min="1"
-      count_max="1"
-      render_on_grid="1"
-      collide_with_grid="0"
-      fade_based_on_lifetime="1"
-      cosmetic_force_create="1"
-      emit_cosmetic_particles="1"
-      airflow_force="0"
-      airflow_time="0"
-      airflow_scale="0"
-      emission_interval_min_frames="1"
-      emission_interval_max_frames="1"
-      is_emitting="1" >
-    </ParticleEmitterComponent>
-  </Entity>
+  <ParticleEmitterComponent 
+    _enabled="1"
+    emitted_material_name="spark_white_bright"
+    x_pos_offset_min="-40"
+    x_pos_offset_max="40"
+    y_pos_offset_min="-60"
+    y_pos_offset_max="40"
+    x_vel_min="-1"
+    x_vel_max="1"
+    y_vel_min="0"
+    y_vel_max="1"
+    gravity.y="10"
+    lifetime_min="2"
+    lifetime_max="5"
+    count_min="1"
+    count_max="1"
+    render_on_grid="1"
+    collide_with_grid="0"
+    fade_based_on_lifetime="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    airflow_force="0"
+    airflow_time="0"
+    airflow_scale="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
 
   <!-- the _enabled attribute MUST be present and set to 1 otherwise it doesn't work -->
 
