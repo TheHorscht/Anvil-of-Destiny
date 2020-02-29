@@ -3,7 +3,7 @@
   <!--  GAME BUG: For now, setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
   <!--  Which means if we use a static PhysicsBodyComponent, we can't use centered or offsets, so we have to shift it manually with InheritTransformComponent -->
 
-  <Entity>
+  <Entity name="physics_body">
 
 		<InheritTransformComponent>
 
@@ -171,68 +171,45 @@
     >
   </Entity>
 
-  <!-- For checking if the anvil got damaged (small area inside top part) -->
+  <!-- Hitbox goes out from the center in a rectangle, max width/height seems to be around 60? Maybe 64? -->
 
-<!--   <MaterialAreaCheckerComponent
-    area_aabb.min_x="-3"
-    area_aabb.min_y="-14"
-    area_aabb.max_x="10"
-    area_aabb.max_y="-7"
-    material="anvilofdestinium"
-    material2="anvilofdestinium"
-    kill_after_message="0"
-    look_for_failure="1"
-    >
-  </MaterialAreaCheckerComponent> -->
-
-<!--   <LuaComponent
-    script_material_area_checker_failed="mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" >
-  </LuaComponent> -->
-
-<!--   <CollisionTriggerComponent
-    width="78"
-    height="60" 
-    required_tag="wandy"
+  <CollisionTriggerComponent
+    width="60"
+    height="20" 
+    required_tag="testpixel"
     destroy_this_entity_when_triggered="0"
     >
-  </CollisionTriggerComponent> -->
+  </CollisionTriggerComponent>
 
+  <CollisionTriggerComponent
+    width="60"
+    height="20" 
+    required_tag="wand"
+    destroy_this_entity_when_triggered="0"
+    >
+  </CollisionTriggerComponent>
 
-    <!-- Hitbox goes out from the center in a rectangle, max width/height seems to be around 60? Maybe 64? -->
+  <CollisionTriggerComponent
+    width="60"
+    height="20" 
+    required_tag="tablet"
+    destroy_this_entity_when_triggered="0"
+    >
+  </CollisionTriggerComponent>
 
-    <CollisionTriggerComponent
-      width="60"
-      height="20" 
-      required_tag="testpixel"
-      destroy_this_entity_when_triggered="0"
-      >
-    </CollisionTriggerComponent>
-
-    <CollisionTriggerComponent
-      width="60"
-      height="20" 
-      required_tag="wand"
-      destroy_this_entity_when_triggered="0"
-      >
-    </CollisionTriggerComponent>
-
-    <CollisionTriggerComponent
-      width="60"
-      height="20" 
-      required_tag="tablet"
-      destroy_this_entity_when_triggered="0"
-      >
-    </CollisionTriggerComponent>
-
-    <LuaComponent
-      script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
-      >
-    </LuaComponent>
-
-
-<!--   <LuaComponent
+  <LuaComponent
     script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/anvil_trigger.lua"
     >
-  </LuaComponent> -->
+  </LuaComponent>
+
+  <!-- For checking if the anvil has lost too many pixels -->
+
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua"
+    execute_on_added="0"
+    execute_every_n_frame="30"
+    execute_times="-1"
+    >
+  </LuaComponent>
 
 </Entity>
