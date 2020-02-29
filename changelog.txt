@@ -1,5 +1,6 @@
 UNRELEASED:
 - FIX: Output wand should now have at least one projectile spell
+- Statues will once again get angry when the anvil gets damaged
 
 v1.4.8:
 - Add more inter-mod compatibility support
