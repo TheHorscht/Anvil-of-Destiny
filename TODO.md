@@ -4,8 +4,12 @@
 - Improve loader scenes visually
 - Add anvil to sand biome?
 - Make sure at least 1 projectile spell gets added ALWAYS
+-------- Add recipe to change a wand to no shuffle
+- secret samophlang recipe?
+- Urine on anvil = super enrage
 
 try:
+-- Cursed rock = makes adventure mode possible maybe?
 -- LifetimeComponent
 -- PixelSceneComponent
 -- RotateTowardsComponent
