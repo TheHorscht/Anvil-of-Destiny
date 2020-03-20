@@ -186,6 +186,7 @@ end
 function path_two(entity_id, x, y)
   local wand_id = buff_stored_wand(entity_id, x, y)
   -- Move wand from wand_storage to output_storage
+  EZWand(wand_id).shuffle = false
   EntityRemoveFromParent(wand_id)
   EntityAddChild(get_output_storage(), wand_id)
   spawn_result_spawner(entity_id, x, y)
