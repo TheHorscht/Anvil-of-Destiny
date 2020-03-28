@@ -68,13 +68,6 @@ function collision_trigger(colliding_entity_id)
       end
     end
 
-    local testpixels = get_entities_with_tag(x, y, "testpixel")
-    for i, v in ipairs(testpixels) do
-      local tx, ty = EntityGetTransform(v)
-      GameCreateSpriteForXFrames("mods/test2/1x1.png", tx, ty, false, 0, 0, 20000)
-      do return end
-    end
-
     local tablets = get_entities_with_tag(x, y, "tablet")
     for i, v in ipairs(tablets) do
       if EntityGetParent(v) == 0 then

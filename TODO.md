@@ -3,10 +3,15 @@
 - Change how 2 tablet buff works so it increases capacity
 - Improve loader scenes visually
 - Add anvil to sand biome?
+- Add anvil to volcano
 - Make sure at least 1 projectile spell gets added ALWAYS
 -------- Add recipe to change a wand to no shuffle
 - secret samophlang recipe?
 - Urine on anvil = super enrage
+- Copy the collision masks into my mods own files so path doesn't matter
+- Add recipes for liquids, which create new effects like: pour oil on anvil, it sucks it up and after a certain amount has been sucked, it starts emitting cosmetic oil particles, and if wand is sacrificed, buff that wand slightly and change the spells on it to oil related spells
+- Make enemies drop souls to use for recipes?
+- Put something in anvil rooms to allow it to activate a workshop for modifying spells, a purchase of 500 gold maybe?
 
 try:
 -- Cursed rock = makes adventure mode possible maybe?
