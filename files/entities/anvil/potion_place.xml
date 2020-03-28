@@ -1,0 +1,19 @@
+<Entity>
+
+  <!-- <ItemCostComponent cost="0" /> -->
+
+	<ItemComponent
+		item_name="Sacrifice Potion"
+		play_spinning_animation="0"
+    play_pick_sound="0"
+    stats_count_as_item_pick_up="0"
+		auto_pickup="0"
+    >
+	</ItemComponent>
+
+  <LuaComponent 
+    script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/potion_insert.lua"
+    >
+  </LuaComponent>
+
+</Entity>
