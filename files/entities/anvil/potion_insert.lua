@@ -1,3 +1,5 @@
+dofile_once("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
+
 function color_to_material(color)
   local t = {
     [-1525963520] = "acid",
@@ -73,8 +75,23 @@ function get_active_item()
 end
 
 function item_pickup(entity_item, entity_who_picked, item_name)
-	local x, y = EntityGetTransform(entity_item)
+  local x, y = EntityGetTransform(entity_item)
+  -- This "item" will now be in players inventory, but we don't want it there so kill it off and respawn it if anvil is found
   EntityKill(entity_item)
+
+  local anvil_id
+  local entities_in_radius = EntityGetInRadius(x, y, 50)
+  for i, entity in ipairs(entities_in_radius) do
+    if EntityGetName(entity) == "anvil_of_destiny" then
+      anvil_id = entity
+      break
+    end
+  end
+
+  if anvil_id == nil then return end
+
+  local state = get_state(anvil_id)
+
   EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_place.xml", x, y)
 
   local active_item = get_active_item()
@@ -87,11 +104,7 @@ function item_pickup(entity_item, entity_who_picked, item_name)
       local material_name = color_to_material(liquid_color)
       local amount = ComponentGetValueInt(material_sucker_component, "mAmountUsed")
       if amount > 800 then
-        GamePrint(amount .. " units of " .. material_name)
-        GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
-        -- Empty the container
-        EntityRemoveComponent(active_item, material_inventory_component)
-        EntityAddComponent(active_item, "MaterialInventoryComponent")
+        feed_anvil(anvil_id, "potion", active_item, material_name)
       end
     end
   end

@@ -1,7 +1,14 @@
-dofile("data/scripts/lib/utilities.lua")
-dofile("data/scripts/gun/gun_actions.lua")
--- TODO: make this local again
-EZWand = dofile("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
+dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("data/scripts/gun/gun_actions.lua")
+dofile_once("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
+dofile_once("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
+dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("data/scripts/gun/gun_enums.lua")
+dofile_once("mods/anvil_of_destiny/config.lua")
+dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
+dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
+local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
+
 -- This gets called by path_one
 function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_x, seed_y)
 	local wand1 = EZWand(wand_id1)
@@ -309,4 +316,577 @@ function buff_wand(wand, buff_amount, reduce_one_stat)
 	end
 	-- Limit capacity to 26 but not if the old capacity is higher, we don't want to reduce it
 	wand.capacity = math.max(old_capacity, math.min(26, wand.capacity))
+end
+
+function get_state(anvil_id)
+	local entity_id = anvil_id
+	local state = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
+	
+	if state.wands == nil then
+		state.wands = 0
+		state.tablets = 0
+		state.potions = 0
+	end
+
+	return state
+end
+
+function set_runes_enabled(entity_id, which, enabled)
+  local emitter1, emitter2
+  local emitter1_powered, emitter2_powered
+  local emitter_base_powered_up
+
+  -- Find the emitters and save them into variables
+  local all_components = EntityGetAllComponents(entity_id)
+  local particle_emitter_components --, "ParticleEmitterComponent"
+	for _, component in ipairs(all_components) do
+		for k, v in pairs(ComponentGetMembers(component)) do
+			if(k == "image_animation_file") then
+        if v == "mods/anvil_of_destiny/files/entities/anvil/runes1.png" then
+          local emitted_material_name = ComponentGetValue(component, "emitted_material_name")
+          if emitted_material_name == "spark" then
+            emitter1 = component
+          elseif emitted_material_name == "spark_white_bright" then
+            emitter1_powered = component
+          end
+        elseif v == "mods/anvil_of_destiny/files/entities/anvil/runes2.png" then
+          local emitted_material_name = ComponentGetValue(component, "emitted_material_name")
+          if emitted_material_name == "spark" then
+            emitter2 = component
+          elseif emitted_material_name == "spark_white_bright" then
+            emitter2_powered = component
+          end
+        elseif v == "mods/anvil_of_destiny/files/entities/anvil/emitter.png" then
+          emitter_base = component
+        end
+			end
+		end
+  end
+  
+  if which == "base" then
+    EntitySetComponentIsEnabled(entity_id, emitter_base, enabled)
+  elseif which == "emitter1" then
+    EntitySetComponentIsEnabled(entity_id, emitter1, enabled)
+    if enabled then
+      EntitySetComponentIsEnabled(entity_id, emitter1_powered, false)
+    end
+  elseif which == "emitter1_powered" then
+    EntitySetComponentIsEnabled(entity_id, emitter1_powered, enabled)
+    if enabled then
+      EntitySetComponentIsEnabled(entity_id, emitter1, false)
+    end
+  elseif which == "emitter2" then
+    EntitySetComponentIsEnabled(entity_id, emitter2, enabled)
+    if enabled then
+      EntitySetComponentIsEnabled(entity_id, emitter2_powered, false)
+    end
+  elseif which == "emitter2_powered" then
+    EntitySetComponentIsEnabled(entity_id, emitter2_powered, enabled)
+    if enabled then
+      EntitySetComponentIsEnabled(entity_id, emitter2, false)
+    end
+  else
+    error("Argument 'which' is invalid.")
+  end
+end
+
+function set_outline_emitter(anvil_id, enabled, values)
+  local all_components = EntityGetAllComponents(anvil_id)
+	for _, component in ipairs(all_components) do
+		local component_members = ComponentGetMembers(component)
+		for k, v in pairs(component_members) do
+			if k == "image_animation_file" and
+				(v == "mods/anvil_of_destiny/files/entities/anvil/outline_emitter_top.png" or
+				 v == "mods/anvil_of_destiny/files/entities/anvil/outline_emitter_bottom.png") then
+				EntitySetComponentIsEnabled(anvil_id, component, enabled)
+				if enabled then
+					for value_name, value in pairs(values) do
+						ComponentSetValue(component, value_name, value)
+					end
+				end
+			end
+		end
+  end
+end
+
+-- p_t_w
+local state_funcs = {
+	["1_0_1"] = function() return "pw" end,
+	["0_3_0"] = function() return "ttt" end,
+	["0_0_2"] = function() return "ww" end,
+	["0_1_2"] = function() return "tww" end,
+	["1_1_1"] = function() return "ptw" end,
+	["0_2_1"] = function() return "ttw" end,
+}
+
+-- Reduces or buffs a value only in one "direction"
+-- Like when we want to reduce rechargeTime by 50%, if value is positive, then we would need to reduce
+function change_value(value, percent, min_amount)
+	local amount_to_change = math.abs(value) * percent
+	value = value 
+	return value
+end
+
+-- TODO: Seperate this out into a different file?
+potion_bonuses = {
+	blood=function(wand)
+		wand.rechargeTime = 0
+		-- Critical spells, critical on bloody enemies, circle of blood, sea of blood, blood trail
+		--[[ 
+			MIST_BLOOD, MATERIAL_BLOOD, TOUCH_BLOOD, CRITICAL_HIT, BLOOD_TO_ACID
+			CLOUD_BLOOD, HITFX_CRITICAL_BLOOD
+		 ]]
+	end,
+	water=function(wand)
+		-- Critical on wet enemies, +max mana, circle of water, sea of water, water trail,
+		--[[ 
+			CIRCLE_WATER, MATERIAL_WATER, TOUCH_WATER, WATER_TO_POISON, SEA_WATER
+			CLOUD_WATER, HITFX_CRITICAL_WATER, WATER_TRAIL
+		 ]]
+	end,
+	urine=function(wand)
+		-- Make wand piss constantly
+	end,
+	magic_liquid_teleportation=function(wand)
+		-- teleport spell, circle of displacement, cast spell at distance,
+		--[[ 
+			DELAYED_SPELL, LONG_DISTANCE_CAST, TELEPORT_CAST, TELEPORT_PROJECTILE
+			TELEPORT_PROJECTILE_STATIC, TELEPORTATION_FIELD
+		 ]]
+	end,
+	oil=function(wand)
+		-- oil trail, circle of oil, sea of oil, -recharge, -delay
+		--[[ 
+			CIRCLE_OIL, MATERIAL_OIL, TOUCH_OIL, RECOIL_DAMPER, SEA_OIL
+			HITFX_CRITICAL_OIL, OIL_TRAIL
+		 ]]
+	end,
+	magic_liquid_berserk=function(wand)
+		--[[
+			ROCKET, ROCKET_TIER_2, ROCKET_TIER_3, BOMB, GRENADE, GRENADE_TRIGGER
+			GRENADE_TIER_2, GRENADE_TIER_3, GRENADE_ANTI, GRENADE_LARGE, MINE
+			MINE_DEATH_TRIGGER, PIPE_BOMB, PIPE_BOMB_DEATH_TRIGGER, EXPLODING_DEER,
+			PIPE_BOMB_DETONATOR, DIGGER, POWERDIGGER, METEOR, DYNAMITE, GLITTER_BOMB
+			BOMB_HOLY, NUKE, DAMAGE, HEAVY_SHOT, EXPLOSIVE_PROJECTILE, EXPLOSION
+			BERSERK_FIELD, BOUNCE_EXPLOSION
+		]]
+		
+		-- bombs, grenades, nukes, magic missiles, magic bolts, tnt, glitter bomb,
+	end,
+	magic_liquid_mana_regeneration=function(wand)
+		--[[ 
+			MANA_REDUCE, 
+		 ]]
+		-- +max mana, +mana regen, mana regen spell
+	end,
+	magic_liquid_movement_faster=function(wand)
+		-- -rechargeRate, -castDelay
+		--[[ 
+			RECHARGE, LIFETIME, LIFETIME_DOWN, LIGHT_SHOT, KNOCKBACK, RECOIL
+			SPEED, ACCELERATING_SHOT
+		 ]]
+		wand.rechargeTime = wand.rechargeTime * 0.8
+		--MOVEMENT_FASTER_2X
+		--MOVEMENT_FASTER
+		local wan = wand.entity_id
+		EntityAddComponent(wan, "LuaComponent", {
+			_tags="enabled_in_hand",
+			script_source_file="mods/anvil_of_destiny/files/entities/anvil/game_effect_applicator.lua",
+			execute_every_n_frame="30",
+		})
+		--[[ EntityAddComponent(wan, "ProjectileComponent", {
+			damage_game_effect_entities="data/entities/misc/effect_frozen.xml",
+			friendly_fire="1",
+		})
+
+		EntityAddComponent(wan, "GameAreaEffectComponent", {
+			radius="38",
+			frame_length="1",
+		}) ]]
+
+	end,
+	material_confusion=function(wand)
+		-- randomize stats, random spells
+	end,
+	magic_liquid_protection_all=function(wand)
+		--[[ 
+				WALL_HORIZONTAL, WALL_VERTICAL, WALL_SQUARE, SHIELD_FIELD
+				PROJECTILE_TRANSMUTATION_FIELD, ENERGY_SHIELD, ENERGY_SHIELD_SECTOR
+		 ]]
+	end,
+	magic_liquid_hp_regeneration=function(wand)
+		-- HEAL_BULLET, REGENERATION_FIELD
+		-- make wand restore hp over time, add heal spells, healing circle, healing shot
+	end,
+	magic_liquid_polymorph=function(wand)
+		-- transform all spells in wand into random ones
+		--[[ 
+			SUMMON_EGG, SUMMON_HOLLOW_EGG, SUMMON_WANDGHOST, STATIC_TO_SAND
+			TRANSMUTATION, POLYMORPH_FIELD, PROJECTILE_TRANSMUTATION_FIELD,
+			TENTACLE_RAY_ENEMY
+		 ]]
+	end,
+	magic_liquid_random_polymorph=function(wand)
+		-- transform all spells in wand into random ones
+		--[[ 
+			TENTACLE_PORTAL, TENTACLE, TENTACLE_TIMER, SUMMON_EGG, STATIC_TO_SAND
+			TRANSMUTATION, CHAOS_POLYMORPH_FIELD, PROJECTILE_TRANSMUTATION_FIELD
+			TENTACLE_RAY, TENTACLE_RAY_ENEMY
+		 ]]
+	end,
+	magic_liquid_charm=function(wand)
+		-- charm spells, charm on slime etc
+		--[[ 
+			SUMMON_EGG, SUMMON_HOLLOW_EGG, SUMMON_WANDGHOST, HOMING, HOMING_SHOOTER
+			NECROMANCY, TENTACLE_RAY_ENEMY
+		 ]]
+	end,
+	magic_liquid_invisibility=function(wand)
+		-- Turn player invisible for some time on pickup
+		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
+			name="material",
+			value_string="magic_liquid_invisibility",
+		})
+		EntityAddComponent(wand.entity_id, "LuaComponent", {
+			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
+			execute_every_n_frame="-1",
+			remove_after_executed="1"
+		})
+	end,
+	magic_liquid_worm_attractor=function(wand)
+		-- make player attract worms while wand is active
+		-- SUMMON_EGG, SUMMON_HOLLOW_EGG, HOMING, HOMING_SHOOTER
+	end,
+	alcohol=function(wand)
+		-- +spread heavy, explode on drunk enemies, mist of whisky, circle of whisy, sea of whisky, quadruple spread shots etc
+		--[[ 
+			BUCKSHOT, MIST_ALCOHOL, TOUCH_ALCOHOL, SCATTER_3, SCATTER_4, I_SHAPE
+			Y_SHAPE, T_SHAPE, W_SHAPE, CIRCLE_SHAPE, PENTAGRAM_SHAPE, HEAVY_SPREAD
+			GRAVITY, GRAVITY_ANTI, SINEWAVE, CHAOTIC_ARC, PINGPONG_PATH
+			ALCOHOL_BLAST, SEA_ALCOHOL, HITFX_EXPLOSION_ALCOHOL
+			HITFX_EXPLOSION_ALCOHOL_GIGA
+		]]
+	end,
+	blood_worm=function(wand)
+		-- spawn a bunch of worms
+		-- SUMMON_EGG, SUMMON_HOLLOW_EGG
+		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
+			name="material",
+			value_string="blood_worm",
+		})
+		EntityAddComponent(wand.entity_id, "LuaComponent", {
+			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
+			execute_every_n_frame="-1",
+			remove_after_executed="1"
+		})
+		local spells_count = wand:GetSpellsCount()
+		while wand.capacity > spells_count do
+			if Random(100) < 30 then break end
+			wand:AddSpells("SUMMON_EGG")
+			spells_count = spells_count + 1
+		end
+	end,
+	radioactive_liquid=function(wand)
+		-- toxic mist, sea of toxic, toxic trail
+		--[[ 
+			MIST_RADIOACTIVE, AREA_DAMAGE, HITFX_TOXIC_CHARM
+		 ]]
+	end,
+	acid=function(wand)
+		--[[ 
+			ACIDSHOT, CIRCLE_ACID, MATERIAL_ACID, CLIPPING_SHOT, PIERCING_SHOT
+			TOXIC_TO_ACID, SEA_ACID, SEA_ACID_GAS, CLOUD_ACID, ACID_TRAIL
+		 ]]
+		-- acid mist, sea of acid, acid trail, 
+	end,
+	lava=function(wand)
+		--[[ 
+			sea of lava, lava trail
+			FIREBALL, METEOR, FLAMETHROWER,  
+			ROCKET, ROCKET_TIER_2, ROCKET_TIER_3, GRENADE, GRENADE_TRIGGER
+			GRENADE_TIER_2, GRENADE_TIER_3, GRENADE_ANTI, GRENADE_LARGE
+			FIREBOMB, CIRCLE_FIRE, LAVA_TO_BLOOD, FIRE_BLAST, SEA_LAVA
+			HITFX_BURNING_CRITICAL_HIT, FIREBALL_RAY, FIREBALL_RAY_LINE
+			FIREBALL_RAY_ENEMY, ARC_FIRE, FIRE_TRAIL, BURN_TRAIL
+		 ]]
+	end,
+}
+
+function feed_anvil(anvil_id, what, entity_id, material_name)
+	-- TODO: Put the logic that gets the material name from a potion inside here
+	local state = get_state(anvil_id)
+	print("Inputting [ " .. what .. (material_name ~= nil and ": " .. material_name or "") .. " ]")
+
+	if what == "wand" then
+		hide_wand(anvil_id, entity_id)
+	end
+
+	if what == "tablet" then
+		EntityKill(entity_id)
+	end
+
+	if what == "potion" then
+		remove_potion_input_place(anvil_id)
+		--[[ if state.potions == 1 then return end ]]
+		local accepted = false
+		for k, v in pairs(potion_bonuses) do
+			if material_name == k then
+				accepted = true
+				break
+			end
+		end
+		if not accepted then return end
+		state.potion_material = material_name
+
+		set_outline_emitter(anvil_id, true, { emitted_material_name=material_name })
+
+		-- Empty the container
+		local material_inventory_component = EntityGetFirstComponent(entity_id, "MaterialInventoryComponent")
+		EntityRemoveComponent(entity_id, material_inventory_component)
+		EntityAddComponent(entity_id, "MaterialInventoryComponent", {
+			_tags="enabled_in_world,enabled_in_hand"
+		})
+	end
+
+	state[what.."s"] = state[what.."s"] + 1	
+	update_emitters(anvil_id, what)
+
+  local state_string = state.potions
+  state_string = state_string .. "_" .. state.tablets
+  state_string = state_string .. "_" .. state.wands
+	if state_funcs[state_string] ~= nil then
+		local result = state_funcs[state_string]()
+		print("--- DONE --- " , result)
+		local x, y = EntityGetTransform(anvil_id)
+		if result == "ww" or result == "tww" then
+
+
+
+			local stored_wand_id1 = retrieve_wand(anvil_id, 1)
+			local stored_wand_id2 = retrieve_wand(anvil_id, 2)
+			local always_cast_spell_count = state.tablets
+			local success, new_wand_id = pcall(function()
+				set_random_seed_with_player_position()
+				local seed_x = Random() * 1000
+				local seed_y = Random() * 1000
+				return anvil_buff1(stored_wand_id1, stored_wand_id2, config_regular_wand_buff, always_cast_spell_count, seed_x, seed_y)
+			end)
+			if not success then
+				error("Anvil of Destiny error: " .. new_wand_id)
+			end
+			EntityKill(stored_wand_id1)
+			EntityKill(stored_wand_id2)
+			EntityAddChild(get_output_storage(anvil_id), new_wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+
+
+
+
+		elseif result == "ttw" then
+
+
+			local wand_id = buff_stored_wand(anvil_id, x, y)
+			-- Move wand from wand_storage to output_storage
+			EZWand(wand_id).shuffle = false
+			EntityRemoveFromParent(wand_id)
+			EntityAddChild(get_output_storage(anvil_id), wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+
+
+
+
+		elseif result == "ttt" then
+			spawn_result_spawner2(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+		elseif result == "pw" or result == "ptw" then
+
+
+			local stored_wand_id = retrieve_wand(anvil_id, 1)
+			local always_cast_spell_count = state.tablets
+			local success, new_wand_id = pcall(function()
+				set_random_seed_with_player_position()
+				local seed_x = Random() * 1000
+				local seed_y = Random() * 1000
+				return anvil_buff1(stored_wand_id1, stored_wand_id2, config_regular_wand_buff, always_cast_spell_count, seed_x, seed_y)
+			end)
+			if not success then
+				error("Anvil of Destiny error: " .. new_wand_id)
+			end
+
+			local wand = EZWand(stored_wand_id)
+			-- Call function to apply bonus based on material
+			potion_bonuses[state.potion_material](wand)
+
+			EntityRemoveFromParent(stored_wand_id)
+			EntityAddChild(get_output_storage(anvil_id), stored_wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+
+		end
+  end
+end
+
+function EntityLoadDelayed(file_path, x, y, delay)
+  local entity_id = EntityCreateNew()
+  EntitySetTransform(entity_id, x, y)
+  local comp = EntityAddComponent(entity_id, "LoadEntitiesComponent", {
+    entity_file=file_path,
+    timeout_frames=tostring(delay),
+    kill_entity="1",
+  })
+  ComponentSetValueValueRangeInt(comp, "count", "1", "1")
+end
+-- Will spit out whatever is inside the <Entity name="output_storage"> after some time
+function spawn_result_spawner(entity_id, x, y)
+  local offset_x = x + 4
+  local offset_y = y
+  spawn_hammer_animation(offset_x, offset_y, 1, 0)
+  spawn_hammer_animation(offset_x, offset_y, -1, 55)
+  EntityAddComponent(entity_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
+    execute_on_added="0",
+    execute_every_n_frame="125",
+    remove_after_executed="1",
+  })
+end
+-- This is for the easter egg path, it's hammer time!
+function spawn_result_spawner2(entity_id, x, y)
+  local offset_x = x + 4
+  local offset_y = y
+  local delays = { 0, 55, 50, 45, 40, 35, 30, 25, 18, 12, 8, 8 }
+  local total_delay = 0
+  for i, v in ipairs(delays) do
+    total_delay = total_delay + v
+    local direction = i % 2 == 0 and -1 or 1
+    spawn_hammer_animation(offset_x, offset_y, direction, total_delay)
+    if i > 3 then
+      EntityAddComponent(entity_id, "LuaComponent", {
+        script_source_file="mods/anvil_of_destiny/files/entities/anvil/loosen_random_chunk.lua",
+        execute_on_added="0",
+        execute_every_n_frame=tostring(total_delay + 40),
+        remove_after_executed="1",
+      })
+    end
+  end
+  EntityAddComponent(entity_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/deactivate_emitters.lua",
+    execute_on_added="0",
+    execute_every_n_frame=tostring(120),
+    remove_after_executed="1",
+  })
+  EntityAddComponent(entity_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
+    execute_on_added="0",
+    execute_every_n_frame=tostring(total_delay + 110),
+    remove_after_executed="1",
+  })
+end
+
+-- Buff a wand by a lot
+function buff_stored_wand(anvil_id)
+  local stored_wand_id = retrieve_wand(anvil_id, 1)
+  local stored_wand = EZWand(stored_wand_id)
+  local success, new_wand_id = pcall(function()
+    set_random_seed_with_player_position()
+    local variation = 0.1 - Random() * 0.2
+    return buff_wand(stored_wand, config_improved_wand_buff + variation, false)
+  end)
+  if not success then
+    -- If the call was not successful, new_wand_id contains the error message
+    print("Anvil of Destiny error: " .. new_wand_id)
+  end
+  return stored_wand.entity_id
+end
+
+function disable_interactivity(entity_id)
+  -- TODO: Dont remove collision trigger but instead luacomp?
+  edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
+    EntityRemoveComponent(entity_id, comp)
+  end)
+  edit_all_components(entity_id, "CollisionTriggerComponent", function(comp, vars)
+    EntityRemoveComponent(entity_id, comp)
+  end)
+	-- Remove damage checker component
+  local lua_components = EntityGetComponent(entity_id, "LuaComponent")
+  if lua_components ~= nil then
+    for i, v in ipairs(lua_components) do
+      if ComponentGetValue(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+        EntityRemoveComponent(entity_id, v)
+        break
+      end
+    end
+	end
+	remove_potion_input_place(anvil_id)
+end
+
+function remove_potion_input_place(anvil_id)
+	local x, y = EntityGetTransform(anvil_id)
+	local entities_in_radius = EntityGetInRadius(x, y, 20)
+	for i, entity in ipairs(entities_in_radius) do
+		if EntityGetName(entity) == "anvil_of_destiny_potion_input" then
+			EntityKill(entity)
+			break
+		end
+	end
+end
+
+function get_wand_storage(anvil_id)
+  local children = EntityGetAllChildren(anvil_id)
+  for i, child in ipairs(children) do
+    if EntityGetName(child) == "wand_storage" then
+      return child
+    end
+  end
+end
+
+function get_output_storage(anvil_id)
+  local children = EntityGetAllChildren(anvil_id)
+  for i, child in ipairs(children) do
+    if EntityGetName(child) == "output_storage" then
+      return child
+    end
+  end
+end
+
+-- "Hides" a wand by removing it's visible components and adds it to the wand storage as a child entity so we can later retrieve it
+function hide_wand(anvil_id, wand_id)
+  -- Put the wand in the storage and disable all components that make it visible 
+  EntityAddChild(get_wand_storage(anvil_id), wand_id)
+  -- Disable physics to keep it floating
+  edit_component(wand_id, "SimplePhysicsComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+  edit_component(wand_id, "ItemComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+  edit_component(wand_id, "SpriteComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+  edit_component(wand_id, "LightComponent", function(comp, vars)
+    EntitySetComponentIsEnabled(wand_id, comp, false)
+  end)
+end
+
+function retrieve_wand(anvil_id, index)
+  local wand_storage = get_wand_storage(anvil_id)
+  local stored_wands = EntityGetAllChildren(wand_storage)
+
+  return stored_wands[index]
+end
+
+function update_emitters(anvil_id, what)
+	local state = get_state(anvil_id)
+	local emitter_color = ""
+  if state.tablets >= 2 then
+    emitter_color = "_powered"
+	end
+	local total_inputs = math.max(state.tablets - 1, 0) + state.wands + state.potions
+	for i=1, total_inputs do
+		set_runes_enabled(anvil_id, "emitter" .. i .. emitter_color, true)
+	end
+	if what == "tablet" and state.tablets == 1 then
+		set_runes_enabled(anvil_id, "base", true)
+	end
 end

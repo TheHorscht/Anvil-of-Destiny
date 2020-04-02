@@ -1,6 +1,13 @@
-<Entity>
+<Entity name="anvil_of_destiny_potion_input">
 
   <!-- <ItemCostComponent cost="0" /> -->
+
+  <SpriteComponent 
+    image_file="data/ui_gfx/items/potion.png" 
+    offset_x="8"
+    offset_y="8"
+    >
+  </SpriteComponent>
 
 	<ItemComponent
 		item_name="Sacrifice Potion"

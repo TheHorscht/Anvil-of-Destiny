@@ -1,6 +1,6 @@
-<Entity>
+<Entity name="anvil_of_destiny">
 
-  <!--  GAME BUG: For now, setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
+  <!--  GAME BUG: For now (Feb 28th 2020), setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
   <!--  Which means if we use a static PhysicsBodyComponent, we can't use centered or offsets, so we have to shift it manually with InheritTransformComponent -->
 
   <Entity name="physics_body">
@@ -96,6 +96,42 @@
     image_animation_speed="4"
     image_animation_loop="1"
     render_back="1"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent>
+
+  <!-- Outline emitter for potions effect -->
+
+  <ParticleEmitterComponent 
+    _enabled="0"
+    emitted_material_name="spark_white"
+    y_pos_offset_min="18"
+    y_pos_offset_max="18"
+    gravity.y="-25"
+    lifetime_min="0.5"
+    lifetime_max="0.8"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    emission_chance="3"
+    count_min="1"
+    count_max="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    draw_as_long="1"
+    fade_based_on_lifetime="0"
+    area_circle_radius.min="0"
+    area_circle_radius.max="0"
+    velocity_always_away_from_center="0"
+    airflow_force="0"
+    airflow_time="1"
+    airflow_scale="1"
+    collide_with_grid="0"
+    render_on_grid="0"
+    draw_as_long="1"
+    image_animation_file="mods/anvil_of_destiny/files/entities/anvil/outline_emitter_top.png"
+    image_animation_speed="4"
+    image_animation_loop="1"
+    render_back="0"
     is_emitting="1"
     >
   </ParticleEmitterComponent>
