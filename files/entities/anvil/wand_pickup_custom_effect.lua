@@ -32,6 +32,21 @@ local effects = {
     -- Apply invisibility to the player
     apply_game_effect(entity_pickupper, "INVISIBILITY", false, 60 * 60) -- 1 minute
   end,
+  magic_liquid_hp_regeneration = function(entity_item, entity_pickupper, x, y)
+    local radius = 50
+    for i=1,4 do
+      local pie = 2 * math.pi / 10
+      EntityLoad("data/entities/animals/scavenger_heal.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
+    end
+  end,
+  magic_liquid_worm_attractor = function(entity_item, entity_pickupper, x, y)
+    local radius = 100
+    for i=1,4 do
+      local pie = 2 * math.pi / 10
+      EntityLoad("data/entities/animals/worm.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
+    end
+    apply_game_effect(entity_pickupper, "WORM_ATTRACTOR", false, 60 * 60) -- 1 minute
+  end,
 }
 
 function item_pickup(entity_item, entity_pickupper, item_name)

@@ -189,6 +189,7 @@ function wand_compute_level(wand_id)
 	local mana_max = wand.manaMax
 	local recharge_time = wand.rechargeTime
 	if mana_max > recharge_time * 20 then
+	local recharge_time = wand.rechargeTime
 		-- it's a "slow loader" wand, convert it back to a normal wand
 		recharge_time = recharge_time * 5
 		mana_max = mana_max / 3
@@ -409,6 +410,272 @@ function set_outline_emitter(anvil_id, enabled, values)
   end
 end
 
+local spell_level_lookup = {
+	BOMB={0,1,2,3,4,5,6},
+	LIGHT_BULLET={0,1},
+	LIGHT_BULLET_TRIGGER={0,1,2,3},
+	LIGHT_BULLET_TRIGGER_2={2,3,5,6},
+	LIGHT_BULLET_TIMER={1,2,3},
+	BULLET={1,2,3,4,5},
+	BULLET_TRIGGER={1,2,3,4,5},
+	BULLET_TIMER={2,3,4,5,6},
+	HEAVY_BULLET={1,2,3,4,5,6},
+	HEAVY_BULLET_TRIGGER={2,3,4,5,6},
+	HEAVY_BULLET_TIMER={2,3,4,5,6},
+	AIR_BULLET={1,2},
+	SLOW_BULLET={1,2,3,4},
+	SLOW_BULLET_TRIGGER={1,2,3,4,5},
+	SLOW_BULLET_TIMER={1,2,3,4,5,6},
+	BLACK_HOLE={0,2,4,5},
+	BLACK_HOLE_BIG={1,3,5,6},
+	TENTACLE_PORTAL={1,2,3,4},
+	SPITTER={0,1,2},
+	SPITTER_TIMER={0,1,2,3},
+	SPITTER_TIER_2={2,3,4},
+	SPITTER_TIER_2_TIMER={2,3,4,5},
+	SPITTER_TIER_3={3,4,5,6},
+	SPITTER_TIER_3_TIMER={4,5,6},
+	BUBBLESHOT={0,1,2},
+	BUBBLESHOT_TRIGGER={1,2,3},
+	DISC_BULLET={0,2,4},
+	DISC_BULLET_BIG={0,2,4},
+	BOUNCY_ORB={0,2,4},
+	BOUNCY_ORB_TIMER={0,2,4},
+	RUBBER_BALL={0,1,6},
+	ARROW={1,2,4,5},
+	LANCE={1,2,5,6},
+	ROCKET={1,2,3,4,5},
+	ROCKET_TIER_2={2,3,4,5,6},
+	ROCKET_TIER_3={2,3,4,5,6},
+	GRENADE={0,1,2,3,4},
+	GRENADE_TRIGGER={0,1,2,3,4,5},
+	GRENADE_TIER_2={1,2,3,4,5},
+	GRENADE_TIER_3={1,2,3,4,5},
+	GRENADE_ANTI={0,1,2,3,4,5},
+	GRENADE_LARGE={0,1,2,3,4,5},
+	MINE={1,3,4,6},
+	MINE_DEATH_TRIGGER={2,6},
+	PIPE_BOMB={2,3,4},
+	PIPE_BOMB_DEATH_TRIGGER={2,3,4,5},
+	EXPLODING_DEER={3,4,5},
+	PIPE_BOMB_DETONATOR={2,3,4,5,6},
+	LASER={1,2,4},
+	LIGHTNING={1,2,5,6},
+	DIGGER={1,2},
+	POWERDIGGER={2,3,4},
+	CHAINSAW={0,2},
+	LUMINOUS_DRILL={0,2},
+	LASER_LUMINOUS_DRILL={0,2},
+	TENTACLE={3,4,5,6},
+	TENTACLE_TIMER={3,4,5,6},
+	HEAL_BULLET={2,3,4},
+	SPIRAL_SHOT={4,5,6},
+	CHAIN_BOLT={0,4,5,6},
+	FIREBALL={0,3,4,6},
+	METEOR={4,5,6},
+	FLAMETHROWER={2,3,6},
+	SLIMEBALL={0,3,4},
+	DARKFLAME={3,5,6},
+	PEBBLE={1,2,4,6},
+	DYNAMITE={0,1,2,3,4},
+	GLITTER_BOMB={0,1,2,3,4},
+	BUCKSHOT={0,1,2,3,4},
+	BOMB_HOLY={2,3,4,5,6},
+	CRUMBLING_EARTH={2,3,4,5,6},
+	SUMMON_ROCK={0,1,2,3,4,5,6},
+	SUMMON_EGG={0,1,2,3,4,5,6},
+	SUMMON_HOLLOW_EGG={0,1,2,3,4,5,6},
+	ACIDSHOT={1,2,3,4},
+	THUNDERBALL={2,4,6},
+	FIREBOMB={1,2,3},
+	SOILBALL={1,2,3,5},
+	DEATH_CROSS={1,2,3,4,5,6},
+	DEATH_CROSS_BIG={2,3,4,5,6},
+	WALL_HORIZONTAL={0,1,2,4,5,6},
+	WALL_VERTICAL={0,1,2,4,5,6},
+	WALL_SQUARE={0,1,2,4,5,6},
+	PURPLE_EXPLOSION_FIELD={0,1,2,4,5,6},
+	DELAYED_SPELL={0,1,2,4,5,6},
+	LONG_DISTANCE_CAST={0,1,2,4,5,6},
+	TELEPORT_CAST={0,1,2,4,5,6},
+	MIST_RADIOACTIVE={1,2,3,4},
+	MIST_ALCOHOL={1,2,3,4},
+	MIST_SLIME={1,2,3,4},
+	MIST_BLOOD={1,2,3,4},
+	CIRCLE_FIRE={1,2,3,4},
+	CIRCLE_ACID={1,2,3,4},
+	CIRCLE_OIL={1,2,3,4},
+	CIRCLE_WATER={1,2,3,4},
+	MATERIAL_WATER={1,2,3,4,5},
+	MATERIAL_OIL={1,2,3,4,5},
+	MATERIAL_BLOOD={1,2,3,4,5},
+	MATERIAL_ACID={2,3,4,5,6},
+	MATERIAL_CEMENT={2,3,4,5,6},
+	TELEPORT_PROJECTILE={0,1,2,4,5,6},
+	TELEPORT_PROJECTILE_STATIC={0,1,2,4,5,6},
+	NUKE={1,5,6},
+	FIREWORK={1,2,3,4,5,6},
+	SUMMON_WANDGHOST={1,2,4,5,6},
+	TOUCH_GOLD={1,2,3,4,5,6,7},
+	TOUCH_WATER={1,2,3,4,5,6,7},
+	TOUCH_OIL={1,2,3,4,5,6,7},
+	TOUCH_ALCOHOL={1,2,3,4,5,6,7},
+	TOUCH_BLOOD={1,2,3,4,5,6,7},
+	TOUCH_SMOKE={1,2,3,4,5,6,7},
+	DESTRUCTION={10},
+	BURST_2={0,1,2,3,4,5,6},
+	BURST_3={1,2,3,4,5,6},
+	BURST_4={2,3,4,5,6},
+	SCATTER_2={0,1,2},
+	SCATTER_3={0,1,2,3},
+	SCATTER_4={1,2,3,4,5,6},
+	I_SHAPE={1,2,3,4},
+	Y_SHAPE={0,1,2,3,4},
+	T_SHAPE={1,2,3,4,5},
+	W_SHAPE={2,3,4,5,6},
+	CIRCLE_SHAPE={1,2,3,4,5,6},
+	PENTAGRAM_SHAPE={1,2,3,4,5},
+	SPREAD_REDUCE={1,2,3,4,5,6},
+	HEAVY_SPREAD={0,1,2,4,5,6},
+	RECHARGE={1,2,3,4,5,6},
+	LIFETIME={1,2,3,4,5,6},
+	LIFETIME_DOWN={1,2,3,4,5,6},
+	MANA_REDUCE={1,2,3,4,5,6},
+	GRAVITY={2,3,4,5,6},
+	GRAVITY_ANTI={2,3,4,5,6},
+	SINEWAVE={1,2,3,4},
+	CHAOTIC_ARC={1,2,3,4},
+	PINGPONG_PATH={1,2,3,4},
+	AVOIDING_ARC={1,2,3,4},
+	FLOATING_ARC={1,2,3,4},
+	FLY_DOWNWARDS={1,3,5},
+	FLY_UPWARDS={1,3,5},
+	HORIZONTAL_ARC={1,3,5},
+	BOUNCE={2,3,4},
+	HOMING={2,3,4,5,6},
+	HOMING_SHOOTER={2,3,4,5,6},
+	PIERCING_SHOT={2,3,4,5,6},
+	CLIPPING_SHOT={2,3,4,5,6},
+	DAMAGE={1,2,3,4,5},
+	CRITICAL_HIT={1,2,3,4,5},
+	AREA_DAMAGE={2,3,4,5,6},
+	HEAVY_SHOT={2,3,4},
+	LIGHT_SHOT={2,3,4},
+	KNOCKBACK={3,5},
+	RECOIL={2,4},
+	RECOIL_DAMPER={3,6},
+	SPEED={1,2,3},
+	ACCELERATING_SHOT={2,3,4},
+	EXPLOSIVE_PROJECTILE={2,3,4},
+	WATER_TO_POISON={2,3,4},
+	BLOOD_TO_ACID={2,3,4},
+	LAVA_TO_BLOOD={2,3,4},
+	TOXIC_TO_ACID={2,3,4},
+	STATIC_TO_SAND={2,3,4},
+	TRANSMUTATION={2,3,4,5,6},
+	NECROMANCY={2,3,4,5},
+	LIGHT={0,1,2,3,4},
+	EXPLOSION={0,2,4,5},
+	FIRE_BLAST={0,1,3,5},
+	POISON_BLAST={1,2,4,6},
+	ALCOHOL_BLAST={1,2,4,6},
+	THUNDER_BLAST={1,3,5,6},
+	BERSERK_FIELD={2,3,4},
+	POLYMORPH_FIELD={0,1,2,3,4,5,6},
+	CHAOS_POLYMORPH_FIELD={1,2,3,4,5,6},
+	ELECTROCUTION_FIELD={1,3,5,6},
+	FREEZE_FIELD={0,2,4,5},
+	REGENERATION_FIELD={1,2,3,4},
+	TELEPORTATION_FIELD={0,1,2,3,4,5},
+	LEVITATION_FIELD={3,4},
+	SHIELD_FIELD={2,3,4,5,6},
+	PROJECTILE_TRANSMUTATION_FIELD={2,3,4,5,6},
+	PROJECTILE_THUNDER_FIELD={3,4,5,6},
+	PROJECTILE_GRAVITY_FIELD={2,5,6},
+	SEA_LAVA={0,4,5,6},
+	SEA_ALCOHOL={0,4,5,6},
+	SEA_OIL={0,4,5,6},
+	SEA_WATER={0,4,5,6},
+	SEA_ACID={0,4,5,6},
+	SEA_ACID_GAS={0,4,5,6},
+	CLOUD_WATER={0,1,2,3,4,5},
+	CLOUD_BLOOD={0,1,2,3,4,5},
+	CLOUD_ACID={0,1,2,3,4,5},
+	CLOUD_THUNDER={0,1,2,3,4,5},
+	ELECTRIC_CHARGE={1,2,4,5},
+	MATTER_EATER={1,2,4,5},
+	FREEZE={1,3,4,5},
+	HITFX_BURNING_CRITICAL_HIT={1,3,4,5},
+	HITFX_CRITICAL_WATER={1,3,4,5},
+	HITFX_CRITICAL_OIL={1,3,4,5},
+	HITFX_CRITICAL_BLOOD={1,3,4,5},
+	HITFX_TOXIC_CHARM={1,3,4,5},
+	HITFX_EXPLOSION_SLIME={1,3,4,5},
+	HITFX_EXPLOSION_SLIME_GIGA={1,3,4,5},
+	HITFX_EXPLOSION_ALCOHOL={1,3,4,5},
+	HITFX_EXPLOSION_ALCOHOL_GIGA={1,3,4,5},
+	ROCKET_DOWNWARDS={1,2,3,4},
+	BOUNCE_EXPLOSION={1,2,3,4},
+	FIREBALL_RAY={1,2,4,5},
+	LIGHTNING_RAY={1,2,3,4,5},
+	TENTACLE_RAY={1,2,3,4,5},
+	FIREBALL_RAY_LINE={2,3,4,5,6},
+	FIREBALL_RAY_ENEMY={1,2,4,5},
+	LIGHTNING_RAY_ENEMY={1,2,3,4,5},
+	TENTACLE_RAY_ENEMY={1,2,3,4,5},
+	GRAVITY_FIELD_ENEMY={1,2,4,5},
+	ARC_ELECTRIC={2,3,4,5,6},
+	ARC_FIRE={1,2,3,4,5},
+	ARC_GUNPOWDER={1,2,3,4,5},
+	ARC_POISON={1,2,3,4,5},
+	X_RAY={0,1,2,3,4,5,6},
+	UNSTABLE_GUNPOWDER={2,3,4},
+	ACID_TRAIL={1,2,3,4,5},
+	POISON_TRAIL={2,3,4},
+	OIL_TRAIL={2,3,4},
+	WATER_TRAIL={1,2,3,4},
+	GUNPOWDER_TRAIL={2,3,4},
+	FIRE_TRAIL={0,1,2,3,4},
+	BURN_TRAIL={0,1,2},
+	TORCH={0,1,2},
+	TORCH_ELECTRIC={0,1,2},
+	ENERGY_SHIELD={2,3,4,5,6},
+	ENERGY_SHIELD_SECTOR={1,2,3,4,5},
+	OCARINA_A={10},
+	OCARINA_B={10},
+	OCARINA_C={10},
+	OCARINA_D={10},
+	OCARINA_E={10},
+	OCARINA_F={10},
+	OCARINA_GSHARP={10},
+	OCARINA_A2={10},
+}
+-- Takes as input a table of spell IDs and filters out every spell whose level is not in the range specified
+function filter_spells(spells, level_min, level_max)
+	local filtered_list = {}
+	for i, spell_name in ipairs(spells) do
+		for i, level in ipairs(spell_level_lookup[spell_name]) do
+			if level >= level_min and level <= level_max then
+				table.insert(filtered_list, spell_name)
+				break
+			end
+		end
+	end
+	return filtered_list
+end
+
+function add_spells_to_wand(wand, spells, num_spells_to_add)
+	local wand_level = wand_compute_level(wand.entity_id)
+	spells = filter_spells(spells, wand_level, wand_level)
+	local spells_count = wand:GetSpellsCount()
+	local num_spells_added = 0
+	while wand.capacity > spells_count and num_spells_added < num_spells_to_add do
+		wand:AddSpells(spells[Random(1, #spells)])
+		spells_count = spells_count + 1
+		num_spells_added = num_spells_added + 1
+	end
+end
+
 -- p_t_w
 local state_funcs = {
 	["1_0_1"] = function() return "pw" end,
@@ -427,191 +694,6 @@ function change_value(value, percent, min_amount)
 	return value
 end
 
--- TODO: Seperate this out into a different file?
-potion_bonuses = {
-	blood=function(wand)
-		wand.rechargeTime = 0
-		-- Critical spells, critical on bloody enemies, circle of blood, sea of blood, blood trail
-		--[[ 
-			MIST_BLOOD, MATERIAL_BLOOD, TOUCH_BLOOD, CRITICAL_HIT, BLOOD_TO_ACID
-			CLOUD_BLOOD, HITFX_CRITICAL_BLOOD
-		 ]]
-	end,
-	water=function(wand)
-		-- Critical on wet enemies, +max mana, circle of water, sea of water, water trail,
-		--[[ 
-			CIRCLE_WATER, MATERIAL_WATER, TOUCH_WATER, WATER_TO_POISON, SEA_WATER
-			CLOUD_WATER, HITFX_CRITICAL_WATER, WATER_TRAIL
-		 ]]
-	end,
-	urine=function(wand)
-		-- Make wand piss constantly
-	end,
-	magic_liquid_teleportation=function(wand)
-		-- teleport spell, circle of displacement, cast spell at distance,
-		--[[ 
-			DELAYED_SPELL, LONG_DISTANCE_CAST, TELEPORT_CAST, TELEPORT_PROJECTILE
-			TELEPORT_PROJECTILE_STATIC, TELEPORTATION_FIELD
-		 ]]
-	end,
-	oil=function(wand)
-		-- oil trail, circle of oil, sea of oil, -recharge, -delay
-		--[[ 
-			CIRCLE_OIL, MATERIAL_OIL, TOUCH_OIL, RECOIL_DAMPER, SEA_OIL
-			HITFX_CRITICAL_OIL, OIL_TRAIL
-		 ]]
-	end,
-	magic_liquid_berserk=function(wand)
-		--[[
-			ROCKET, ROCKET_TIER_2, ROCKET_TIER_3, BOMB, GRENADE, GRENADE_TRIGGER
-			GRENADE_TIER_2, GRENADE_TIER_3, GRENADE_ANTI, GRENADE_LARGE, MINE
-			MINE_DEATH_TRIGGER, PIPE_BOMB, PIPE_BOMB_DEATH_TRIGGER, EXPLODING_DEER,
-			PIPE_BOMB_DETONATOR, DIGGER, POWERDIGGER, METEOR, DYNAMITE, GLITTER_BOMB
-			BOMB_HOLY, NUKE, DAMAGE, HEAVY_SHOT, EXPLOSIVE_PROJECTILE, EXPLOSION
-			BERSERK_FIELD, BOUNCE_EXPLOSION
-		]]
-		
-		-- bombs, grenades, nukes, magic missiles, magic bolts, tnt, glitter bomb,
-	end,
-	magic_liquid_mana_regeneration=function(wand)
-		--[[ 
-			MANA_REDUCE, 
-		 ]]
-		-- +max mana, +mana regen, mana regen spell
-	end,
-	magic_liquid_movement_faster=function(wand)
-		-- -rechargeRate, -castDelay
-		--[[ 
-			RECHARGE, LIFETIME, LIFETIME_DOWN, LIGHT_SHOT, KNOCKBACK, RECOIL
-			SPEED, ACCELERATING_SHOT
-		 ]]
-		wand.rechargeTime = wand.rechargeTime * 0.8
-		--MOVEMENT_FASTER_2X
-		--MOVEMENT_FASTER
-		local wan = wand.entity_id
-		EntityAddComponent(wan, "LuaComponent", {
-			_tags="enabled_in_hand",
-			script_source_file="mods/anvil_of_destiny/files/entities/anvil/game_effect_applicator.lua",
-			execute_every_n_frame="30",
-		})
-		--[[ EntityAddComponent(wan, "ProjectileComponent", {
-			damage_game_effect_entities="data/entities/misc/effect_frozen.xml",
-			friendly_fire="1",
-		})
-
-		EntityAddComponent(wan, "GameAreaEffectComponent", {
-			radius="38",
-			frame_length="1",
-		}) ]]
-
-	end,
-	material_confusion=function(wand)
-		-- randomize stats, random spells
-	end,
-	magic_liquid_protection_all=function(wand)
-		--[[ 
-				WALL_HORIZONTAL, WALL_VERTICAL, WALL_SQUARE, SHIELD_FIELD
-				PROJECTILE_TRANSMUTATION_FIELD, ENERGY_SHIELD, ENERGY_SHIELD_SECTOR
-		 ]]
-	end,
-	magic_liquid_hp_regeneration=function(wand)
-		-- HEAL_BULLET, REGENERATION_FIELD
-		-- make wand restore hp over time, add heal spells, healing circle, healing shot
-	end,
-	magic_liquid_polymorph=function(wand)
-		-- transform all spells in wand into random ones
-		--[[ 
-			SUMMON_EGG, SUMMON_HOLLOW_EGG, SUMMON_WANDGHOST, STATIC_TO_SAND
-			TRANSMUTATION, POLYMORPH_FIELD, PROJECTILE_TRANSMUTATION_FIELD,
-			TENTACLE_RAY_ENEMY
-		 ]]
-	end,
-	magic_liquid_random_polymorph=function(wand)
-		-- transform all spells in wand into random ones
-		--[[ 
-			TENTACLE_PORTAL, TENTACLE, TENTACLE_TIMER, SUMMON_EGG, STATIC_TO_SAND
-			TRANSMUTATION, CHAOS_POLYMORPH_FIELD, PROJECTILE_TRANSMUTATION_FIELD
-			TENTACLE_RAY, TENTACLE_RAY_ENEMY
-		 ]]
-	end,
-	magic_liquid_charm=function(wand)
-		-- charm spells, charm on slime etc
-		--[[ 
-			SUMMON_EGG, SUMMON_HOLLOW_EGG, SUMMON_WANDGHOST, HOMING, HOMING_SHOOTER
-			NECROMANCY, TENTACLE_RAY_ENEMY
-		 ]]
-	end,
-	magic_liquid_invisibility=function(wand)
-		-- Turn player invisible for some time on pickup
-		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
-			name="material",
-			value_string="magic_liquid_invisibility",
-		})
-		EntityAddComponent(wand.entity_id, "LuaComponent", {
-			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-			execute_every_n_frame="-1",
-			remove_after_executed="1"
-		})
-	end,
-	magic_liquid_worm_attractor=function(wand)
-		-- make player attract worms while wand is active
-		-- SUMMON_EGG, SUMMON_HOLLOW_EGG, HOMING, HOMING_SHOOTER
-	end,
-	alcohol=function(wand)
-		-- +spread heavy, explode on drunk enemies, mist of whisky, circle of whisy, sea of whisky, quadruple spread shots etc
-		--[[ 
-			BUCKSHOT, MIST_ALCOHOL, TOUCH_ALCOHOL, SCATTER_3, SCATTER_4, I_SHAPE
-			Y_SHAPE, T_SHAPE, W_SHAPE, CIRCLE_SHAPE, PENTAGRAM_SHAPE, HEAVY_SPREAD
-			GRAVITY, GRAVITY_ANTI, SINEWAVE, CHAOTIC_ARC, PINGPONG_PATH
-			ALCOHOL_BLAST, SEA_ALCOHOL, HITFX_EXPLOSION_ALCOHOL
-			HITFX_EXPLOSION_ALCOHOL_GIGA
-		]]
-	end,
-	blood_worm=function(wand)
-		-- spawn a bunch of worms
-		-- SUMMON_EGG, SUMMON_HOLLOW_EGG
-		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
-			name="material",
-			value_string="blood_worm",
-		})
-		EntityAddComponent(wand.entity_id, "LuaComponent", {
-			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-			execute_every_n_frame="-1",
-			remove_after_executed="1"
-		})
-		local spells_count = wand:GetSpellsCount()
-		while wand.capacity > spells_count do
-			if Random(100) < 30 then break end
-			wand:AddSpells("SUMMON_EGG")
-			spells_count = spells_count + 1
-		end
-	end,
-	radioactive_liquid=function(wand)
-		-- toxic mist, sea of toxic, toxic trail
-		--[[ 
-			MIST_RADIOACTIVE, AREA_DAMAGE, HITFX_TOXIC_CHARM
-		 ]]
-	end,
-	acid=function(wand)
-		--[[ 
-			ACIDSHOT, CIRCLE_ACID, MATERIAL_ACID, CLIPPING_SHOT, PIERCING_SHOT
-			TOXIC_TO_ACID, SEA_ACID, SEA_ACID_GAS, CLOUD_ACID, ACID_TRAIL
-		 ]]
-		-- acid mist, sea of acid, acid trail, 
-	end,
-	lava=function(wand)
-		--[[ 
-			sea of lava, lava trail
-			FIREBALL, METEOR, FLAMETHROWER,  
-			ROCKET, ROCKET_TIER_2, ROCKET_TIER_3, GRENADE, GRENADE_TRIGGER
-			GRENADE_TIER_2, GRENADE_TIER_3, GRENADE_ANTI, GRENADE_LARGE
-			FIREBOMB, CIRCLE_FIRE, LAVA_TO_BLOOD, FIRE_BLAST, SEA_LAVA
-			HITFX_BURNING_CRITICAL_HIT, FIREBALL_RAY, FIREBALL_RAY_LINE
-			FIREBALL_RAY_ENEMY, ARC_FIRE, FIRE_TRAIL, BURN_TRAIL
-		 ]]
-	end,
-}
-
 function feed_anvil(anvil_id, what, entity_id, material_name)
 	-- TODO: Put the logic that gets the material name from a potion inside here
 	local state = get_state(anvil_id)
@@ -629,6 +711,7 @@ function feed_anvil(anvil_id, what, entity_id, material_name)
 		remove_potion_input_place(anvil_id)
 		--[[ if state.potions == 1 then return end ]]
 		local accepted = false
+		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 		for k, v in pairs(potion_bonuses) do
 			if material_name == k then
 				accepted = true
@@ -716,7 +799,9 @@ function feed_anvil(anvil_id, what, entity_id, material_name)
 			end
 
 			local wand = EZWand(stored_wand_id)
+			-- TODO: Seed RNG
 			-- Call function to apply bonus based on material
+			local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 			potion_bonuses[state.potion_material](wand)
 
 			EntityRemoveFromParent(stored_wand_id)
