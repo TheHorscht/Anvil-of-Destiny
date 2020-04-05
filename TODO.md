@@ -12,6 +12,7 @@
 - Add recipes for liquids, which create new effects like: pour oil on anvil, it sucks it up and after a certain amount has been sucked, it starts emitting cosmetic oil particles, and if wand is sacrificed, buff that wand slightly and change the spells on it to oil related spells
 - Make enemies drop souls to use for recipes?
 - Put something in anvil rooms to allow it to activate a workshop for modifying spells, a purchase of 500 gold maybe?
+- Add Freezing Liquid
 
 try:
 -- Cursed rock = makes adventure mode possible maybe?

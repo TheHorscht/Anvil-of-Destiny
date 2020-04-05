@@ -1,0 +1,13 @@
+<Entity>
+
+	<InheritTransformComponent>
+  </InheritTransformComponent>
+    
+  <GameEffectComponent 
+    effect="INVISIBILITY"
+    frames="300"
+    exclusivity_group="1"
+    >
+  </GameEffectComponent>
+
+</Entity>

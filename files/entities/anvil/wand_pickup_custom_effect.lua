@@ -8,13 +8,6 @@ function get_var(entity_id, variable_name)
   end
 end
 
-function apply_game_effect(entity_id, effect_name, duration, always_load_new)
-  local game_effect_comp = GetGameEffectLoadTo(entity_id, effect_name, always_load_new)
-  if game_effect_comp ~= nil then
-    ComponentSetValue(game_effect_comp, "frames", tostring(duration)) -- 1 minute
-  end
-end
-
 local effects = {
   blood_worm = function(entity_item, entity_pickupper, x, y)
     -- Spawn worms and apply nightvision drug effect
@@ -30,7 +23,7 @@ local effects = {
   end,
   magic_liquid_invisibility = function(entity_item, entity_pickupper, x, y)
     -- Apply invisibility to the player
-    apply_game_effect(entity_pickupper, "INVISIBILITY", false, 60 * 60) -- 1 minute
+    LoadGameEffectEntityTo(entity_pickupper, "mods/anvil_of_destiny/files/entities/anvil/invisibility.xml")
   end,
   magic_liquid_hp_regeneration = function(entity_item, entity_pickupper, x, y)
     local radius = 50
@@ -45,7 +38,6 @@ local effects = {
       local pie = 2 * math.pi / 10
       EntityLoad("data/entities/animals/worm.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
     end
-    apply_game_effect(entity_pickupper, "WORM_ATTRACTOR", false, 60 * 60) -- 1 minute
   end,
 }
 

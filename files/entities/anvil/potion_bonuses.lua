@@ -6,14 +6,15 @@ return {
     }
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 2)
-    wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.08, 0.1))
-		wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.08, 0.1))
+    wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.05, 0.1))
+		wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.05, 0.1))
 	end,
 	water=function(wand)
      local spells = {
 			"CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
 			"CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
     }
+    add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     wand.manaMax = wand.manaMax + Random(40, 100)
 	end,
 	urine=function(wand)
