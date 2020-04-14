@@ -101,7 +101,7 @@ end
 
 function set_random_seed_with_player_position()
   local players = EntityGetWithTag("player_unit")
-  if players ~= nil and players[1] ~= nil then
+  if #players > 0 then
     local x, y = EntityGetTransform(players[1])
     SetRandomSeed(x, y)
   end

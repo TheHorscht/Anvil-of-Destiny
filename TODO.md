@@ -13,6 +13,7 @@
 - Make enemies drop souls to use for recipes?
 - Put something in anvil rooms to allow it to activate a workshop for modifying spells, a purchase of 500 gold maybe?
 - Add Freezing Liquid
+- Add thunderstone recipe, which adds always cast electricity
 
 try:
 -- Cursed rock = makes adventure mode possible maybe?
