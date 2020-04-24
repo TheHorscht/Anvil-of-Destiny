@@ -1,52 +1,15 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/gun/gun_actions.lua")
+dofile_once("data/scripts/gun/gun_enums.lua")
 dofile_once("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
 dofile_once("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 dofile_once("data/scripts/lib/utilities.lua")
-dofile_once("data/scripts/gun/gun_enums.lua")
 dofile_once("mods/anvil_of_destiny/config.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_identifier.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/wand_utils.lua")
 local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
-
--- This gets called by path_one
-function anvil_buff1(wand_id1, wand_id2, buff_amount, attach_spells_count, seed_x, seed_y)
-	local wand1 = EZWand(wand_id1)
-	local wand2 = EZWand(wand_id2)
-	local new_wand = wand_merge(wand1, wand2)
-	SetRandomSeed(seed_x, seed_y)
-	local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
-	
-	local wand1_spell_count = #wand1:GetSpells()
-	local wand2_spell_count = #wand2:GetSpells()
-	-- 100% of the highest spellcount wand and 50% of the lower
-	local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
-	spell_count_to_add = spell_count_to_add + Random(-1, 2)
-	if spell_count_to_add <= 0 then
-		spell_count_to_add = 1
-	end
-	wand_fill_with_semi_random_spells(new_wand,
-		spell_count_to_add,
-		spell_stats.average_attached_spell_count,
-		spell_stats.average_spell_level,
-		spell_stats.average_attached_spell_level,
-		seed_x, seed_y)
-
-	buff_wand(new_wand, buff_amount, true)
-
-	for i=1,attach_spells_count do
-		local level = wand_compute_level(new_wand.entity_id)
-		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
-		local action = GetRandomActionWithType(Random()*100, Random()*100, level, action_type, Random()*100)
-		new_wand:AttachSpells(action)
-	end
-
-	new_wand:UpdateSprite()
-
-  return new_wand.entity_id
-end
 
 function buff_wand(wand, buff_amount, reduce_one_stat)
 	local rng = create_normalized_random_distribution(3, 0.1)
@@ -199,7 +162,7 @@ function feed_anvil(anvil_id, what, entity_id)
 	-- print("Inputting [ " .. what .. (material_name ~= nil and ": " .. material_name or "") .. " ]")
 
 	if what == "wand" then
-		hide_wand(anvil_id, entity_id)
+		store_wand(anvil_id, entity_id)
 	end
 
 	if what == "tablet" then
@@ -242,19 +205,45 @@ function feed_anvil(anvil_id, what, entity_id)
   state_string = state_string .. "_" .. state.wands
 	if state_funcs[state_string] ~= nil then
 		local result = state_funcs[state_string]()
-		print("--- DONE --- " , result)
 		if result == "ww" or result == "tww" then
 
-
-
+			-- Combine wands and buff the result slightly
 			local stored_wand_id1 = retrieve_wand(anvil_id, 1)
 			local stored_wand_id2 = retrieve_wand(anvil_id, 2)
-			local always_cast_spell_count = state.tablets
 			local success, new_wand_id = pcall(function()
-				set_random_seed_with_player_position()
-				local seed_x = Random() * 1000
-				local seed_y = Random() * 1000
-				return anvil_buff1(stored_wand_id1, stored_wand_id2, config_regular_wand_buff, always_cast_spell_count, seed_x, seed_y)
+				SetRandomSeed(GameGetFrameNum(), x + y + stored_wand_id1 + stored_wand_id2)
+				local attach_spells_count = state.tablets
+				local wand1 = EZWand(stored_wand_id1)
+				local wand2 = EZWand(stored_wand_id2)
+				local new_wand = wand_merge(wand1, wand2)
+				local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
+				local wand1_spell_count = #wand1:GetSpells()
+				local wand2_spell_count = #wand2:GetSpells()
+				-- 100% of the highest spellcount wand and 50% of the lower, so if wand1 has 20 spells and wand2 has 20, result should have 30
+				local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
+				spell_count_to_add = spell_count_to_add + Random(-1, 3)
+				if spell_count_to_add <= 0 then
+					spell_count_to_add = 1
+				end
+				wand_fill_with_semi_random_spells(new_wand,
+					spell_count_to_add,
+					spell_stats.average_attached_spell_count,
+					spell_stats.average_spell_level,
+					spell_stats.average_attached_spell_level,
+					Random()*100, Random()*100)
+			
+				buff_wand(new_wand, config_regular_wand_buff, true)
+			
+				local wand_level = wand_compute_level(new_wand.entity_id)
+				for i=1, attach_spells_count do
+					local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+					local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
+					new_wand:AttachSpells(action)
+				end
+			
+				new_wand:UpdateSprite()
+			
+				return new_wand.entity_id
 			end)
 			if not success then
 				error("Anvil of Destiny error: " .. new_wand_id)
@@ -440,7 +429,7 @@ function get_output_storage(anvil_id)
 end
 
 -- "Hides" a wand by removing it's visible components and adds it to the wand storage as a child entity so we can later retrieve it
-function hide_wand(anvil_id, wand_id)
+function store_wand(anvil_id, wand_id)
   -- Put the wand in the storage and disable all components that make it visible 
   EntityAddChild(get_wand_storage(anvil_id), wand_id)
   -- Disable physics to keep it floating
