@@ -1,20 +1,5 @@
 <Entity>
 
-  <_Transform
-    scale.x="0.5"
-    scale.y="0.5"
-    >
-  </_Transform>
-
-  <SpriteComponent 
-    _enabled="1" 
-    image_file="mods/anvil_of_destiny/files/entities/countdown/numbers_sprite.xml" 
-    rect_animation="5"
-    offset_x="18"
-    offset_y="24"
-    >
-  </SpriteComponent>
-
 	<LuaComponent
 		script_source_file="mods/anvil_of_destiny/files/entities/countdown/tick.lua"
 		vm_type="ONE_PER_COMPONENT_INSTANCE"

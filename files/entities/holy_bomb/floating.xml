@@ -1,4 +1,4 @@
-<Entity>
+<Entity name="anvil_of_destiny_holy_bomb">
 
   <Entity>
 
@@ -82,27 +82,13 @@
 
   <!-- The countdown, offset it slightly to the right because I have no idea how to ensure it's sprites are always on top of the bomb -->
 
-  <Entity>
-
-    <InheritTransformComponent>
-
-      <Transform 
-        position.x="20"
-        position.y="0"
-        >
-      </Transform>
-
-    </InheritTransformComponent>
-
-    <LoadEntitiesComponent
-      entity_file="mods/anvil_of_destiny/files/entities/countdown/countdown.xml"
-      kill_entity="0"
-      count.min="1"
-      count.max="1"
-      timeout_frames="290"
-      >
-    </LoadEntitiesComponent>
-
-  </Entity>
+  <LoadEntitiesComponent
+    entity_file="mods/anvil_of_destiny/files/entities/countdown/countdown.xml"
+    kill_entity="0"
+    count.min="1"
+    count.max="1"
+    timeout_frames="290"
+    >
+  </LoadEntitiesComponent>
 
 </Entity>

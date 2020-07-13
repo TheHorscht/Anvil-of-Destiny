@@ -1,3 +1,5 @@
+- When anvil pixel scene gets placed close to another, load a normal pixel scene instead
+- FIX: TTT not crumbling
 - Change how occurence rates work AGAIN, instead of "1.5 anvils per coalmine" use "0.2 anvils per chunk"
 - Does the anvil sound keep playing forever even when not visible anymore?
 - Change how 2 tablet buff works so it increases capacity
