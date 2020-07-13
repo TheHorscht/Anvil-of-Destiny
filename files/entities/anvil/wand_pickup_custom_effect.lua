@@ -16,21 +16,20 @@ local effects = {
       local pie = 2 * math.pi / 10
       EntityLoad("data/entities/animals/worm.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
     end
-    local drug_effect_component = EntityGetFirstComponent(entity_pickupper, "DrugEffectComponent")
-    if drug_effect_component ~= nil then
-      ComponentSetValue(drug_effect_component, "nightvision_amount", 2)
-    end
   end,
   magic_liquid_invisibility = function(entity_item, entity_pickupper, x, y)
-    -- Apply invisibility to the player
-    LoadGameEffectEntityTo(entity_pickupper, "mods/anvil_of_destiny/files/entities/anvil/invisibility.xml")
+    -- Applying invisibility to the player is way too clunky, only works when there
+    -- are no stains on the player and the sprite stays translucent sometimes when
+    -- the effect wears off...
+    -- LoadGameEffectEntityTo(entity_pickupper, "mods/anvil_of_destiny/files/entities/anvil/invisibility.xml")
+    -- local effect_component_id = GetGameEffectLoadTo(entity_pickupper, "INVISIBILITY", true)
+    -- ComponentSetValue2(effect_component_id, "frames", 60)
   end,
   magic_liquid_hp_regeneration = function(entity_item, entity_pickupper, x, y)
-    local radius = 50
-    for i=1,4 do
-      local pie = 2 * math.pi / 10
-      EntityLoad("data/entities/animals/scavenger_heal.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
-    end
+    EntityLoad("data/entities/animals/scavenger_heal.xml", x - 20, y)
+    EntityLoad("data/entities/animals/scavenger_heal.xml", x - 7, y)
+    EntityLoad("data/entities/animals/scavenger_heal.xml", x + 7, y)
+    EntityLoad("data/entities/animals/scavenger_heal.xml", x + 20, y)
   end,
   magic_liquid_worm_attractor = function(entity_item, entity_pickupper, x, y)
     local radius = 100

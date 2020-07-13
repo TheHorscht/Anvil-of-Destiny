@@ -13,7 +13,7 @@ function spawn_anvil(x, y)
 	local w = 78
 	local h = 37
 	EntityLoad("mods/anvil_of_destiny/files/entities/anvil/anvil.xml", x, y - h + 1)
-	EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_place.xml", x, y - h + 1 - 10)
+	EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_place.xml", x + 5, y - h + 1 - 10)
 end
 
 function spawn_statue_facing_right(x, y)

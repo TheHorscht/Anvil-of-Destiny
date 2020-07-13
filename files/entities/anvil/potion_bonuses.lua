@@ -28,11 +28,13 @@ return {
       _tags="enabled_in_hand",
       is_emitting="1",
       emitted_material_name="urine",
-      emission_interval_min_frames="2",
-      emission_interval_max_frames="4",
-      count_min="10",
-      count_max="15",
-      draw_as_long="1",
+      emission_interval_min_frames="1",
+      emission_interval_max_frames="1",
+      count_min="2",
+      count_max="3",
+			draw_as_long="1",
+			is_trail="1",
+			trail_gap="1",
       collide_with_grid="0",
     })
     EntitySetComponentIsEnabled(new_entity, emitter, false)
@@ -69,7 +71,8 @@ return {
 		wand.manaMax = wand.manaMax + Random(40, 90)
 	end,
 	magic_liquid_mana_regeneration=function(wand)
-    add_spells_to_wand(wand, { "MANA_REDUCE" }, Random(0, 1))
+		local spells = { "MANA_REDUCE" }
+    add_spells_to_wand(wand, spells, Random(0, 1))
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(80, 120)
 	end,
 	magic_liquid_movement_faster=function(wand)
@@ -89,7 +92,7 @@ return {
 	end,
 	material_confusion=function(wand)
     local spells = {
-      "CHAOS_POLYMORPH_FIELD", "CHAOTIC_ARC", "HEAVY_SPREAD"
+      "CHAOTIC_ARC", "HEAVY_SPREAD"
     }
     wand.shuffle = (Random() > 0.5) and true or false
     wand.spellsPerCast = math.max(1, wand.spellsPerCast + Random(0, 3) * (Random() > 0.5 and -1 or 1))
@@ -151,19 +154,23 @@ return {
       "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "SUMMON_WANDGHOST", "HOMING", "HOMING_SHOOTER",
       "NECROMANCY", "TENTACLE_RAY_ENEMY", "HITFX_TOXIC_CHARM"
     }
-     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+		add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
 	end,
 	magic_liquid_invisibility=function(wand)
-		-- Turn player invisible for some time on pickup
-		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
-			name="material",
-			value_string="magic_liquid_invisibility",
-		})
-		EntityAddComponent(wand.entity_id, "LuaComponent", {
-			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-			execute_every_n_frame="-1",
-			remove_after_executed="1"
-    })
+		-- Turn player invisible for some time on pickup (not working right now)
+		-- EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
+		-- 	name="material",
+		-- 	value_string="magic_liquid_invisibility",
+		-- })
+		-- EntityAddComponent(wand.entity_id, "LuaComponent", {
+		-- 	script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
+		-- 	execute_every_n_frame="-1",
+		-- 	remove_after_executed="1"
+		-- })
+    local spells = {
+      "BLACK_HOLE", "EXPLODING_DEER", "LANCE", "X_RAY", "LIGHT"
+    }
+		add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
     wand.manaMax = wand.manaMax + Random(30, 40)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
 	end,
@@ -206,11 +213,11 @@ return {
 			remove_after_executed="1"
 		})
 		local spells_count = wand:GetSpellsCount()
-		while wand.capacity > spells_count do
-			if Random(100) < 75 then break end
+		while wand.capacity - 1 > spells_count do
 			wand:AddSpells("SUMMON_EGG")
 			spells_count = spells_count + 1
 		end
+		wand:AddSpells("X_RAY")
 	end,
 	radioactive_liquid=function(wand)
     local spells = { "MIST_RADIOACTIVE", "AREA_DAMAGE", "HITFX_TOXIC_CHARM" }

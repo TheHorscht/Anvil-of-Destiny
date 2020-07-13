@@ -21,15 +21,18 @@ function collision_trigger(colliding_entity_id)
     for i, wand_id in ipairs(wands) do
       -- Check if wand is dropped on the floor
       if EntityGetParent(wand_id) == 0 then
-        feed_anvil(entity_id, "wand", wand_id)
-        -- hide_wand(v)
+        if is_valid_anvil_input(entity_id, "wand") then
+          feed_anvil(entity_id, "wand", wand_id)
+        end
       end
     end
 
     local tablets = get_entities_with_tag(x, y, "tablet")
     for i, tablet_id in ipairs(tablets) do
       if EntityGetParent(tablet_id) == 0 then
-        feed_anvil(entity_id, "tablet", tablet_id)
+        if is_valid_anvil_input(entity_id, "tablet") then
+          feed_anvil(entity_id, "tablet", tablet_id)
+        end
       end
     end
   end

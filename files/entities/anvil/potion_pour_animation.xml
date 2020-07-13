@@ -1,0 +1,55 @@
+<Entity>
+
+  <SpriteComponent
+    image_file="mods/anvil_of_destiny/files/entities/anvil/potion_big.png"
+    offset_x="8"
+    offset_y="5"
+    >
+  </SpriteComponent>
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/potion_pour_animation.lua"
+    vm_type="ONE_PER_COMPONENT_INSTANCE"
+    enable_coroutines="1"
+    execute_on_added="1"
+    execute_every_n_frame="-1"
+    execute_times="1"
+    >
+  </LuaComponent>
+
+  <!-- <ParticleEmitterComponent 
+    emitted_material_name="blood"
+    x_pos_offset_min="0"
+    x_pos_offset_max="1"
+    y_pos_offset_min="3"
+    y_pos_offset_max="4"
+    gravity.y="0"
+    lifetime_min="0.3"
+    lifetime_max="0.5"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    emission_chance="10"
+    count_min="1"
+    count_max="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    fade_based_on_lifetime="0"
+    area_circle_radius.min="0"
+    area_circle_radius.max="0"
+    velocity_always_away_from_center="0"
+    airflow_force="0"
+    airflow_time="0"
+    airflow_scale="0"
+    collide_with_grid="0"
+    render_on_grid="0"
+    draw_as_long="0"
+    image_animation_file="mods/anvil_of_destiny/files/entities/anvil/potion_inside_emitter.png"
+    image_animation_speed="4"
+    image_animation_loop="1"
+    image_animation_use_entity_rotation="1"
+    render_back="0"
+    is_emitting="1"
+    >
+  </ParticleEmitterComponent> -->
+
+</Entity>

@@ -7,7 +7,7 @@ local children = EntityGetAllChildren(entity_id)
 if children ~= nil then
   for i, v in ipairs(children) do
     if EntityGetName(v) == "physics_body" then
-      physics_body = EntityGetFirstComponent(v, "PhysicsBodyComponent")
+      physics_body = EntityGetFirstComponent(v, "PhysicsBody2Component")
     end
   end
 end

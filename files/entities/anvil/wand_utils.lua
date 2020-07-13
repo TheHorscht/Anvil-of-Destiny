@@ -423,6 +423,7 @@ function filter_spells(spells, level_min, level_max)
 end
 
 -- "spells" is a table of spells to potentially add, but they will get filtered by the wand level, so it will only add spells appropriate to the wand level
+-- will only fill up to wand capacity
 function add_spells_to_wand(wand, spells, num_spells_to_add)
 	local wand_level = wand_compute_level(wand.entity_id)
 	spells = filter_spells(spells, wand_level, wand_level)

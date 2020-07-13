@@ -1,4 +1,5 @@
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
+local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 
 function get_active_item()
   local player_entities = EntityGetWithTag("player_unit")
@@ -12,12 +13,9 @@ function get_active_item()
   end
 end
 
-function item_pickup(entity_item, entity_who_picked, item_name)
-  local x, y = EntityGetTransform(entity_item)
-  -- This "item" will now be in players inventory, but we don't want it there so kill it off and respawn it if anvil is found
-  EntityKill(entity_item)
-
+function interacting(entity_who_interacted, entity_interacted, interactable_name)
   local anvil_id
+  local x, y = EntityGetTransform(entity_interacted)  
   local entities_in_radius = EntityGetInRadius(x, y, 50)
   for i, entity in ipairs(entities_in_radius) do
     if EntityGetName(entity) == "anvil_of_destiny" then
@@ -28,20 +26,54 @@ function item_pickup(entity_item, entity_who_picked, item_name)
 
   if anvil_id == nil then return end
 
-  local state = get_state(anvil_id)
-
-  EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_place.xml", x, y)
-
   local active_item = get_active_item()
   if active_item ~= nil then
     -- Check if it's a potion
     local material_sucker_component = EntityGetFirstComponent(active_item, "MaterialSuckerComponent")
     local material_inventory_component = EntityGetFirstComponent(active_item, "MaterialInventoryComponent")
     if material_sucker_component ~= nil and material_inventory_component ~= nil then
-      local amount = ComponentGetValueInt(material_sucker_component, "mAmountUsed")
-      if amount > 800 then
-        feed_anvil(anvil_id, "potion", active_item)
+      local counts = ComponentGetValue2(material_inventory_component, "count_per_material_type")
+      local material_name, material_amount
+      for material_id, amount in pairs(counts) do
+        if amount > 800 then
+          material_name = CellFactory_GetName(material_id - 1)
+          material_amount = amount
+          break
+        end
+      end
+      if material_name == nil then return end
+      if potion_bonuses[material_name] ~= nil then -- It's a potion and it has enough material inside
+        -- Remove the material from the potion
+        AddMaterialInventoryMaterial(active_item, material_name, 0)
+        play_pouring_animation(anvil_id, material_name, x, y)
+        EntityKill(entity_interacted)
       end
     end
+  end
+end
+
+-- Warning: This has side effects beside just playing the animation
+function play_pouring_animation(anvil_id, material_name, x, y)
+  local pour_animation = EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_pour_animation.xml", x + 1, y - 11)
+  EntityAddComponent2(pour_animation, "VariableStorageComponent", {
+    name="potion_material",
+    value_string=material_name,
+  })
+  -- TODO: Add a check to see if this varstore is already on it for some reason?
+  EntityAddComponent2(anvil_id, "VariableStorageComponent", {
+    name="potion_material_poured",
+    value_string=material_name,
+  })
+  -- Add a script that should run after the animation is done that triggers the feeding/inpu the anvil
+  -- The reason I'm doing it like this instead of at the end of the animation.lua is in case the animation somehow breaks,
+  -- by e.g. restarting the game in the middle of it
+  EntityAddComponent2(anvil_id, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/consume_potion.lua",
+    execute_every_n_frame=112,
+  })
+  -- Disable anvil interactivity while animation is playing, gets reenabled in consume_potion.lua
+  local collision_trigger_components = EntityGetComponent(anvil_id, "CollisionTriggerComponent") or {}
+  for i, comp in ipairs(collision_trigger_components) do
+    EntitySetComponentIsEnabled(anvil_id, comp, false)
   end
 end
