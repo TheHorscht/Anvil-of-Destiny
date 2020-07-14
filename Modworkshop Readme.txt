@@ -11,13 +11,18 @@ Here are the current recipes:
 | -------- | -------- | -------- | ------ |
 | Wand   | Wand    |             | Merge wands and buff output slightly
 | Tablet   | Wand    | Wand  | Same as above but the new wand will get 1 random always cast spell added to it
-| Tablet   | Tablet   | Wand  | Buff the input wand's stats
+| Tablet   | Tablet   | Wand  | Buff the input wands' stats
 | Wand   | Potion   |            | Custom effect depending on the material
 | Tablet   | Wand   | Potion  | Same as above but the new wand will get 1 random always cast spell added to it
 
-Adding one tablet will add a random always cast spell to the resulting wand.
+In other words, adding one tablet will add a random always cast spell to the resulting wand.
 Potions need to be at least 80% full of the material.
 To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
+
+Each anvil can only be used once, but you can find multiple per run.
+If you want to use a tablet it needs to be added before the 2nd wand, because 2 wands is already a valid recipe and will start the forging.
+
+The order in which you sacrifice items doesn't matter.
 
 The potion effects are:
   - **__Blood__**:

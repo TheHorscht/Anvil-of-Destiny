@@ -1,0 +1,69 @@
+Adds a semi-rare room with an anvil to most biomes, where you can improve your wands!
+
+Just open your inventory and drag your wands out to throw them onto the anvil.
+
+[img]https://i.imgur.com/XE0WNeK.png[/img]
+
+In other words, adding one tablet will add a random always cast spell to the resulting wand.
+Potions need to be at least 80% full of the material.
+To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
+
+Each anvil can only be used once, but you can find multiple per run.
+If you want to use a tablet it needs to be added before the 2nd wand, because 2 wands is already a valid recipe and will start the forging.
+
+The order in which you sacrifice items doesn't matter.
+
+The potion effects are:
+[code]
+- [b]Blood[/b]:
+  Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
+- [b]Water[/b]:
+  Add water related spells, increase max mana.
+- [b]Teleportatium[/b]:
+  Add teleport related spells, increase max mana and mana charge speed.
+- [b]Oil[/b]:
+  Add oil related spells, reduce recharge time and cast delay.
+- [b]Berserkium[/b]:
+  Add explosive spells, increase max mana.
+- [b]Concentrated Mana[/b]:
+  Increase mana charge speed by a lot.
+- [b]Acceleratium[/b]:
+  Add speed related spells, reduce recharge time and cast delay.
+  Randomly give the player a speed buff that lasts for a short time.
+- [b]Flummoxium[/b]:
+  Add chaotic path and/or heavy spread spells and randomize all attributes.
+- [b]Ambrosia[/b]:
+  Add shield related spells, increase spells per cast and max mana.
+- [b]Healthium[/b]:
+  Add heal spells, increase mana charge speed and spawn 4 healers.
+- [b]Polymorphine[/b]:
+  Add creature/polymorph related spells, increase spells per cast.
+- [b]Chaotic Polymorphine[/b]:
+  Add tentacle/misc spells.
+- [b]Pheromone[/b]:
+  Add egg/charm spells.
+- [b]Invisiblium[/b]:
+  .. There are barely any spells related to invisibility so have some spells vaguely related to deception/light.
+  Increase max mana and mana charge speed slightly.
+- [b]Worm Pheromone[/b]:
+  Adds egg and homing spells.
+  Spawn 4 worms.
+- [b]Whiskey[/b]:
+  Add all kinds of multishot modifiers, alcohol related spells.
+  Increase spread and max mana by a lot and increase mana charge speed a little bit.
+- [b]Worm Blood[/b]:
+  Fill the wand with egg spells and one "All seeing eye".
+  Also, have some worms.
+- [b]Toxic Sludge[/b]:
+  Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
+- [b]Acid[/b]:
+  Add acid related spells and increase spells per cast.
+- [b]Lava[/b]:
+  Add fire related spells.
+[/code]
+
+You can tweak the anvil spawn chance and buff amount in:
+C:\Program Files (x86)\Steam\steamapps\workshop\content\881100\1974488139\config.lua
+
+[h1]!! Attention !![/h1]
+If you find any bugs let me know so I can fix them, just open a thread in the [url=steamcommunity.com/sharedfiles/filedetails/discussions/1974488139]Discussions tab[/url], thanks!
