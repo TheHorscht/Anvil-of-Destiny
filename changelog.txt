@@ -1,55 +1,9 @@
-UNRELEASED:
+v1.5.0:
 - New recipes! You can now sacrifice potions if they are at least 80% full. Not all materials are supported.
   They go in place of a second wand and you can also add a tablet like usual to add a random always cast spell.
   The effect will be different depending on the material used. Most will add spells related to the material and
   buff certain stats while others will add unique effects. Spells will only be added if there's enough space.
-  Material bonuses:
-  - Blood:
-    Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
-  - Water:
-    Add water related spells, increase max mana.
-  - Teleportatium:
-    Add teleport related spells, increase max mana and mana charge speed.
-  - Oil:
-    Add oil related spells, reduce recharge time and cast delay.
-  - Berserkium:
-    Add explosive spells, increase max mana.
-  - Concentrated Mana:
-    Increase mana charge speed by a lot.
-  - Acceleratium:
-    Add speed related spells, reduce recharge time and cast delay.
-    Randomly give the player a speed buff that lasts for a short time.
-  - Flummoxium:
-    Add chaotic path and/or heavy spread spells and randomize all attributes.
-  - Ambrosia:
-    Add shield related spells, increase spells per cast and max mana.
-  - Healthium:
-    Add heal spells, increase mana charge speed and spawn 4 healers.
-  - Polymorphine:
-    Add creature/polymorph related spells, increase spells per cast.
-  - Chaotic Polymorphine:
-    Add tentacle/misc spells.
-  - Pheromone:
-    Add egg/charm spells.
-  - Invisiblium:
-    .. There are barely any spells related to invisibility so have some spells vaguely
-    related to deception/light.
-    Increase max mana and mana charge speed slightly.
-  - Worm Pheromone:
-    Adds egg and homing spells.
-    Spawn 4 worms.
-  - Whiskey:
-    Add all kinds of multishot modifiers, alcohol related spells.
-    Increase spread and max mana by a lot and increase mana charge speed a little bit.
-  - Worm Blood:
-    Fill the wand with egg spells and one "All seeing eye".
-    Also, have some worms.
-  - Toxic Sludge:
-    Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
-  - Acid:
-    Add acid related spells and increase spells per cast.
-  - Lava:
-    Add fire related spells.
+- Reworked the code, because of that there might be bugs. Please let me know if you find any so I can fix them.
 
 v1.4.10:
 - CHANGE: 2 Tablets buff will turn wand into no-shuffle

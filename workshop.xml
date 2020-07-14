@@ -3,6 +3,6 @@
 	description=""
 	tags="gameplay"
 	dont_upload_folders="node_modules|dist|gimp|fmod"
-	dont_upload_files="anvil_preview.gif|idea.lua|LICENSE|README.md|TODO.md|package-lock.json|package.json|rune_alphabet.png|rune_alphabet_sprites.png|rune_alphabet_typer.htm|rune_texts.txt|Modworkshop Readme.txt"
+	dont_upload_files="anvil_preview.gif|idea.lua|LICENSE|README.md|TODO.md|package-lock.json|package.json|rune_alphabet.png|rune_alphabet_sprites.png|rune_alphabet_typer.htm|rune_texts.txt|Modworkshop Readme.txt|recipe_description_image.html|recipe_description_image.png|steam description.txt"
 > 
 </Mod>
