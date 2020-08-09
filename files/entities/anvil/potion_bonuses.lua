@@ -1,5 +1,5 @@
 return {
-  blood=function(wand)
+  blood = function(wand)
     local spells = {
 			"MIST_BLOOD", "MATERIAL_BLOOD", "TOUCH_BLOOD", "CRITICAL_HIT", "BLOOD_TO_ACID",
 			"CLOUD_BLOOD", "HITFX_CRITICAL_BLOOD"      
@@ -9,7 +9,7 @@ return {
     wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.05, 0.1))
 		wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.05, 0.1))
 	end,
-	water=function(wand)
+	water = function(wand)
      local spells = {
 			"CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
 			"CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
@@ -17,7 +17,7 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     wand.manaMax = wand.manaMax + Random(40, 100)
 	end,
-	urine=function(wand)
+	urine = function(wand)
     -- Make wand piss constantly
     local new_entity = EntityCreateNew()
     EntityAddComponent(new_entity, "InheritTransformComponent", {
@@ -40,7 +40,7 @@ return {
     EntitySetComponentIsEnabled(new_entity, emitter, false)
     EntityAddChild(wand.entity_id, new_entity)
 	end,
-	magic_liquid_teleportation=function(wand)
+	magic_liquid_teleportation = function(wand)
      local spells = {
       "DELAYED_SPELL", "LONG_DISTANCE_CAST", "TELEPORT_CAST", "TELEPORT_PROJECTILE",
 			"TELEPORT_PROJECTILE_STATIC", "TELEPORTATION_FIELD"
@@ -49,7 +49,7 @@ return {
      wand.manaMax = wand.manaMax + Random(20, 50)
      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
 	end,
-	oil=function(wand)
+	oil = function(wand)
 		 local spells = {
 			"CIRCLE_OIL", "MATERIAL_OIL", "TOUCH_OIL", "RECOIL_DAMPER", "SEA_OIL",
 			"HITFX_CRITICAL_OIL", "OIL_TRAIL"
@@ -58,7 +58,7 @@ return {
 		 wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * 0.15)
 		 wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * 0.15)
 	end,
-	magic_liquid_berserk=function(wand)
+	magic_liquid_berserk = function(wand)
 		local spells = {
 			"ROCKET", "ROCKET_TIER_2", "ROCKET_TIER_3", "BOMB", "GRENADE", "GRENADE_TRIGGER",
 			"GRENADE_TIER_2", "GRENADE_TIER_3", "GRENADE_ANTI", "GRENADE_LARGE", "MINE",
@@ -70,12 +70,12 @@ return {
 		add_spells_to_wand(wand, spells, math.floor(wand.capacity / 2))
 		wand.manaMax = wand.manaMax + Random(40, 90)
 	end,
-	magic_liquid_mana_regeneration=function(wand)
+	magic_liquid_mana_regeneration = function(wand)
 		local spells = { "MANA_REDUCE" }
     add_spells_to_wand(wand, spells, Random(0, 1))
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(80, 120)
 	end,
-	magic_liquid_movement_faster=function(wand)
+	magic_liquid_movement_faster = function(wand)
     local spells = {
       "RECHARGE", "LIFETIME", "LIFETIME_DOWN", "LIGHT_SHOT", "KNOCKBACK", "RECOIL",
 			"SPEED", "ACCELERATING_SHOT"
@@ -90,7 +90,7 @@ return {
 			execute_every_n_frame=tostring(Random(60 * 10, 60 * 30)),
 		})
 	end,
-	material_confusion=function(wand)
+	material_confusion = function(wand)
     local spells = {
       "CHAOTIC_ARC", "HEAVY_SPREAD"
     }
@@ -104,7 +104,7 @@ return {
     wand.spread = wand.spread - Random(wand.spread * 0.1, wand.spread * 0.3) * (Random() > 0.5 and -1 or 1)
     add_spells_to_wand(wand, spells, math.min(Random(2, 3), math.floor(wand.capacity / 2)))
 	end,
-  magic_liquid_protection_all=function(wand)
+  magic_liquid_protection_all = function(wand)
     local spells = {
       "WALL_HORIZONTAL", "WALL_VERTICAL", "WALL_SQUARE", "SHIELD_FIELD",
       "PROJECTILE_TRANSMUTATION_FIELD", "ENERGY_SHIELD", "ENERGY_SHIELD_SECTOR"
@@ -113,7 +113,7 @@ return {
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 3)
     wand.manaMax = wand.manaMax + Random(80, 140)
 	end,
-	magic_liquid_hp_regeneration=function(wand)
+	magic_liquid_hp_regeneration = function(wand)
 		local spells = { "HEAL_BULLET", "REGENERATION_FIELD" }
     -- on pickup, spawn 4 hiisi healers
 		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
@@ -128,7 +128,7 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(50, 70)
 	end,
-	magic_liquid_polymorph=function(wand)
+	magic_liquid_polymorph = function(wand)
 		-- transform all spells in wand into random ones
 		local spells = {
 			"SUMMON_EGG", "SUMMON_HOLLOW_EGG", "SUMMON_WANDGHOST", "STATIC_TO_SAND",
@@ -139,7 +139,7 @@ return {
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 2)
     --[^(,| \t)]+
 	end,
-	magic_liquid_random_polymorph=function(wand)
+	magic_liquid_random_polymorph = function(wand)
     -- transform all spells in wand into random ones
     local spells = {
       "TENTACLE_PORTAL", "TENTACLE", "TENTACLE_TIMER", "SUMMON_EGG", "STATIC_TO_SAND",
@@ -148,7 +148,7 @@ return {
     }
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
 	end,
-	magic_liquid_charm=function(wand)
+	magic_liquid_charm = function(wand)
     -- charm spells, charm on slime etc
     local spells = {
       "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "SUMMON_WANDGHOST", "HOMING", "HOMING_SHOOTER",
@@ -156,7 +156,7 @@ return {
     }
 		add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
 	end,
-	magic_liquid_invisibility=function(wand)
+	magic_liquid_invisibility = function(wand)
 		-- Turn player invisible for some time on pickup (not working right now)
 		-- EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
 		-- 	name="material",
@@ -174,7 +174,7 @@ return {
     wand.manaMax = wand.manaMax + Random(30, 40)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
 	end,
-	magic_liquid_worm_attractor=function(wand)
+	magic_liquid_worm_attractor = function(wand)
 		-- make player attract worms while wand is active
 		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
 			name="material",
@@ -188,7 +188,7 @@ return {
     local spells = { "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "HOMING", "HOMING_SHOOTER" }
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
 	end,
-	alcohol=function(wand)
+	alcohol = function(wand)
 		local spells = {
 			"BUCKSHOT", "MIST_ALCOHOL", "TOUCH_ALCOHOL", "SCATTER_3", "SCATTER_4", "I_SHAPE",
 			"Y_SHAPE", "T_SHAPE", "W_SHAPE", "CIRCLE_SHAPE", "PENTAGRAM_SHAPE", "HEAVY_SPREAD",
@@ -201,7 +201,7 @@ return {
     wand.manaChargeSpeed = math.max(10, wand.manaChargeSpeed - Random(20, 40))
     add_spells_to_wand(wand, spells, math.min(Random(5, 10), math.floor(wand.capacity / 2)))
 	end,
-	blood_worm=function(wand)
+	blood_worm = function(wand)
 		-- spawn a bunch of worms
 		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
 			name="material",
@@ -219,14 +219,14 @@ return {
 		end
 		wand:AddSpells("X_RAY")
 	end,
-	radioactive_liquid=function(wand)
+	radioactive_liquid = function(wand)
     local spells = { "MIST_RADIOACTIVE", "AREA_DAMAGE", "HITFX_TOXIC_CHARM" }
     add_spells_to_wand(wand, spells, math.min(Random(2, 5), math.floor(wand.capacity / 2)))
     wand.manaMax = wand.manaMax + Random(20, 40)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(20, 40)
     wand.capacity = math.min(26, wand.capacity + Random(1, 2))
 	end,
-  acid=function(wand)
+  acid = function(wand)
     local spells = {
       "ACIDSHOT", "CIRCLE_ACID", "MATERIAL_ACID", "CLIPPING_SHOT", "PIERCING_SHOT",
 			"TOXIC_TO_ACID", "SEA_ACID", "SEA_ACID_GAS", "CLOUD_ACID", "ACID_TRAIL"
@@ -234,7 +234,7 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity / 2)))
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 2)
 	end,
-	lava=function(wand)
+	lava = function(wand)
 		local spells = {
 			"FIREBALL", "METEOR", "FLAMETHROWER",
 			"ROCKET", "ROCKET_TIER_2", "ROCKET_TIER_3", "GRENADE", "GRENADE_TRIGGER",
