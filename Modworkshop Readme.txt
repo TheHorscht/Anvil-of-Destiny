@@ -5,15 +5,7 @@ You can throw wands and items by opening your inventory and dragging�
 
 [b]Here's a video showing how it works: https://youtu.be/0bQ_mSQb-8E[/b]
 
-Here are the current recipes:
-
-| Input 1 | Input 2 | Input 3 | Result |
-| -------- | -------- | -------- | ------ |
-| Wand   | Wand    |             | Merge wands and buff output slightly
-| Tablet   | Wand    | Wand  | Same as above but the new wand will get 1 random always cast spell added to it
-| Tablet   | Tablet   | Wand  | Buff the input wands' stats
-| Wand   | Potion   |            | Custom effect depending on the material
-| Tablet   | Wand   | Potion  | Same as above but the new wand will get 1 random always cast spell added to it
+[img]https://i.imgur.com/XE0WNeK.png[/img]
 
 In other words, adding one tablet will add a random always cast spell to the resulting wand.
 Potions need to be at least 80% full of the material.
