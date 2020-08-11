@@ -245,4 +245,88 @@ return {
     }
     add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity / 2)))
 	end,
+	-- Optional Arcane Alchemy mod compatibility: https://steamcommunity.com/sharedfiles/filedetails/?id=2074171525
+	AA_MAT_DARKMATTER = function(wand)
+		local spells = { "BLACK_HOLE", "BLACK_HOLE_BIG", "AREA_DAMAGE" }
+		wand.manaMax = wand.manaMax + Random(20, 40)
+    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_HITSELF = function(wand)
+		local spells = {
+			"TENTACLE_RAY", "TENTACLE_RAY_ENEMY", "FIREBALL_RAY", "FIREBALL_RAY_ENEMY", "PIERCING_SHOT", "HOMING_SHOOTER",
+			"TENTACLE_PORTAL"
+		}
+    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_ARBORIUM = function(wand)
+		local spells = {
+			-- Wood related spells, branching, woodcutting
+			"CHAINSAW", "ARROW", "DISC_BULLET", "DISC_BULLET_BIG", "TORCH", "SCATTER_2", "SCATTER_3", "SCATTER_4", "Y_SHAPE", "W_SHAPE",
+			-- and fire because wood can burn
+			"FIREBALL", "METEOR", "FLAMETHROWER", "FIREBOMB", "CIRCLE_FIRE", "FIRE_BLAST", "ARC_FIRE", "FIRE_TRAIL", "BURN_TRAIL"
+		}
+		wand.manaMax = wand.manaMax + Random(20, 40)
+		wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
+		wand.capacity = math.min(26, wand.capacity + Random(0, 2))
+    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_HUNGRY_SLIME = function(wand)
+		local spells = { "MATTER_EATER", "BUBBLESHOT_TRIGGER", "BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER", "HEAVY_BULLET_TRIGGER", "SLOW_BULLET_TRIGGER" }
+		wand.speedMultiplier = wand.speedMultiplier * Randomf(0.7, 0.9)
+    add_spells_to_wand(wand, spells, math.min(Random(2, 4), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_REPULTIUM = function(wand)
+		local spells = {
+			"LIGHT_SHOT", "ACCELERATING_SHOT", "SPEED", "KNOCKBACK", "RECOIL", "AVOIDING_ARC", "FLY_DOWNWARDS", "FLY_UPWARDS", "PINGPONG_PATH", "BOUNCE",
+			"ENERGY_SHIELD", "ENERGY_SHIELD_SECTOR", "SHIELD_FIELD", "RUBBER_BALL"
+		}
+		wand.speedMultiplier = wand.speedMultiplier + Randomf(0.3, 0.6)
+		wand.spread = wand.spread + Random(10, 20)
+    add_spells_to_wand(wand, spells, math.min(Random(4, 7), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_STATIC_CHARGE = function(wand)
+		local spells = {
+			"LIGHTNING_RAY", "LIGHTNING_RAY_ENEMY", "ELECTRIC_CHARGE", "ARC_ELECTRIC", "TORCH_ELECTRIC", "PROJECTILE_THUNDER_FIELD", "CLOUD_THUNDER",
+			"ELECTROCUTION_FIELD", "THUNDER_BLAST", "THUNDERBALL", "LIGHTNING"
+		}
+		wand.manaMax = wand.manaMax + Random(50, 100)
+		wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 20)
+		wand.spread = wand.spread + Random(5, 10)
+    add_spells_to_wand(wand, spells, math.min(Random(4, 7), math.floor(wand.capacity / 2)))
+	end,
+	AA_MAT_SHRINKIUM = function(wand)
+		-- Shrink the wand sprite and hotspots, reduce capacity, increase firing rate and recharge speed
+		local sprite_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "SpriteComponent")
+		ComponentSetValue2(sprite_component, "has_special_scale", true)
+		ComponentSetValue2(sprite_component, "special_scale_x", 0.5)
+		ComponentSetValue2(sprite_component, "special_scale_y", 0.5)
+		local var_stores = EntityGetComponent(wand.entity_id, "VariableStorageComponent") or {}
+		local var_store_offset
+		for i, var_store in ipairs(var_stores) do
+			if ComponentGetValue2(var_store, "name") == "aod_offset_changed" then
+				var_store_offset = var_store
+				break
+			end
+		end
+		local hotspot_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "HotspotComponent", "shoot_pos")
+		local offset_x, offset_y = ComponentGetValue2(hotspot_component, "offset")
+		if not var_store_offset then
+			ComponentSetValue2(hotspot_component, "offset", math.floor(offset_x * 0.5), math.floor(offset_y * 0.5))
+			EntityAddComponent2(wand.entity_id, "VariableStorageComponent", { name = "aod_offset_changed" })
+		end		
+		-- Reduce capacity
+		-- TODO: When EZWand supports safe capacity reducing (removing spells that don't fit anymore), use that instead
+		local spells = wand:GetSpells()
+		local spells_count = #spells
+		wand:RemoveSpells()
+		wand.capacity = math.max(1, math.floor(wand.capacity * 0.7) - 1)
+		for i=1,math.min(wand.capacity, spells_count) do
+			wand:AddSpells(spells[i].action_id)
+		end
+		wand.castDelay = math.ceil(wand.castDelay * 0.5)
+		wand.rechargeTime = math.ceil(wand.rechargeTime * 0.5)
+		wand.manaMax = wand.manaMax * 0.5
+		wand.manaChargeSpeed = wand.manaChargeSpeed * 0.8
+	end,
+	-- /Arcane Alchemy
 }
