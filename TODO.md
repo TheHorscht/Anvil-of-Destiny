@@ -1,8 +1,4 @@
-- Add potion recipe for freezing liquid
-- Missing Alchemic precursor - should be a focus on Trigger spells / spell merging.
-- Pheromone and Worm Pheromone seem to be too similar.
 - Worm Blood should be a focus on spells that pass through terrain or drill because, worms. Using it should not spawn worms.
-- Worm Pheromone however should spawn worms if you want to spawn worms, it's worm Pheromone.
 - Flasks should be added the same way as everything else. Consistency is important, having flasks be added to the anvil differently isn't intuitive.
 
 - When anvil pixel scene gets placed close to another, load a normal pixel scene instead

@@ -175,16 +175,14 @@ return {
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
 	end,
 	magic_liquid_worm_attractor=function(wand)
-		-- make player attract worms while wand is active
-		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
-			name="material",
-			value_string="magic_liquid_worm_attractor",
+		-- While wand is held spawn worms randomly and apply worm attractor game effect to the player
+    local comp = EntityAddComponent(wand.entity_id, "LuaComponent", {
+			_tags="enabled_in_hand",
+			script_source_file="mods/anvil_of_destiny/files/scripts/worm_spawner_and_attractor.lua",
+			execute_every_n_frame="60",
+			execute_on_added="0",
 		})
-		EntityAddComponent(wand.entity_id, "LuaComponent", {
-			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-			execute_every_n_frame="-1",
-			remove_after_executed="1"
-    })
+		EntitySetComponentIsEnabled(wand.entity_id, comp, false)
     local spells = { "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "HOMING", "HOMING_SHOOTER" }
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
 	end,
@@ -202,22 +200,11 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(5, 10), math.floor(wand.capacity / 2)))
 	end,
 	blood_worm=function(wand)
-		-- spawn a bunch of worms
-		EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
-			name="material",
-			value_string="blood_worm",
-		})
-		EntityAddComponent(wand.entity_id, "LuaComponent", {
-			script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-			execute_every_n_frame="-1",
-			remove_after_executed="1"
-		})
-		local spells_count = wand:GetSpellsCount()
-		while wand.capacity - 1 > spells_count do
-			wand:AddSpells("SUMMON_EGG")
-			spells_count = spells_count + 1
-		end
-		wand:AddSpells("X_RAY")
+		local spells = {
+			"CLIPPING_SHOT", "X_RAY", "MATTER_EATER", "LUMINOUS_DRILL", "LASER_LUMINOUS_DRILL",
+			"LANCE", "DIGGER", "POWERDIGGER", "BLACK_HOLE"
+		}
+    add_spells_to_wand(wand, spells, math.min(Random(2, 5), math.floor(wand.capacity / 2)))
 	end,
 	radioactive_liquid=function(wand)
     local spells = { "MIST_RADIOACTIVE", "AREA_DAMAGE", "HITFX_TOXIC_CHARM" }
@@ -249,10 +236,25 @@ return {
 		local spells = {
 			"LIGHT_BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER_2", "BULLET_TRIGGER", "HEAVY_BULLET_TRIGGER",
 			"SLOW_BULLET_TRIGGER", "BUBBLESHOT_TRIGGER", "GRENADE_TRIGGER", "MINE_DEATH_TRIGGER", "PIPE_BOMB_DEATH_TRIGGER",
-			""
-    }
-    add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity / 2)))
+			"TRANSMUTATION"
+		}
+		wand.manaChargeSpeed = wand.manaChargeSpeed + Random(20, 40)
+		wand.manaMax = math.floor(wand.manaMax * Randomf(1.01, 1.05))
+    add_spells_to_wand(wand, spells, math.min(Random(5, 7), math.floor(wand.capacity * 0.5)))
 	end,
+	midas=function(wand)
+		local spells = { "TOUCH_GOLD" }
+		wand.manaChargeSpeed = wand.manaChargeSpeed + Random(20, 40)
+		wand.manaMax = math.floor(wand.manaMax * Randomf(1.05, 1.10))
+		wand.capacity = math.min(26, wand.capacity + Random(1, 2))
+    add_spells_to_wand(wand, spells, math.min(Random(4, 8), math.floor(wand.capacity * 0.5)))
+	end,
+	-- freezing liquid
+	blood_cold=function(wand)
+		local spells = { "PROPANE_TANK", "FREEZE_FIELD", "FREEZE" }
+    add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity * 0.5)))
+	end,
+
 	-- Optional Arcane Alchemy mod compatibility: https://steamcommunity.com/sharedfiles/filedetails/?id=2074171525
 	AA_MAT_DARKMATTER = function(wand)
 		local spells = { "BLACK_HOLE", "BLACK_HOLE_BIG", "AREA_DAMAGE" }

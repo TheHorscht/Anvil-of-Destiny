@@ -31,13 +31,6 @@ local effects = {
     EntityLoad("data/entities/animals/scavenger_heal.xml", x + 7, y)
     EntityLoad("data/entities/animals/scavenger_heal.xml", x + 20, y)
   end,
-  magic_liquid_worm_attractor = function(entity_item, entity_pickupper, x, y)
-    local radius = 100
-    for i=1,4 do
-      local pie = 2 * math.pi / 10
-      EntityLoad("data/entities/animals/worm.xml", x + math.cos(i * pie) * radius, y + math.sin(i * pie) * radius)
-    end
-  end,
 }
 
 function item_pickup(entity_item, entity_pickupper, item_name)
