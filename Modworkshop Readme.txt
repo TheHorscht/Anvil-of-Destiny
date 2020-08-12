@@ -48,8 +48,7 @@ The potion effects are:
     .. There are barely any spells related to invisibility so have some spells vaguely related to deception/light.
     Increase max mana and mana charge speed slightly.
   - **__Worm Pheromone__**:
-    Adds egg and homing spells.
-    Spawn 4 worms.
+    Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
   - **__Whiskey__**:
     Add all kinds of multishot modifiers, alcohol related spells.
     Increase spread and max mana by a lot and increase mana charge speed a little bit.
