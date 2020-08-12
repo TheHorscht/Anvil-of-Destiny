@@ -13,74 +13,76 @@ If you want to use a tablet it needs to be added before the 2nd wand, because 2 
 
 The order in which you sacrifice items doesn't matter.
 
-The potion effects are:
-[code]
-- [b]Blood[/b]:
-  Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
-- [b]Water[/b]:
-  Add water related spells, increase max mana.
-- [b]Teleportatium[/b]:
-  Add teleport related spells, increase max mana and mana charge speed.
-- [b]Oil[/b]:
-  Add oil related spells, reduce recharge time and cast delay.
-- [b]Berserkium[/b]:
-  Add explosive spells, increase max mana.
-- [b]Concentrated Mana[/b]:
-  Increase mana charge speed by a lot.
-- [b]Acceleratium[/b]:
-  Add speed related spells, reduce recharge time and cast delay.
-  Randomly give the player a speed buff that lasts for a short time.
-- [b]Flummoxium[/b]:
-  Add chaotic path and/or heavy spread spells and randomize all attributes.
-- [b]Ambrosia[/b]:
-  Add shield related spells, increase spells per cast and max mana.
-- [b]Healthium[/b]:
-  Add heal spells, increase mana charge speed and spawn 4 healers.
-- [b]Polymorphine[/b]:
-  Add creature/polymorph related spells, increase spells per cast.
-- [b]Chaotic Polymorphine[/b]:
-  Add tentacle/misc spells.
-- [b]Pheromone[/b]:
-  Add egg/charm spells.
-- [b]Invisiblium[/b]:
-  .. There are barely any spells related to invisibility so have some spells vaguely related to deception/light.
-  Increase max mana and mana charge speed slightly.
-- [b]Worm Pheromone[/b]:
-  Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
-- [b]Whiskey[/b]:
-  Add all kinds of multishot modifiers, alcohol related spells.
-  Increase spread and max mana by a lot and increase mana charge speed a little bit.
-- [b]Worm Blood[/b]:
-  Add spells that drill or penetrate the ground.
-- [b]Toxic Sludge[/b]:
-  Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
-- [b]Acid[/b]:
-  Add acid related spells and increase spells per cast.
-- [b]Lava[/b]:
-  Add fire related spells.
-- [b]Alchemic precursor[/b]:
-  Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
-- [b]Draught of midas[/b]:
-  Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
-- [b]Freezing liquid[/b]:
-  Add spells related to freezing.
+[b]█▓▒░ Potion effects ░▒▓█[/b]
 
-- [b]--Arcane Alchemy Potions--[/b]:
-- [b]Dark matter[/b]:
-  Add black holes or damage field spells.
-- [b]Stop Hitting Yourself[/b]:
-  Add tentacle spells and spells that can hit you.
-- [b]Shrinkium[/b]:
-  Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.
-- [b]Static Charge[/b]:
-  Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
-- [b]Repultium[/b]:
-  Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
-- [b]Hungry slime[/b]:
-  Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
-- [b]Arborium[/b]:
-  Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
-[/code]
+[b]► Blood ◄[/b]
+Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
+[b]► Water ◄[/b]
+Add water related spells, increase max mana.
+[b]► Teleportatium ◄[/b]
+Add teleport related spells, increase max mana and mana charge speed.
+[b]► Oil ◄[/b]
+Add oil related spells, reduce recharge time and cast delay.
+[b]► Berserkium ◄[/b]
+Add explosive spells, increase max mana.
+[b]► Concentrated Mana ◄[/b]
+Increase mana charge speed by a lot.
+[b]► Acceleratium ◄[/b]
+Add speed related spells, reduce recharge time and cast delay.
+Randomly give the player a speed buff that lasts for a short time.
+[b]► Flummoxium ◄[/b]
+Add chaotic path and/or heavy spread spells and randomize all attributes.
+[b]► Ambrosia ◄[/b]
+Add shield related spells, increase spells per cast and max mana.
+[b]► Healthium ◄[/b]
+Add heal spells, increase mana charge speed and spawn 4 healers.
+[b]► Polymorphine ◄[/b]
+Add creature/polymorph related spells, increase spells per cast.
+[b]► Chaotic Polymorphine ◄[/b]
+Add tentacle/misc spells.
+[b]► Pheromone ◄[/b]
+Add egg/charm spells.
+[b]► Invisiblium ◄[/b]
+.. There are barely any spells related to invisibility so have some spells vaguely related to deception/light.
+Increase max mana and mana charge speed slightly.
+[b]► Worm Pheromone ◄[/b]
+Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
+[b]► Whiskey ◄[/b]
+Add all kinds of multishot modifiers, alcohol related spells.
+Increase spread and max mana by a lot and increase mana charge speed a little bit.
+[b]► Worm Blood ◄[/b]
+Add spells that drill or penetrate the ground.
+[b]► Toxic Sludge ◄[/b]
+Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
+[b]► Acid ◄[/b]
+Add acid related spells and increase spells per cast.
+[b]► Lava ◄[/b]
+Add fire related spells.
+[b]► Alchemic precursor ◄[/b]
+Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
+[b]► Draught of midas ◄[/b]
+Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
+[b]► Freezing liquid ◄[/b]
+Add spells related to freezing.
+
+[b]█▓▒░ Arcane Alchemy Potions ░▒▓█[/b]
+
+[b]► Dark matter ◄[/b]
+Add black holes or damage field spells.
+[b]► Stop Hitting Yourself ◄[/b]
+Add tentacle spells and spells that can hit you.
+[b]► Shrinkium ◄[/b]
+Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.
+[b]► Static Charge ◄[/b]
+Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
+[b]► Repultium ◄[/b]
+Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
+[b]► Hungry slime ◄[/b]
+Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
+[b]► Arborium ◄[/b]
+Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
+
+-----------------------
 
 You can tweak the anvil spawn chance and buff amount in:
 C:\Program Files (x86)\Steam\steamapps\workshop\content\881100\1974488139\config.lua
