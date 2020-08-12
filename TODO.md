@@ -1,4 +1,3 @@
-- Worm Blood should be a focus on spells that pass through terrain or drill because, worms. Using it should not spawn worms.
 - Flasks should be added the same way as everything else. Consistency is important, having flasks be added to the anvil differently isn't intuitive.
 
 - When anvil pixel scene gets placed close to another, load a normal pixel scene instead

@@ -60,13 +60,27 @@ The potion effects are:
 - [b]Lava[/b]:
   Add fire related spells.
 - [b]Alchemic precursor[/b]:
-  Adds trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
+  Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
 - [b]Draught of midas[/b]:
-  Adds a bunch of "Touch of gold" spells, slightly increases mana charge speed,
-  max mana by 5% to 10% and add 1 or 2 capacity.
+  Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
 - [b]Freezing liquid[/b]:
-  Adds spells related to freezing.
+  Add spells related to freezing.
 
+- [b]--Arcane Alchemy Potions--[/b]:
+- [b]Dark matter[/b]:
+  Add black holes or damage field spells.
+- [b]Stop Hitting Yourself[/b]:
+  Add tentacle spells and spells that can hit you.
+- [b]Shrinkium[/b]:
+  Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.
+- [b]Static Charge[/b]:
+  Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
+- [b]Repultium[/b]:
+  Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
+- [b]Hungry slime[/b]:
+  Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
+- [b]Arborium[/b]:
+  Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
 [/code]
 
 You can tweak the anvil spawn chance and buff amount in:

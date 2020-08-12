@@ -1,6 +1,7 @@
 UNRELEASED:
 - CHANGE: The potion effect for worm blood now gives spells instead that drill or penetrate ground.
 - Added new potion effects for alchemic precursor, draught of midas and freezing liquid.
+- Added new potion effects for Arcane Alchemy potions.
 
 v1.5.0:
 - New recipes! You can now sacrifice potions if they are at least 80% full. Not all materials are supported.
