@@ -62,6 +62,29 @@ The potion effects are:
     Add acid related spells and increase spells per cast.
   - **__Lava__**:
     Add fire related spells.
+  - **__Alchemic precursor__**:
+    Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
+  - **__Draught of midas__**:
+    Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
+  - **__Freezing liquid__**:
+    Add spells related to freezing.
+
+  - **__--Arcane Alchemy Potions--__**:
+  - **__Dark matter__**:
+    Add black holes or damage field spells.
+  - **__Stop Hitting Yourself__**:
+    Add tentacle spells and spells that can hit you.
+  - **__Shrinkium__**:
+    Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.
+  - **__Static Charge__**:
+    Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
+  - **__Repultium__**:
+    Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
+  - **__Hungry slime__**:
+    Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
+  - **__Arborium__**:
+    Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
+
 
 [b][size=medium]Let's pray and hope there are no bugs![/size][/b]
 [b][size=medium]That's it, have fun forging with the holy Anvil of DESTINY![/size][/b]
