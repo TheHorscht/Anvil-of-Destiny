@@ -52,14 +52,21 @@ The potion effects are:
   Add all kinds of multishot modifiers, alcohol related spells.
   Increase spread and max mana by a lot and increase mana charge speed a little bit.
 - [b]Worm Blood[/b]:
-  Fill the wand with egg spells and one "All seeing eye".
-  Also, have some worms.
+  Add spells that drill or penetrate the ground.
 - [b]Toxic Sludge[/b]:
   Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
 - [b]Acid[/b]:
   Add acid related spells and increase spells per cast.
 - [b]Lava[/b]:
   Add fire related spells.
+- [b]Alchemic precursor[/b]:
+  Adds trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
+- [b]Draught of midas[/b]:
+  Adds a bunch of "Touch of gold" spells, slightly increases mana charge speed,
+  max mana by 5% to 10% and add 1 or 2 capacity.
+- [b]Freezing liquid[/b]:
+  Adds spells related to freezing.
+
 [/code]
 
 You can tweak the anvil spawn chance and buff amount in:
