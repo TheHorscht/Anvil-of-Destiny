@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.6.0:
 - CHANGE: The potion effect for worm blood now gives spells instead that drill or penetrate ground.
 - Added new potion effects for alchemic precursor, draught of midas and freezing liquid.
 - Added new potion effects for Arcane Alchemy potions.
