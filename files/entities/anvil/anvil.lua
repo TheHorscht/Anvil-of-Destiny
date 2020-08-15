@@ -376,7 +376,7 @@ function disable_interactivity(entity_id)
       end
     end
 	end
-	remove_potion_input_place(anvil_id)
+	remove_potion_input_place(entity_id)
 end
 
 function remove_potion_input_place(anvil_id)

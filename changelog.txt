@@ -1,3 +1,6 @@
+v1.6.1:
+- FIX: Potion input now gets properly disabled once anvil is used up.
+
 v1.6.0:
 - CHANGE: The potion effect for worm blood now gives spells instead that drill or penetrate ground.
 - CHANGE: The potion effect for worm pheromones now spawns worms randomly and attracts worms while the wand is held.
