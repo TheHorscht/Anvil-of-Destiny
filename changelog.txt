@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.7.0:
 - Added an anvil room to the VolcanoBiome (Mod)
 
 v1.6.1:
