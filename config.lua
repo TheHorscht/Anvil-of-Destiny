@@ -16,6 +16,8 @@ config_altar_room_occurences_rainforest = 1.2 -- max 3.9936
 config_altar_room_occurences_vault = 2 -- max 4.9152
 -- Temple of the Art
 config_altar_room_occurences_crypt = 2.5 -- max 4.739173553719	
+-- VolcanoBiome (Mod)
+config_altar_room_occurences_volcanobiome = 3.5
 
 -- By how much the resulting wand of "Wand+Wand" will get buffed after merging
 config_regular_wand_buff = 0.5

@@ -7,6 +7,9 @@ ModLuaFileAppend("data/scripts/biomes/rainforest.lua", "mods/anvil_of_destiny/fi
 ModLuaFileAppend("data/scripts/biomes/snowcastle.lua", "mods/anvil_of_destiny/files/biomes/snowcastle.lua")
 ModLuaFileAppend("data/scripts/biomes/snowcave.lua", "mods/anvil_of_destiny/files/biomes/snowcave.lua")
 ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/biomes/vault.lua")
+if ModIsEnabled("VolcanoBiome") then
+  ModLuaFileAppend("mods/VolcanoBiome/files/biome/inside.lua", "mods/anvil_of_destiny/files/biomes/volcanobiome.lua")
+end
 ModMaterialsFileAdd("mods/anvil_of_destiny/files/materials.xml")
 
 function build_spell_level_lookup_table()
