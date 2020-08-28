@@ -29,31 +29,187 @@
   .row > img {
     margin: 5px 4px;
   }
-  .equals_after_2 {
+  .equals-after-2 {
     display: inline-block;
     margin-left: 42px;
     margin-right: 12px;
   }
-  .equals_after_3 {
+  .equals-after-3 {
     display: inline-block;
     margin-left: 0px;
     margin-right: 12px;
+  }
+  .potion-row {
+  }
+  .potion-name {
+    font-family: 'Cuprum', sans-serif;
+    color: #b78936;
+    font-size: 20px;
+  }
+  .potion-effect-description {
+    font-family: 'Roboto', sans-serif;
+    margin-left: 20px;
+    font-size: 14px;
   }
   </style>
 </head>
 <body>
   <div class="table">
     <div class="header">Recipes</div>
-    
-    <div class="row"><img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals_after_2">=</span>Merge wands and buff output slightly</div>
-    
-    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals_after_3">=</span>Merge wands and buff output slightly and add 1 random always cast spell</div>
-    
-    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals_after_3">=</span>Buff the input wands' stats</div>
-    
-    <div class="row"><img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/DkA6Loj.png"><span class="equals_after_2">=</span>Custom effect depending on the material</div>
-    
-    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/DkA6Loj.png"><span class="equals_after_3">=</span>Custom effect depending on the material and add 1 random always cast spell</div>
+    <div class="row"><img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals-after-2">=</span>Merge wands and buff output slightly</div>
+    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals-after-3">=</span>Merge wands and buff output slightly and add 1 random always cast spell</div>
+    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"><span class="equals-after-3">=</span>Buff the input wands' stats</div>
+    <div class="row"><img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/DkA6Loj.png"><span class="equals-after-2">=</span>Custom effect depending on the material</div>
+    <div class="row"><img src="https://i.imgur.com/5lecDbq.png"> + <img src="https://i.imgur.com/Juf5qZg.png"> + <img src="https://i.imgur.com/DkA6Loj.png"><span class="equals-after-3">=</span>Custom effect depending on the material and add 1 random always cast spell</div>
   </div>
+
+  <div class="table">
+    <div class="header">Potion effects</div>
+
+
+
+
+    <div class="potion-row">
+      <div class="potion-name">Blood</div>
+      <div class="potion-effect-description">Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Water</div>
+      <div class="potion-effect-description">Add water related spells, increase max mana.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Teleportatium</div>
+      <div class="potion-effect-description">Add teleport related spells, increase max mana and mana charge speed.</div>
+  </div>
+  <div class="potion-row">
+    <div class="potion-name">Oil</div>
+    <div class="potion-effect-description">Add oil related spells, reduce recharge time and cast delay.</div>
+  </div>
+  <div class="potion-row">
+    <div class="potion-name">Unstable Gunpowder</div>
+    <div class="potion-effect-description">Add spells related to explosions, bombs and gunpowder and increase capacity slightly.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Berserkium</div>
+      <div class="potion-effect-description">Add explosive spells, increase max mana.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Concentrated Mana</div>
+      <div class="potion-effect-description">Increase mana charge speed by a lot.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Acceleratium</div>
+      <div class="potion-effect-description">Add speed related spells, reduce recharge time and cast delay. Randomly give the player a speed buff that lasts for a short time.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Flummoxium</div>
+      <div class="potion-effect-description">Add chaotic path and/or heavy spread spells and randomize all attributes.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Ambrosia</div>
+      <div class="potion-effect-description">Add shield related spells, increase spells per cast and max mana.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Healthium</div>
+      <div class="potion-effect-description">Add heal spells, increase mana charge speed and spawn 4 healers.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Polymorphine</div>
+      <div class="potion-effect-description">Add creature/polymorph related spells, increase spells per cast.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Chaotic Polymorphine</div>
+      <div class="potion-effect-description">Add tentacle/misc spells.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Pheromone</div>
+      <div class="potion-effect-description">Add egg/charm spells.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Invisiblium</div>
+      <div class="potion-effect-description">.. There are barely any spells related to invisibility so have some spells vaguely related to deception/light. Increase max mana and mana charge speed slightly.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Worm Pheromone</div>
+      <div class="potion-effect-description">Adds egg and homing spells. Spawn 4 worms.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Whiskey</div>
+      <div class="potion-effect-description">Add all kinds of multishot modifiers, alcohol related spells. Increase spread and max mana by a lot and increase mana charge speed a little bit.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Worm Blood</div>
+      <div class="potion-effect-description">Add spells that drill or penetrate the ground.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Toxic Sludge</div>
+      <div class="potion-effect-description">Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Acid</div>
+      <div class="potion-effect-description">Add acid related spells and increase spells per cast.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Lava</div>
+      <div class="potion-effect-description">Add fire related spells.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Alchemic precursor</div>
+      <div class="potion-effect-description">Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Draught of midas</div>
+      <div class="potion-effect-description">Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Freezing liquid</div>
+      <div class="potion-effect-description">Add spells related to freezing.</div>
+  </div>
+
+  <div class="header">Arcane Alchemy Potions</div>
+
+  <div class="potion-row">
+      <div class="potion-name">Dark matter</div>
+      <div class="potion-effect-description">Add black holes or damage field spells.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Stop Hitting Yourself</div>
+      <div class="potion-effect-description">Add tentacle spells and spells that can hit you.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Shrinkium</div>
+      <div class="potion-effect-description">Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Static Charge</div>
+      <div class="potion-effect-description">Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Repultium</div>
+      <div class="potion-effect-description">Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Hungry slime</div>
+      <div class="potion-effect-description">Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.</div>
+  </div>
+  <div class="potion-row">
+      <div class="potion-name">Arborium</div>
+      <div class="potion-effect-description">Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.</div>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+
+
 </body>
 </html>

@@ -1,3 +1,7 @@
+UNRELEASED:
+- Made vault and coalmines room exits fit a bit better with the edges.
+- Added recipe for gunpower flask, increases capacity and adds spells related to bombs, explosions and gunpowder.
+
 v1.7.0:
 - Added an anvil room to the VolcanoBiome (Mod)
 

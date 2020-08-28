@@ -23,6 +23,8 @@ Add water related spells, increase max mana.
 Add teleport related spells, increase max mana and mana charge speed.
 [b]► Oil ◄[/b]
 Add oil related spells, reduce recharge time and cast delay.
+[b]► Unstable gunpowder ◄[/b]
+Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
 [b]► Berserkium ◄[/b]
 Add explosive spells, increase max mana.
 [b]► Concentrated Mana ◄[/b]

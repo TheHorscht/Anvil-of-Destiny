@@ -50,13 +50,21 @@ return {
      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
 	end,
 	oil=function(wand)
-		 local spells = {
-			"CIRCLE_OIL", "MATERIAL_OIL", "TOUCH_OIL", "RECOIL_DAMPER", "SEA_OIL",
-			"HITFX_CRITICAL_OIL", "OIL_TRAIL"
-		 }
-		 add_spells_to_wand(wand, spells, math.min(Random(1,3), math.floor(wand.capacity / 2)))
-		 wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * 0.15)
-		 wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * 0.15)
+		local spells = {
+		 "CIRCLE_OIL", "MATERIAL_OIL", "TOUCH_OIL", "RECOIL_DAMPER", "SEA_OIL",
+		 "HITFX_CRITICAL_OIL", "OIL_TRAIL"
+		}
+		add_spells_to_wand(wand, spells, math.min(Random(1,3), math.floor(wand.capacity / 2)))
+		wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * 0.15)
+		wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * 0.15)
+ end,
+ gunpowder_unstable=function(wand)
+		local spells = {
+			"BOMB_CART", "DYNAMITE", "BOMB", "GLITTER_BOMB", "BOMB_HOLY", "NUKE", "MINE", "FIRE_BLAST", "EXPLOSION", "BOUNCE_EXPLOSION",
+			"ARC_GUNPOWDER", "EXPLOSIVE_PROJECTILE", "UNSTABLE_GUNPOWDER", "GUNPOWDER_TRAIL", "TOUCH_SMOKE"
+		}
+		wand.capacity = math.min(26, wand.capacity + Random(2,3))
+		add_spells_to_wand(wand, spells, math.min(Random(3,5), math.floor(wand.capacity / 2)))
 	end,
 	magic_liquid_berserk=function(wand)
 		local spells = {
