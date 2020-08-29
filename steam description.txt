@@ -7,6 +7,7 @@ Just open your inventory and drag your wands out to throw them onto the anvil.
 In other words, adding one tablet will add a random always cast spell to the resulting wand.
 Potions need to be at least 80% full of the material.
 To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
+Spells from potion recipes can only be added to the wand if there is enough free space, if not it will not overwrite already existing spells and it will only apply the remaining bonus (if any).
 
 Each anvil can only be used once, but you can find multiple per run.
 If you want to use a tablet it needs to be added before the 2nd wand, because 2 wands is already a valid recipe and will start the forging.
