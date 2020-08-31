@@ -24,8 +24,13 @@ Add water related spells, increase max mana.
 Add teleport related spells, increase max mana and mana charge speed.
 [b]► Oil ◄[/b]
 Add oil related spells, reduce recharge time and cast delay.
+[b]► Slime ◄[/b]
+Add spells related to slime, timer triggers, recoil damper and lifetime up.
+Slow down the wand slightly but in turn increase capacity and max mana and reduce spread.
 [b]► Unstable gunpowder ◄[/b]
 Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
+[b]► Fire ◄[/b]
+Add spells related to fire and slightly reduce recharge time and cast delay.
 [b]► Berserkium ◄[/b]
 Add explosive spells, increase max mana.
 [b]► Concentrated Mana ◄[/b]

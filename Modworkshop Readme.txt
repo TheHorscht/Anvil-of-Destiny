@@ -25,8 +25,13 @@ The potion effects are:
     Add teleport related spells, increase max mana and mana charge speed.
   - **__Oil__**:
     Add oil related spells, reduce recharge time and cast delay.
+  - **__Slime__**:
+    Add spells related to slime, timer triggers, recoil damper and lifetime up.
+    Slow down the wand slightly but in turn increase capacity and max mana and reduce spread.
   - **__Unstable gunpowder__**:
     Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
+  - **__Fire__**:
+    Add spells related to fire and slightly reduce recharge time and cast delay.
   - **__Berserkium__**:
     Add explosive spells, increase max mana.
   - **__Concentrated Mana__**:

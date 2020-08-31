@@ -58,6 +58,19 @@ return {
 		wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * 0.15)
 		wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * 0.15)
  end,
+ slime=function(wand)
+	local spells = { "MIST_SLIME", "RECOIL_DAMPER", "HITFX_EXPLOSION_SLIME", "HITFX_EXPLOSION_SLIME_GIGA",
+		"LIFETIME", "SLIMEBALL", "TENTACLE", "TENTACLE_TIMER", "BOUNCY_ORB_TIMER", "BULLET_TIMER", "HEAVY_BULLET_TIMER",
+		"LIGHT_BULLET_TIMER", "SLOW_BULLET_TIMER", "SPITTER_TIER_2_TIMER", "SPITTER_TIER_3_TIMER", "SPITTER_TIMER" }
+	wand.spread = wand.spread - Random(7, 15)
+	-- Slow down the wand
+	wand.rechargeTime = wand.rechargeTime + math.ceil(math.abs(wand.rechargeTime) * Randomf(0.05, 0.10))
+	wand.castDelay = wand.castDelay + math.ceil(math.abs(wand.castDelay) * Randomf(0.05, 0.10))
+	wand.manaChargeSpeed = wand.manaChargeSpeed - math.ceil(math.abs(wand.manaChargeSpeed) * Randomf(0.05, 0.10))
+	wand.manaMax = wand.manaMax + math.min(Random(150, 200), wand.manaMax * Randomf(0.10, 0.20))
+	wand.capacity = wand.capacity + Random(2, 3)
+	add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+ end,
  gunpowder_unstable=function(wand)
 		local spells = {
 			"BOMB_CART", "DYNAMITE", "BOMB", "GLITTER_BOMB", "BOMB_HOLY", "NUKE", "MINE", "FIRE_BLAST", "EXPLOSION", "BOUNCE_EXPLOSION",
@@ -65,6 +78,18 @@ return {
 		}
 		wand.capacity = math.min(26, wand.capacity + Random(2,3))
 		add_spells_to_wand(wand, spells, math.min(Random(3,5), math.floor(wand.capacity / 2)))
+	end,
+	liquid_fire=function(wand)
+		local spells = {
+			"FIREBALL", "METEOR", "FLAMETHROWER",
+			"ROCKET", "ROCKET_TIER_2", "ROCKET_TIER_3", "GRENADE", "GRENADE_TRIGGER",
+			"GRENADE_TIER_2", "GRENADE_TIER_3", "GRENADE_ANTI", "GRENADE_LARGE",
+			"FIREBOMB", "CIRCLE_FIRE", "FIRE_BLAST", "HITFX_BURNING_CRITICAL_HIT",
+			"FIREBALL_RAY", "FIREBALL_RAY_LINE", "FIREBALL_RAY_ENEMY", "ARC_FIRE", "FIRE_TRAIL", "BURN_TRAIL"
+		}
+		wand.rechargeTime = wand.rechargeTime - math.ceil(math.abs(wand.rechargeTime) * Randomf(0.05, 0.10))
+		wand.castDelay = wand.castDelay - math.ceil(math.abs(wand.castDelay) * Randomf(0.05, 0.10))
+    add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity / 2)))
 	end,
 	magic_liquid_berserk=function(wand)
 		local spells = {

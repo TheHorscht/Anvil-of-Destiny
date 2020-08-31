@@ -1,3 +1,6 @@
+UNRELEASED:
+- Add recipe for fire and slime flasks.
+
 v1.8.0:
 - Made vault and coalmines room exits fit a bit better with the edges.
 - Added recipe for gunpower flask, increases capacity and adds spells related to bombs, explosions and gunpowder.
