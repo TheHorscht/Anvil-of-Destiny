@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.9.0:
 - Add recipe for fire and slime flasks.
 
 v1.8.0:
