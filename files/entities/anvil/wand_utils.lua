@@ -172,7 +172,7 @@ local spell_level_lookup = dofile("mods/anvil_of_destiny/files/scripts/spell_lev
 function filter_spells(spells, level_min, level_max)
 	local filtered_list = {}
 	for i, spell_name in ipairs(spells) do
-		for i, level in ipairs(spell_level_lookup[spell_name]) do
+		for i, level in ipairs(spell_level_lookup["_" .. spell_name]) do
 			if level >= level_min and level <= level_max then
 				table.insert(filtered_list, spell_name)
 				break

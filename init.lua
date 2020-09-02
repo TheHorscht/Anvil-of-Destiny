@@ -16,7 +16,7 @@ function build_spell_level_lookup_table()
   dofile_once("data/scripts/gun/gun_actions.lua")
   local s = "return {\n"
   for i,v in ipairs(actions) do
-    s = s .. "  " .. v.id .. " = " .. "{"
+    s = s .. "  _" .. v.id .. " = " .. "{"
     -- split spell levels by comma
     for spell_level in v.spawn_level:gmatch("([^,]+)") do
       s = s .. spell_level .. ","
