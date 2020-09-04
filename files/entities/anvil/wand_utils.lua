@@ -167,15 +167,23 @@ function action_get_by_id(action_id)
 	end
 end
 
-local spell_level_lookup = dofile("mods/anvil_of_destiny/files/scripts/spell_level_lookup.lua")
+function action_exists(action_id)
+  return action_get_by_id(action_id) ~= nil
+end
+
 -- Takes as input a table of spell IDs and filters out every spell whose level is not in the range specified
 function filter_spells(spells, level_min, level_max)
+	local spell_level_lookup = dofile_once("mods/anvil_of_destiny/files/scripts/spell_level_lookup.lua")
 	local filtered_list = {}
 	for i, spell_name in ipairs(spells) do
-		for i, level in ipairs(spell_level_lookup["_" .. spell_name]) do
-			if level >= level_min and level <= level_max then
-				table.insert(filtered_list, spell_name)
-				break
+		if not action_exists(spell_name) then
+			print("Anvil of Destiny WARNING: Spell with ID '" .. spell_name .. "' does not exist.")
+		else
+			for i, level in ipairs(spell_level_lookup["_" .. spell_name]) do
+				if level >= level_min and level <= level_max then
+					table.insert(filtered_list, spell_name)
+					break
+				end
 			end
 		end
 	end

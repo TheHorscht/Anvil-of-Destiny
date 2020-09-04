@@ -29,4 +29,7 @@ end
 
 function OnMagicNumbersAndWorldSeedInitialized()
   ModTextFileSetContent("mods/anvil_of_destiny/files/scripts/spell_level_lookup.lua", build_spell_level_lookup_table())
+  if ModTextFileGetContent("mods/anvil_of_destiny/files/_virtual/potion_bonuses_append.lua") then
+    ModLuaFileAppend("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua", "mods/anvil_of_destiny/files/_virtual/potion_bonuses_append.lua")
+  end
 end

@@ -1,3 +1,6 @@
+UNRELEASED:
+- Added support for other mod authors to add their spells to potion recipes easily.
+
 v1.9.1:
 - Fix potion recipes not working with certain mods that add spells.
 
