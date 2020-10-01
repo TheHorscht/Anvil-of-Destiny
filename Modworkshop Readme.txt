@@ -39,6 +39,10 @@ The potion effects are:
   - **__Acceleratium__**:
     Add speed related spells, reduce recharge time and cast delay.
     Randomly give the player a speed buff that lasts for a short time.
+  - **__Levitatium__**:
+  Same as Acceleratium but without the speed buff.
+  - **__Hastium__**:
+  Combines the effects of Acceleratium and Levitatium, as if both were applied.
   - **__Flummoxium__**:
     Add chaotic path and/or heavy spread spells and randomize all attributes.
   - **__Ambrosia__**:
