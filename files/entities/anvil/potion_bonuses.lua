@@ -158,6 +158,15 @@ return {
     wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.08, 0.1))
     add_spells_to_wand(wand, spells, math.min(Random(2, 4), math.floor(wand.capacity / 2)))
   end,
+  magic_liquid_faster_levitation_and_movement = function(wand)
+    local spells = merge_spells("magic_liquid_faster_levitation_and_movement", {
+      "RECHARGE", "LIFETIME", "LIFETIME_DOWN", "LIGHT_SHOT", "KNOCKBACK", "RECOIL",
+      "SPEED", "ACCELERATING_SHOT"
+    })
+    wand.rechargeTime = wand.rechargeTime - math.max(Random(2, 4), wand.rechargeTime * Randomf(0.16, 0.2))
+    wand.castDelay = wand.castDelay - math.max(Random(2, 4), wand.castDelay * Randomf(0.16, 0.2))
+    add_spells_to_wand(wand, spells, math.min(Random(4, 8), math.floor(wand.capacity / 2)))
+  end,
   material_confusion = function(wand)
     local spells = merge_spells("material_confusion", {
       "CHAOTIC_ARC", "HEAVY_SPREAD", "DAMAGE_RANDOM", "RANDOM_EXPLOSION", "FIZZLE", "RANDOM_SPELL",
