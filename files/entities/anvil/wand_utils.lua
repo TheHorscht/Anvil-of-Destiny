@@ -194,7 +194,7 @@ end
 -- will only fill up to wand capacity
 function add_spells_to_wand(wand, spells, num_spells_to_add)
 	local wand_level = wand_compute_level(wand.entity_id)
-	spells = filter_spells(spells, wand_level, wand_level)
+	spells = filter_spells(spells, wand_level-1, wand_level+1)
 	local spells_count = wand:GetSpellsCount()
 	local num_spells_added = 0
 	while wand.capacity > spells_count and num_spells_added < num_spells_to_add do
