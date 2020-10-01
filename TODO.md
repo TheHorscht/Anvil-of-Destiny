@@ -1,3 +1,8 @@
+- FIX for 1.0:
+- Update wand level calculation function for new wands that have super high recharge but low mana
+- Urine potion not doing anything
+- Coalmine pixel scene update
+
 - IDEA for accelerat potion: Everytime you shoot the wand it has a small chance to apply the speed up effect to the wielder
 - IDEA2: Make it apply the effect on enemy kill with that wand
 - Carry over wand effects like speed up to new wands when 2 wand merge

@@ -34,14 +34,9 @@
     stains_radius="35"
     background_lightning_count="5" 
     max_durability_to_destroy="16" 
-    audio_event_name="explosion_nuke" 
+    audio_event_name="explosions/nuke"
     >
     </config_explosion>
   </ProjectileComponent>
-
-  <AudioComponent
-      file="data/audio/Desktop/projectiles.snd"
-      event_root="player_projectiles/bomb">
-  </AudioComponent>
   
 </Entity>
