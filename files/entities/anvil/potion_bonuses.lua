@@ -24,7 +24,7 @@ return {
   blood = function(wand)
     local spells = merge_spells("blood", {
       "MIST_BLOOD", "MATERIAL_BLOOD", "TOUCH_BLOOD", "CRITICAL_HIT", "BLOOD_TO_ACID",
-      "CLOUD_BLOOD", "HITFX_CRITICAL_BLOOD"      
+      "CLOUD_BLOOD", "HITFX_CRITICAL_BLOOD", "CURSED_ORB", "BLOOD_MAGIC"
     })
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 2)
     wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.05, 0.1))
@@ -67,7 +67,7 @@ return {
   magic_liquid_teleportation = function(wand)
      local spells = merge_spells("magic_liquid_teleportation", {
       "DELAYED_SPELL", "LONG_DISTANCE_CAST", "TELEPORT_CAST", "TELEPORT_PROJECTILE",
-      "TELEPORT_PROJECTILE_STATIC", "TELEPORTATION_FIELD"
+      "TELEPORT_PROJECTILE_STATIC", "TELEPORTATION_FIELD", "SUPER_TELEPORT_CAST"
      })
      wand.manaMax = wand.manaMax + Random(20, 50)
      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
@@ -85,7 +85,8 @@ return {
   slime = function(wand)
     local spells = merge_spells("slime", { "MIST_SLIME", "RECOIL_DAMPER", "HITFX_EXPLOSION_SLIME", "HITFX_EXPLOSION_SLIME_GIGA",
       "LIFETIME", "SLIMEBALL", "TENTACLE", "TENTACLE_TIMER", "BOUNCY_ORB_TIMER", "BULLET_TIMER", "HEAVY_BULLET_TIMER",
-      "LIGHT_BULLET_TIMER", "SLOW_BULLET_TIMER", "SPITTER_TIER_2_TIMER", "SPITTER_TIER_3_TIMER", "SPITTER_TIMER"
+      "LIGHT_BULLET_TIMER", "SLOW_BULLET_TIMER", "SPITTER_TIER_2_TIMER", "SPITTER_TIER_3_TIMER", "SPITTER_TIMER", "ADD_TIMER",
+      "DECELERATING_SHOT"
     })
     wand.spread = wand.spread - Random(7, 15)
     -- Slow down the wand
@@ -99,7 +100,7 @@ return {
  gunpowder_unstable = function(wand)
     local spells = merge_spells("gunpowder_unstable", {
       "BOMB_CART", "DYNAMITE", "BOMB", "GLITTER_BOMB", "BOMB_HOLY", "NUKE", "MINE", "FIRE_BLAST", "EXPLOSION", "BOUNCE_EXPLOSION",
-      "ARC_GUNPOWDER", "EXPLOSIVE_PROJECTILE", "UNSTABLE_GUNPOWDER", "GUNPOWDER_TRAIL", "TOUCH_SMOKE"
+      "ARC_GUNPOWDER", "EXPLOSIVE_PROJECTILE", "UNSTABLE_GUNPOWDER", "GUNPOWDER_TRAIL", "TOUCH_SMOKE", "ALL_NUKES", "ALL_ROCKETS"
     })
     wand.capacity = math.min(26, wand.capacity + Random(2,3))
     add_spells_to_wand(wand, spells, math.min(Random(3,5), math.floor(wand.capacity / 2)))
@@ -123,7 +124,7 @@ return {
       "MINE_DEATH_TRIGGER", "PIPE_BOMB", "PIPE_BOMB_DEATH_TRIGGER", "EXPLODING_DEER",
       "PIPE_BOMB_DETONATOR", "DIGGER", "POWERDIGGER", "METEOR", "DYNAMITE", "GLITTER_BOMB",
       "BOMB_HOLY", "NUKE", "DAMAGE", "HEAVY_SHOT", "EXPLOSIVE_PROJECTILE", "EXPLOSION",
-      "BERSERK_FIELD", "BOUNCE_EXPLOSION"
+      "BERSERK_FIELD", "BOUNCE_EXPLOSION", "ALL_NUKES"
     })
     wand.manaMax = wand.manaMax + Random(40, 90)
     add_spells_to_wand(wand, spells, math.floor(wand.capacity / 2))
@@ -148,9 +149,19 @@ return {
     })
     add_spells_to_wand(wand, spells, math.min(Random(2, 3), math.floor(wand.capacity / 2)))
   end,
+  magic_liquid_faster_levitation = function(wand)
+    local spells = merge_spells("magic_liquid_faster_levitation", {
+      "RECHARGE", "LIFETIME", "LIFETIME_DOWN", "LIGHT_SHOT", "KNOCKBACK", "RECOIL",
+      "SPEED", "ACCELERATING_SHOT"
+    })
+    wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.08, 0.1))
+    wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.08, 0.1))
+    add_spells_to_wand(wand, spells, math.min(Random(2, 4), math.floor(wand.capacity / 2)))
+  end,
   material_confusion = function(wand)
     local spells = merge_spells("material_confusion", {
-      "CHAOTIC_ARC", "HEAVY_SPREAD"
+      "CHAOTIC_ARC", "HEAVY_SPREAD", "DAMAGE_RANDOM", "RANDOM_EXPLOSION", "FIZZLE", "RANDOM_SPELL",
+      "RANDOM_PROJECTILE", "RANDOM_MODIFIER", "RANDOM_STATIC_PROJECTILE", "DRAW_RANDOM", "DRAW_RANDOM_X3", "DRAW_3_RANDOM"
     })
     wand.shuffle = (Random() > 0.5) and true or false
     wand.spellsPerCast = math.max(1, wand.spellsPerCast + Random(0, 3) * (Random() > 0.5 and -1 or 1))
@@ -165,7 +176,7 @@ return {
   magic_liquid_protection_all = function(wand)
     local spells = merge_spells("magic_liquid_protection_all", {
       "WALL_HORIZONTAL", "WALL_VERTICAL", "WALL_SQUARE", "SHIELD_FIELD",
-      "PROJECTILE_TRANSMUTATION_FIELD", "ENERGY_SHIELD", "ENERGY_SHIELD_SECTOR"
+      "PROJECTILE_TRANSMUTATION_FIELD", "ENERGY_SHIELD", "ENERGY_SHIELD_SECTOR", "MAGIC_SHIELD", "BIG_MAGIC_SHIELD"
     })
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 3)
     wand.manaMax = wand.manaMax + Random(80, 140)
@@ -201,7 +212,7 @@ return {
     local spells = merge_spells("magic_liquid_random_polymorph", {
       "TENTACLE_PORTAL", "TENTACLE", "TENTACLE_TIMER", "SUMMON_EGG", "STATIC_TO_SAND",
       "TRANSMUTATION", "CHAOS_POLYMORPH_FIELD", "PROJECTILE_TRANSMUTATION_FIELD",
-      "TENTACLE_RAY", "TENTACLE_RAY_ENEMY"
+      "TENTACLE_RAY", "TENTACLE_RAY_ENEMY", "RANDOM_EXPLOSION"
     })
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
@@ -209,7 +220,8 @@ return {
     -- charm spells, charm on slime etc
     local spells = merge_spells("magic_liquid_charm", {
       "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "SUMMON_WANDGHOST", "HOMING", "HOMING_SHOOTER",
-      "NECROMANCY", "TENTACLE_RAY_ENEMY", "HITFX_TOXIC_CHARM"
+      "NECROMANCY", "TENTACLE_RAY_ENEMY", "HITFX_TOXIC_CHARM", "SWARM_FLY", "SWARM_FIREBUG", "SWARM_WASP",
+      "FRIEND_FLY"
     })
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
@@ -225,7 +237,7 @@ return {
     --  remove_after_executed="1"
     -- })
     local spells = merge_spells("magic_liquid_invisibility", {
-      "BLACK_HOLE", "EXPLODING_DEER", "LANCE", "X_RAY", "LIGHT"
+      "BLACK_HOLE", "ALL_BLACKHOLES", "EXPLODING_DEER", "LANCE", "X_RAY", "LIGHT", "GLOWING_BOLT"
     })
     wand.manaMax = wand.manaMax + Random(30, 40)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
@@ -249,7 +261,7 @@ return {
       "Y_SHAPE", "T_SHAPE", "W_SHAPE", "CIRCLE_SHAPE", "PENTAGRAM_SHAPE", "HEAVY_SPREAD",
       "GRAVITY", "GRAVITY_ANTI", "SINEWAVE", "CHAOTIC_ARC", "PINGPONG_PATH",
       "ALCOHOL_BLAST", "SEA_ALCOHOL", "HITFX_EXPLOSION_ALCOHOL",
-      "HITFX_EXPLOSION_ALCOHOL_GIGA"
+      "HITFX_EXPLOSION_ALCOHOL_GIGA", "FIZZLE"
     })
     wand.spread = wand.spread + Random(20, 30)
     wand.manaMax = wand.manaMax + Random(200, 300)
@@ -259,7 +271,7 @@ return {
   blood_worm = function(wand)
   local spells = merge_spells("blood_worm", {
       "CLIPPING_SHOT", "X_RAY", "MATTER_EATER", "LUMINOUS_DRILL", "LASER_LUMINOUS_DRILL",
-      "LANCE", "DIGGER", "POWERDIGGER", "BLACK_HOLE"
+      "LANCE", "DIGGER", "POWERDIGGER", "BLACK_HOLE", "ALL_BLACKHOLES"
       })
     add_spells_to_wand(wand, spells, math.min(Random(2, 5), math.floor(wand.capacity / 2)))
   end,
@@ -273,7 +285,7 @@ return {
   acid = function(wand)
     local spells = merge_spells("acid", {
       "ACIDSHOT", "CIRCLE_ACID", "MATERIAL_ACID", "CLIPPING_SHOT", "PIERCING_SHOT",
-      "TOXIC_TO_ACID", "SEA_ACID", "SEA_ACID_GAS", "CLOUD_ACID", "ACID_TRAIL"
+      "TOXIC_TO_ACID", "SEA_ACID", "SEA_ACID_GAS", "CLOUD_ACID", "ACID_TRAIL", "ALL_ACID"
     })
     wand.spellsPerCast = wand.spellsPerCast + Random(1, 2)
     add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity / 2)))
@@ -293,14 +305,14 @@ return {
     local spells = merge_spells("midas_precursor", {
       "LIGHT_BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER_2", "BULLET_TRIGGER", "HEAVY_BULLET_TRIGGER",
       "SLOW_BULLET_TRIGGER", "BUBBLESHOT_TRIGGER", "GRENADE_TRIGGER", "MINE_DEATH_TRIGGER", "PIPE_BOMB_DEATH_TRIGGER",
-      "TRANSMUTATION"
+      "TRANSMUTATION", "ADD_TRIGGER", "ADD_DEATH_TRIGGER"
     })
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(20, 40)
     wand.manaMax = math.floor(wand.manaMax * Randomf(1.01, 1.05))
     add_spells_to_wand(wand, spells, math.min(Random(5, 7), math.floor(wand.capacity * 0.5)))
   end,
   midas = function(wand)
-    local spells = merge_spells("midas", { "TOUCH_GOLD" })
+    local spells = merge_spells("midas", { "TOUCH_GOLD", "ALL_SPELLS" })
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(20, 40)
     wand.manaMax = math.floor(wand.manaMax * Randomf(1.05, 1.10))
     wand.capacity = math.min(26, wand.capacity + Random(1, 2))
@@ -308,20 +320,20 @@ return {
   end,
   -- freezing liquid
   blood_cold = function(wand)
-    local spells = merge_spells("blood_cold", { "PROPANE_TANK", "FREEZE_FIELD", "FREEZE" })
+    local spells = merge_spells("blood_cold", { "PROPANE_TANK", "FREEZE_FIELD", "FREEZE", "FREEZING_GAZE" })
     add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity * 0.5)))
   end,
 
   -- Optional Arcane Alchemy mod compatibility: https://steamcommunity.com/sharedfiles/filedetails/?id=2074171525
   AA_MAT_DARKMATTER = function(wand)
-    local spells = merge_spells("AA_MAT_DARKMATTER", { "BLACK_HOLE", "BLACK_HOLE_BIG", "AREA_DAMAGE" })
+    local spells = merge_spells("AA_MAT_DARKMATTER", { "BLACK_HOLE", "BLACK_HOLE_BIG", "AREA_DAMAGE", "ALL_BLACKHOLES" })
     wand.manaMax = wand.manaMax + Random(20, 40)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
   AA_MAT_HITSELF = function(wand)
     local spells = merge_spells("AA_MAT_HITSELF", {
       "TENTACLE_RAY", "TENTACLE_RAY_ENEMY", "FIREBALL_RAY", "FIREBALL_RAY_ENEMY", "PIERCING_SHOT", "HOMING_SHOOTER",
-      "TENTACLE_PORTAL"
+      "TENTACLE_PORTAL", "ALL_DISCS", "DISC_BULLET_BIG"
     })
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
@@ -338,7 +350,8 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
   AA_MAT_HUNGRY_SLIME = function(wand)
-    local spells = merge_spells("AA_MAT_HUNGRY_SLIME", { "MATTER_EATER", "BUBBLESHOT_TRIGGER", "BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER", "HEAVY_BULLET_TRIGGER", "SLOW_BULLET_TRIGGER" })
+    local spells = merge_spells("AA_MAT_HUNGRY_SLIME", { "MATTER_EATER", "BUBBLESHOT_TRIGGER", "BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER",
+      "HEAVY_BULLET_TRIGGER", "SLOW_BULLET_TRIGGER", "LARPA_UPWARDS", "LARPA_DOWNWARDS", "LARPA_CHAOS", "LARPA_CHAOS_2", "DUPLICATE" })
     wand.speedMultiplier = wand.speedMultiplier * Randomf(0.7, 0.9)
     add_spells_to_wand(wand, spells, math.min(Random(2, 4), math.floor(wand.capacity / 2)))
   end,
