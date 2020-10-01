@@ -40,6 +40,7 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
   end,
   urine = function(wand)
+    local spells = merge_spells("urine", {})
     -- Make wand piss constantly
     local new_entity = EntityCreateNew()
     EntityAddComponent(new_entity, "InheritTransformComponent", {
@@ -61,6 +62,7 @@ return {
     })
     EntitySetComponentIsEnabled(new_entity, emitter, false)
     EntityAddChild(wand.entity_id, new_entity)
+    add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
   end,
   magic_liquid_teleportation = function(wand)
      local spells = merge_spells("magic_liquid_teleportation", {
