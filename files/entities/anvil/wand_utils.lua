@@ -11,7 +11,12 @@ end
 
 -- Returns roughly the level of a wand
 function wand_compute_level(wand_id)
-	local wand = EZWand(wand_id)
+  local wand = EZWand(wand_id)
+  local ui_name = ComponentGetValue2(wand.ability_component, "ui_name")
+  if ui_name == "Bolt staff" or ui_name == "Bomb wand" then
+    -- Starter wand
+    return 0
+  end
 	local coalmine_wand_uniques = {
 		{ "data/items_gfx/wands/wand_0484.png", "Good Rapid bolt wand" },
 		{ "data/items_gfx/wands/wand_0654.png", "Good Rapid bolt wand" },
@@ -37,15 +42,18 @@ function wand_compute_level(wand_id)
   -- if mana max is 20x higher than charge speed, it's a "slow loader"
 	local wand_level = nil
 	local mana_max = wand.manaMax
-	local recharge_time = wand.rechargeTime
-	if mana_max > recharge_time * 20 then
-	local recharge_time = wand.rechargeTime
+	local mana_charge_speed = wand.manaChargeSpeed
+	if mana_max > mana_charge_speed * 20 then
 		-- it's a "slow loader" wand, convert it back to a normal wand
-		recharge_time = recharge_time * 5
+		mana_charge_speed = mana_charge_speed * 5
 		mana_max = mana_max / 3
-	end
+  elseif mana_max * 2.7 < mana_charge_speed then
+    -- it's a super fast charger with low max mana
+    mana_charge_speed = mana_charge_speed / 5
+		mana_max = mana_max * 3
+  end
 	-- Clamp the max level to 6 for now
-	return math.min(6, math.ceil(recharge_time / 55))
+	return math.min(6, math.ceil(mana_charge_speed / 55))
 end
 
 -- Merges two wands by averaging their stats
