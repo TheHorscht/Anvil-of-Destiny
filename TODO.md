@@ -1,5 +1,5 @@
 - FIX for 1.0:
-- Urine potion not doing anything
+- Sound stops working
 
 - IDEA for accelerat potion: Everytime you shoot the wand it has a small chance to apply the speed up effect to the wielder
 - IDEA2: Make it apply the effect on enemy kill with that wand

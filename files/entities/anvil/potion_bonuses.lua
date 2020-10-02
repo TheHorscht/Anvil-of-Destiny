@@ -49,6 +49,7 @@ return {
     })
     local emitter = EntityAddComponent(new_entity, "ParticleEmitterComponent", {
       _tags="enabled_in_hand",
+      _enabled="0",
       is_emitting="1",
       emitted_material_name="urine",
       emission_interval_min_frames="1",
@@ -59,7 +60,13 @@ return {
       is_trail="1",
       trail_gap="1",
       collide_with_grid="0",
+      x_vel_min="70",
+      x_vel_max="90",
+      y_vel_min="-5",
+      y_vel_max="5",
     })
+    ComponentSetValue2(emitter, "count_min", 2)
+    ComponentSetValue2(emitter, "count_max", 3)
     EntitySetComponentIsEnabled(new_entity, emitter, false)
     EntityAddChild(wand.entity_id, new_entity)
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
