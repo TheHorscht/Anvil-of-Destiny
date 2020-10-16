@@ -80,6 +80,15 @@ return {
      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
      add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
   end,
+  magic_liquid_unstable_teleportation = function(wand)
+    local spells = merge_spells("magic_liquid_teleportation", {
+     "DELAYED_SPELL", "LONG_DISTANCE_CAST", "TELEPORT_CAST", "TELEPORT_PROJECTILE",
+     "TELEPORT_PROJECTILE_STATIC", "TELEPORTATION_FIELD", "SUPER_TELEPORT_CAST"
+    })
+    wand.manaMax = wand.manaMax + Random(20, 50)
+    wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
+    add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+ end,
   oil = function(wand)
     local spells = merge_spells("oil", {
       "CIRCLE_OIL", "MATERIAL_OIL", "TOUCH_OIL", "RECOIL_DAMPER", "SEA_OIL",
@@ -148,12 +157,6 @@ return {
     })
     wand.rechargeTime = wand.rechargeTime - math.max(Random(1, 2), wand.rechargeTime * Randomf(0.08, 0.1))
     wand.castDelay = wand.castDelay - math.max(Random(1, 2), wand.castDelay * Randomf(0.08, 0.1))
-    EntityAddComponent(wand.entity_id, "LuaComponent", {
-      _tags="enabled_in_hand",
-      script_source_file="mods/anvil_of_destiny/files/entities/anvil/game_effect_applicator.lua",
-      execute_on_added="0",
-      execute_every_n_frame=tostring(Random(60 * 10, 60 * 30)),
-    })
     add_spells_to_wand(wand, spells, math.min(Random(2, 3), math.floor(wand.capacity / 2)))
   end,
   magic_liquid_faster_levitation = function(wand)

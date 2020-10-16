@@ -21,7 +21,7 @@ The potion effects are:
     Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
   - **__Water__**:
     Add water related spells, increase max mana.
-  - **__Teleportatium__**:
+  - **__Teleportatium / Unstable Teleportatium__**:
     Add teleport related spells, increase max mana and mana charge speed.
   - **__Oil__**:
     Add oil related spells, reduce recharge time and cast delay.

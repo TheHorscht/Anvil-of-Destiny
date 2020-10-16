@@ -20,7 +20,7 @@ The order in which you sacrifice items doesn't matter.
 Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
 [b]► Water ◄[/b]
 Add water related spells, increase max mana.
-[b]► Teleportatium ◄[/b]
+[b]► Teleportatium / Unstable Teleportatium ◄[/b]
 Add teleport related spells, increase max mana and mana charge speed.
 [b]► Oil ◄[/b]
 Add oil related spells, reduce recharge time and cast delay.

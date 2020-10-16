@@ -1,5 +1,6 @@
-- FIX for 1.0:
-- Fix altar scene
+- Add magic_liquid_unstable_teleportation
+- Add GUI Icon for wand speedup effect (blessing of the gods) and sparkles?
+
 - Sound stops working
 - Add runestones?
 - Add recipe for broken wand?
