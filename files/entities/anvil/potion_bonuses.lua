@@ -348,6 +348,15 @@ return {
     local spells = merge_spells("blood_cold", { "PROPANE_TANK", "FREEZE_FIELD", "FREEZE", "FREEZING_GAZE" })
     add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity * 0.5)))
   end,
+  vomit = function(wand)
+    local spells = merge_spells("vomit", {})
+    wand.manaChargeSpeed = wand.manaChargeSpeed * Randomf(0.4, 0.6)
+    wand.castDelay = Random(-40, -30)
+    wand.rechargeTime = Random(260, 340)
+    wand.spread = Randomf(50, 70)
+    wand.capacity = math.min(26, wand.capacity + Random(2, 3))
+    add_spells_to_wand(wand, spells, math.min(Random(4, 6), math.floor(wand.capacity * 0.5)))
+  end,
 
   -- Optional Arcane Alchemy mod compatibility: https://steamcommunity.com/sharedfiles/filedetails/?id=2074171525
   AA_MAT_DARKMATTER = function(wand)

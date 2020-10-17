@@ -76,6 +76,8 @@ Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5
 Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
 [b]► Freezing liquid ◄[/b]
 Add spells related to freezing.
+[b]► Vomit ◄[/b]
+Halve mana recharge speed, increase capacity slightly, set cast delay really low, recharge time and spread really high.
 
 [b]█▓▒░ Arcane Alchemy Potions ░▒▓█[/b]
 

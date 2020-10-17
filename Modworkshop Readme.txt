@@ -78,6 +78,8 @@ The potion effects are:
     Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
   - **__Freezing liquid__**:
     Add spells related to freezing.
+  - **__Vomit__**:
+    Halve mana recharge speed, increase capacity slightly, set cast delay really low, recharge time and spread really high.
 
   - **__--Arcane Alchemy Potions--__**:
   - **__Dark matter__**:
