@@ -360,8 +360,10 @@ function disable_interactivity(entity_id)
 	if audio_loop_component then
 		EntitySetComponentIsEnabled(entity_id, audio_loop_component, false)
 	end
-	local collision_trigger_components = EntityGetComponent(entity_id, "CollisionTriggerComponent") or {}
+	local collision_trigger_components = EntityGetComponentIncludingDisabled(entity_id, "CollisionTriggerComponent") or {}
 	for i, comp in ipairs(collision_trigger_components) do
+		local state = get_state(entity_id)
+		state.is_disabled = true
 		EntitySetComponentIsEnabled(entity_id, comp, false)
 	end
 	-- Remove damage checker component

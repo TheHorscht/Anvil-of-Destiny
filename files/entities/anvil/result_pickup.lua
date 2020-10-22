@@ -15,6 +15,7 @@ function item_pickup(entity_item, entity_pickupper, item_name)
     state.wands = 0
     state.potions = 0
     state.tablets = 0
+    state.is_disabled = false
     set_outline_emitter(anvil_id, false, {})
     set_runes_enabled(anvil_id, "emitter1_powered", false)
     set_runes_enabled(anvil_id, "emitter2_powered", false)

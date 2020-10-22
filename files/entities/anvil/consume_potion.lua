@@ -9,9 +9,12 @@ for i, var_store in ipairs(var_stores) do
     feed_anvil(entity_id, "potion", material_name)
   end
 end
-local collision_trigger_components = EntityGetComponentIncludingDisabled(entity_id, "CollisionTriggerComponent") or {}
-for i, comp in ipairs(collision_trigger_components) do
-  EntitySetComponentIsEnabled(entity_id, comp, true)
+local state = get_state(entity_id)
+if not state.is_disabled then
+  local collision_trigger_components = EntityGetComponentIncludingDisabled(entity_id, "CollisionTriggerComponent") or {}
+  for i, comp in ipairs(collision_trigger_components) do
+    EntitySetComponentIsEnabled(entity_id, comp, true)
+  end
 end
 
 EntityRemoveComponent(entity_id, GetUpdatedComponentID())
