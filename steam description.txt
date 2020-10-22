@@ -98,7 +98,7 @@ Add spells related to wood (burning, sawing, branching), increase max mana and m
 
 -----------------------
 
-You can tweak the anvil spawn chance and buff amount in:
+You can tweak the anvil spawn chance, buff amount and reusability in:
 C:\Program Files (x86)\Steam\steamapps\workshop\content\881100\1974488139\config.lua
 
 [h1]!! Attention !![/h1]
