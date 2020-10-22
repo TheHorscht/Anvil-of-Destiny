@@ -1,3 +1,4 @@
+dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
 local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 
@@ -59,11 +60,15 @@ function play_pouring_animation(anvil_id, material_name, x, y)
     name="potion_material",
     value_string=material_name,
   })
-  -- TODO: Add a check to see if this varstore is already on it for some reason?
-  EntityAddComponent2(anvil_id, "VariableStorageComponent", {
-    name="potion_material_poured",
-    value_string=material_name,
-  })
+  local potion_material_poured_var_store = get_variable_storage_component(anvil_id, "potion_material_poured")
+  if not potion_material_poured_var_store then
+    EntityAddComponent2(anvil_id, "VariableStorageComponent", {
+      name="potion_material_poured",
+      value_string=material_name,
+    })
+  else
+    ComponentSetValue2(potion_material_poured_var_store, "value_string", material_name)
+  end
   -- Add a script that should run after the animation is done that triggers the feeding/inpu the anvil
   -- The reason I'm doing it like this instead of at the end of the animation.lua is in case the animation somehow breaks,
   -- by e.g. restarting the game in the middle of it

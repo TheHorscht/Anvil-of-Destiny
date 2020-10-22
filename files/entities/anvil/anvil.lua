@@ -355,23 +355,22 @@ function buff_stored_wand(anvil_id)
 end
 
 function disable_interactivity(entity_id)
-  -- TODO: Dont remove collision trigger but instead luacomp?
-  edit_component(entity_id, "AudioLoopComponent", function(comp, vars)
-    EntityRemoveComponent(entity_id, comp)
-	end)
-	local collision_trigger_components = EntityGetComponentIncludingDisabled(entity_id, "CollisionTriggerComponent") or {}
+	-- TODO: Don't remove collision trigger but instead luacomp?
+	local audio_loop_component = EntityGetFirstComponent(entity_id, "AudioLoopComponent")
+	if audio_loop_component then
+		EntitySetComponentIsEnabled(entity_id, audio_loop_component, false)
+	end
+	local collision_trigger_components = EntityGetComponent(entity_id, "CollisionTriggerComponent") or {}
 	for i, comp in ipairs(collision_trigger_components) do
-		EntityRemoveComponent(entity_id, comp)
+		EntitySetComponentIsEnabled(entity_id, comp, false)
 	end
 	-- Remove damage checker component
-  local lua_components = EntityGetComponent(entity_id, "LuaComponent")
-  if lua_components ~= nil then
-    for i, v in ipairs(lua_components) do
-      if ComponentGetValue(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
-        EntityRemoveComponent(entity_id, v)
-        break
-      end
-    end
+  local lua_components = EntityGetComponent(entity_id, "LuaComponent") or {}
+	for i, v in ipairs(lua_components) do
+		if ComponentGetValue(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+			EntitySetComponentIsEnabled(entity_id, v, false)
+			break
+		end
 	end
 	remove_potion_input_place(entity_id)
 end

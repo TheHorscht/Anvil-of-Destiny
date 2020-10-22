@@ -23,3 +23,6 @@ config_altar_room_occurences_volcanobiome = 3.5
 config_regular_wand_buff = 0.5
 -- By how much a wand should get buffed with 2 tablets
 config_improved_wand_buff = 0.8
+
+-- Should the anvil be reusable? true or false, default false
+config_anvil_reusable = false

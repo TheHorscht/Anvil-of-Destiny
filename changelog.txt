@@ -1,3 +1,6 @@
+v1.13.0:
+- Add config option to make anvil reusable, which resets the anvil as soon as you pick up your reward wand
+
 v1.12.0:
 - Add vomit potion effect.
 
