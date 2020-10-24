@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{1cd76fdd-d698-08f8-068f-872813e12c0a}">
-        <property name="name">
-            <value>cave</value>
-        </property>
-        <relationship name="folder">
-            <destination>{25a058a7-3ebc-4281-bfc9-066405be64bc}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{5cd3a97d-5e12-4bff-b12c-4492e16aefab}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{5cd3a97d-5e12-4bff-b12c-4492e16aefab}">
-        <property name="isExposedRecursively">
-            <value>false</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{1cd76fdd-d698-08f8-068f-872813e12c0a}">
+		<property name="name">
+			<value>cave</value>
+		</property>
+		<relationship name="folder">
+			<destination>{25a058a7-3ebc-4281-bfc9-066405be64bc}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5cd3a97d-5e12-4bff-b12c-4492e16aefab}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5cd3a97d-5e12-4bff-b12c-4492e16aefab}">
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
 </objects>

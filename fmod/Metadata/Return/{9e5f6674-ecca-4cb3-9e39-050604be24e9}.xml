@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="MixerReturn" id="{9e5f6674-ecca-4cb3-9e39-050604be24e9}">
-        <property name="name">
-            <value>music_reverb</value>
-        </property>
-        <relationship name="effectChain">
-            <destination>{d91520ae-7b1d-4f76-ac71-be60b64bdb86}</destination>
-        </relationship>
-        <relationship name="panner">
-            <destination>{1409fa0f-b2f5-46da-89ba-2fa4978aa9b6}</destination>
-        </relationship>
-        <relationship name="output">
-            <destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusEffectChain" id="{d91520ae-7b1d-4f76-ac71-be60b64bdb86}">
-        <relationship name="effects">
-            <destination>{26738b0b-c76a-492d-88e7-3a1fe2b5c6e4}</destination>
-            <destination>{25279aef-51d7-4f58-a4a6-8d3b63efbe8e}</destination>
-            <destination>{72040953-705a-4470-9ac6-0ef65019a298}</destination>
-            <destination>{e99c6ff4-8af3-4051-b671-3b961fe13767}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusPanner" id="{1409fa0f-b2f5-46da-89ba-2fa4978aa9b6}"/>
-    <object class="DelayEffect" id="{26738b0b-c76a-492d-88e7-3a1fe2b5c6e4}">
-        <property name="bypass">
-            <value>true</value>
-        </property>
-        <property name="delay">
-            <value>600</value>
-        </property>
-        <property name="feedback">
-            <value>60</value>
-        </property>
-        <property name="level">
-            <value>-7.5</value>
-        </property>
-        <property name="dryLevel">
-            <value>-4</value>
-        </property>
-    </object>
-    <object class="SFXReverbEffect" id="{25279aef-51d7-4f58-a4a6-8d3b63efbe8e}">
-        <property name="decayTime">
-            <value>16500</value>
-        </property>
-        <property name="earlyDelay">
-            <value>32</value>
-        </property>
-        <property name="lateDelay">
-            <value>24</value>
-        </property>
-        <property name="HFReference">
-            <value>1800</value>
-        </property>
-        <property name="HFDecayRatio">
-            <value>88</value>
-        </property>
-        <property name="diffusion">
-            <value>38</value>
-        </property>
-        <property name="lowShelfFrequency">
-            <value>140</value>
-        </property>
-        <property name="lowShelfGain">
-            <value>3.5</value>
-        </property>
-        <property name="highCut">
-            <value>3000</value>
-        </property>
-        <property name="wetLevel">
-            <value>0</value>
-        </property>
-        <property name="dryLevel">
-            <value>-80</value>
-        </property>
-    </object>
-    <object class="MixerBusFader" id="{72040953-705a-4470-9ac6-0ef65019a298}"/>
-    <object class="MultibandEqEffect" id="{e99c6ff4-8af3-4051-b671-3b961fe13767}">
-        <property name="filterTypeB">
-            <value>5</value>
-        </property>
-        <property name="frequencyA">
-            <value>1800</value>
-        </property>
-        <property name="frequencyB">
-            <value>90</value>
-        </property>
-        <property name="qualityA">
-            <value>0.7961725</value>
-        </property>
-        <property name="qualityB">
-            <value>0.639999986</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{9e5f6674-ecca-4cb3-9e39-050604be24e9}">
+		<property name="name">
+			<value>music_reverb</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{d91520ae-7b1d-4f76-ac71-be60b64bdb86}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{1409fa0f-b2f5-46da-89ba-2fa4978aa9b6}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{d91520ae-7b1d-4f76-ac71-be60b64bdb86}">
+		<relationship name="effects">
+			<destination>{26738b0b-c76a-492d-88e7-3a1fe2b5c6e4}</destination>
+			<destination>{25279aef-51d7-4f58-a4a6-8d3b63efbe8e}</destination>
+			<destination>{72040953-705a-4470-9ac6-0ef65019a298}</destination>
+			<destination>{e99c6ff4-8af3-4051-b671-3b961fe13767}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{1409fa0f-b2f5-46da-89ba-2fa4978aa9b6}" />
+	<object class="DelayEffect" id="{26738b0b-c76a-492d-88e7-3a1fe2b5c6e4}">
+		<property name="bypass">
+			<value>true</value>
+		</property>
+		<property name="delay">
+			<value>600</value>
+		</property>
+		<property name="feedback">
+			<value>60</value>
+		</property>
+		<property name="level">
+			<value>-7.5</value>
+		</property>
+		<property name="dryLevel">
+			<value>-4</value>
+		</property>
+	</object>
+	<object class="SFXReverbEffect" id="{25279aef-51d7-4f58-a4a6-8d3b63efbe8e}">
+		<property name="decayTime">
+			<value>16500</value>
+		</property>
+		<property name="earlyDelay">
+			<value>32</value>
+		</property>
+		<property name="lateDelay">
+			<value>24</value>
+		</property>
+		<property name="HFReference">
+			<value>1800</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>88</value>
+		</property>
+		<property name="diffusion">
+			<value>38</value>
+		</property>
+		<property name="lowShelfFrequency">
+			<value>140</value>
+		</property>
+		<property name="lowShelfGain">
+			<value>3.5</value>
+		</property>
+		<property name="highCut">
+			<value>3000</value>
+		</property>
+		<property name="wetLevel">
+			<value>0</value>
+		</property>
+		<property name="dryLevel">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{72040953-705a-4470-9ac6-0ef65019a298}" />
+	<object class="MultibandEqEffect" id="{e99c6ff4-8af3-4051-b671-3b961fe13767}">
+		<property name="filterTypeB">
+			<value>5</value>
+		</property>
+		<property name="frequencyA">
+			<value>1800</value>
+		</property>
+		<property name="frequencyB">
+			<value>90</value>
+		</property>
+		<property name="qualityA">
+			<value>0.7961725</value>
+		</property>
+		<property name="qualityB">
+			<value>0.639999986</value>
+		</property>
+	</object>
 </objects>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{04765f98-f402-4c1d-9f6f-9f5c3dafc792}">
-        <property name="name">
-            <value>altitude_normalized</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{480f3b60-f657-4e06-93b0-071b284a3b08}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{480f3b60-f657-4e06-93b0-071b284a3b08}">
-        <property name="minimum">
-            <value>-1</value>
-        </property>
-        <property name="initialValue">
-            <value>0</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{04765f98-f402-4c1d-9f6f-9f5c3dafc792}">
+		<property name="name">
+			<value>altitude_normalized</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{480f3b60-f657-4e06-93b0-071b284a3b08}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{480f3b60-f657-4e06-93b0-071b284a3b08}">
+		<property name="minimum">
+			<value>-1</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
 </objects>

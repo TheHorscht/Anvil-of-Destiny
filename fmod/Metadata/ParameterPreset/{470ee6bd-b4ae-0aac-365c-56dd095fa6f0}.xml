@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{470ee6bd-b4ae-0aac-365c-56dd095fa6f0}">
-        <property name="name">
-            <value>lowpass</value>
-        </property>
-        <relationship name="folder">
-            <destination>{2434d562-4e89-4572-9512-386e1e78dcba}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{070a201d-3c24-49ab-81ff-9567fbd46551}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{070a201d-3c24-49ab-81ff-9567fbd46551}">
-        <property name="seekSpeedDescending">
-            <value>1.9999998807907104</value>
-        </property>
-        <property name="seekSpeedAsymmetric">
-            <value>true</value>
-        </property>
-        <property name="isExposedRecursively">
-            <value>false</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{470ee6bd-b4ae-0aac-365c-56dd095fa6f0}">
+		<property name="name">
+			<value>lowpass</value>
+		</property>
+		<relationship name="folder">
+			<destination>{2434d562-4e89-4572-9512-386e1e78dcba}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{070a201d-3c24-49ab-81ff-9567fbd46551}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{070a201d-3c24-49ab-81ff-9567fbd46551}">
+		<property name="seekSpeedDescending">
+			<value>1.9999998807907104</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
 </objects>

@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{5e670ae6-50a7-4409-82ec-18c5b8b55705}">
-        <property name="name">
-            <value>speed</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{3eb67ad3-171d-4fdf-ab7c-58b6a8cd238c}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{3eb67ad3-171d-4fdf-ab7c-58b6a8cd238c}">
-        <property name="maximum">
-            <value>10</value>
-        </property>
-        <property name="initialValue">
-            <value>0</value>
-        </property>
-        <property name="seekSpeed">
-            <value>20</value>
-        </property>
-        <property name="seekSpeedDescending">
-            <value>7.6999993324279785</value>
-        </property>
-        <property name="seekSpeedAsymmetric">
-            <value>true</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{5e670ae6-50a7-4409-82ec-18c5b8b55705}">
+		<property name="name">
+			<value>speed</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{3eb67ad3-171d-4fdf-ab7c-58b6a8cd238c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{3eb67ad3-171d-4fdf-ab7c-58b6a8cd238c}">
+		<property name="maximum">
+			<value>10</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>20</value>
+		</property>
+		<property name="seekSpeedDescending">
+			<value>7.6999993324279785</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
 </objects>

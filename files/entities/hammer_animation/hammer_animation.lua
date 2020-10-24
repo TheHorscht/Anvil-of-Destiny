@@ -31,7 +31,7 @@ async(function()
       EntitySetTransform(entity_id, x, y, rot)
       spawn_sparks()
       local event_x, event_y = x - scale_x * 46, y + 10
-      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit"..Random(1,3), event_x, event_y)
+      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", event_x, event_y)
       GameScreenshake(8, event_x, event_y)
       break
     end

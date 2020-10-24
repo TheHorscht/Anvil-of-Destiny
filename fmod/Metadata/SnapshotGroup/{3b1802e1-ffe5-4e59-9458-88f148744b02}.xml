@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="SnapshotList" id="{3b1802e1-ffe5-4e59-9458-88f148744b02}">
-        <relationship name="items">
-            <destination>{310cecea-3674-4ea8-a6ac-2a8facd05638}</destination>
-            <destination>{dadeda7a-c13b-484b-929e-d3c513e7173b}</destination>
-            <destination>{fcb63c0a-331d-44e6-bf64-cfa8c5b6e6e7}</destination>
-            <destination>{a0219622-35b0-4a2d-8de4-650884606931}</destination>
-            <destination>{c9b0b78b-9869-4058-91fb-73188f7b9103}</destination>
-            <destination>{bc5e80f9-a380-47c9-8799-3e02eea94feb}</destination>
-            <destination>{8c3abc6b-141a-42fe-9d0f-eefcf03cd52f}</destination>
-            <destination>{2aa42396-4f12-4e40-9319-c51683cc06d1}</destination>
-            <destination>{53a7180c-9635-4a37-a2b8-fb8001ac66ff}</destination>
-        </relationship>
-        <relationship name="mixer">
-            <destination>{7fde5421-f3cc-4733-a1af-e252d2eae830}</destination>
-        </relationship>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="SnapshotList" id="{3b1802e1-ffe5-4e59-9458-88f148744b02}">
+		<relationship name="items">
+			<destination>{310cecea-3674-4ea8-a6ac-2a8facd05638}</destination>
+			<destination>{dadeda7a-c13b-484b-929e-d3c513e7173b}</destination>
+			<destination>{fcb63c0a-331d-44e6-bf64-cfa8c5b6e6e7}</destination>
+			<destination>{a0219622-35b0-4a2d-8de4-650884606931}</destination>
+			<destination>{c9b0b78b-9869-4058-91fb-73188f7b9103}</destination>
+			<destination>{bc5e80f9-a380-47c9-8799-3e02eea94feb}</destination>
+			<destination>{8c3abc6b-141a-42fe-9d0f-eefcf03cd52f}</destination>
+			<destination>{2aa42396-4f12-4e40-9319-c51683cc06d1}</destination>
+			<destination>{53a7180c-9635-4a37-a2b8-fb8001ac66ff}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{7fde5421-f3cc-4733-a1af-e252d2eae830}</destination>
+		</relationship>
+	</object>
 </objects>

@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="MixerGroup" id="{f34de4a2-1c20-4c14-99a0-eeb17d2f30a1}">
-        <property name="volume">
-            <value>-80</value>
-        </property>
-        <property name="name">
-            <value>ambient</value>
-        </property>
-        <relationship name="effectChain">
-            <destination>{b7466e1b-c97c-4dc3-b92f-e020bf17314a}</destination>
-        </relationship>
-        <relationship name="panner">
-            <destination>{c60b9376-c681-4d23-98c9-a6cc4c1f7951}</destination>
-        </relationship>
-        <relationship name="output">
-            <destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusEffectChain" id="{b7466e1b-c97c-4dc3-b92f-e020bf17314a}">
-        <relationship name="effects">
-            <destination>{d352b902-0dc0-4271-bc27-65ef2a57acc6}</destination>
-            <destination>{a6effb66-44e5-4a10-ad14-d7b9f72e6569}</destination>
-            <destination>{7efea085-7fab-4fde-887a-9667afa1e206}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusPanner" id="{c60b9376-c681-4d23-98c9-a6cc4c1f7951}"/>
-    <object class="CompressorEffect" id="{d352b902-0dc0-4271-bc27-65ef2a57acc6}">
-        <property name="threshold">
-            <value>-40</value>
-        </property>
-        <property name="ratio">
-            <value>2.49999976</value>
-        </property>
-        <property name="attackTime">
-            <value>500</value>
-        </property>
-        <property name="releaseTime">
-            <value>2600</value>
-        </property>
-        <property name="sidechainEnabled">
-            <value>true</value>
-        </property>
-    </object>
-    <object class="MixerSend" id="{a6effb66-44e5-4a10-ad14-d7b9f72e6569}">
-        <property name="level">
-            <value>-17</value>
-        </property>
-        <property name="inputFormat">
-            <value>0</value>
-        </property>
-        <relationship name="mixerReturn">
-            <destination>{c77e6e4c-f45c-48ef-911b-7981915e0fd8}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusFader" id="{7efea085-7fab-4fde-887a-9667afa1e206}"/>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{f34de4a2-1c20-4c14-99a0-eeb17d2f30a1}">
+		<property name="volume">
+			<value>-80</value>
+		</property>
+		<property name="name">
+			<value>ambient</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b7466e1b-c97c-4dc3-b92f-e020bf17314a}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c60b9376-c681-4d23-98c9-a6cc4c1f7951}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b7466e1b-c97c-4dc3-b92f-e020bf17314a}">
+		<relationship name="effects">
+			<destination>{d352b902-0dc0-4271-bc27-65ef2a57acc6}</destination>
+			<destination>{a6effb66-44e5-4a10-ad14-d7b9f72e6569}</destination>
+			<destination>{7efea085-7fab-4fde-887a-9667afa1e206}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c60b9376-c681-4d23-98c9-a6cc4c1f7951}" />
+	<object class="CompressorEffect" id="{d352b902-0dc0-4271-bc27-65ef2a57acc6}">
+		<property name="threshold">
+			<value>-40</value>
+		</property>
+		<property name="ratio">
+			<value>2.49999976</value>
+		</property>
+		<property name="attackTime">
+			<value>500</value>
+		</property>
+		<property name="releaseTime">
+			<value>2600</value>
+		</property>
+		<relationship name="sidechains">
+			<destination>{d29ae93b-90d0-4583-9639-8d984043dcef}</destination>
+			<destination>{d5c8f616-2951-4904-9629-e0ee487d6ef1}</destination>
+		</relationship>
+	</object>
+	<object class="MixerSend" id="{a6effb66-44e5-4a10-ad14-d7b9f72e6569}">
+		<property name="level">
+			<value>-17</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{c77e6e4c-f45c-48ef-911b-7981915e0fd8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusFader" id="{7efea085-7fab-4fde-887a-9667afa1e206}" />
 </objects>

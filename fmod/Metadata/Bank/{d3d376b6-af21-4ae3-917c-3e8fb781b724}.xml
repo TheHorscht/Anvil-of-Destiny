@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="MasterBank" id="{d3d376b6-af21-4ae3-917c-3e8fb781b724}">
-        <relationship name="folder">
-            <destination>{4bb0a508-e74c-455d-9cab-f38f6313e76d}</destination>
-        </relationship>
-        <relationship name="audioTable">
-            <destination>{729ed701-e37d-4bc5-a7c3-9dba3ffbfb7c}</destination>
-        </relationship>
-    </object>
-    <object class="AudioTable" id="{729ed701-e37d-4bc5-a7c3-9dba3ffbfb7c}">
-        <property name="name">
-            <value>Audio Table</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="Bank" id="{d3d376b6-af21-4ae3-917c-3e8fb781b724}">
+		<property name="name">
+			<value>Master Bank</value>
+		</property>
+		<property name="isMasterBank">
+			<value>true</value>
+		</property>
+		<relationship name="folder">
+			<destination>{4bb0a508-e74c-455d-9cab-f38f6313e76d}</destination>
+		</relationship>
+		<relationship name="audioTable">
+			<destination>{729ed701-e37d-4bc5-a7c3-9dba3ffbfb7c}</destination>
+		</relationship>
+	</object>
+	<object class="AudioTable" id="{729ed701-e37d-4bc5-a7c3-9dba3ffbfb7c}">
+		<property name="name">
+			<value>Audio Table</value>
+		</property>
+	</object>
 </objects>

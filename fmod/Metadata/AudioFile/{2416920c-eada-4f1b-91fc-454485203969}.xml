@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.00.00">
-	<object class="AudioFile" id="{e3dfa181-1f55-437c-ac99-0f51b08eb4cf}">
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{2416920c-eada-4f1b-91fc-454485203969}">
 		<property name="assetPath">
 			<value>bells.wav</value>
 		</property>
