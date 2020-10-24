@@ -70,7 +70,7 @@
   </LuaComponent>
 
   <AudioLoopComponent
-    file="data/audio/Desktop/projectiles.snd"
+    file="data/audio/Desktop/projectiles.bank"
     event_name="projectiles/fuse_burn_slow"
     auto_play="1">
   </AudioLoopComponent>

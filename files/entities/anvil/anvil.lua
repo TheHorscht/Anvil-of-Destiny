@@ -187,7 +187,7 @@ function feed_anvil(anvil_id, what, context_data)
 	end
 
 	update_emitters(anvil_id, what)
-	GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "jingle", x, y)
+	GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "jingle", x, y)
 	
   local current_state = state.potions
   current_state = current_state .. "_" .. state.tablets

@@ -21,7 +21,7 @@ local result_entity_id = retrieve_result()
 if result_entity_id == -1 then
   EntityLoad("mods/anvil_of_destiny/files/entities/holy_bomb/floating.xml", x + 3, y - 22)
   GamePrintImportant("A gift from the gods...?", "Or is it?")
-  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "fanfare", x + 4, y - 10)
+  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "fanfare", x + 4, y - 10)
 else
   EntityRemoveFromParent(result_entity_id)
   EZWand(result_entity_id):PlaceAt(x + 4, y - 10)
@@ -32,5 +32,5 @@ else
     })
   end
   GamePrintImportant("A gift from the gods", "")
-  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "fanfare", x + 4, y - 10)
+  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "fanfare", x + 4, y - 10)
 end

@@ -33,9 +33,9 @@ async(function()
       alpha=1,
     })
     if v.number == 5 then
-      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "tick_high", x, y)
+      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "tick_high", x, y)
     else
-      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.snd", "tick_low", x, y)
+      GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "tick_low", x, y)
     end
 
     local alpha = ComponentGetValue(sprite_component, "alpha")

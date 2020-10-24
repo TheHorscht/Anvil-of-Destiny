@@ -29,7 +29,7 @@ async(function()
     step = clamp(step, 0, 1)
     EntitySetTransform(entity_id, x, y, -rot * (math.pi / 180 * 135))
   end
-  GamePlaySound("data/audio/Desktop/materials.snd", "materials/liquid_splash", x, y)
+  GamePlaySound("data/audio/Desktop/materials.bank", "materials/liquid_splash", x, y)
   -- Do particle pouring
   local offset_x = -6
   local offset_y = -14
