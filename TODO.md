@@ -1,3 +1,5 @@
+- Wand with always cast + normal wand always produces output wand with SAME always cast?
+
 - Add magic_liquid_unstable_teleportation
 - Add GUI Icon for wand speedup effect (blessing of the gods) and sparkles?
 
