@@ -148,7 +148,7 @@ return {
     if wand.manaChargeSpeed < 30 then
       wand.manaChargeSpeed = wand.manaChargeSpeed + Random(40, 60)
     else
-    wand.manaChargeSpeed = wand.manaChargeSpeed + Random(80, 120)
+      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(80, 120)
     end
     add_spells_to_wand(wand, spells, Random(0, 1))
   end,
@@ -174,12 +174,6 @@ return {
     local spells = merge_spells("magic_liquid_faster_levitation_and_movement", {
       "RECHARGE", "LIFETIME", "LIFETIME_DOWN", "LIGHT_SHOT", "KNOCKBACK", "RECOIL",
       "SPEED", "ACCELERATING_SHOT"
-    })
-    EntityAddComponent(wand.entity_id, "LuaComponent", {
-      _tags="enabled_in_hand",
-      script_source_file="mods/anvil_of_destiny/files/entities/anvil/game_effect_applicator.lua",
-      execute_on_added="0",
-      execute_every_n_frame=tostring(Random(60 * 10, 60 * 30)),
     })
     wand.rechargeTime = wand.rechargeTime - math.max(Random(2, 4), wand.rechargeTime * Randomf(0.16, 0.2))
     wand.castDelay = wand.castDelay - math.max(Random(2, 4), wand.castDelay * Randomf(0.16, 0.2))

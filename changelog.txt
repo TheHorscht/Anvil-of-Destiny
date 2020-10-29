@@ -1,5 +1,6 @@
-v1.14.0:
+UNRELEASED:
 - Reduce concentrated mana bonus for wands with under 30 mana charge speed.
+- Remove speed up effect for hastium potion bonus.
 
 v1.13.1:
 - Fix a bug the previous version introduced.
