@@ -145,7 +145,11 @@ return {
   end,
   magic_liquid_mana_regeneration = function(wand)
     local spells = merge_spells("magic_liquid_mana_regeneration", { "MANA_REDUCE" })
+    if wand.manaChargeSpeed < 30 then
+      wand.manaChargeSpeed = wand.manaChargeSpeed + Random(40, 60)
+    else
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(80, 120)
+    end
     add_spells_to_wand(wand, spells, Random(0, 1))
   end,
   magic_liquid_movement_faster = function(wand)
