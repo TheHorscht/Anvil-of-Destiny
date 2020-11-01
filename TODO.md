@@ -1,3 +1,4 @@
+- Same spells always get added, check randomseed shit?
 - Wand with always cast + normal wand always produces output wand with SAME always cast?
 
 - Add magic_liquid_unstable_teleportation
