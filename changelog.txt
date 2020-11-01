@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.13.2:
 - Change spell random seed code slightly to hopefully prevent same spells being added everytime
 - Reduce concentrated mana bonus for wands with under 30 mana charge speed.
 - Remove speed up effect for hastium potion bonus.
