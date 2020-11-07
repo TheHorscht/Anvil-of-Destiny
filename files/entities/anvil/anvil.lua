@@ -153,6 +153,36 @@ local state_strings = {
 	["0_3_0"] = "ttt",
 }
 
+function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
+	SetRandomSeed(GameGetFrameNum() + x + wand1.entity_id, GameGetFrameNum() + y + wand2.entity_id)
+	local new_wand = wand_merge(wand1, wand2)
+	local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
+	local wand1_spell_count = #wand1:GetSpells()
+	local wand2_spell_count = #wand2:GetSpells()
+	-- 100% of the highest spellcount wand and 50% of the lower, so if wand1 has 20 spells and wand2 has 20, result should have 30
+	local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
+	spell_count_to_add = spell_count_to_add + Random(-1, 3)
+	if spell_count_to_add <= 0 then
+		spell_count_to_add = 1
+	end
+
+	wand_fill_with_semi_random_spells(new_wand,
+		spell_count_to_add,
+		spell_stats.average_attached_spell_count,
+		spell_stats.average_spell_level,
+		spell_stats.average_attached_spell_level,
+		Random()*100, Random()*100)
+	buff_wand(new_wand, config_regular_wand_buff, true)
+	local wand_level = wand_compute_level(new_wand.entity_id)
+	for i=1, attach_spells_count do
+		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
+		new_wand:AttachSpells(action)
+	end
+	new_wand:UpdateSprite()
+	return new_wand.entity_id
+end
+
 function feed_anvil(anvil_id, what, context_data)
 	-- context_data contains the entity_id in case of wand and tablet or the material name in case of potion
 	local state = get_state(anvil_id)
@@ -198,35 +228,7 @@ function feed_anvil(anvil_id, what, context_data)
 		local stored_wand_id1 = retrieve_wand(anvil_id, 1)
 		local stored_wand_id2 = retrieve_wand(anvil_id, 2)
 		local success, new_wand_id = pcall(function()
-			SetRandomSeed(GameGetFrameNum(), x + y + stored_wand_id1 + stored_wand_id2)
-			local attach_spells_count = state.tablets
-			local wand1 = EZWand(stored_wand_id1)
-			local wand2 = EZWand(stored_wand_id2)
-			local new_wand = wand_merge(wand1, wand2)
-			local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
-			local wand1_spell_count = #wand1:GetSpells()
-			local wand2_spell_count = #wand2:GetSpells()
-			-- 100% of the highest spellcount wand and 50% of the lower, so if wand1 has 20 spells and wand2 has 20, result should have 30
-			local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
-			spell_count_to_add = spell_count_to_add + Random(-1, 3)
-			if spell_count_to_add <= 0 then
-				spell_count_to_add = 1
-			end
-			wand_fill_with_semi_random_spells(new_wand,
-				spell_count_to_add,
-				spell_stats.average_attached_spell_count,
-				spell_stats.average_spell_level,
-				spell_stats.average_attached_spell_level,
-				Random()*100, Random()*100)
-			buff_wand(new_wand, config_regular_wand_buff, true)
-			local wand_level = wand_compute_level(new_wand.entity_id)
-			for i=1, attach_spells_count do
-				local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
-				local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
-				new_wand:AttachSpells(action)
-			end
-			new_wand:UpdateSprite()
-			return new_wand.entity_id
+			return combine_two_wands(x, y, EZWand(stored_wand_id1), EZWand(stored_wand_id2), state.tablets)
 		end)
 		if not success then
 			error("Anvil of Destiny error: " .. new_wand_id)

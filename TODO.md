@@ -1,3 +1,5 @@
+- FIX wand sprite shoot offsets not working?
+- FIX still getting same spells?
 - Add magic_liquid_unstable_teleportation
 - Add GUI Icon for wand speedup effect (blessing of the gods) and sparkles?
 

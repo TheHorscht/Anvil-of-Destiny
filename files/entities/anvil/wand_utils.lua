@@ -56,7 +56,7 @@ function wand_compute_level(wand_id)
 	return math.min(6, math.ceil(mana_charge_speed / 55))
 end
 
--- Merges two wands by averaging their stats
+-- Creates a new empty wand by merges two input wands by averaging their stats
 function wand_merge(wand1, wand2)
 	local new_wand = EZWand{
 		shuffle = randround((wand1.shuffle + wand2.shuffle) / 2),
@@ -104,8 +104,8 @@ end
 
 -- Fills a wand with spells that aren't too chaotic, based on level and "controlled" randomness
 -- wand_fill_with_semi_random_spells(new_wand, spells_to_add_count, attached_spells_to_add_count, average_spell_level, average_attached_spells_level)
-function wand_fill_with_semi_random_spells(wand, spells_count, attached_spells_count, spells_level, attached_spells_level, seed_x, seed_y)
-	spells_count = math.min(wand.capacity, spells_count)
+function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_spells_count, spells_level, attached_spells_level, seed_x, seed_y)
+	spell_amount_to_add = math.min(wand.capacity - wand:GetSpellsCount(), spell_amount_to_add)
 	SetRandomSeed(seed_x, seed_y)
   for i=1, attached_spells_count do
 		local action_type = get_random_action_type(8, 2, 2, Random()*100, Random()*100, Random()*100)
@@ -124,8 +124,8 @@ function wand_fill_with_semi_random_spells(wand, spells_count, attached_spells_c
 
 	local action = nil
 	local action_type = nil
-  local guaranteed_projectile_index = Random(1, spells_count)
-  for i=1, spells_count do
+  local guaranteed_projectile_index = Random(1, spell_amount_to_add)
+  for i=1, spell_amount_to_add do
 		-- Give the wand at least one projectile it has enough mana to cast
 		if i == guaranteed_projectile_index then
 			action = GetRandomActionWithType(seed_x, seed_y, randomly_alter_level(spells_level), ACTION_TYPE_PROJECTILE, Random()*100)
