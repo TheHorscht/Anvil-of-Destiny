@@ -8,6 +8,7 @@ You can throw wands and items by opening your inventory and dragging�
 [img]https://i.imgur.com/XE0WNeK.png[/img]
 
 In other words, adding one tablet will add a random always cast spell to the resulting wand.
+When merging two wands, two of the following stats will randomly get buffed while 1 gets nerfed: Cast delay, Recharge time, Spread.
 Potions need to be at least 80% full of the material.
 To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
 

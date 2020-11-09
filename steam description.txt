@@ -5,6 +5,7 @@ Just open your inventory and drag your wands out to throw them onto the anvil.
 [img]https://i.imgur.com/XE0WNeK.png[/img]
 
 In other words, adding one tablet will add a random always cast spell to the resulting wand.
+When merging two wands, two of the following stats will randomly get buffed while 1 gets nerfed: Cast delay, Recharge time, Spread.
 Potions need to be at least 80% full of the material.
 To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
 Spells from potion recipes can only be added to the wand if there is enough free space, if not it will not overwrite already existing spells and it will only apply the remaining bonus (if any).

@@ -1,3 +1,7 @@
+v1.13.2:
+- config_regular_wand_buff and config_improved_wand_buff now affect mana recharge speed
+- Wand capacity will no longer be reduced when merging 2 wands or buffing 1 wand via 2 tablets. (Potions are unchanged).
+
 v1.13.1:
 - Fix a bug the previous version introduced.
 

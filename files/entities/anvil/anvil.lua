@@ -10,27 +10,24 @@ dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/wand_utils.lua")
 local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
 
-function buff_wand(wand, buff_amount, reduce_one_stat)
+-- Diminishes the bonus by scale if it's above threshold
+local function limit_buff(value, threshold, scale)
+	if value > threshold then
+		value = threshold + (value - threshold) * scale
+	end
+	return value
+end
+
+function buff_wand(wand, buff_amount, mana_charge_speed_bonus_scale, reduce_one_stat)
 	local rng = create_normalized_random_distribution(3, 0.1)
 	-- one of castDelay rechargeTime or spread should get nerfed, the other 2 buffed
 	local randIndex = Random(1, #rng)
 	if reduce_one_stat then
 		rng[randIndex] = rng[randIndex] * -1
 	end
-	-- Diminishes the bonus by scale if it's above threshold
-	local function limit_buff(value, threshold, scale)
-		if value > threshold then
-			value = threshold + value * scale
-		end
-		return value
-	end
-	wand.manaChargeSpeed = wand.manaChargeSpeed + Random(45, 60)
+	wand.manaChargeSpeed = wand.manaChargeSpeed + Random(45, 60) * mana_charge_speed_bonus_scale --  * limit_buff(2 * buff_amount, 1, 0.2)
 	local bonus_mana = wand.manaMax * (1.05 + Random() * 0.1) * buff_amount
 	wand.manaMax = wand.manaMax + limit_buff(bonus_mana, 50, 0.2)
-	local function apply_buff_percent(value, max_change, direction, buff_amount)
-		return value + max_change * direction * buff_amount
-	end
-
 	wand.castDelay = wand.castDelay - math.ceil(10 * rng[1] * buff_amount)
 	wand.rechargeTime = wand.rechargeTime - math.ceil(10 * rng[2] * buff_amount)
 	wand.spread = wand.spread - 15 * rng[3] * buff_amount
@@ -47,8 +44,6 @@ function buff_wand(wand, buff_amount, reduce_one_stat)
 		wand.capacity = wand.capacity + 2
 	elseif rand < 0.35 then
 		wand.capacity = wand.capacity + 1
-	elseif rand < 0.70 and wand.capacity > 1 then
-		wand.capacity = wand.capacity - 1
 	end
 	-- Limit capacity to 26 but not if the old capacity is higher, we don't want to reduce it
 	wand.capacity = math.max(old_capacity, math.min(26, wand.capacity))
@@ -172,7 +167,7 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 		spell_stats.average_spell_level,
 		spell_stats.average_attached_spell_level,
 		Random()*100, Random()*100)
-	buff_wand(new_wand, config_regular_wand_buff, true)
+	buff_wand(new_wand, config_regular_wand_buff, config_regular_wand_buff * 2, true)
 	local wand_level = wand_compute_level(new_wand.entity_id)
 	for i=1, attach_spells_count do
 		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
@@ -347,7 +342,7 @@ function buff_stored_wand(anvil_id)
   local success, new_wand_id = pcall(function()
     set_random_seed_with_player_position()
     local variation = 0.1 - Random() * 0.2
-    return buff_wand(stored_wand, config_improved_wand_buff + variation, false)
+    return buff_wand(stored_wand, config_improved_wand_buff + variation, config_improved_wand_buff * 1.25, false)
   end)
   if not success then
     -- If the call was not successful, new_wand_id contains the error message
