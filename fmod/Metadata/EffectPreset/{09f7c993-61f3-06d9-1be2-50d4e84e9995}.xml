@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="EffectPreset" id="{09f7c993-61f3-06d9-1be2-50d4e84e9995}">
-        <property name="name">
-            <value>Send (2)</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c8821c06-ec1f-07df-2c41-a295eaf7cfb0}</destination>
-        </relationship>
-        <relationship name="effect">
-            <destination>{3691066a-6ed7-441a-9a32-5123e4d2409a}</destination>
-        </relationship>
-    </object>
-    <object class="MixerSend" id="{3691066a-6ed7-441a-9a32-5123e4d2409a}">
-        <property name="inputFormat">
-            <value>2</value>
-        </property>
-        <relationship name="mixerReturn">
-            <destination>{8340afee-1bfb-481c-8b65-a1721703356c}</destination>
-        </relationship>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="EffectPreset" id="{09f7c993-61f3-06d9-1be2-50d4e84e9995}">
+		<property name="name">
+			<value>Send (2)</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c8821c06-ec1f-07df-2c41-a295eaf7cfb0}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{3691066a-6ed7-441a-9a32-5123e4d2409a}</destination>
+		</relationship>
+	</object>
+	<object class="MixerSend" id="{3691066a-6ed7-441a-9a32-5123e4d2409a}">
+		<property name="inputFormat">
+			<value>2</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{8340afee-1bfb-481c-8b65-a1721703356c}</destination>
+		</relationship>
+	</object>
 </objects>

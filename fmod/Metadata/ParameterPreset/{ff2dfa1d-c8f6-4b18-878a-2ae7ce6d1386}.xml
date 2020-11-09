@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{ff2dfa1d-c8f6-4b18-878a-2ae7ce6d1386}">
-        <property name="name">
-            <value>heavy_intensity</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{a9c7061e-ad99-4f0d-bf29-e1b4473d167d}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{a9c7061e-ad99-4f0d-bf29-e1b4473d167d}">
-        <property name="initialValue">
-            <value>0</value>
-        </property>
-        <property name="seekSpeed">
-            <value>0.37000003457069397</value>
-        </property>
-        <property name="seekSpeedDescending">
-            <value>0.10000000894069672</value>
-        </property>
-        <property name="seekSpeedAsymmetric">
-            <value>true</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{ff2dfa1d-c8f6-4b18-878a-2ae7ce6d1386}">
+		<property name="name">
+			<value>heavy_intensity</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{a9c7061e-ad99-4f0d-bf29-e1b4473d167d}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{a9c7061e-ad99-4f0d-bf29-e1b4473d167d}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.37000003457069397</value>
+		</property>
+		<property name="seekSpeedDescending">
+			<value>0.10000000894069672</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
 </objects>

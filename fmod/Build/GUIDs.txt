@@ -1,32 +1,35 @@
-{3fc20a9a-e9f0-4fd3-914c-c92fe3ce1bfd} event:/fanfare
-{0c0c00be-4e78-4aac-8351-89efb1fb97d8} event:/high_drone
-{82cf078d-5be0-485a-a6d0-beaaa2f26ff1} event:/jingle
-{261ab20f-abc5-4fe2-b6d9-1dcabd039979} event:/tick_high
-{5cc284fc-0fb2-4a0b-9edf-39581647974f} event:/tick_low
-{81ae505a-a9cb-4fcb-b90f-f06639c83e14} event:/hammer_hit1
-{be9e9238-a7d9-40e1-968f-a5547d173d8e} event:/hammer_hit2
-{e0489a4d-8f22-45b3-93b8-0392b464d57d} event:/hammer_hit3
+{d3d376b6-af21-4ae3-917c-3e8fb781b724} bank:/Master Bank
+{4bce5662-de5a-06a1-1735-b4714672b1bc} bank:/Master Bank.strings
+{dc520172-89f8-4e5c-8916-363bea2b81a3} bank:/anvil_of_destiny
 {fd1ec6a6-24b7-4a2e-9988-9733b99dc81e} bus:/
-{f34de4a2-1c20-4c14-99a0-eeb17d2f30a1} bus:/ambient
-{af5b14c7-ccc0-43a9-aa70-65cd8f5344a4} bus:/game_sfx
-{4686115c-5062-400a-b903-d03d5c45527e} bus:/music
-{5499ef15-f83e-4e92-9144-d53eab549f87} bus:/music_intro_etc
-{40bdfd79-5dfd-4303-8a71-0792c637c380} bus:/ui
-{c77e6e4c-f45c-48ef-911b-7981915e0fd8} bus:/ambience+reverb
-{8f8e9fd3-8a5c-4873-8776-2d3f3be234a5} bus:/lowpass
-{9e5f6674-ecca-4cb3-9e39-050604be24e9} bus:/music_reverb
-{8340afee-1bfb-481c-8b65-a1721703356c} bus:/reverb
 {ab2beddd-fa07-445b-a933-d5cca76adb6e} bus:/UNASSIGNED 2
 {1a5d4dc3-8fc9-4261-a499-f3f6b0202e17} bus:/UNASSIGNED 3
 {0b728e09-75ca-402a-994c-60d2966e6400} bus:/UNASSIGNED 4
-{310cecea-3674-4ea8-a6ac-2a8facd05638} snapshot:/hills
+{c77e6e4c-f45c-48ef-911b-7981915e0fd8} bus:/ambience+reverb
+{f34de4a2-1c20-4c14-99a0-eeb17d2f30a1} bus:/ambient
+{2cbf3aea-7bb4-4ea3-a5d4-bf22bf26f0d0} bus:/distant_reverb
+{af5b14c7-ccc0-43a9-aa70-65cd8f5344a4} bus:/game_sfx
+{8f8e9fd3-8a5c-4873-8776-2d3f3be234a5} bus:/lowpass
+{4686115c-5062-400a-b903-d03d5c45527e} bus:/music
+{5499ef15-f83e-4e92-9144-d53eab549f87} bus:/music_intro_etc
+{9e5f6674-ecca-4cb3-9e39-050604be24e9} bus:/music_reverb
+{8340afee-1bfb-481c-8b65-a1721703356c} bus:/reverb
+{40bdfd79-5dfd-4303-8a71-0792c637c380} bus:/ui
+{51ac75cc-af0e-44cc-a497-cdadd507496d} event:/fanfare
+{d29a26ea-20fa-4a93-ba36-589cadc2ee2e} event:/hammer_hit
+{cb5f6194-f730-4a43-82b0-68c526b94354} event:/high_drone
+{ca582ef7-7f2a-458b-b65b-c651cbb1315f} event:/jingle
+{a369ff2e-a8e7-4f1f-9fe4-30994f395737} event:/tick_high
+{51c53946-18e7-4e2e-9572-0c94226d203f} event:/tick_low
+{2f99f806-4b51-4b0a-a879-566644591f29} parameter:/Migration Name Conflict (3)/lowpass
+{6864bf18-2f50-4b34-aecc-63c1bdf7fdf4} parameter:/Migration Name Conflict (4)/Distance
+{ddf75d16-bdbe-4460-908b-0a29bd483835} parameter:/lowpass
 {dadeda7a-c13b-484b-929e-d3c513e7173b} snapshot:/cave
-{fcb63c0a-331d-44e6-bf64-cfa8c5b6e6e7} snapshot:/snowcave
-{a0219622-35b0-4a2d-8de4-650884606931} snapshot:/vault
-{c9b0b78b-9869-4058-91fb-73188f7b9103} snapshot:/underwater
 {bc5e80f9-a380-47c9-8799-3e02eea94feb} snapshot:/drugged
-{8c3abc6b-141a-42fe-9d0f-eefcf03cd52f} snapshot:/teleport_nearby
+{310cecea-3674-4ea8-a6ac-2a8facd05638} snapshot:/hills
 {2aa42396-4f12-4e40-9319-c51683cc06d1} snapshot:/music_duck
 {53a7180c-9635-4a37-a2b8-fb8001ac66ff} snapshot:/music_reverb
-{dfb5ad36-efc2-44b6-adf8-95fea01d348d} bank:/anvil_of_destiny
-{d3d376b6-af21-4ae3-917c-3e8fb781b724} bank:/Master Bank
+{fcb63c0a-331d-44e6-bf64-cfa8c5b6e6e7} snapshot:/snowcave
+{8c3abc6b-141a-42fe-9d0f-eefcf03cd52f} snapshot:/teleport_nearby
+{c9b0b78b-9869-4058-91fb-73188f7b9103} snapshot:/underwater
+{a0219622-35b0-4a2d-8de4-650884606931} snapshot:/vault

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="EffectPreset" id="{7b715e45-cf83-0c4a-0837-de65dd560e28}">
-        <property name="name">
-            <value>FMOD Spatializer (2)</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c8821c06-ec1f-07df-2c41-a295eaf7cfb0}</destination>
-        </relationship>
-        <relationship name="effect">
-            <destination>{441791bc-c0a7-4e89-89e7-df92d1cad727}</destination>
-        </relationship>
-    </object>
-    <object class="SpatialiserEffect" id="{441791bc-c0a7-4e89-89e7-df92d1cad727}">
-        <property name="minimumDistance">
-            <value>65</value>
-        </property>
-        <property name="maximumDistance">
-            <value>300</value>
-        </property>
-        <property name="soundSize">
-            <value>22</value>
-        </property>
-        <property name="minimumExtent">
-            <value>248</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="EffectPreset" id="{7b715e45-cf83-0c4a-0837-de65dd560e28}">
+		<property name="name">
+			<value>FMOD Spatializer (2)</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c8821c06-ec1f-07df-2c41-a295eaf7cfb0}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{441791bc-c0a7-4e89-89e7-df92d1cad727}</destination>
+		</relationship>
+	</object>
+	<object class="SpatialiserEffect" id="{441791bc-c0a7-4e89-89e7-df92d1cad727}">
+		<property name="minimumDistance">
+			<value>65</value>
+		</property>
+		<property name="maximumDistance">
+			<value>300</value>
+		</property>
+		<property name="soundSize">
+			<value>22</value>
+		</property>
+		<property name="minimumExtent">
+			<value>248</value>
+		</property>
+	</object>
 </objects>

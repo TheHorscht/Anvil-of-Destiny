@@ -108,8 +108,8 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 	spell_amount_to_add = math.min(wand.capacity - wand:GetSpellsCount(), spell_amount_to_add)
 	SetRandomSeed(seed_x, seed_y)
   for i=1, attached_spells_count do
-		local action_type = get_random_action_type(8, 2, 2, Random()*100, Random()*100, Random()*100)
-		local action = GetRandomActionWithType(Random()*100, Random()*100, attached_spells_level, action_type, i)
+		local action_type = get_random_action_type(8, 2, 2)
+		local action = GetRandomActionWithType(seed_x + i, seed_y - i, attached_spells_level, action_type, i)
     wand:AttachSpells(action)
 	end
 	-- This is so we get more variety, which might be interesting
@@ -128,7 +128,7 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
   for i=1, spell_amount_to_add do
 		-- Give the wand at least one projectile it has enough mana to cast
 		if i == guaranteed_projectile_index then
-			action = GetRandomActionWithType(seed_x, seed_y, randomly_alter_level(spells_level), ACTION_TYPE_PROJECTILE, Random()*100)
+			action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level), ACTION_TYPE_PROJECTILE, Random(500,999))
 			-- Check if wand has enough max mana to cast it
 			local action_info = action_get_by_id(action)
 			-- Try a maximum of 5 times to get a projectile that the wand has enough mana for
@@ -138,18 +138,18 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 					break
 				end
 				-- If not then reroll with lower level
-				action = GetRandomActionWithType(seed_x, seed_y, randomly_alter_level(spells_level-(i-1)), ACTION_TYPE_PROJECTILE, Random()*100)
+				action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level-(i-1)), ACTION_TYPE_PROJECTILE, Random(500,999))
 			end
 		elseif action == nil or action_type ~= ACTION_TYPE_PROJECTILE or Random() > 0.7 then
 			-- Repeat some projectiles based on RNG so that we neither get a chaotic array of spells nor the same ones over and over
-			action_type = get_random_action_type(8, 2, 2, Random()*100, Random()*100, Random()*100)
-			action = GetRandomActionWithType(Random()*100, Random()*100, randomly_alter_level(spells_level), action_type, i)
+			action_type = get_random_action_type(8, 2, 2)
+			action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level), action_type, i)
 		end
     wand:AddSpells(action)
   end
 end
 
-function get_random_action_type(chance_projectile, chance_modifier, chance_draw_many, seed_x, seed_y, seed_z)
+function get_random_action_type(chance_projectile, chance_modifier, chance_draw_many)
   local rand_spell_roll = Random()
   local chances = { chance_projectile, chance_modifier, chance_draw_many }
 	normalize_table(chances)

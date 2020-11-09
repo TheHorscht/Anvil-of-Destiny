@@ -1,5 +1,8 @@
 - FIX wand sprite shoot offsets not working?
 - FIX still getting same spells?
+- Same spells always get added, check randomseed shit?
+- Wand with always cast + normal wand always produces output wand with SAME always cast?
+
 - Add magic_liquid_unstable_teleportation
 - Add GUI Icon for wand speedup effect (blessing of the gods) and sparkles?
 

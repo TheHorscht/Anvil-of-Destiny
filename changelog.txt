@@ -1,6 +1,11 @@
-v1.13.2:
+v1.13.3:
 - config_regular_wand_buff and config_improved_wand_buff now affect mana recharge speed
 - Wand capacity will no longer be reduced when merging 2 wands or buffing 1 wand via 2 tablets. (Potions are unchanged).
+
+v1.13.2:
+- Change spell random seed code slightly to hopefully prevent same spells being added everytime
+- Reduce concentrated mana bonus for wands with under 30 mana charge speed.
+- Remove speed up effect for hastium potion bonus.
 
 v1.13.1:
 - Fix a bug the previous version introduced.

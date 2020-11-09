@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="MixerReturn" id="{c77e6e4c-f45c-48ef-911b-7981915e0fd8}">
-        <property name="volume">
-            <value>5</value>
-        </property>
-        <property name="name">
-            <value>ambience+reverb</value>
-        </property>
-        <relationship name="effectChain">
-            <destination>{2c09d7ae-2173-444f-9d59-3dec7dfb6495}</destination>
-        </relationship>
-        <relationship name="panner">
-            <destination>{c9ad3e8d-b386-4cd0-bb33-217a49c32c89}</destination>
-        </relationship>
-        <relationship name="output">
-            <destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusEffectChain" id="{2c09d7ae-2173-444f-9d59-3dec7dfb6495}">
-        <relationship name="effects">
-            <destination>{e193cf2d-b7b9-4e8e-b3cd-0b4f292d7f8c}</destination>
-            <destination>{1f6a2f09-d636-430d-82c9-1cb6a0c47936}</destination>
-            <destination>{35fe107e-d190-4def-bdc5-92aa86c1ce01}</destination>
-            <destination>{5c7582e6-7c4e-44d6-8e02-3fbd192e80d4}</destination>
-        </relationship>
-    </object>
-    <object class="MixerBusPanner" id="{c9ad3e8d-b386-4cd0-bb33-217a49c32c89}"/>
-    <object class="MixerBusFader" id="{e193cf2d-b7b9-4e8e-b3cd-0b4f292d7f8c}"/>
-    <object class="DelayEffect" id="{1f6a2f09-d636-430d-82c9-1cb6a0c47936}">
-        <property name="delay">
-            <value>280</value>
-        </property>
-        <property name="feedback">
-            <value>73</value>
-        </property>
-        <property name="level">
-            <value>-80</value>
-        </property>
-    </object>
-    <object class="FlangerEffect" id="{35fe107e-d190-4def-bdc5-92aa86c1ce01}">
-        <property name="rate">
-            <value>0.280000001</value>
-        </property>
-        <property name="delay">
-            <value>0.25000003</value>
-        </property>
-        <property name="mix">
-            <value>0</value>
-        </property>
-    </object>
-    <object class="ChorusEffect" id="{5c7582e6-7c4e-44d6-8e02-3fbd192e80d4}">
-        <property name="rate">
-            <value>0.25999999</value>
-        </property>
-        <property name="depth">
-            <value>36</value>
-        </property>
-        <property name="mix">
-            <value>0</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerReturn" id="{c77e6e4c-f45c-48ef-911b-7981915e0fd8}">
+		<property name="volume">
+			<value>5</value>
+		</property>
+		<property name="name">
+			<value>ambience+reverb</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{2c09d7ae-2173-444f-9d59-3dec7dfb6495}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c9ad3e8d-b386-4cd0-bb33-217a49c32c89}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{fd1ec6a6-24b7-4a2e-9988-9733b99dc81e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{2c09d7ae-2173-444f-9d59-3dec7dfb6495}">
+		<relationship name="effects">
+			<destination>{e193cf2d-b7b9-4e8e-b3cd-0b4f292d7f8c}</destination>
+			<destination>{1f6a2f09-d636-430d-82c9-1cb6a0c47936}</destination>
+			<destination>{35fe107e-d190-4def-bdc5-92aa86c1ce01}</destination>
+			<destination>{5c7582e6-7c4e-44d6-8e02-3fbd192e80d4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c9ad3e8d-b386-4cd0-bb33-217a49c32c89}" />
+	<object class="MixerBusFader" id="{e193cf2d-b7b9-4e8e-b3cd-0b4f292d7f8c}" />
+	<object class="DelayEffect" id="{1f6a2f09-d636-430d-82c9-1cb6a0c47936}">
+		<property name="delay">
+			<value>280</value>
+		</property>
+		<property name="feedback">
+			<value>73</value>
+		</property>
+		<property name="level">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="FlangerEffect" id="{35fe107e-d190-4def-bdc5-92aa86c1ce01}">
+		<property name="rate">
+			<value>0.280000001</value>
+		</property>
+		<property name="delay">
+			<value>0.25000003</value>
+		</property>
+		<property name="mix">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="ChorusEffect" id="{5c7582e6-7c4e-44d6-8e02-3fbd192e80d4}">
+		<property name="rate">
+			<value>0.25999999</value>
+		</property>
+		<property name="depth">
+			<value>36</value>
+		</property>
+		<property name="mix">
+			<value>0</value>
+		</property>
+	</object>
 </objects>

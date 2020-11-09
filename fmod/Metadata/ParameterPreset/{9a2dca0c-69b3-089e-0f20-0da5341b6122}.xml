@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.10.00">
-    <object class="ParameterPreset" id="{9a2dca0c-69b3-089e-0f20-0da5341b6122}">
-        <property name="name">
-            <value>Distance</value>
-        </property>
-        <relationship name="folder">
-            <destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
-        </relationship>
-        <relationship name="parameter">
-            <destination>{da290cac-e139-4b99-b883-ce1fc690a283}</destination>
-        </relationship>
-    </object>
-    <object class="GameParameter" id="{da290cac-e139-4b99-b883-ce1fc690a283}">
-        <property name="parameterType">
-            <value>1</value>
-        </property>
-        <property name="maximum">
-            <value>1500</value>
-        </property>
-        <property name="seekSpeed">
-            <value>110</value>
-        </property>
-        <property name="isExposedRecursively">
-            <value>false</value>
-        </property>
-    </object>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{9a2dca0c-69b3-089e-0f20-0da5341b6122}">
+		<property name="name">
+			<value>Distance</value>
+		</property>
+		<relationship name="folder">
+			<destination>{c03d01cf-62f6-0ef3-2c07-637e5abd50da}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{da290cac-e139-4b99-b883-ce1fc690a283}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{da290cac-e139-4b99-b883-ce1fc690a283}">
+		<property name="parameterType">
+			<value>3</value>
+		</property>
+		<property name="maximum">
+			<value>1500</value>
+		</property>
+		<property name="seekSpeed">
+			<value>110</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
 </objects>
