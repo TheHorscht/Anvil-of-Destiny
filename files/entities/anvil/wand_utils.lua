@@ -59,7 +59,7 @@ end
 -- Creates a new empty wand by merges two input wands by averaging their stats
 function wand_merge(wand1, wand2)
 	local new_wand = EZWand{
-		shuffle = randround((wand1.shuffle + wand2.shuffle) / 2),
+		shuffle = randround(((wand1.shuffle and 1 or 0) + (wand2.shuffle and 1 or 0)) / 2) == 1,
 		spellsPerCast = randround((wand1.spellsPerCast + wand2.spellsPerCast) / 2),
 		castDelay = (wand1.castDelay + wand2.castDelay) / 2,
 		rechargeTime = (wand1.rechargeTime + wand2.rechargeTime) / 2,

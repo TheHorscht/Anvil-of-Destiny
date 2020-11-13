@@ -1,6 +1,6 @@
--- ########################################
--- #######   EZWand version 1.0.1   #######
--- ########################################
+-- #########################################
+-- #######   EZWand version v1.1.1   #######
+-- #########################################
 
 dofile_once("data/scripts/gun/procedural/gun_action_utils.lua")
 dofile_once("data/scripts/lib/utilities.lua")
@@ -11,94 +11,112 @@ dofile_once("data/scripts/gun/procedural/gun_procedural.lua")
 -- ####       UTILS      ####
 -- ##########################
 
+local function test_conditionals(conditions)
+  for i, conditon in ipairs(conditions) do
+    if not conditon[1] then
+      return false, conditon[2]
+    end
+  end
+  return true
+end
+
 wand_props = {
   shuffle = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "shuffle needs to be 1 or 0"
-      assert(type(v) == "number", err)
-      assert(v == 0 or v == 1, err)
+      return test_conditionals{
+        { type(val) == "boolean", "shuffle must be true or false" }
+      }
     end,
-    default = 0,
+    default = false,
   },
   spellsPerCast = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "spellsPerCast needs to be a number > 0"
-      assert(type(v) == "number", err)
-      assert(v > 0, err)
+      return test_conditionals{
+        { type(val) == "number", "spellsPerCast must be a number" },
+        { val > 0, "spellsPerCast must be a number > 0" },
+      }
     end,
     default = 1,
   },
   castDelay = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "castDelay needs to be a number"
-      assert(type(v) == "number", err)
+      return test_conditionals{
+        { type(val) == "number", "castDelay must be a number" },
+      }
     end,
     default = 20,
   },
   rechargeTime = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "rechargeTime needs to be a number"
-      assert(type(v) == "number", err)
+      return test_conditionals{
+        { type(val) == "number", "rechargeTime must be a number" },
+      }
     end,
     default = 40,
   },
   manaMax = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "manaMax needs to be a number > 0"
-      assert(type(val) == "number", err)
-      assert(v > 0, err)
+      return test_conditionals{
+        { type(val) == "number", "manaMax must be a number" },
+        { val > 0, "manaMax must be a number > 0" },
+      }
     end,
     default = 500,
   },
   mana = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "mana needs to be a number > 0"
-      assert(type(val) == "number", err)
-      assert(v > 0, err)
+      return test_conditionals{
+        { type(val) == "number", "mana must be a number" },
+        { val > 0, "mana must be a number > 0" },
+      }
     end,
     default = 500,
   },
   manaChargeSpeed = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "manaChargeSpeed needs to be a number > 0"
-      assert(type(val) == "number", err)
-      assert(val > 0, err)
+      return test_conditionals{
+        { type(val) == "number", "manaChargeSpeed must be a number" },
+        { val > 0, "manaChargeSpeed must be a number > 0" },
+      }
     end,
     default = 200,
   },
   capacity = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "capacity needs to be a number > 0"
-      assert(type(val) == "number", err)
-      assert(val > 0, err)
+      return test_conditionals{
+        { type(val) == "number", "capacity must be a number" },
+        { val > 0, "capacity must be a number > 0" },
+      }
     end,
     default = 10,
   },
   spread = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "spread needs to be a number"
-      assert(type(val) == "number", err)
+      return test_conditionals{
+        { type(val) == "number", "spread must be a number" },
+      }
     end,
     default = 10,
   },
   speedMultiplier = {
     validate = function(val)
-      local v = tonumber(val)
-      local err = "spread needs to be a number"
-      assert(type(val) == "number", err)
+      return test_conditionals{
+        { type(val) == "number", "speedMultiplier must be a number" },
+      }
     end,
     default = 1,
   },
 }
+-- Throws an error if the value doesn't have the correct format or the property doesn't exist
+local function validate_property(name, value)
+  if wand_props[name] == nil then
+    error(name .. " is not a valid wand property.", 4)
+  end
+  local success, err = wand_props[name].validate(value)
+  if not success then
+    error(err, 4)
+  end
+end
 
 --[[
   values is a table that contains info on what values to set
@@ -111,18 +129,14 @@ wand_props = {
   calls error() if values contains invalid properties
   fills in missing properties with default values
 ]]
+
 function validate_wand_properties(values)
   if type(values) ~= "table" then
     error("Arg 'values': table expected.")
   end
   -- Check if all passed in values are valid wand properties and have the required type
-  for k,v in pairs(values) do
-    if wand_props[k] == nil then
-      error("Key '" .. tostring(k) .. "' is not a valid wand property.")
-    else
-      -- The validate function calls error() if the validation fails
-      wand_props[k].validate(v)
-    end
+  for k, v in pairs(values) do
+    validate_property(k, v)
   end
   -- Fill in missing properties with default values
   for k,v in pairs(wand_props) do
@@ -140,153 +154,14 @@ end
   return false
 end
 
-function get_component_with_member(entity_id, member_name)
-  local components = EntityGetAllComponents(entity_id)
-  if components ~= nil then
-    for _, component_id in ipairs(components) do
-      for k, v in pairs(ComponentGetMembers(component_id)) do
-        if(k == member_name) then
-          return component_id
-        end
-      end
-    end
-  end
-end
-
 -- Returns true if entity is a wand
 local function entity_is_wand(entity_id)
-	local comp = EntityGetComponent(entity_id, "ManaReloaderComponent")
+	local comp = EntityGetComponentIncludingDisabled(entity_id, "ManaReloaderComponent")
 	return comp ~= nil
 end
 
 local function ends_with(str, ending)
   return ending == "" or str:sub(-#ending) == ending
-end
-
-local function get_ability_component(entity_id)
-  local ability_components = EntityGetComponent(entity_id, "AbilityComponent")
-  if ability_components ~= nil and ability_components[1] ~= nil then
-    return ability_components[1]
-  else
-    local components = EntityGetAllComponents(entity_id)
-    for i, component_id in ipairs(components) do
-      for k, v2 in pairs(ComponentGetMembers(component_id)) do
-        if(k == "mItemRecoil") then
-          return component_id
-        end
-      end
-    end
-  end
-end
-
-local function validate_property(name, value)
-  if wand_props[name] == nil then
-    error(name .. " is not a valid wand property.")
-  end
-  if value ~= nil then
-    -- check if value has the correct format etc for key
-  end
-end
-
-local function GetHotspotComponent(entity_id)
-  local comps = EntityGetAllComponents(entity_id)
-  for i,v in ipairs(comps) do
-    if ComponentGetValue(v, "transform_with_scale") ~= "" then
-      return v
-    end
-  end
-end
-
--- This version just updates image_file of the original SpriteComponent, which will only update the visuals once
--- the next game tick comes along that updates sprites (every 60 frames?)
-local function SetWandSprite_old(entity_id, ability_comp, item_file, offset_x, offset_y, tip_x, tip_y)
-	if ability_comp ~= nil then
-    ComponentSetValue(ability_comp, "sprite_file", item_file)
-	end
-	local sprite_comp = EntityGetFirstComponent(entity_id, "SpriteComponent", "item")
-	if sprite_comp ~= nil then
-		ComponentSetValue(sprite_comp, "image_file", item_file)
-		ComponentSetValue(sprite_comp, "offset_x", offset_x)
-    ComponentSetValue(sprite_comp, "offset_y", offset_y)
-	end
-	local hotspot_comp = GetHotspotComponent(entity_id) --EntityGetFirstComponent(entity_id, "HotspotComponent", "shoot_pos")
-  if hotspot_comp ~= nil then
-    -- EntitySetComponentIsEnabled(entity_id, hotspot_comp, true)
-    ComponentSetValueVector2(hotspot_comp, "offset", tip_x, tip_y)
-	end	
-end
-
--- Updating the image_file attribute takes some frames to take effect,
--- the game only updates sprites every 60 frames or something, so to work around that
--- we create a new SpriteComponent, copy over all values of the old one, and remove the old one
--- This will show the new Sprite instantly, but is slower than the old version
-local function SetWandSprite(entity_id, ability_comp, item_file, offset_x, offset_y, tip_x, tip_y)
-	if ability_comp ~= nil then
-    ComponentSetValue(ability_comp, "sprite_file", item_file)
-	end
-  local sprite_comp = EntityGetFirstComponent(entity_id, "SpriteComponent", "item")
-  
-  local function GetComponentValues(comp, value_names)
-    local values_out = {
-      _tags="enabled_in_hand,enabled_in_world,item",
-      image_file=item_file,
-      offset_x=offset_x,
-      offset_y=offset_y,
-    }
-    for i, value_name in ipairs(value_names) do
-      values_out[value_name] = ComponentGetValue(comp, value_name)
-    end
-    return values_out
-  end
-
-	if sprite_comp ~= nil then
-    EntityAddComponent(entity_id, "SpriteComponent", GetComponentValues(sprite_comp, {
-      "additive",
-      "alpha",
-      "emissive",
-      "fog_of_war_hole",
-      "has_special_scale",
-      "is_text_sprite",
-      "kill_entity_after_finished",
-      "never_ragdollify_on_death",
-      "rect_animation",
-      "next_rect_animation",
-      "offset_x",
-      "offset_y",
-      "smooth_filtering",
-      "special_scale_x",
-      "special_scale_y",
-      "text",
-      "ui_is_parent",
-      "update_transform",
-      "update_transform_rotation",
-      "visible",
-      "z_index",
-    }))
-    EntityRemoveComponent(entity_id, sprite_comp)
-	end
-	local hotspot_comp = GetHotspotComponent(entity_id) --EntityGetFirstComponent(entity_id, "HotspotComponent", "shoot_pos")
-  if hotspot_comp ~= nil then
-    -- EntitySetComponentIsEnabled(entity_id, hotspot_comp, true)
-    ComponentSetValueVector2(hotspot_comp, "offset", tip_x, tip_y)
-	end	
-end
-
-local function GetWandSprite(entity_id, ability_comp)
-  local item_file, offset_x, offset_y, tip_x, tip_y
-	if ability_comp ~= nil then
-		item_file = ComponentGetValue(ability_comp, "sprite_file")
-	end
-	local sprite_comp = EntityGetFirstComponent(entity_id, "SpriteComponent", "item")
-	if sprite_comp ~= nil then
-		offset_x = ComponentGetValue(sprite_comp, "offset_x")
-    offset_y = ComponentGetValue(sprite_comp, "offset_y")
-	end
-	local hotspot_comp = GetHotspotComponent(entity_id) --EntityGetFirstComponent(entity_id, "HotspotComponent", "shoot_pos")
-  if hotspot_comp ~= nil then
-    tip_x, tip_y = ComponentGetValueVector2(hotspot_comp, "offset")
-  end
-  return item_file, offset_x, offset_y, tip_x, tip_y
 end
 
 -- ##########################
@@ -321,32 +196,31 @@ function wand:new(from, rng_seed_x, rng_seed_y)
   setmetatable(o, self)
   if type(from) == "table" or from == nil then
     -- Just load some existing wand that we alter later instead of creating one from scratch
-    protected.entity_id = EntityLoad("data/entities/items/wand_level_04.xml")
-    protected.ability_component = get_ability_component(protected.entity_id)
+    protected.entity_id = EntityLoad("data/entities/items/wand_level_04.xml", rng_seed_x or 0, rng_seed_y or 0)
+    protected.ability_component = EntityGetFirstComponentIncludingDisabled(protected.entity_id, "AbilityComponent")
     -- Copy all validated props over or initialize with defaults
     local props = from or {}
     validate_wand_properties(props)
     o:SetProperties(props)
     o:RemoveSpells()
     o:DetachSpells()
-  elseif type(from) == "number" then
+  elseif tonumber(from) or type(from) == "number" then
     -- Wrap an existing wand
     protected.entity_id = from
-    protected.ability_component = get_ability_component(protected.entity_id)
+    protected.ability_component = EntityGetFirstComponentIncludingDisabled(protected.entity_id, "AbilityComponent")
   else
     -- Load a wand by xml
     if ends_with(from, ".xml") then
-      local player_unit = EntityGetWithTag("player_unit")[1]
-      local x, y = EntityGetTransform(player_unit)
+      local x, y = GameGetCameraPos()
       protected.entity_id = EntityLoad(from, rng_seed_x or x, rng_seed_y or y)
-      protected.ability_component = get_ability_component(protected.entity_id)
+      protected.ability_component = EntityGetFirstComponentIncludingDisabled(protected.entity_id, "AbilityComponent")
     else
-      error("Wrong format for wand creation.")
+      error("Wrong format for wand creation.", 2)
     end
   end
 
   if not entity_is_wand(protected.entity_id) then
-    error("Loaded entity is not a wand.")
+    error("Loaded entity is not a wand.", 2)
   end
 
   return o
@@ -370,34 +244,43 @@ function wand:_SetProperty(key, value)
   local mapped_key = variable_mappings[key].name
   local target_setters = {
     ability_component = function(key, value)
-      ComponentSetValue(self.ability_component, key, value)
+      ComponentSetValue2(self.ability_component, key, value)
     end,
     gunaction_config = function(key, value)
-      ComponentObjectSetValue(self.ability_component, "gunaction_config", key, value)
+      ComponentObjectSetValue2(self.ability_component, "gunaction_config", key, value)
     end,
     gun_config = function(key, value)
-      ComponentObjectSetValue(self.ability_component, "gun_config", key, value)
+      ComponentObjectSetValue2(self.ability_component, "gun_config", key, value)
     end,
   }
   -- We need a special rule for capacity, since always cast spells count towards capacity, but not in the UI...
   if key == "capacity" then
     -- TODO: set capacity to value + numalwayscastspells
-    value = value + select(2, self:GetSpellsCount())
+    local spells, attached_spells = self:GetSpells()
+    value = value + #attached_spells
+    -- If capacity is getting reduced, remove any spells that don't fit anymore
+    local spells_to_remove = {}
+    for i=#spells, value+1, -1 do
+      table.insert(spells_to_remove, { spells[i].action_id, 1 })
+    end
+    if #spells_to_remove > 0 then
+      self:RemoveSpells(spells_to_remove)
+    end
   end
-  target_setters[variable_mappings[key].target](mapped_key, tostring(value))
+  target_setters[variable_mappings[key].target](mapped_key, value)
 end
 -- Retrieves the actual property from the component or object
 function wand:_GetProperty(key)
   local mapped_key = variable_mappings[key].name
   local target_getters = {
     ability_component = function(key)
-      return ComponentGetValue(self.ability_component, key, value)
+      return ComponentGetValue2(self.ability_component, key, value)
     end,
     gunaction_config = function(key)
-      return ComponentObjectGetValue(self.ability_component, "gunaction_config", key)
+      return ComponentObjectGetValue2(self.ability_component, "gunaction_config", key)
     end,
     gun_config = function(key)
-      return ComponentObjectGetValue(self.ability_component, "gun_config", key)
+      return ComponentObjectGetValue2(self.ability_component, "gun_config", key)
     end,
   }
   local result = target_getters[variable_mappings[key].target](mapped_key)
@@ -405,12 +288,12 @@ function wand:_GetProperty(key)
   if key == "capacity" then
     result = result - select(2, self:GetSpellsCount())
   end
-  return tonumber(result)
+  return result
 end
 
 function wand:SetProperties(key_values)
   for k,v in pairs(key_values) do
-    validate_property(k)
+    validate_property(k, v)
     self:_SetProperty(k, v)
   end
 end
@@ -425,74 +308,106 @@ function wand:GetProperties(keys)
   end
   local result = {}
   for i,key in ipairs(keys) do
-    validate_property(key)
     result[key] = self:_GetProperty(key)
   end
   return result
 end
 -- For making the interface nicer, this allows us to use this one function here for
 function wand:_AddSpells(spells, attach)
-  if type(spells) ~= "table" then
-    error("'spells' should be a table with action_id strings")
-  end
   -- Check if capacity is sufficient
-  if not attach and self:GetSpellsCount() + #spells > tonumber(self.capacity) then
-    error("Wand capacity too low to add that many spells.")
+  local count = 0
+  for i, v in ipairs(spells) do
+    count = count + v[2]
   end
-  for i,action_id in ipairs(spells) do
-    if not attach then
-      AddGunAction(self.entity_id, action_id)
-    else
-      -- Extend slots to not consume one slot
-      self.capacity = self.capacity + 1
-      AddGunActionPermanent(self.entity_id, action_id)
+  local spells_on_wand = self:GetSpells()
+  local positions = {}
+  for i, v in ipairs(spells_on_wand) do
+    positions[v.inventory_x] = true
+  end
+
+  if not attach and #spells_on_wand + count > self.capacity then
+    error(string.format("Wand capacity (%d/%d) cannot fit %d more spells. ", #spells_on_wand, self.capacity, count), 3)
+  end
+  local current_position = 0
+  for i,spell in ipairs(spells) do
+    for i2=1, spell[2] do
+      if not attach then
+        local action_entity_id = CreateItemActionEntity(spell[1])
+        EntityAddChild(self.entity_id, action_entity_id)
+        EntitySetComponentsWithTagEnabled(action_entity_id, "enabled_in_world", false)
+        local item_component = EntityGetFirstComponentIncludingDisabled(action_entity_id, "ItemComponent")
+        while positions[current_position] do
+          current_position = current_position + 1
+        end
+        positions[current_position] = true
+        ComponentSetValue2(item_component, "inventory_slot", current_position, 0)
+      else
+        AddGunActionPermanent(self.entity_id, spell[1])
+      end
     end
   end
+end
+
+function extract_spells_from_vararg(...)
+  local spells = {}
+  local spell_args = select("#", ...) == 1 and type(...) == "table" and ... or {...}
+  local i = 1
+  while i <= #spell_args do
+    if type(spell_args[i]) == "table" then
+      -- Check for this syntax: { "BOMB", 1 }
+      if type(spell_args[i][1]) ~= "string" or type(spell_args[i][2]) ~= "number" then
+        error("Wrong argument format at index " .. i .. ". Expected format for multiple spells shortcut: { \"BOMB\", 3 }", 3)
+      else
+        table.insert(spells, spell_args[i])
+      end
+    elseif type(spell_args[i]) == "string" then
+      local amount = spell_args[i+1]
+      if type(amount) ~= "number" then
+        amount = 1
+        table.insert(spells, { spell_args[i], amount })
+      else
+        table.insert(spells, { spell_args[i], amount })
+        i = i + 1
+      end
+    else
+      error("Wrong argument format.", 3)
+    end
+    i = i + 1
+  end
+  return spells
 end
 -- Input can be a table of action_ids, or multiple arguments
 -- e.g.:
 -- AddSpells("BLACK_HOLE")
 -- AddSpells("BLACK_HOLE", "BLACK_HOLE", "BLACK_HOLE")
 -- AddSpells({"BLACK_HOLE", "BLACK_HOLE"})
+-- To add multiple spells you can also use this shortcut:
+-- AddSpells("BLACK_HOLE", {"BOMB", 5}) this will add 1 blackhole followed by 5 bombs
 function wand:AddSpells(...)
-  local spells
-  if type(...) ~= "table" then
-    spells = {...}
-  else
-    spells = ...
-  end
+  local spells = extract_spells_from_vararg(...)
   self:_AddSpells(spells, false)
 end
 -- Same as AddSpells but permanently attach the spells
 function wand:AttachSpells(...)
-  local spells
-  if type(...) ~= "table" then
-    spells = {...}
-  else
-    spells = ...
-  end
+  local spells = extract_spells_from_vararg(...)
   self:_AddSpells(spells, true)
 end
 -- Returns: spells_count, always_cast_spells_count
 function wand:GetSpellsCount()
 	local children = EntityGetAllChildren(self.entity_id)
-  local num_children = children and #children or 0
-  
   if children == nil then
     return 0, 0
   end
   -- Count the number of always cast spells
   local always_cast_spells_count = 0
-  for i,v in ipairs(children) do
-    local all_comps = EntityGetAllComponents(v)
-    for i, c in ipairs(all_comps) do
-      if ComponentGetValue(c, "permanently_attached") == "1" then
-        always_cast_spells_count = always_cast_spells_count + 1
-      end
+  for i,spell in ipairs(children) do
+    local item_component = EntityGetFirstComponentIncludingDisabled(spell, "ItemComponent")
+    if item_component ~= nil and ComponentGetValue2(item_component, "permanently_attached") == true then
+      always_cast_spells_count = always_cast_spells_count + 1
     end
   end
 
-	return num_children - always_cast_spells_count, always_cast_spells_count
+	return #children - always_cast_spells_count, always_cast_spells_count
 end
 -- Returns two values:
 -- 1: table of spells with each entry having the format { action_id = "BLACK_HOLE", inventory_x = 1, entity_id = <action_entity_id> }
@@ -506,75 +421,127 @@ function wand:GetSpells()
   if children == nil then
     return spells, always_cast_spells
   end
-	for _, v in ipairs(children) do
-		local all_comps = EntityGetAllComponents(v)
+	for _, spell in ipairs(children) do
 		local action_id = nil
 		local permanent = false
-		local inventory_x = -1
-		-- TODO: Refactor this when EntityGetComponent() returns disabled components...
-		for _, c in ipairs(all_comps) do
-			-- ItemActionComponent::action_id
-			local val = ComponentGetValue(c, "action_id")
-			if val ~= "" then
-				action_id = val
-			end
-			-- ItemComponent::permanently_attached
-			val = ComponentGetValue(c, "permanently_attached")
-			if val ~= "" then
-				if val == "1" then
-					permanent = true
-				end
-				local inventory_y
-				-- ItemComponent::inventory_slot.x [0, count] gives the slot it's in
-        -- Does not work yet, always returns 0, 0...
-				inventory_x, inventory_y = ComponentGetValueVector2(c, "inventory_slot")
-			end
-		end
-		if action_id ~= nil then
+    local item_action_component = EntityGetFirstComponentIncludingDisabled(spell, "ItemActionComponent")
+    if item_action_component then
+      local val = ComponentGetValue2(item_action_component, "action_id")
+      action_id = val
+    end
+    local inventory_x, inventory_y = -1, -1
+    local item_component = EntityGetFirstComponentIncludingDisabled(spell, "ItemComponent")
+    if item_component then
+      permanent = ComponentGetValue2(item_component, "permanently_attached")
+      inventory_x, inventory_y = ComponentGetValue2(item_component, "inventory_slot")
+    end
+    if action_id then
 			if permanent == true then
-				table.insert(always_cast_spells, { action_id = action_id, entity_id = v, inventory_x = inventory_x })
+				table.insert(always_cast_spells, { action_id = action_id, entity_id = spell, inventory_x = inventory_x, inventory_y = inventory_y })
 			else
-				table.insert(spells, { action_id = action_id, entity_id = v, inventory_x = inventory_x })
+				table.insert(spells, { action_id = action_id, entity_id = spell, inventory_x = inventory_x, inventory_y = inventory_y })
 			end
 		end
-	end
+  end
+  table.sort(always_cast_spells, function(a, b) return a.inventory_x < b.inventory_x end)
+  table.sort(spells, function(a, b) return a.inventory_x < b.inventory_x end)
 	return spells, always_cast_spells
 end
 
-function wand:_RemoveSpells(action_ids, detach)
+function wand:_RemoveSpells(spells_to_remove, detach)
 	local spells, attached_spells = self:GetSpells()
   local which = detach and attached_spells or spells
-  for i,v in ipairs(which) do
-    if action_ids == nil or table.contains(action_ids, v.action_id) then
+  local spells_to_remove_remaining = {}
+  for _, spell in ipairs(spells_to_remove) do
+    spells_to_remove_remaining[spell[1]] = (spells_to_remove_remaining[spell[1]] or 0) + spell[2]
+  end
+  for i, v in ipairs(which) do
+    if #spells_to_remove == 0 or spells_to_remove_remaining[v.action_id] and spells_to_remove_remaining[v.action_id] ~= 0 then
+      if #spells_to_remove > 0 then
+        spells_to_remove_remaining[v.action_id] = spells_to_remove_remaining[v.action_id] - 1
+      end
+      -- This needs to happen because EntityKill takes one frame to take effect or something
       EntityRemoveFromParent(v.entity_id)
+      EntityKill(v.entity_id)
+      if detach then
+        self.capacity = self.capacity - 1
+      end
     end
   end
 end
 -- action_ids = {"BLACK_HOLE", "GRENADE"} remove all spells of those types
 -- If action_ids is empty, remove all spells
+-- If entry is in the form of {"BLACK_HOLE", 2}, only remove 2 instances of black hole
 function wand:RemoveSpells(...)
-  local args = {...}
-  local spells
-  if #args == 0 then
-    spells = nil
-  elseif type(args[1]) == "table" then
-    spells = ...
-  else
-    spells = { ... }
-  end
+  local spells = extract_spells_from_vararg(...)
   self:_RemoveSpells(spells, false)
 end
 function wand:DetachSpells(...)
-  local args = {...}
-  local spells
-  if #args == 0 then
-    spells = nil
-  elseif type(args[1]) == "table" then
-    spells = ...
-  else
-    spells = { ... }
-  end
+  local spells = extract_spells_from_vararg(...)
   self:_RemoveSpells(spells, true)
+end
+
+function wand:RemoveSpellAtIndex(index)
+  if index+1 > self.capacity then
+    return false, "index is bigger than capacity"
+  end
+  local spells = self:GetSpells()
+  for i, spell in ipairs(spells) do
+    if spell.inventory_x == index then
+      -- This needs to happen because EntityKill takes one frame to take effect or something
+      EntityRemoveFromParent(spell.entity_id)
+      EntityKill(spell.entity_id)
+      return true
+    end
+  end
+  return false, "index at " .. index .. " does not contain a spell"
+end
+
+-- Make it impossible to edit the wand
+-- freeze_wand prevents spells from being added to the wand or moved
+-- freeze_spells prevents the spells from being removed
+function wand:SetFrozen(freeze_wand, freeze_spells)
+  local item_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "ItemComponent")
+  ComponentSetValue2(item_component, "is_frozen", freeze_wand)
+  local spells = self:GetSpells()
+  for i, spell in ipairs(spells) do
+    local item_component = EntityGetFirstComponentIncludingDisabled(spell.entity_id, "ItemComponent")
+    ComponentSetValue2(item_component, "is_frozen", freeze_spells)
+  end
+end
+
+function wand:SetSprite(item_file, offset_x, offset_y, tip_x, tip_y)
+	if self.ability_component then
+    ComponentSetValue2(self.ability_component, "sprite_file", item_file)
+	end
+  local sprite_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteComponent", "item")
+  if sprite_comp then
+    ComponentSetValue2(sprite_comp, "image_file", item_file)
+    ComponentSetValue2(sprite_comp, "offset_x", offset_x)
+    ComponentSetValue2(sprite_comp, "offset_y", offset_y)
+    EntityRefreshSprite(self.entity_id, sprite_comp)
+	end
+	local hotspot_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "HotspotComponent", "shoot_pos")
+  if hotspot_comp then
+    ComponentSetValue2(hotspot_comp, "offset", tip_x, tip_y)
+	end
+end
+
+function wand:GetSprite()
+  local item_file, offset_x, offset_y, tip_x, tip_y
+	if self.ability_component then
+		item_file = ComponentGetValue2(self.ability_component, "sprite_file")
+	end
+	local sprite_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteComponent", "item")
+	if sprite_comp then
+		offset_x = ComponentGetValue2(sprite_comp, "offset_x")
+    offset_y = ComponentGetValue2(sprite_comp, "offset_y")
+	end
+	local hotspot_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "HotspotComponent", "shoot_pos")
+  if hotspot_comp then
+    tip_x, tip_y = ComponentGetValue2(hotspot_comp, "offset")
+  end
+  return item_file, offset_x, offset_y, tip_x, tip_y
 end
 
 function wand:Clone()
@@ -587,54 +554,47 @@ function wand:Clone()
     new_wand:AttachSpells{v.action_id}
   end
   -- TODO: Make this work if sprite_file is an xml
-  SetWandSprite(new_wand.entity_id, new_wand.ability_component, GetWandSprite(self.entity_id, self.ability_component))
+  new_wand:SetSprite(self:GetSprite())
   return new_wand
 end
 
 -- Applies an appropriate Sprite using the games own algorithm
--- use_new_method = true will update instantly but lag a little
-function wand:UpdateSprite(use_old_method)
+function wand:UpdateSprite()
   local gun = {
     fire_rate_wait = self.castDelay,
     actions_per_round = self.spellsPerCast,
-    shuffle_deck_when_empty = self.shuffle,
+    shuffle_deck_when_empty = self.shuffle and 1 or 0,
     deck_capacity = self.capacity,
     spread_degrees = self.spread,
     reload_time = self.rechargeTime,
   }
   local sprite_data = GetWand(gun)
-  local fun = SetWandSprite
-  if use_old_method then
-    fun = SetWandSprite_old
-  end
-  fun(self.entity_id, self.ability_component,
-    sprite_data.file, sprite_data.grip_x, sprite_data.grip_y,
+  self:SetSprite(sprite_data.file, sprite_data.grip_x, sprite_data.grip_y,
     (sprite_data.tip_x - sprite_data.grip_x),
     (sprite_data.tip_y - sprite_data.grip_y))
 end
 
 function wand:PlaceAt(x, y)
 	EntitySetComponentIsEnabled(self.entity_id, self.ability_component, true)
-	local hotspot_comp = get_component_with_member(self.entity_id, "sprite_hotspot_name")
+	local hotspot_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "HotspotComponent")
 	EntitySetComponentIsEnabled(self.entity_id, hotspot_comp, true)
-  local item_component = get_component_with_member(self.entity_id, "collect_nondefault_actions")
+  local item_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "ItemComponent")
 	EntitySetComponentIsEnabled(self.entity_id, item_component, true)
-	local sprite_component = get_component_with_member(self.entity_id, "rect_animation")
+	local sprite_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteComponent")
 	EntitySetComponentIsEnabled(self.entity_id, sprite_component, true)
-	local light_component = get_component_with_member(self.entity_id, "blinking_freq")
-	EntitySetComponentIsEnabled(self.entity_id, light_component, true)
-	edit_component(self.entity_id, "ItemComponent", function(comp, vars)
-		ComponentSetValue(comp, "has_been_picked_by_player", "0")
-		ComponentSetValue(comp, "play_hover_animation", "1")
-		ComponentSetValueVector2(comp, "spawn_pos", x, y)
-	end)
-	local lua_comp = get_component_with_member(self.entity_id, "script_item_picked_up")
+  local light_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "LightComponent")
+  EntitySetComponentIsEnabled(self.entity_id, light_component, true)
+  
+  ComponentSetValue(item_component, "has_been_picked_by_player", "0")
+  ComponentSetValue(item_component, "play_hover_animation", "1")
+  ComponentSetValueVector2(item_component, "spawn_pos", x, y)
+
+	local lua_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "LuaComponent")
 	EntitySetComponentIsEnabled(self.entity_id, lua_comp, true)
-	edit_component(self.entity_id, "SimplePhysicsComponent", function(comp, vars)
-		EntitySetComponentIsEnabled(self.entity_id, comp, false)
-	end)
+	local simple_physics_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SimplePhysicsComponent")
+  EntitySetComponentIsEnabled(self.entity_id, simple_physics_component, false)
 	-- Does this wand have a ray particle effect? Most do, except the starter wands
-	local sprite_particle_emitter_comp = get_component_with_member(self.entity_id, "velocity_always_away_from_center")
+	local sprite_particle_emitter_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteParticleEmitterComponent")
 	if sprite_particle_emitter_comp ~= nil then
 		EntitySetComponentIsEnabled(self.entity_id, sprite_particle_emitter_comp, true)
 	else
@@ -648,7 +608,7 @@ function wand:PutInPlayersInventory()
   -- Get number of wands currently already in inventory
   local count = 0
   local inventory_items = EntityGetAllChildren(inventory_id)
-  if inventory_items ~= nil then
+  if inventory_items then
     for i,v in ipairs(inventory_items) do
       if entity_is_wand(v) then
         count = count + 1
@@ -656,18 +616,25 @@ function wand:PutInPlayersInventory()
     end
   end
   if count < 4 then
-    -- local item_components = EntityGetComponent(rawget(self, "_protected").entity_id, "ItemComponent")
-    local item_components = EntityGetComponent(self.entity_id, "ItemComponent")
-    if item_components ~= nil and item_components[1] ~= nil then
-      ComponentSetValue(item_components[1], "play_hover_animation", "0")
-      ComponentSetValue(item_components[1], "has_been_picked_by_player", "1")
+    local item_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "ItemComponent")
+    if item_component then
+      ComponentSetValue2(item_component, "has_been_picked_by_player", true)
     end
+
+    EntitySetComponentsWithTagEnabled(self.entity_id, "enabled_in_world", false)
+    EntitySetComponentsWithTagEnabled(self.entity_id, "enabled_in_inventory", true)
+
+    local sprite_particle_emitter_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteParticleEmitterComponent")
+    if sprite_particle_emitter_comp then
+      EntitySetComponentIsEnabled(self.entity_id, sprite_particle_emitter_comp, false)
+    end
+
     EntityAddChild(inventory_id, self.entity_id)
   else
-    error("Cannot add wand to players inventory, it's already full.")
+    error("Cannot add wand to players inventory, it's already full.", 2)
   end
 end
 
-return function(from)
-  return wand:new(from)
+return function(from, rng_seed_x, rng_seed_y)
+  return wand:new(from, rng_seed_x, rng_seed_y)
 end
