@@ -23,7 +23,7 @@ The potion effects are:
   - **__Water__**:
     Add water related spells, increase max mana.
   - **__Teleportatium / Unstable Teleportatium__**:
-    Add teleport related spells, increase max mana and mana charge speed.
+    Add teleport related spells, increase max mana and mana charge speed. Unstable version increases spead by 5 - 10.
   - **__Oil__**:
     Add oil related spells, reduce recharge time and cast delay.
   - **__Slime__**:
@@ -54,6 +54,8 @@ The potion effects are:
     Add creature/polymorph related spells, increase spells per cast.
   - **__Chaotic Polymorphine__**:
     Add tentacle/misc spells.
+  - **__Unstable Polymorphine__**:
+    Same as Chaotic Polymorphine but increases spells per cast by 2 - 3 and spread by 5 - 10.
   - **__Pheromone__**:
     Add egg/charm spells.
   - **__Invisiblium__**:

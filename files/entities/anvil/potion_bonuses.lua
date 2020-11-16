@@ -85,6 +85,7 @@ return {
     })
     wand.manaMax = wand.manaMax + Random(20, 50)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(10, 30)
+    wand.spread = wand.spread + Random(5, 10)
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
  end,
   oil = function(wand)
@@ -229,12 +230,22 @@ return {
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
   magic_liquid_random_polymorph = function(wand)
-    -- transform all spells in wand into random ones
+    -- transform all spells in wand into random ones?
     local spells = merge_spells("magic_liquid_random_polymorph", {
       "TENTACLE_PORTAL", "TENTACLE", "TENTACLE_TIMER", "SUMMON_EGG", "STATIC_TO_SAND",
       "TRANSMUTATION", "CHAOS_POLYMORPH_FIELD", "PROJECTILE_TRANSMUTATION_FIELD",
       "TENTACLE_RAY", "TENTACLE_RAY_ENEMY", "RANDOM_EXPLOSION"
     })
+    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+  end,
+  magic_liquid_unstable_polymorph = function(wand)
+    local spells = merge_spells("magic_liquid_unstable_polymorph", {
+      "TENTACLE_PORTAL", "TENTACLE", "TENTACLE_TIMER", "SUMMON_EGG", "STATIC_TO_SAND",
+      "TRANSMUTATION", "CHAOS_POLYMORPH_FIELD", "PROJECTILE_TRANSMUTATION_FIELD",
+      "TENTACLE_RAY", "TENTACLE_RAY_ENEMY", "RANDOM_EXPLOSION"
+    })
+    wand.spellsPerCast = wand.spellsPerCast + Random(2, 3)
+    wand.spread = wand.spread + Random(5, 10)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
   end,
   magic_liquid_charm = function(wand)

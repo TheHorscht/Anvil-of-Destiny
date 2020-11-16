@@ -1,9 +1,6 @@
 - Find a way to spawn them more consistently
 - When anvil pixel scene gets placed close to another, load a normal pixel scene instead
-- Add unstable polymorphine and other unstable versions
 - Wand with always cast + normal wand always produces output wand with SAME always cast?
-
-- Add magic_liquid_unstable_teleportation
 - Add GUI Icon for wand speedup effect (blessing of the gods) and sparkles?
 
 - Sound stops working

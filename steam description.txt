@@ -22,7 +22,7 @@ Add blood/crit related spells, increase spells per cast, decrease recharge time 
 [b]► Water ◄[/b]
 Add water related spells, increase max mana.
 [b]► Teleportatium / Unstable Teleportatium ◄[/b]
-Add teleport related spells, increase max mana and mana charge speed.
+Add teleport related spells, increase max mana and mana charge speed. Unstable version increases spead by 5 - 10.
 [b]► Oil ◄[/b]
 Add oil related spells, reduce recharge time and cast delay.
 [b]► Slime ◄[/b]
@@ -53,6 +53,8 @@ Add heal spells, increase mana charge speed and spawn 4 healers.
 Add creature/polymorph related spells, increase spells per cast.
 [b]► Chaotic Polymorphine ◄[/b]
 Add tentacle/misc spells.
+[b]► Unstable Polymorphine ◄[/b]
+Same as Chaotic Polymorphine but increases spells per cast by 2 - 3 and spread by 5 - 10.
 [b]► Pheromone ◄[/b]
 Add egg/charm spells.
 [b]► Invisiblium ◄[/b]

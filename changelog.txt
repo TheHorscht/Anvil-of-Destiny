@@ -1,5 +1,7 @@
 UNRELEASED:
 - Add recipes for most pickup items (like broken wand, thunderstone etc).
+- Add unstable polymorphine.
+- Change unstable teleportatium to increase spread by 5 - 10.
 
 v1.13.3:
 - config_regular_wand_buff and config_improved_wand_buff now affect mana recharge speed
