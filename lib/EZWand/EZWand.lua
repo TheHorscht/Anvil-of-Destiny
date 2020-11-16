@@ -1,5 +1,5 @@
 -- #########################################
--- #######   EZWand version v1.1.1   #######
+-- #######   EZWand version v1.1.3   #######
 -- #########################################
 
 dofile_once("data/scripts/gun/procedural/gun_action_utils.lua")
@@ -255,9 +255,7 @@ function wand:_SetProperty(key, value)
   }
   -- We need a special rule for capacity, since always cast spells count towards capacity, but not in the UI...
   if key == "capacity" then
-    -- TODO: set capacity to value + numalwayscastspells
     local spells, attached_spells = self:GetSpells()
-    value = value + #attached_spells
     -- If capacity is getting reduced, remove any spells that don't fit anymore
     local spells_to_remove = {}
     for i=#spells, value+1, -1 do
@@ -266,6 +264,7 @@ function wand:_SetProperty(key, value)
     if #spells_to_remove > 0 then
       self:RemoveSpells(spells_to_remove)
     end
+    value = value + #attached_spells
   end
   target_setters[variable_mappings[key].target](mapped_key, value)
 end
@@ -615,21 +614,13 @@ function wand:PutInPlayersInventory()
       end
     end
   end
-  if count < 4 then
+  local players = EntityGetWithTag("player_unit")
+  if count < 4 and #players > 0 then
     local item_component = EntityGetFirstComponentIncludingDisabled(self.entity_id, "ItemComponent")
     if item_component then
       ComponentSetValue2(item_component, "has_been_picked_by_player", true)
     end
-
-    EntitySetComponentsWithTagEnabled(self.entity_id, "enabled_in_world", false)
-    EntitySetComponentsWithTagEnabled(self.entity_id, "enabled_in_inventory", true)
-
-    local sprite_particle_emitter_comp = EntityGetFirstComponentIncludingDisabled(self.entity_id, "SpriteParticleEmitterComponent")
-    if sprite_particle_emitter_comp then
-      EntitySetComponentIsEnabled(self.entity_id, sprite_particle_emitter_comp, false)
-    end
-
-    EntityAddChild(inventory_id, self.entity_id)
+    GamePickUpInventoryItem(players[1], self.entity_id, false)
   else
     error("Cannot add wand to players inventory, it's already full.", 2)
   end
