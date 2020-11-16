@@ -1,4 +1,5 @@
 dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
 local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 
@@ -32,7 +33,7 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
     -- Check if it's a potion
     local material_sucker_component = EntityGetFirstComponent(active_item, "MaterialSuckerComponent")
     local material_inventory_component = EntityGetFirstComponent(active_item, "MaterialInventoryComponent")
-    if material_sucker_component ~= nil and material_inventory_component ~= nil then
+    if material_sucker_component and material_inventory_component then
       local counts = ComponentGetValue2(material_inventory_component, "count_per_material_type")
       local material_name, material_amount
       for material_id, amount in pairs(counts) do
@@ -55,11 +56,13 @@ end
 
 -- Warning: This has side effects beside just playing the animation
 function play_pouring_animation(anvil_id, material_name, x, y)
+  if not is_debug() then
   local pour_animation = EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_pour_animation.xml", x + 1, y - 11)
   EntityAddComponent2(pour_animation, "VariableStorageComponent", {
     name="potion_material",
     value_string=material_name,
   })
+  end
   local potion_material_poured_var_store = get_variable_storage_component(anvil_id, "potion_material_poured")
   if not potion_material_poured_var_store then
     EntityAddComponent2(anvil_id, "VariableStorageComponent", {
@@ -74,7 +77,7 @@ function play_pouring_animation(anvil_id, material_name, x, y)
   -- by e.g. restarting the game in the middle of it
   EntityAddComponent2(anvil_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/consume_potion.lua",
-    execute_every_n_frame=112,
+    execute_every_n_frame=is_debug() and 1 or 112,
   })
   -- Disable anvil interactivity while animation is playing, gets reenabled in consume_potion.lua
   local collision_trigger_components = EntityGetComponent(anvil_id, "CollisionTriggerComponent") or {}

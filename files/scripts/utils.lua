@@ -143,3 +143,7 @@ function get_stored_entity_type(entity_id)
     end
   end
 end
+
+function is_debug()
+  return GlobalsGetValue("anvil_of_destiny_debug", "0") == "1"
+end
