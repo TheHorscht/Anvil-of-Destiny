@@ -200,9 +200,11 @@ end
 
 -- "spells" is a table of spells to potentially add, but they will get filtered by the wand level, so it will only add spells appropriate to the wand level
 -- will only fill up to wand capacity
-function add_spells_to_wand(wand, spells, num_spells_to_add)
-	local wand_level = wand_compute_level(wand.entity_id)
-	spells = filter_spells(spells, wand_level-1, wand_level+1)
+function add_spells_to_wand(wand, spells, num_spells_to_add, skip_filter)
+	if not skip_filter then
+		local wand_level = wand_compute_level(wand.entity_id)
+		spells = filter_spells(spells, wand_level-1, wand_level+1)
+	end
 	local spells_count = wand:GetSpellsCount()
 	local num_spells_added = 0
 	while wand.capacity > spells_count and num_spells_added < num_spells_to_add do

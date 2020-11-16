@@ -6,6 +6,7 @@ dofile_once("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/anvil_of_destiny/config.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
+dofile_once("mods/anvil_of_destiny/files/entities/anvil/item_detector.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/wand_utils.lua")
 local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
@@ -195,20 +196,15 @@ function feed_anvil(anvil_id, what, context_data)
 	end
 
 	if what == "potion" then
-		remove_potion_input_place(anvil_id)
-		--[[ if state.potions == 1 then return end ]]
-		local accepted = false
 		local material_name = context_data
 		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-		for k, v in pairs(potion_bonuses) do
-			if material_name == k then
-				accepted = true
-				break
-			end
-		end
-		if not accepted then return end
+		if not potion_bonuses[material_name] then return end
 		state.potion_material = material_name
-		set_outline_emitter(anvil_id, true, { emitted_material_name=material_name })
+		remove_potion_input_place(anvil_id)
+		local emitter_material = material_emitter_lookup[material_name] or material_name
+		if CellFactory_GetType(emitter_material) ~= -1 then
+			set_outline_emitter(anvil_id, true, { emitted_material_name = emitter_material })
+		end
 	end
 
 	update_emitters(anvil_id, what)
@@ -264,11 +260,12 @@ function feed_anvil(anvil_id, what, context_data)
 	end
 end
 
-function is_valid_anvil_input(anvil_id, what)
+function is_valid_anvil_input(anvil_id, what, material)
 	local state = get_state(anvil_id)
 
 	if what == "potion" then
-		return state.tablets < 2 and state.potions == 0
+		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
+		return state.tablets < 2 and state.potions == 0 and (not material or material and potion_bonuses[material])
 	elseif what == "tablet" then
 		if state.potions > 0 then
 			return state.tablets < 1
@@ -276,7 +273,7 @@ function is_valid_anvil_input(anvil_id, what)
 			return true
 		end
 	elseif what == "wand" then
-		return true 
+		return true
 	end
 
 	error(string.format("Invalid anvil input: '%s'", what))

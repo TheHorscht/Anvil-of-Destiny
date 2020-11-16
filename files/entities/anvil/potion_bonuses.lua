@@ -439,4 +439,97 @@ return {
     wand.manaChargeSpeed = wand.manaChargeSpeed * 0.8
   end,
   -- /Arcane Alchemy
+  -- Pickup items, yeah they're not potions, SO WHAT?! Put them in here anyways because I'm too lazy to refactor "Potions" to a new name
+  runestone_disc = function(wand)
+    local spells = { "DISC_BULLET", "DISC_BULLET_BIG" }
+    wand.capacity = math.min(26, wand.capacity + Random(1, 2))
+    add_spells_to_wand(wand, spells, Random(4, 6), true)
+  end,
+  runestone_slow = function(wand)
+    wand:AttachSpells("DECELERATING_SHOT")
+  end,
+  runestone_laser = function(wand)
+    local spells = { "LASER" }
+    wand.spread = math.floor(wand.spread - math.abs(wand.spread * 0.2))
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  runestone_fireball = function(wand)
+    local spells = { "FIREBALL" }
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  runestone_null = function(wand)
+    -- Increase capacity based on #spells on wand, up to a maximum of 16
+    wand.spellsPerCast = 1
+    -- Remove all spells from the wand and scatter them
+    local spells = wand:GetSpells()
+    local x, y = EntityGetTransform(wand.entity_id)
+    for i, spell in ipairs(spells) do
+      local item_entity = CreateItemActionEntity(spell.action_id, x, y - 3)
+      local velocity_component = EntityGetFirstComponentIncludingDisabled(item_entity, "VelocityComponent")
+      ComponentSetValue2(velocity_component, "mVelocity", Random(-80, 80), Random(-160, -200))
+    end
+    wand:RemoveSpells()
+    wand.capacity = math.max(wand.capacity, math.min(16, wand.capacity + #spells))
+  end,
+  chest_random = function(wand)
+    wand.capacity = math.max(wand.capacity, math.min(16, wand.capacity + Random(5, 7)))
+    local spells = wand:GetSpells()
+    local free_space = wand.capacity - #spells
+    for i=1,math.min(free_space, 10) do
+      local action = GetRandomAction(Random(1, 100), Random(1, 100), 4, i)
+      wand:AddSpells(action)
+    end
+  end,
+  chest_random_super = function(wand)
+    wand.shuffle = false
+    wand.capacity = math.min(26, wand.capacity + Random(6, 8))
+    local spells = wand:GetSpells()
+    local free_space = wand.capacity - #spells
+    for i=1,math.min(free_space, 16) do
+      local action = GetRandomAction(Random(1, 100), Random(1, 100), 6, i)
+      wand:AddSpells(action)
+    end
+  end,
+  gourd = function(wand)
+    local spells = merge_spells("gourd", { "HEAL_BULLET" })
+    add_spells_to_wand(wand, spells, Random(4, 6), true)
+  end,
+  moon = function(wand) -- Doesn't work because the moon doesn't have the physics_item tag
+    local spells = merge_spells("moon", { "GRAVITY", "GRAVITY_ANTI", "PROJECTILE_GRAVITY_FIELD", "GRAVITY_FIELD_ENEMY" })
+    add_spells_to_wand(wand, spells, Random(3, 5), true)
+  end,
+  physics_die = function(wand)
+    local spells = merge_spells("physics_die", {})
+    local function random_with_dropoff(scale, dropoff)
+      local x = Randomf()
+      return math.pow(math.exp(1), -dropoff*x) * scale
+    end
+    wand.shuffle = Random(0, 1) == 1
+    wand.spellsPerCast = math.ceil(random_with_dropoff(10, 4))
+    wand.castDelay = random_with_dropoff(120, 3) - 5
+    wand.rechargeTime = random_with_dropoff(120, 2.5) - 5
+    wand.manaMax = 1500 - random_with_dropoff(1500, 1)
+    wand.manaChargeSpeed = 500 - random_with_dropoff(500, 2)
+    wand.capacity = math.ceil(random_with_dropoff(26, 2.5))
+    wand.spread = -15 + math.floor(random_with_dropoff(45, 3))
+    add_spells_to_wand(wand, spells, Random(3, 5))
+  end,
+  safe_haven = function(wand)
+    local spells = merge_spells("safe_haven", { "HEAL_BULLET" })
+    wand.shuffle = false
+    wand.capacity = math.min(26, wand.capacity + Random(4, 6))
+    add_spells_to_wand(wand, spells, Random(4, 6), true)
+  end,
+  thunderstone = function(wand)
+    local spells = merge_spells("thunderstone", { "LIGHTNING_RAY", "LIGHTNING_RAY_ENEMY",
+      "ELECTRIC_CHARGE", "ARC_ELECTRIC", "TORCH_ELECTRIC", "PROJECTILE_THUNDER_FIELD", "CLOUD_THUNDER",
+      "ELECTROCUTION_FIELD", "THUNDER_BLAST", "THUNDERBALL", "LIGHTNING" })
+    wand.capacity = math.min(26, wand.capacity + Random(1, 3))
+    wand.spread = wand.spread + Random(3, 7)
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  egg = function(wand)
+    local spells = merge_spells("egg", { "SUMMON_EGG" })
+    add_spells_to_wand(wand, spells, Random(4, 6), true)
+  end,
 }

@@ -1,4 +1,5 @@
-dofile("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
+dofile_once("mods/anvil_of_destiny/files/entities/anvil/anvil.lua")
+dofile_once("mods/anvil_of_destiny/files/entities/anvil/item_detector.lua")
 
 function collision_trigger(colliding_entity_id)
   local entity_id = GetUpdatedEntityID()
@@ -32,6 +33,20 @@ function collision_trigger(colliding_entity_id)
       if EntityGetParent(tablet_id) == 0 then
         if is_valid_anvil_input(entity_id, "tablet") then
           feed_anvil(entity_id, "tablet", tablet_id)
+        end
+      end
+    end
+
+    local physics_items = get_entities_with_tag(x, y, "item_physics")
+    for i, item_id in ipairs(physics_items) do
+      if EntityGetParent(item_id) == 0 then
+        local equivalent, thing = get_equivalent(item_id)
+        if equivalent and is_valid_anvil_input(entity_id, equivalent, thing) then
+          EntityKill(item_id)
+          if equivalent == "wand" then
+            thing = EntityLoad(thing)
+          end
+          feed_anvil(entity_id, equivalent, thing)
         end
       end
     end

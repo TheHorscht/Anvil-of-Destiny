@@ -98,6 +98,39 @@ The potion effects are:
   - **__Arborium__**:
     Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
 
+  - **__--Misc items--__**:
+  - **__Broken wand__**:
+    Counts as a random level 2 wand.
+  - **__Runestone of edges__**:
+    Increase capacity by 1 - 2 and add 4 - 6 disc spells.
+  - **__Runestone of weight__**:
+    Add always cast "Decelerating shot.
+  - **__Runestone of light__**:
+    Improve spead by 20% and add 4 - 6 laser spells.
+  - **__Runestone of fire__**:
+    Add 4 - 6 fireball spells.
+  - **__Runestone of emptiness__**:
+    Reduce spells per cast to 1 and increase capacity up to 16 for each spell on the wand, spells on the wand will be thrown off (not destroyed).
+  - **__Runestone of magma__**:
+    Same effect as lava potion.
+  - **__Chest__**:
+    Increases capacity by 5 - 7 up to a max of 16 and adds 10 random spells.
+  - **__Rare chest__**:
+    Increases capacity by 6 - 8 up to a max of 26 and adds 16 random spells.
+  - **__Refreshing gourd__**:
+    Add 4 - 6 healing bolt spells.
+  - **__Chaos die__**:
+    Completely shuffle all stats of the wand.
+  - **__Kammi__**:
+    Turn wand into no-shuffle, increase capacity by 4 - 6 and add 4 - 6 healing bolt spells.
+  - **__Kiuaskivi (Brimstone)__**:
+    Same effect as liquid fire potion.
+  - **__Ukkoskivi (Thunderstone)__**:
+    Add 4 - 6 lightning related spells, increase capacity by 1 - 3 and spread by 3 - 7.
+  - **__Vuoksikivi (Waterstone)__**:
+    Same effect as water potion.
+  - **__Any egg__**:
+    Adds 4 - 6 egg spells.
 
 [b][size=medium]Let's pray and hope there are no bugs![/size][/b]
 [b][size=medium]That's it, have fun forging with the holy Anvil of DESTINY![/size][/b]

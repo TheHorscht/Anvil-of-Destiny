@@ -1,3 +1,5 @@
+- Find a way to spawn them more consistently
+- Add unstable polymorphine and other unstable versions
 - FIX wand sprite shoot offsets not working?
 - FIX still getting same spells?
 - Same spells always get added, check randomseed shit?
@@ -8,7 +10,6 @@
 
 - Sound stops working
 - Add runestones?
-- Add recipe for broken wand?
 
 - IDEA for accelerat potion: Everytime you shoot the wand it has a small chance to apply the speed up effect to the wielder
 - Carry over wand effects like speed up to new wands when 2 wand merge
