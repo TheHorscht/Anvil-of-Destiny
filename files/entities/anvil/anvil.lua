@@ -295,10 +295,10 @@ end
 -- Will spit out whatever is inside the <Entity name="output_storage"> after some time
 function spawn_result_spawner(entity_id, x, y)
   local offset_x = x + 4
-  local offset_y = y
+	local offset_y = y
 	if not is_debug() then
-  spawn_hammer_animation(offset_x, offset_y, 1, 0)
-  spawn_hammer_animation(offset_x, offset_y, -1, 55)
+  	spawn_hammer_animation(offset_x, offset_y, 1, 0)
+		spawn_hammer_animation(offset_x, offset_y, -1, 55)
 	end
   EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
@@ -315,17 +315,17 @@ function spawn_result_spawner2(entity_id, x, y)
   local total_delay = 0
   for i, v in ipairs(delays) do
     total_delay = total_delay + v
-    local direction = i % 2 == 0 and -1 or 1
+		local direction = i % 2 == 0 and -1 or 1
 		if not is_debug() then
-    spawn_hammer_animation(offset_x, offset_y, direction, total_delay)
-	end
+			spawn_hammer_animation(offset_x, offset_y, direction, total_delay)
+		end
 	end
 	if not is_debug() then
-	EntityAddComponent2(entity_id, "LuaComponent", {
-		script_source_file="mods/anvil_of_destiny/files/entities/anvil/loosen_chunks.lua",
-		execute_every_n_frame=150,
-		remove_after_executed=true,
-	})
+		EntityAddComponent2(entity_id, "LuaComponent", {
+			script_source_file="mods/anvil_of_destiny/files/entities/anvil/loosen_chunks.lua",
+			execute_every_n_frame=150,
+			remove_after_executed=true,
+		})
 	end
   -- EntityAddComponent(entity_id, "LuaComponent", {
   --   script_source_file="mods/anvil_of_destiny/files/entities/anvil/deactivate_emitters.lua",

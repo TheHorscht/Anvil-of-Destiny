@@ -17,7 +17,7 @@ end
 
 function interacting(entity_who_interacted, entity_interacted, interactable_name)
   local anvil_id
-  local x, y = EntityGetTransform(entity_interacted)  
+  local x, y = EntityGetTransform(entity_interacted)
   local entities_in_radius = EntityGetInRadius(x, y, 50)
   for i, entity in ipairs(entities_in_radius) do
     if EntityGetName(entity) == "anvil_of_destiny" then
@@ -57,11 +57,11 @@ end
 -- Warning: This has side effects beside just playing the animation
 function play_pouring_animation(anvil_id, material_name, x, y)
   if not is_debug() then
-  local pour_animation = EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_pour_animation.xml", x + 1, y - 11)
-  EntityAddComponent2(pour_animation, "VariableStorageComponent", {
-    name="potion_material",
-    value_string=material_name,
-  })
+    local pour_animation = EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_pour_animation.xml", x + 1, y - 11)
+    EntityAddComponent2(pour_animation, "VariableStorageComponent", {
+      name="potion_material",
+      value_string=material_name,
+    })
   end
   local potion_material_poured_var_store = get_variable_storage_component(anvil_id, "potion_material_poured")
   if not potion_material_poured_var_store then
