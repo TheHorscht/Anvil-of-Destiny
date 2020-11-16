@@ -126,7 +126,7 @@ Turn wand into no-shuffle, increase capacity by 4 - 6 and add 4 - 6 healing bolt
 [b]► Kiuaskivi (Brimstone) ◄[/b]
 Same effect as liquid fire potion.
 [b]► Ukkoskivi (Thunderstone) ◄[/b]
-Add 4 - 6 lightning related spells, increase capacity by 1 - 3 and spread by 3 - 7.
+Add always cast "Electric charge", increase capacity by 1 - 3 and spread by 3 - 7.
 [b]► Vuoksikivi (Waterstone) ◄[/b]
 Same effect as water potion.
 [b]► Any egg ◄[/b]

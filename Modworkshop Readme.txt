@@ -126,7 +126,7 @@ The potion effects are:
   - **__Kiuaskivi (Brimstone)__**:
     Same effect as liquid fire potion.
   - **__Ukkoskivi (Thunderstone)__**:
-    Add 4 - 6 lightning related spells, increase capacity by 1 - 3 and spread by 3 - 7.
+    Add always cast "Electric charge", increase capacity by 1 - 3 and spread by 3 - 7.
   - **__Vuoksikivi (Waterstone)__**:
     Same effect as water potion.
   - **__Any egg__**:

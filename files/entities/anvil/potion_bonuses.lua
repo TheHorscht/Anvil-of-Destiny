@@ -521,12 +521,9 @@ return {
     add_spells_to_wand(wand, spells, Random(4, 6), true)
   end,
   thunderstone = function(wand)
-    local spells = merge_spells("thunderstone", { "LIGHTNING_RAY", "LIGHTNING_RAY_ENEMY",
-      "ELECTRIC_CHARGE", "ARC_ELECTRIC", "TORCH_ELECTRIC", "PROJECTILE_THUNDER_FIELD", "CLOUD_THUNDER",
-      "ELECTROCUTION_FIELD", "THUNDER_BLAST", "THUNDERBALL", "LIGHTNING" })
     wand.capacity = math.min(26, wand.capacity + Random(1, 3))
     wand.spread = wand.spread + Random(3, 7)
-    add_spells_to_wand(wand, spells, Random(4, 6))
+    wand:AttachSpells("ELECTRIC_CHARGE")
   end,
   egg = function(wand)
     local spells = merge_spells("egg", { "SUMMON_EGG" })
