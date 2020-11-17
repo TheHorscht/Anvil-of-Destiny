@@ -1,7 +1,7 @@
 -- The occurence rate of anvil for each biome, on average (does not guarantee that many will spawn!)
 
 -- Pyramid
-config_altar_room_occurences_pyramid = 1 -- max 4.739173553719	
+config_altar_room_occurences_pyramid = 1 -- max 4.739173553719
 -- Mines
 config_altar_room_occurences_coalmine = 0.7 -- max 1.2926232741617
 -- Coal Pits
@@ -15,7 +15,7 @@ config_altar_room_occurences_rainforest = 1.2 -- max 3.9936
 -- The Vault
 config_altar_room_occurences_vault = 2 -- max 4.9152
 -- Temple of the Art
-config_altar_room_occurences_crypt = 2.5 -- max 4.739173553719	
+config_altar_room_occurences_crypt = 2.5 -- max 4.739173553719
 -- VolcanoBiome (Mod)
 config_altar_room_occurences_volcanobiome = 3.5
 
