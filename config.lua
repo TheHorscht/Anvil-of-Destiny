@@ -1,4 +1,50 @@
--- The occurence rate of anvil for each biome, on average (does not guarantee that many will spawn!)
+--[[
+
+
+
+
+
+
+
+!!!   DO NOT MODIFY THIS FILE   !!!
+
+Use the new ingame mod settings menu instead!
+
+
+
+
+
+
+]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- Pyramid
 config_altar_room_occurences_pyramid = ModSettingGet("anvil_of_destiny.room_occurences_pyramid")
