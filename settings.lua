@@ -8,7 +8,7 @@ local function get_setting_id(name)
 end
 
 local function format_fn_occurence(val)
-	return string.format("%.1f", val)
+	return string.format("%.f%%", val * 100)
 end
 
 local function format_fn_buffamount(val)
@@ -18,16 +18,16 @@ end
 local settings = {
 	{
 		type = "group",
-		label = "Occurance chances",
+		label = "Occurance chances per 512x512 area (on average, not guaranteed)",
 		items = {
 			{
 				id = "room_occurences_coalmine",
 				label = "Mines", --"$biome_coalmine",
 				description = "",
-				value_default = 0.7,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 1.3,
-				value_display_multiplier = 1.0,
+				value_max = 0.215,
+				value_display_multiplier = 100.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
 				scope = MOD_SETTING_SCOPE_NEW_GAME,
@@ -36,9 +36,9 @@ local settings = {
 				id = "room_occurences_excavationsite",
 				label = "$biome_excavationsite",
 				description = "",
-				value_default = 1.3,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 1.64,
+				value_max = 0.10,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -48,9 +48,9 @@ local settings = {
 				id = "room_occurences_snowcave",
 				label = "$biome_snowcave",
 				description = "",
-				value_default = 1.2,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 2.73,
+				value_max = 0.09,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -60,9 +60,9 @@ local settings = {
 				id = "room_occurences_snowcastle",
 				label = "$biome_snowcastle",
 				description = "",
-				value_default = 1.2,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 2.26,
+				value_max = 0.16,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -72,9 +72,9 @@ local settings = {
 				id = "room_occurences_rainforest",
 				label = "$biome_rainforest",
 				description = "",
-				value_default = 1.2,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 3.99,
+				value_max = 0.15,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -84,9 +84,9 @@ local settings = {
 				id = "room_occurences_vault",
 				label = "$biome_vault",
 				description = "",
-				value_default = 2.0,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 4.91,
+				value_max = 0.15,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -96,9 +96,21 @@ local settings = {
 				id = "room_occurences_crypt",
 				label = "$biome_crypt",
 				description = "",
-				value_default = 2.5,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 4.74,
+				value_max = 0.11,
+				value_display_multiplier = 1.0,
+				value_display_formatting = "",
+				format_fn = format_fn_occurence,
+				scope = MOD_SETTING_SCOPE_NEW_GAME,
+			},
+			{
+				id = "room_occurences_pyramid",
+				label = "$biome_pyramid",
+				description = "",
+				value_default = 0.05,
+				value_min = 0.0,
+				value_max = 0.11,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -108,9 +120,9 @@ local settings = {
 				id = "room_occurences_volcanobiome",
 				label = "VolcanoBiome (Mod)",
 				description = "",
-				value_default = 3.5,
+				value_default = 0.05,
 				value_min = 0.0,
-				value_max = 4.74,
+				value_max = 0.11,
 				value_display_multiplier = 1.0,
 				value_display_formatting = "",
 				format_fn = format_fn_occurence,
@@ -174,14 +186,21 @@ function ModSettingsUpdate( init_scope )
 			end
 		end
 	end
-	for i, setting in ipairs(settings) do
-		set_defaults(setting)
-		if setting.id ~= nil and setting.scope ~= nil and setting.scope >= init_scope and (setting.not_setting == nil or setting.not_setting == false) then
+	local function save_setting(setting)
+		if setting.type == "group" then
+			for i, item in ipairs(setting.items) do
+				save_setting(item)
+			end
+		elseif setting.id ~= nil and setting.scope ~= nil and setting.scope >= init_scope then
 			local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
 			if next_value ~= nil then
 				ModSettingSet(get_setting_id(setting.id), next_value)
 			end
 		end
+	end
+	for i, setting in ipairs(settings) do
+		set_defaults(setting)
+		save_setting(setting)
 	end
 	ModSettingSet(get_setting_id("_version"), mod_settings_version)
 end
