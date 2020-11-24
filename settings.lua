@@ -1,4 +1,5 @@
-dofile("data/scripts/lib/mod_settings.lua") -- Only using this for the scope enums
+dofile_once("data/scripts/lib/utilities.lua")
+dofile_once("data/scripts/lib/mod_settings.lua")
 
 local mod_id = "anvil_of_destiny"
 mod_settings_version = 1
@@ -214,7 +215,9 @@ function ModSettingsGui( gui, in_main_menu )
 
 	for i, setting in ipairs(settings) do
 		if setting.type == "group" then
-			GuiText(gui, 0, 0, "--- " .. setting.label .. " " .. ("-"):rep(50))
+			GuiOptionsAddForNextWidget(gui, GUI_OPTION.DrawSemiTransparent)
+			-- GuiText(gui, 0, 0, "--- " .. setting.label .. " " .. ("-"):rep(50))
+			GuiText(gui, 0, 0, setting.label)
 			GuiLayoutBeginHorizontal(gui, 0, 0)
 			local offset = setting.offset or 0
 
