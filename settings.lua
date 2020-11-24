@@ -20,12 +20,18 @@ local settings = {
 	{
 		type = "group",
 		label = "Occurance chances per 512x512 area (on average, not guaranteed)",
+		description = [[Why such a small upper limit?
+Because for higher values I would have to
+overwrite the biome files and make my mod
+incompatible with world altering mods.
+This is the highest it can get without
+breaking compatibility.]],
 		items = {
 			{
 				id = "room_occurences_coalmine",
 				label = "Mines", --"$biome_coalmine",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.0875, -- 0.0875
 				value_min = 0.0,
 				value_max = 0.215,
 				value_display_multiplier = 100.0,
@@ -37,7 +43,7 @@ local settings = {
 				id = "room_occurences_excavationsite",
 				label = "$biome_excavationsite",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.065, -- 0.08125
 				value_min = 0.0,
 				value_max = 0.10,
 				value_display_multiplier = 1.0,
@@ -49,7 +55,7 @@ local settings = {
 				id = "room_occurences_snowcave",
 				label = "$biome_snowcave",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.065, -- 0.04
 				value_min = 0.0,
 				value_max = 0.09,
 				value_display_multiplier = 1.0,
@@ -61,7 +67,7 @@ local settings = {
 				id = "room_occurences_snowcastle",
 				label = "$biome_snowcastle",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.065, -- 0.08571428571428571428571428571429
 				value_min = 0.0,
 				value_max = 0.16,
 				value_display_multiplier = 1.0,
@@ -73,7 +79,7 @@ local settings = {
 				id = "room_occurences_rainforest",
 				label = "$biome_rainforest",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.05, -- 0.4615384615384615384615384615385
 				value_min = 0.0,
 				value_max = 0.15,
 				value_display_multiplier = 1.0,
@@ -85,7 +91,7 @@ local settings = {
 				id = "room_occurences_vault",
 				label = "$biome_vault",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.06, -- 0.0625
 				value_min = 0.0,
 				value_max = 0.15,
 				value_display_multiplier = 1.0,
@@ -97,7 +103,7 @@ local settings = {
 				id = "room_occurences_crypt",
 				label = "$biome_crypt",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.06, -- 0,05952380952380952380952380952381
 				value_min = 0.0,
 				value_max = 0.11,
 				value_display_multiplier = 1.0,
@@ -109,7 +115,7 @@ local settings = {
 				id = "room_occurences_pyramid",
 				label = "$biome_pyramid",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.1, -- 0.125
 				value_min = 0.0,
 				value_max = 0.11,
 				value_display_multiplier = 1.0,
@@ -121,7 +127,7 @@ local settings = {
 				id = "room_occurences_volcanobiome",
 				label = "VolcanoBiome (Mod)",
 				description = "",
-				value_default = 0.05,
+				value_default = 0.065, -- 0,08333333333333333333333333333333
 				value_min = 0.0,
 				value_max = 0.11,
 				value_display_multiplier = 1.0,
@@ -134,6 +140,7 @@ local settings = {
 	{
 		type = "group",
 		label = "Buff amount",
+		description = "These values don't have any particular scale",
 		offset = 44,
 		items = {
 			{
@@ -164,7 +171,7 @@ local settings = {
 	},
 	{
 		id = "reusable",
-		label = "Reusable",
+		label = "Anvil reusable",
 		description = "Makes the anvil reusable by resetting it after picking up the reward",
 		value_default = false,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
@@ -175,7 +182,7 @@ function ModSettingsGuiCount()
 	return 1
 end
 
-function ModSettingsUpdate( init_scope )
+function ModSettingsUpdate(init_scope)
 	local function set_defaults(setting)
 		if setting.type == "group" then
 			for i, item in ipairs(setting.items) do
@@ -218,6 +225,9 @@ function ModSettingsGui( gui, in_main_menu )
 			GuiOptionsAddForNextWidget(gui, GUI_OPTION.DrawSemiTransparent)
 			-- GuiText(gui, 0, 0, "--- " .. setting.label .. " " .. ("-"):rep(50))
 			GuiText(gui, 0, 0, setting.label)
+			if setting.description then
+				GuiTooltip(gui, setting.description, "")
+			end
 			GuiLayoutBeginHorizontal(gui, 0, 0)
 			local offset = setting.offset or 0
 
@@ -231,7 +241,6 @@ function ModSettingsGui( gui, in_main_menu )
 			-- Render sliders
 			GuiLayoutBeginVertical(gui, 0, 0)
 			for i, setting in ipairs(setting.items) do
-				-- GuiSlider( gui, id:int, x:number, y:number, text:string, value:number, value_min:number, value_max:number, value_default:number, value_display_multiplier:number, value_formatting:string, width:number ) -> new_value:number
 				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
 				local new_value = GuiSlider(gui, get_id(), 10 + offset, 2, "", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier, " " or setting.value_display_formatting, 80)
 				GuiLayoutAddVerticalSpacing(gui, 1)
@@ -261,6 +270,9 @@ function ModSettingsGui( gui, in_main_menu )
 				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
 				local text = setting.label .. ": " .. GameTextGet(next_value and "$option_on" or "$option_off")
 				local clicked, right_clicked = GuiButton(gui, 0, 0, text, get_id())
+				if setting.description then
+					GuiTooltip(gui, setting.description, "")
+				end
 				if clicked then
 					ModSettingSetNextValue(get_setting_id(setting.id), not next_value, false)
 				end
