@@ -1,3 +1,6 @@
+V1.15.1:
+- FIX: Sometimes the same or very similar spells were being generated when combining two wands. Should not happen anymore.
+
 V1.15.0:
 - Add mod settings to the new ingame config menu, please use that now instead of the config.lua
 

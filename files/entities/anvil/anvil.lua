@@ -152,6 +152,9 @@ local state_strings = {
 function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 	SetRandomSeed(GameGetFrameNum() + x + wand1.entity_id, GameGetFrameNum() + y + wand2.entity_id)
 	local new_wand = wand_merge(wand1, wand2)
+	-- Need to do this again because in wand_merge a new wand is being loaded which causes the vanilla wand script to set it's own seed
+	-- based on the position of the newly loaded wand
+	SetRandomSeed(GameGetFrameNum() + x + wand1.entity_id, GameGetFrameNum() + y + wand2.entity_id)
 	local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
 	local wand1_spell_count = #wand1:GetSpells()
 	local wand2_spell_count = #wand2:GetSpells()
@@ -161,13 +164,12 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 	if spell_count_to_add <= 0 then
 		spell_count_to_add = 1
 	end
-
 	wand_fill_with_semi_random_spells(new_wand,
 		spell_count_to_add,
 		spell_stats.average_attached_spell_count,
 		spell_stats.average_spell_level,
 		spell_stats.average_attached_spell_level,
-		Random()*100, Random()*100)
+		Randomf()*1000, Randomf()*1000)
 	buff_wand(new_wand, config_regular_wand_buff, config_regular_wand_buff * 2, true)
 	local wand_level = wand_compute_level(new_wand.entity_id)
 	for i=1, attach_spells_count do
