@@ -137,7 +137,7 @@ The potion effects are:
 [b][size=medium]Let's pray and hope there are no bugs![/size][/b]
 [b][size=medium]That's it, have fun forging with the holy Anvil of DESTINY![/size][/b]
 
-You can tweak the anvil spawn chance, buff amount and reusability in the config file located in the root folder of the mod: mods/anvil_of_destiny/config.lua
+You can tweak the anvil spawn chance, buff amount and reusability in the mod settings.
 
 GitHub:[size=small][b] [url=https://github.com/TheHorscht/Anvil-of-Destiny]https://github.com/TheHorscht/Anvil-of-Destiny[/url]
 [/b][/size]

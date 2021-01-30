@@ -136,8 +136,7 @@ Adds 4 - 6 egg spells.
 
 -----------------------
 
-You can tweak the anvil spawn chance, buff amount and reusability in:
-C:\Program Files (x86)\Steam\steamapps\workshop\content\881100\1974488139\config.lua
+You can tweak the anvil spawn chance, buff amount and reusability in the mod settings.
 
 [h1]!! Attention !![/h1]
 If you find any bugs let me know so I can fix them, just open a thread in the [url=steamcommunity.com/sharedfiles/filedetails/discussions/1974488139]Discussions tab[/url], thanks!
