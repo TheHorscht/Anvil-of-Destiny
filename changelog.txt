@@ -1,10 +1,13 @@
-V1.15.1:
+UNRELEASED:
+- FIX: Some mods that added spells with unusual spell IDs broke the anvil
+
+v1.15.1:
 - FIX: Sometimes the same or very similar spells were being generated when combining two wands. Should not happen anymore.
 
-V1.15.0:
+v1.15.0:
 - Add mod settings to the new ingame config menu, please use that now instead of the config.lua
 
-V1.14.0:
+v1.14.0:
 - Add recipes for most pickup items (like broken wand, thunderstone etc).
 - Add unstable polymorphine.
 - Change unstable teleportatium to increase spread by 5 - 10.
