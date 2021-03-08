@@ -1,5 +1,6 @@
 UNRELEASED:
 - FIX: Some mods that added spells with unusual spell IDs broke the anvil
+- FIX: Removed "Dormant crystal detonation" spell from berserkium bonus because spell no longer exists
 
 v1.15.1:
 - FIX: Sometimes the same or very similar spells were being generated when combining two wands. Should not happen anymore.
