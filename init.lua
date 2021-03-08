@@ -12,6 +12,14 @@ if ModIsEnabled("VolcanoBiome") then
 end
 ModMaterialsFileAdd("mods/anvil_of_destiny/files/materials.xml")
 
+-- Play all sounds somewhere far away where they can't be heard
+-- to prevent the bug which stops sounds from working if they
+-- haven't been played before starting a new game
+local sounds = { "jingle", "fanfare", "tick_high", "tick_low", "hammer_hit" }
+for i, sound in ipairs(sounds) do
+  GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", sound, -999999, -999999)
+end
+
 function build_spell_level_lookup_table()
   dofile_once("data/scripts/gun/gun_actions.lua")
   local s = "return {\n"

@@ -1,4 +1,5 @@
 UNRELEASED:
+- FIX: Sounds didn't play when starting a new game without them playing at least once
 - FIX: Some mods that added spells with unusual spell IDs broke the anvil
 - FIX: Removed "Dormant crystal detonation" spell from berserkium bonus because spell no longer exists
 
