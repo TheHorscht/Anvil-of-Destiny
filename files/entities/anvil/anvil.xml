@@ -237,6 +237,15 @@
     >
   </LuaComponent>
 
+  <!-- To apply settings like allow wand editing and shine through fog of war -->
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/init.lua"
+    execute_on_added="1"
+    remove_after_executed="1"
+    >
+  </LuaComponent>
+
   <!-- For checking if the anvil has lost too many pixels -->
 
 	<LuaComponent

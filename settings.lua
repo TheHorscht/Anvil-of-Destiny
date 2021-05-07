@@ -176,6 +176,20 @@ breaking compatibility.]],
 		value_default = false,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
+	{
+		id = "fog_of_war_hole",
+		label = "Shine through fog of war",
+		description = "The light of the anvil will shine lightly through unexplored areas, making it easier to find.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
+	{
+		id = "allow_wand_editing",
+		label = "Enable wand editing",
+		description = "Let's you tinker with your wands while being near the anvil.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
 }
 
 function ModSettingsGuiCount()
