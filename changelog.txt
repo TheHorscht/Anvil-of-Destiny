@@ -1,4 +1,4 @@
-UNRELEASED:
+v1.15.3:
 - New mod setting: Enable wand editing near anvils
 - New mod setting: Shine through fog of war
 - FIX: Vomit potion could reduce mana recharge rate below 1
