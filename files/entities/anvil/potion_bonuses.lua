@@ -107,7 +107,7 @@ return {
     -- Slow down the wand
     wand.rechargeTime = wand.rechargeTime + math.ceil(math.abs(wand.rechargeTime) * Randomf(0.05, 0.10))
     wand.castDelay = wand.castDelay + math.ceil(math.abs(wand.castDelay) * Randomf(0.05, 0.10))
-    wand.manaChargeSpeed = wand.manaChargeSpeed - math.ceil(math.abs(wand.manaChargeSpeed) * Randomf(0.05, 0.10))
+    wand.manaChargeSpeed = math.max(1, wand.manaChargeSpeed - math.ceil(math.abs(wand.manaChargeSpeed) * Randomf(0.05, 0.10)))
     wand.manaMax = wand.manaMax + math.min(Random(150, 200), wand.manaMax * Randomf(0.10, 0.20))
     wand.capacity = wand.capacity + Random(2, 3)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
@@ -357,7 +357,7 @@ return {
   end,
   vomit = function(wand)
     local spells = merge_spells("vomit", {})
-    wand.manaChargeSpeed = wand.manaChargeSpeed * Randomf(0.4, 0.6)
+    wand.manaChargeSpeed = math.max(1, wand.manaChargeSpeed * Randomf(0.4, 0.6))
     wand.castDelay = Random(-40, -30)
     wand.rechargeTime = Random(260, 340)
     wand.spread = Randomf(50, 70)
