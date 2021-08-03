@@ -1,3 +1,8 @@
+v1.15.4:
+- Added recipes for Sima and Juhannussima, which uses the same bonus as Whiskey
+- Added recipe for Lively Concoction, which uses the same bonus as Healthium
+- Added recipe for Monstrous Powder: Adds some Taikasauva spells and increases max mana by 450 - 550.
+
 v1.15.3:
 - New mod setting: Enable wand editing near anvils
 - New mod setting: Shine through fog of war

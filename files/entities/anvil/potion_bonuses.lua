@@ -20,7 +20,7 @@ local function merge_spells(material_name, spells)
 	return spells
 end
 
-return {
+local bonuses = {
   blood = function(wand)
     local spells = merge_spells("blood", {
       "MIST_BLOOD", "MATERIAL_BLOOD", "TOUCH_BLOOD", "CRITICAL_HIT", "BLOOD_TO_ACID",
@@ -119,6 +119,11 @@ return {
     })
     wand.capacity = math.min(26, wand.capacity + Random(2,3))
     add_spells_to_wand(wand, spells, math.min(Random(3,5), math.floor(wand.capacity / 2)))
+  end,
+  monster_powder_test = function(wand)
+    local spells = merge_spells("monster_powder_test", { "SUMMON_WANDGHOST" })
+    wand.manaMax = wand.manaMax + Random(450, 550)
+    add_spells_to_wand(wand, spells, math.min(Random(3,5), math.floor(wand.capacity / 2)), true)
   end,
   liquid_fire = function(wand)
     local spells = merge_spells("liquid_fire", {
@@ -541,3 +546,9 @@ return {
     add_spells_to_wand(wand, spells, Random(4, 6), true)
   end,
 }
+-- This doesn't take into account that merge_spells("alcohol", { "HEAL_BULLET" }) will still mention alcohol
+-- fix some time later maybe... too lazy right now, would require a big rewrite
+bonuses.sima = bonuses.alcohol
+bonuses.juhannussima = bonuses.alcohol
+bonuses.magic_liquid_hp_regeneration_unstable = bonuses.magic_liquid_hp_regeneration
+return bonuses

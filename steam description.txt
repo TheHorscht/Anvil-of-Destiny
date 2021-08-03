@@ -28,8 +28,10 @@ Add oil related spells, reduce recharge time and cast delay.
 [b]► Slime ◄[/b]
 Add spells related to slime, timer triggers, recoil damper and lifetime up.
 Slow down the wand slightly but in turn increase capacity and max mana and reduce spread.
-[b]► Unstable gunpowder ◄[/b]
+[b]► Unstable Gunpowder ◄[/b]
 Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
+[b]► Monstrous Powder ◄[/b]
+Adds Taikasauva spells and increases max mana by 450 - 550.
 [b]► Fire ◄[/b]
 Add spells related to fire and slightly reduce recharge time and cast delay.
 [b]► Berserkium ◄[/b]
@@ -47,7 +49,7 @@ Combines the effects of Acceleratium and Levitatium, as if both were applied.
 Add chaotic path and/or heavy spread spells and randomize all attributes.
 [b]► Ambrosia ◄[/b]
 Add shield related spells, increase spells per cast and max mana.
-[b]► Healthium ◄[/b]
+[b]► Healthium / Lively Concoction ◄[/b]
 Add heal spells, increase mana charge speed and spawn 4 healers.
 [b]► Polymorphine ◄[/b]
 Add creature/polymorph related spells, increase spells per cast.
@@ -62,7 +64,7 @@ Add egg/charm spells.
 Increase max mana and mana charge speed slightly.
 [b]► Worm Pheromone ◄[/b]
 Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
-[b]► Whiskey ◄[/b]
+[b]► Whiskey / Sima / Juhannussima ◄[/b]
 Add all kinds of multishot modifiers, alcohol related spells.
 Increase spread and max mana by a lot and increase mana charge speed a little bit.
 [b]► Worm Blood ◄[/b]

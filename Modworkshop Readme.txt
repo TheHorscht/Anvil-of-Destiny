@@ -31,6 +31,8 @@ The potion effects are:
     Slow down the wand slightly but in turn increase capacity and max mana and reduce spread.
   - **__Unstable gunpowder__**:
     Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
+  - **__Monstrous Powder__**:
+    Adds Taikasauva spells and increases max mana by 450 - 550.
   - **__Fire__**:
     Add spells related to fire and slightly reduce recharge time and cast delay.
   - **__Berserkium__**:
@@ -48,7 +50,7 @@ The potion effects are:
     Add chaotic path and/or heavy spread spells and randomize all attributes.
   - **__Ambrosia__**:
     Add shield related spells, increase spells per cast and max mana.
-  - **__Healthium__**:
+  - **__Healthium / Lively Concoction__**:
     Add heal spells, increase mana charge speed and spawn 4 healers.
   - **__Polymorphine__**:
     Add creature/polymorph related spells, increase spells per cast.
@@ -63,7 +65,7 @@ The potion effects are:
     Increase max mana and mana charge speed slightly.
   - **__Worm Pheromone__**:
     Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
-  - **__Whiskey__**:
+  - **__Whiskey / Sima / Juhannussima__**:
     Add all kinds of multishot modifiers, alcohol related spells.
     Increase spread and max mana by a lot and increase mana charge speed a little bit.
   - **__Worm Blood__**:
