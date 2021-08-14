@@ -18,7 +18,7 @@ function build_spell_level_lookup_table()
   for i,v in ipairs(actions) do
     s = s .. "  [\"_" .. v.id .. "\"] = " .. "{"
     -- split spell levels by comma
-    for spell_level in v.spawn_level:gmatch("([^,]+)") do
+    for spell_level in (v.spawn_level and v.spawn_level or "10"):gmatch("([^,]+)") do
       s = s .. spell_level .. ","
     end
     s = s .. "},\n"

@@ -1,3 +1,6 @@
+v1.15.5:
+- FIX: Some mods with custom spells would break the anvil
+
 v1.15.4:
 - Added recipes for Sima and Juhannussima, which uses the same bonus as Whiskey
 - Added recipe for Lively Concoction, which uses the same bonus as Healthium
