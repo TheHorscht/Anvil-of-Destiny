@@ -19,7 +19,7 @@
   "homepage": "https://github.com/TheHorscht/Anvil-of-Destiny#readme",
   "dependencies": {},
   "devDependencies": {
-    "adm-zip": "^0.4.13",
+    "adm-zip": "^0.4.16",
     "minimatch": "^3.0.4"
   }
 }
