@@ -67,7 +67,7 @@ The potion effects are:
     Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
   - **__Whiskey / Sima / Juhannussima__**:
     Add all kinds of multishot modifiers, alcohol related spells.
-    Increase spread and max mana by a lot and increase mana charge speed a little bit.
+    Increase spread and max mana by a lot and decrease mana charge speed a little bit.
   - **__Worm Blood__**:
     Fill the wand with egg spells and one "All seeing eye".
     Also, have some worms.

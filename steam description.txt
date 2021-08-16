@@ -66,7 +66,7 @@ Increase max mana and mana charge speed slightly.
 Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
 [b]► Whiskey / Sima / Juhannussima ◄[/b]
 Add all kinds of multishot modifiers, alcohol related spells.
-Increase spread and max mana by a lot and increase mana charge speed a little bit.
+Increase spread and max mana by a lot and decrease mana charge speed a little bit.
 [b]► Worm Blood ◄[/b]
 Add spells that drill or penetrate the ground.
 [b]► Toxic Sludge ◄[/b]
