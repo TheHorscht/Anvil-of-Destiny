@@ -574,7 +574,7 @@ end,
     })
     -- Adds all kinds of helpful spells for building strong late game wands
     wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(4, 6))
-    add_spells_to_wand(wand, spells, Random(10, 12))
+    add_spells_to_wand(wand, spells, Random(6, 10))
   end,
   sunseed = function(wand)
     local spells = merge_spells("sunseed", { "FIREBALL", "METEOR", "FLAMETHROWER", "BOMB_HOLY", "BOMB_HOLY_GIGA",
@@ -582,9 +582,9 @@ end,
       "FIRE_BLAST", "SEA_LAVA", "HITFX_BURNING_CRITICAL_HIT", "FIREBALL_RAY", "FIREBALL_RAY_LINE", "FIREBALL_RAY_ENEMY",
       "ORBIT_FIREBALLS", "ORBIT_NUKES", "UNSTABLE_GUNPOWDER","FIRE_TRAIL","BURN_TRAIL","METEOR_RAIN",
     })
-    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(3, 5))
     wand.manaMax = wand.manaMax + Random(150, 300)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(40, 60)
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(3, 5))
     add_spells_to_wand(wand, spells, Random(4, 6))
   end,
   sunstone = function(wand)
@@ -593,9 +593,9 @@ end,
       "FIRE_BLAST", "SEA_LAVA", "HITFX_BURNING_CRITICAL_HIT", "FIREBALL_RAY", "FIREBALL_RAY_LINE", "FIREBALL_RAY_ENEMY",
       "ORBIT_FIREBALLS", "ORBIT_NUKES", "UNSTABLE_GUNPOWDER","FIRE_TRAIL","BURN_TRAIL","METEOR_RAIN",
     })
-    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(4, 6))
     wand.manaMax = wand.manaMax + Random(200, 400)
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(60, 80)
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(4, 6))
     add_spells_to_wand(wand, spells, Random(4, 6))
   end,
   beamstone = function(wand)
@@ -608,7 +608,10 @@ end,
     add_spells_to_wand(wand, spells, Random(3, 5))
   end,
   evil_eye = function(wand)
-    local spells = merge_spells("evil_eye", { "CURSED_ORB", "SPREAD_REDUCE", "BLOOD_MAGIC", "MATTER_EATER", "X_RAY", })
+    local spells = merge_spells("evil_eye", { "CURSED_ORB", "SPREAD_REDUCE", "BLOOD_MAGIC", "MATTER_EATER",
+      "CURSE", "CURSE_WITHER_PROJECTILE", "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE",
+      "CURSE_WITHER_ELECTRICITY", "X_RAY"
+    })
     wand.spread = wand.spread - Random(8, 15)
     add_spells_to_wand(wand, spells, Random(3, 5))
   end,

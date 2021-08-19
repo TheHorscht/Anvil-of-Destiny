@@ -1,3 +1,10 @@
+v1.16.0:
+- Added Omega sawblade to Runestone of Edges
+- Added recipes: Porridge, Gold, Kuu (Moon), Sauvan Ydin (Wandstone), Auringonsiemen (Sunseed),
+  Aurinkokivi (Sunstone), Sädekivi (Beamstone), Paha Silmä (Evil Eye), Kuulokivi (Musicstone),
+  Shiny Orb, Cruel Orb, Greed Die, Tannerkivi (Stonestone), Broken spell, Runestone of Metal,
+  Crystal Key, Kakkakikkare (Poopstone)
+
 v1.15.5:
 - FIX: Some mods with custom spells would break the anvil
 
