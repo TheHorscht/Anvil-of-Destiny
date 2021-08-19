@@ -457,9 +457,9 @@ local bonuses = {
   -- /Arcane Alchemy
   -- Pickup items, yeah they're not potions, SO WHAT?! Put them in here anyways because I'm too lazy to refactor "Potions" to a new name
   runestone_disc = function(wand)
-    local spells = { "DISC_BULLET", "DISC_BULLET_BIG" }
+    local spells = { "DISC_BULLET", "DISC_BULLET_BIG", "DISC_BULLET_BIGGER" }
     wand.capacity = math.min(26, wand.capacity + Random(1, 2))
-    add_spells_to_wand(wand, spells, Random(4, 6), true)
+    add_spells_to_wand(wand, spells, Random(4, 6))
   end,
   runestone_slow = function(wand)
     wand:AttachSpells("DECELERATING_SHOT")
