@@ -75,18 +75,22 @@ Add toxic related spells. Increase max mana, mana charge speed and capacity slig
 Add acid related spells and increase spells per cast.
 [b]► Lava ◄[/b]
 Add fire related spells.
-[b]► Alchemic precursor ◄[/b]
+[b]► Alchemic Precursor ◄[/b]
 Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
-[b]► Draught of midas ◄[/b]
+[b]► Draught of Midas ◄[/b]
 Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
-[b]► Freezing liquid ◄[/b]
+[b]► Freezing Liquid ◄[/b]
 Add spells related to freezing.
 [b]► Vomit ◄[/b]
 Halve mana recharge speed, increase capacity slightly, set cast delay really low, recharge time and spread really high.
+[b]► Porridge ◄[/b]
+Add healing spells.
+[b]► Gold ◄[/b]
+Add gold related spells, removes shuffle, improves cast delay, recharge time, mana charge speed slightly, adds 2 to 5 capacity.
 
 [b]█▓▒░ Arcane Alchemy Potions ░▒▓█[/b]
 
-[b]► Dark matter ◄[/b]
+[b]► Dark Matter ◄[/b]
 Add black holes or damage field spells.
 [b]► Stop Hitting Yourself ◄[/b]
 Add tentacle spells and spells that can hit you.
@@ -96,45 +100,75 @@ Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but 
 Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
 [b]► Repultium ◄[/b]
 Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
-[b]► Hungry slime ◄[/b]
+[b]► Hungry Slime ◄[/b]
 Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
 [b]► Arborium ◄[/b]
 Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
 
 [b]█▓▒░ Misc items ░▒▓█[/b]
 
-[b]► Broken wand ◄[/b]
+[b]► Broken Wand ◄[/b]
 Counts as a random level 2 wand.
-[b]► Runestone of edges ◄[/b]
+[b]► Runestone of Edges ◄[/b]
 Increase capacity by 1 - 2 and add 4 - 6 disc spells.
-[b]► Runestone of weight ◄[/b]
+[b]► Runestone of Weight ◄[/b]
 Add always cast "Decelerating shot"
-[b]► Runestone of light ◄[/b]
+[b]► Runestone of Light ◄[/b]
 Improve spead by 20% and add 4 - 6 laser spells.
-[b]► Runestone of fire ◄[/b]
+[b]► Runestone of Fire ◄[/b]
 Add 4 - 6 fireball spells.
-[b]► Runestone of emptiness ◄[/b]
+[b]► Runestone of Emptiness ◄[/b]
 Reduce spells per cast to 1 and increase capacity up to 16 for each spell on the wand, spells on the wand will be thrown off (not destroyed).
-[b]► Runestone of magma ◄[/b]
+[b]► Runestone of Magma ◄[/b]
 Same effect as lava potion.
+[b]► Runestone of Metal ◄[/b]
+Add metal/poison related spells.
 [b]► Chest ◄[/b]
 Increases capacity by 5 - 7 up to a max of 16 and adds 10 random spells.
-[b]► Rare chest ◄[/b]
+[b]► Rare Chest ◄[/b]
 Increases capacity by 6 - 8 up to a max of 26 and adds 16 random spells.
-[b]► Refreshing gourd ◄[/b]
+[b]► Refreshing Gourd ◄[/b]
 Add 4 - 6 healing bolt spells.
-[b]► Chaos die ◄[/b]
+[b]► Chaos Die ◄[/b]
 Completely shuffle all stats of the wand.
 [b]► Kammi ◄[/b]
 Turn wand into no-shuffle, increase capacity by 4 - 6 and add 4 - 6 healing bolt spells.
 [b]► Kiuaskivi (Brimstone) ◄[/b]
 Same effect as liquid fire potion.
-[b]► Ukkoskivi (Thunderstone) ◄[/b]
+[b]► Ukkoskivi (Thunder Stone) ◄[/b]
 Add always cast "Electric charge", increase capacity by 1 - 3 and spread by 3 - 7.
-[b]► Vuoksikivi (Waterstone) ◄[/b]
+[b]► Vuoksikivi (Water Stone) ◄[/b]
 Same effect as water potion.
+[b]► Sauvan Ydin (Wand Stone) ◄[/b]
+Add a lot of spells good for wand building (endgame) and increase capacity by 4 to 6.
+[b]► Sädekivi (Beam Stone) ◄[/b]
+Add beam/laser spells, add always cast Plasma Beam Enhancer, improve recharge time and cast delay.
+[b]► Kuulokivi (Music Stone) ◄[/b]
+Add either all ocarina or kantele notes to the wand (make sure to have enough room).
+[b]► Tannerkivi (Stone Stone) ◄[/b]
+Add earth/stone related spells, increase capacity.
+[b]► Tannerkivi (Poop Stone) ◄[/b]
+Add air spells, remove shuffle, improve cast delay, recharge time and capacity.
 [b]► Any egg ◄[/b]
 Adds 4 - 6 egg spells.
+[b]► Kuu (Moon) ◄[/b]
+Add gravity related spells.
+[b]► Auringonsiemen (Sunseed) ◄[/b]
+Add fire/explosion spells, increase max mana by 150 to 300, mana charge speed by 40 to 60, capacity by 3 to 5.
+[b]► Aurinkokivi (Sun Stone) ◄[/b]
+Add fire/explosion spells, increase max mana by 200 to 400, mana charge speed by 60 to 80, capacity by 3 to 5.
+[b]► Paha Silmä (Evil Eye) ◄[/b]
+Add curse/vision/accuracy related spells, improve spread.
+[b]► Shiny Orb ◄[/b]
+Add gold related spells, increase max mana by 75 to 150, improve cast delay and recharge time.
+[b]► Cruel Orb ◄[/b]
+Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
+[b]► Greed Die ◄[/b]
+Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
+[b]► Broken Portal Spell ◄[/b]
+Repairs the spell and adds it to your wand (as long as you have 1 free slot).
+[b]► Crystal Key ◄[/b]
+Add spells that you usually get with the key, remove shuffle, improve max mana, mana charge speed and capacity.
 
 -----------------------
 
