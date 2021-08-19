@@ -561,7 +561,150 @@ end,
     local spells = merge_spells("egg", { "SUMMON_EGG" })
     add_spells_to_wand(wand, spells, Random(4, 6), true)
   end,
+  wandstone = function(wand)
+    local spells = merge_spells("wandstone", { "LIGHT_BULLET_TRIGGER", "LIGHT_BULLET_TRIGGER_2",
+      "LASER_LUMINOUS_DRILL", "LONG_DISTANCE_CAST", "TELEPORT_CAST", "SUPER_TELEPORT_CAST", "BURST_2",
+      "BURST_3", "BURST_4", "BURST_8", "CIRCLE_SHAPE", "PENTAGRAM_SHAPE", "RECHARGE", "LIFETIME", "LIFETIME_DOWN",
+      "NOLLA", "MANA_REDUCE", "BLOOD_MAGIC", "MONEY_MAGIC", "BLOOD_TO_POWER", "DUPLICATE", "HOMING", "HOMING_ROTATE",
+      "HOMING_SHOOTER", "PIERCING_SHOT", "BLOODLUST", "DAMAGE_FOREVER", "SPELLS_TO_POWER", "ESSENCE_TO_POWER",
+      "HEAVY_SHOT", "STATIC_TO_SAND", "DRAW_RANDOM", "DRAW_RANDOM_X3", "DRAW_3_RANDOM", "ADD_TRIGGER", "ADD_TIMER",
+      "ADD_DEATH_TRIGGER", "LARPA_CHAOS", "LARPA_DOWNWARDS", "LARPA_UPWARDS", "LARPA_CHAOS_2", "LARPA_DEATH",
+      "ALPHA", "GAMMA", "TAU", "OMEGA", "MU", "PHI", "SIGMA", "ZETA", "DIVIDE_2", "DIVIDE_3", "DIVIDE_4", "DIVIDE_10",
+      "RESET", "IF_ENEMY", "IF_PROJECTILE", "IF_HP", "IF_HALF", "IF_END", "IF_ELSE"
+    })
+    -- Adds all kinds of helpful spells for building strong late game wands
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(4, 6))
+    add_spells_to_wand(wand, spells, Random(10, 12))
+  end,
+  sunseed = function(wand)
+    local spells = merge_spells("sunseed", { "FIREBALL", "METEOR", "FLAMETHROWER", "BOMB_HOLY", "BOMB_HOLY_GIGA",
+      "EXPANDING_ORB", "FIREBOMB", "CIRCLE_FIRE", "NUKE", "NUKE_GIGA", "EXPLOSIVE_PROJECTILE", "EXPLOSION", "EXPLOSION_LIGHT",
+      "FIRE_BLAST", "SEA_LAVA", "HITFX_BURNING_CRITICAL_HIT", "FIREBALL_RAY", "FIREBALL_RAY_LINE", "FIREBALL_RAY_ENEMY",
+      "ORBIT_FIREBALLS", "ORBIT_NUKES", "UNSTABLE_GUNPOWDER","FIRE_TRAIL","BURN_TRAIL","METEOR_RAIN",
+    })
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(3, 5))
+    wand.manaMax = wand.manaMax + Random(150, 300)
+    wand.manaChargeSpeed = wand.manaChargeSpeed + Random(40, 60)
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  sunstone = function(wand)
+    local spells = merge_spells("sunstone", { "FIREBALL", "METEOR", "FLAMETHROWER", "BOMB_HOLY", "BOMB_HOLY_GIGA",
+      "EXPANDING_ORB", "FIREBOMB", "CIRCLE_FIRE", "NUKE", "NUKE_GIGA", "EXPLOSIVE_PROJECTILE", "EXPLOSION", "EXPLOSION_LIGHT",
+      "FIRE_BLAST", "SEA_LAVA", "HITFX_BURNING_CRITICAL_HIT", "FIREBALL_RAY", "FIREBALL_RAY_LINE", "FIREBALL_RAY_ENEMY",
+      "ORBIT_FIREBALLS", "ORBIT_NUKES", "UNSTABLE_GUNPOWDER","FIRE_TRAIL","BURN_TRAIL","METEOR_RAIN",
+    })
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(4, 6))
+    wand.manaMax = wand.manaMax + Random(200, 400)
+    wand.manaChargeSpeed = wand.manaChargeSpeed + Random(60, 80)
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  beamstone = function(wand)
+    local spells = merge_spells("beamstone", { "LASER_EMITTER", "LASER_EMITTER_FOUR", "LASER_EMITTER_CUTTER", "LUMINOUS_DRILL",
+      "LASER_LUMINOUS_DRILL", "DEATH_CROSS_BIG", "WALL_HORIZONTAL", "WALL_VERTICAL", "WALL_SQUARE", "LASER_EMITTER_WIDER",
+    })
+    wand.rechargeTime = math.max(0, wand.rechargeTime - Random(3, 5))
+    wand.castDelay = math.max(0, wand.castDelay - Random(3, 5))
+    add_spells_to_wand(wand, { "LASER_EMITTER_WIDER" }, Random(1, 3), true)
+    add_spells_to_wand(wand, spells, Random(3, 5))
+  end,
+  evil_eye = function(wand)
+    local spells = merge_spells("evil_eye", { "CURSED_ORB", "SPREAD_REDUCE", "BLOOD_MAGIC", "MATTER_EATER", "X_RAY", })
+    wand.spread = wand.spread - Random(8, 15)
+    add_spells_to_wand(wand, spells, Random(3, 5))
+  end,
+  musicstone = function(wand)
+    local spells = {
+      ocarina = { "OCARINA_A", "OCARINA_B", "OCARINA_C", "OCARINA_D", "OCARINA_E",
+        "OCARINA_F", "OCARINA_GSHARP", "OCARINA_A2"
+      },
+      kantele = { "KANTELE_A", "KANTELE_D", "KANTELE_DIS", "KANTELE_E", "KANTELE_G", }
+    }
+    local spells_to_add = spells.ocarina
+    if Random(1, 2) == 1 then
+      spells_to_add = spells.kantele
+    end
+    for i, spell in ipairs(spells_to_add) do
+      add_spells_to_wand(wand, { spell }, 1, true)
+    end
+  end,
+  physics_gold_orb = function(wand)
+    local spells = merge_spells("physics_gold_orb", { "TOUCH_GOLD", "MONEY_MAGIC" })
+    wand.manaMax = wand.manaMax + Random(75, 150)
+    wand.castDelay = wand.castDelay - Random(1, 4)
+    wand.rechargeTime = wand.rechargeTime - Random(1, 4)
+    add_spells_to_wand(wand, spells, Random(2, 3), true)
+  end,
+  physics_gold_orb_greed = function(wand)
+    local spells = merge_spells("physics_gold_orb_greed", { "CURSED_ORB", "MIST_BLOOD",
+      "MATERIAL_BLOOD", "TOUCH_GOLD", "TOUCH_BLOOD", "BLOOD_MAGIC", "MONEY_MAGIC", "BLOOD_TO_POWER",
+      "BLOOD_TO_ACID", "LAVA_TO_BLOOD", "CLOUD_BLOOD", "HITFX_CRITICAL_BLOOD", "CURSE", "CURSE_WITHER_PROJECTILE",
+      "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY", "ADD_DEATH_TRIGGER"
+    })
+    wand.shuffle = Random(100) > 75
+    wand.spellsPerCast = math.max(1, wand.spellsPerCast + Random(-2, 2))
+    wand.castDelay = wand.castDelay + Random(-6, 3)
+    wand.rechargeTime = wand.rechargeTime + Random(-6, 3)
+    wand.manaMax = math.max(100, wand.manaMax + Random(-50, 100))
+    wand.manaChargeSpeed = math.max(30, wand.manaChargeSpeed + Random(-30, 60))
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(0, 3))
+    wand.spread = wand.spread + Random(-20, 10)
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  physics_greed_die = function(wand)
+    local spells = merge_spells("physics_greed_die", { "CURSED_ORB", "MIST_BLOOD",
+      "MATERIAL_BLOOD", "TOUCH_GOLD", "TOUCH_BLOOD", "BLOOD_MAGIC", "MONEY_MAGIC", "BLOOD_TO_POWER",
+      "BLOOD_TO_ACID", "LAVA_TO_BLOOD", "CLOUD_BLOOD", "HITFX_CRITICAL_BLOOD", "CURSE", "CURSE_WITHER_PROJECTILE",
+      "CURSE_WITHER_EXPLOSION", "CURSE_WITHER_MELEE", "CURSE_WITHER_ELECTRICITY", "ADD_DEATH_TRIGGER"
+    })
+    wand.shuffle = Random(100) > 75
+    wand.spellsPerCast = math.max(1, wand.spellsPerCast + Random(-2, 2))
+    wand.castDelay = wand.castDelay + Random(-6, 3)
+    wand.rechargeTime = wand.rechargeTime + Random(-6, 3)
+    wand.manaMax = math.max(100, wand.manaMax + Random(-50, 100))
+    wand.manaChargeSpeed = math.max(30, wand.manaChargeSpeed + Random(-30, 60))
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(0, 3))
+    wand.spread = wand.spread + Random(-20, 10)
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  stonestone = function(wand)
+    local spells = merge_spells("stonestone", { "DIGGER", "POWERDIGGER", "CRUMBLING_EARTH",
+      "SUMMON_ROCK", "SOILBALL", "CLIPPING_SHOT", "STATIC_TO_SAND", "TRANSMUTATION",
+      "VACUUM_POWDER", "MATTER_EATER", "HITFX_PETRIFY", "CRUMBLING_EARTH_PROJECTILE"
+    })
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(2, 4))
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  summon_portal_broken = function(wand)
+    add_spells_to_wand(wand, { "SUMMON_PORTAL" }, 1, true)
+  end,
+  runestone_metal = function(wand)
+    local spells = merge_spells("runestone_metal", { "DISC_BULLET", "DISC_BULLET_BIG",
+      "DISC_BULLET_BIGGER", "PROPANE_TANK", "BOMB_CART", "WATER_TO_POISON", "POISON_BLAST",
+      "POISON_TRAIL"
+    })
+    add_spells_to_wand(wand, spells, Random(4, 6))
+  end,
+  key = function(wand)
+    local spells = merge_spells("key", { "ALL_NUKES", "ALL_DISCS", "ALL_ROCKETS", "ALL_DEATHCROSSES",
+      "ALL_BLACKHOLES", "ALL_ACID", "ALPHA", "GAMMA", "TAU", "OMEGA", "MU", "PHI", "SIGMA", "ZETA",
+      "DIVIDE_2", "DIVIDE_3", "DIVIDE_4", "DIVIDE_10"
+    })
+    wand.shuffle = false
+    wand.manaMax = wand.manaMax + Random(100, 300)
+    wand.manaChargeSpeed = wand.manaChargeSpeed + Random(30, 50)
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(3, 5))
+    add_spells_to_wand(wand, spells, Random(2, 4), true)
+  end,
+  poopstone = function(wand)
+    local spells = merge_spells("poopstone", { "AIR_BULLET" })
+    wand.shuffle = false
+    wand.castDelay = wand.castDelay - Random(2, 6)
+    wand.rechargeTime = wand.rechargeTime - Random(2, 6)
+    wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(2, 6))
+    add_spells_to_wand(wand, spells, Random(4, 6), true)
+  end,
 }
+
 -- This doesn't take into account that merge_spells("alcohol", { "HEAL_BULLET" }) will still mention alcohol
 -- fix some time later maybe... too lazy right now, would require a big rewrite
 bonuses.sima = bonuses.alcohol
