@@ -112,6 +112,15 @@ local bonuses = {
     wand.capacity = wand.capacity + Random(2, 3)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
  end,
+ gold = function(wand)
+  local spells = merge_spells("gold", { "TOUCH_GOLD", "MONEY_MAGIC" })
+  wand.shuffle = false
+  wand.castDelay = wand.castDelay - Random(1, 3)
+  wand.rechargeTime = wand.rechargeTime - Random(1, 3)
+  wand.manaChargeSpeed = wand.manaChargeSpeed + Random(30, 50)
+  wand.capacity = math.min(math.max(26, wand.capacity), wand.capacity + Random(2, 5))
+  add_spells_to_wand(wand, spells, Random(1, 3), true)
+end,
  gunpowder_unstable = function(wand)
     local spells = merge_spells("gunpowder_unstable", {
       "BOMB_CART", "DYNAMITE", "BOMB", "GLITTER_BOMB", "BOMB_HOLY", "NUKE", "MINE", "FIRE_BLAST", "EXPLOSION", "BOUNCE_EXPLOSION",
@@ -311,6 +320,10 @@ local bonuses = {
       "LANCE", "DIGGER", "POWERDIGGER", "BLACK_HOLE", "ALL_BLACKHOLES"
       })
     add_spells_to_wand(wand, spells, math.min(Random(2, 5), math.floor(wand.capacity / 2)))
+  end,
+  porridge = function(wand)
+    local spells = merge_spells("porridge", { "HEAL_BULLET", "REGENERATION_FIELD" })
+    add_spells_to_wand(wand, spells, Random(3, 5), true)
   end,
   radioactive_liquid = function(wand)
     local spells = merge_spells("radioactive_liquid", { "MIST_RADIOACTIVE", "AREA_DAMAGE", "HITFX_TOXIC_CHARM" })
