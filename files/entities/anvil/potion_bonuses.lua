@@ -523,9 +523,12 @@ end,
     local spells = merge_spells("gourd", { "HEAL_BULLET" })
     add_spells_to_wand(wand, spells, Random(4, 6), true)
   end,
-  moon = function(wand) -- Doesn't work because the moon doesn't have the physics_item tag
-    local spells = merge_spells("moon", { "GRAVITY", "GRAVITY_ANTI", "PROJECTILE_GRAVITY_FIELD", "GRAVITY_FIELD_ENEMY" })
-    add_spells_to_wand(wand, spells, Random(3, 5), true)
+  moon = function(wand)
+    local spells = merge_spells("moon", { "BLACK_HOLE_BIG", "EXPANDING_ORB", "GRAVITY", "GRAVITY_ANTI",
+      "ORBIT_SHOT", "SPIRALING_SHOT", "HOMING", "HOMING_SHORT", "HOMING_SHOOTER",
+      "HOMING_ACCELERATING", "HOMING_CURSOR", "LEVITATION_FIELD", "PROJECTILE_GRAVITY_FIELD", "GRAVITY_FIELD_ENEMY"
+    })
+    add_spells_to_wand(wand, spells, Random(3, 5))
   end,
   physics_die = function(wand)
     local spells = merge_spells("physics_die", {})
