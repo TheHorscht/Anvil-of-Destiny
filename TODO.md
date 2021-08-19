@@ -1,20 +1,9 @@
-- Update for new update, add new spells and items to use as ingredients
+- Make powder pouch with certain powders anvilable?
+- If so: Make the gunpowder that you can collect anvilable
+
+- Update for new update, add new spells
 
 - Add new items?
-- data\entities\items\pickup\sun
-- data\entities\items\pickup\beamstone.xml
-- data\entities\items\pickup\evil_eye.xml
-- data\entities\items\pickup\musicstone.xml
-- data\entities\items\pickup\physics_gold_orb.xml
-- data\entities\items\pickup\physics_gold_orb_greed.xml
-- data\entities\items\pickup\physics_greed_die.xml
-- data\entities\items\pickup\potion_empty.xml
-- data\entities\items\pickup\potion_porridge.xml
-- data\entities\items\pickup\potion_secret.xml
-- data\entities\items\pickup\stonestone.xml
-- data\entities\items\pickup\summon_portal_broken.xml
-- data\entities\items\pickup\wandstone.xml
-- data\entities\items\pickup\runestones\runestone_metal.xml
 
 - FIX: TTT not crumbling
 
