@@ -37,7 +37,12 @@ function collision_trigger(colliding_entity_id)
       end
     end
 
+    -- Combine items with either tag into one table
     local physics_items = get_entities_with_tag(x, y, "item_physics")
+    local pickup_items = get_entities_with_tag(x, y, "item_pickup")
+    for i, item_id in ipairs(pickup_items) do
+      table.insert(physics_items, item_id)
+    end
     for i, item_id in ipairs(physics_items) do
       if EntityGetParent(item_id) == 0 then
         local equivalent, thing = get_equivalent(item_id)

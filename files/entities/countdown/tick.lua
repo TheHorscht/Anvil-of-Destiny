@@ -23,7 +23,7 @@ async(function()
       is_text_sprite=true,
       has_special_scale=true,
       offset_x=1.8,
-      offset_y=3,
+      offset_y=5,
       special_scale_x=2,
       special_scale_y=2,
       update_transform=true,

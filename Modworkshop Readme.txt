@@ -77,17 +77,21 @@ The potion effects are:
     Add acid related spells and increase spells per cast.
   - **__Lava__**:
     Add fire related spells.
-  - **__Alchemic precursor__**:
+  - **__Alchemic Precursor__**:
     Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
-  - **__Draught of midas__**:
+  - **__Draught of Midas__**:
     Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
-  - **__Freezing liquid__**:
+  - **__Freezing Liquid__**:
     Add spells related to freezing.
   - **__Vomit__**:
     Halve mana recharge speed, increase capacity slightly, set cast delay really low, recharge time and spread really high.
+  - **__Porridge__**:
+    Add healing spells.
+  - **__Gold__**:
+    Add gold related spells, removes shuffle, improves cast delay, recharge time, mana charge speed slightly, adds 2 to 5 capacity.
 
   - **__--Arcane Alchemy Potions--__**:
-  - **__Dark matter__**:
+  - **__Dark Matter__**:
     Add black holes or damage field spells.
   - **__Stop Hitting Yourself__**:
     Add tentacle spells and spells that can hit you.
@@ -97,44 +101,74 @@ The potion effects are:
     Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
   - **__Repultium__**:
     Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
-  - **__Hungry slime__**:
+  - **__Hungry Slime__**:
     Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
   - **__Arborium__**:
     Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
 
   - **__--Misc items--__**:
-  - **__Broken wand__**:
+  - **__Broken Wand__**:
     Counts as a random level 2 wand.
-  - **__Runestone of edges__**:
+  - **__Runestone of Edges__**:
     Increase capacity by 1 - 2 and add 4 - 6 disc spells.
-  - **__Runestone of weight__**:
-    Add always cast "Decelerating shot.
-  - **__Runestone of light__**:
+  - **__Runestone of Weight__**:
+    Add always cast "Decelerating shot"
+  - **__Runestone of Light__**:
     Improve spead by 20% and add 4 - 6 laser spells.
-  - **__Runestone of fire__**:
+  - **__Runestone of Fire__**:
     Add 4 - 6 fireball spells.
-  - **__Runestone of emptiness__**:
+  - **__Runestone of Emptiness__**:
     Reduce spells per cast to 1 and increase capacity up to 16 for each spell on the wand, spells on the wand will be thrown off (not destroyed).
-  - **__Runestone of magma__**:
+  - **__Runestone of Magma__**:
     Same effect as lava potion.
+  - **__Runestone of Metal__**:
+    Add metal/poison related spells.
   - **__Chest__**:
     Increases capacity by 5 - 7 up to a max of 16 and adds 10 random spells.
-  - **__Rare chest__**:
+  - **__Rare Chest__**:
     Increases capacity by 6 - 8 up to a max of 26 and adds 16 random spells.
-  - **__Refreshing gourd__**:
+  - **__Refreshing Gourd__**:
     Add 4 - 6 healing bolt spells.
-  - **__Chaos die__**:
+  - **__Chaos Die__**:
     Completely shuffle all stats of the wand.
   - **__Kammi__**:
     Turn wand into no-shuffle, increase capacity by 4 - 6 and add 4 - 6 healing bolt spells.
   - **__Kiuaskivi (Brimstone)__**:
     Same effect as liquid fire potion.
-  - **__Ukkoskivi (Thunderstone)__**:
+  - **__Ukkoskivi (Thunder Stone)__**:
     Add always cast "Electric charge", increase capacity by 1 - 3 and spread by 3 - 7.
-  - **__Vuoksikivi (Waterstone)__**:
+  - **__Vuoksikivi (Water Stone)__**:
     Same effect as water potion.
+  - **__Sauvan Ydin (Wand Stone)__**:
+    Add a lot of spells good for wand building (endgame) and increase capacity by 4 to 6.
+  - **__Sädekivi (Beam Stone)__**:
+    Add beam/laser spells, add always cast Plasma Beam Enhancer, improve recharge time and cast delay.
+  - **__Kuulokivi (Music Stone)__**:
+    Add either all ocarina or kantele notes to the wand (make sure to have enough room).
+  - **__Tannerkivi (Stone Stone)__**:
+    Add earth/stone related spells, increase capacity.
+  - **__Tannerkivi (Poop Stone)__**:
+    Add air spells, remove shuffle, improve cast delay, recharge time and capacity.
   - **__Any egg__**:
     Adds 4 - 6 egg spells.
+  - **__Kuu (Moon)__**:
+    Add gravity related spells.
+  - **__Auringonsiemen (Sunseed)__**:
+    Add fire/explosion spells, increase max mana by 150 to 300, mana charge speed by 40 to 60, capacity by 3 to 5.
+  - **__Aurinkokivi (Sun Stone)__**:
+    Add fire/explosion spells, increase max mana by 200 to 400, mana charge speed by 60 to 80, capacity by 3 to 5.
+  - **__Paha Silmä (Evil Eye)__**:
+    Add curse/vision/accuracy related spells, improve spread.
+  - **__Shiny Orb__**:
+    Add gold related spells, increase max mana by 75 to 150, improve cast delay and recharge time.
+  - **__Cruel Orb__**:
+    Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
+  - **__Greed Die__**:
+    Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
+  - **__Broken Portal Spell__**:
+    Repairs the spell and adds it to your wand (as long as you have 1 free slot).
+  - **__Crystal Key__**:
+    Add spells that you usually get with the key, remove shuffle, improve max mana, mana charge speed and capacity.
 
 [b][size=medium]Let's pray and hope there are no bugs![/size][/b]
 [b][size=medium]That's it, have fun forging with the holy Anvil of DESTINY![/size][/b]
