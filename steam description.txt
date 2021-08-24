@@ -1,5 +1,4 @@
 Adds a semi-rare room with an anvil to most biomes, where you can improve your wands!
-
 Just open your inventory and drag your wands out to throw them onto the anvil.
 
 [img]https://i.imgur.com/XE0WNeK.png[/img]
@@ -7,172 +6,19 @@ Just open your inventory and drag your wands out to throw them onto the anvil.
 In other words, adding one tablet will add a random always cast spell to the resulting wand.
 When merging two wands, two of the following stats will randomly get buffed while 1 gets nerfed: Cast delay, Recharge time, Spread.
 Potions need to be at least 80% full of the material.
-To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (usually E).
+To pour a potion, stand on top of the anvil, take the potion into your hand and press the interact key (E by default).
 Spells from potion recipes can only be added to the wand if there is enough free space, if not it will not overwrite already existing spells and it will only apply the remaining bonus (if any).
 
-Each anvil can only be used once, but you can find multiple per run.
+Each anvil can only be used once by default, but you can find multiple per run.
 If you want to use a tablet it needs to be added before the 2nd wand, because 2 wands is already a valid recipe and will start the forging.
+Otherwise the order in which you add items doesn't matter.
 
-The order in which you sacrifice items doesn't matter.
+There are also mod settings (Options -> Mod settings) where you can tweak spawn chances etc.
 
-[b]█▓▒░ Potion effects ░▒▓█[/b]
-
-[b]► Blood ◄[/b]
-Add blood/crit related spells, increase spells per cast, decrease recharge time and cast delay.
-[b]► Water ◄[/b]
-Add water related spells, increase max mana.
-[b]► Teleportatium / Unstable Teleportatium ◄[/b]
-Add teleport related spells, increase max mana and mana charge speed. Unstable version increases spead by 5 - 10.
-[b]► Oil ◄[/b]
-Add oil related spells, reduce recharge time and cast delay.
-[b]► Slime ◄[/b]
-Add spells related to slime, timer triggers, recoil damper and lifetime up.
-Slow down the wand slightly but in turn increase capacity and max mana and reduce spread.
-[b]► Unstable Gunpowder ◄[/b]
-Add spells related to explosions, bombs and gunpowder and increase capacity slightly.
-[b]► Monstrous Powder ◄[/b]
-Adds Taikasauva spells and increases max mana by 450 - 550.
-[b]► Fire ◄[/b]
-Add spells related to fire and slightly reduce recharge time and cast delay.
-[b]► Berserkium ◄[/b]
-Add explosive spells, increase max mana.
-[b]► Concentrated Mana ◄[/b]
-Increase mana charge speed by a lot.
-[b]► Acceleratium ◄[/b]
-Add speed related spells, reduce recharge time and cast delay.
-Randomly give the player a speed buff that lasts for a short time.
-[b]► Levitatium ◄[/b]
-Same as Acceleratium but without the speed buff.
-[b]► Hastium ◄[/b]
-Combines the effects of Acceleratium and Levitatium, as if both were applied.
-[b]► Flummoxium ◄[/b]
-Add chaotic path and/or heavy spread spells and randomize all attributes.
-[b]► Ambrosia ◄[/b]
-Add shield related spells, increase spells per cast and max mana.
-[b]► Healthium / Lively Concoction ◄[/b]
-Add heal spells, increase mana charge speed and spawn 4 healers.
-[b]► Polymorphine ◄[/b]
-Add creature/polymorph related spells, increase spells per cast.
-[b]► Chaotic Polymorphine ◄[/b]
-Add tentacle/misc spells.
-[b]► Unstable Polymorphine ◄[/b]
-Same as Chaotic Polymorphine but increases spells per cast by 2 - 3 and spread by 5 - 10.
-[b]► Pheromone ◄[/b]
-Add egg/charm spells.
-[b]► Invisiblium ◄[/b]
-.. There are barely any spells related to invisibility so have some spells vaguely related to deception/light.
-Increase max mana and mana charge speed slightly.
-[b]► Worm Pheromone ◄[/b]
-Add egg spells and while the wand is being held, sometimes spawns worms and the holder gets the worm pheromone effect.
-[b]► Whiskey / Sima / Juhannussima ◄[/b]
-Add all kinds of multishot modifiers, alcohol related spells.
-Increase spread and max mana by a lot and decrease mana charge speed a little bit.
-[b]► Worm Blood ◄[/b]
-Add spells that drill or penetrate the ground.
-[b]► Toxic Sludge ◄[/b]
-Add toxic related spells. Increase max mana, mana charge speed and capacity slightly.
-[b]► Acid ◄[/b]
-Add acid related spells and increase spells per cast.
-[b]► Lava ◄[/b]
-Add fire related spells.
-[b]► Alchemic Precursor ◄[/b]
-Add trigger spells, slightly increases mana charge speed and max mana by 1% to 5%.
-[b]► Draught of Midas ◄[/b]
-Add a bunch of "Touch of gold" spells, slightly increases mana charge speed, max mana by 5% to 10% and add 1 or 2 capacity.
-[b]► Freezing Liquid ◄[/b]
-Add spells related to freezing.
-[b]► Vomit ◄[/b]
-Halve mana recharge speed, increase capacity slightly, set cast delay really low, recharge time and spread really high.
-[b]► Porridge ◄[/b]
-Add healing spells.
-[b]► Gold ◄[/b]
-Add gold related spells, removes shuffle, improves cast delay, recharge time, mana charge speed slightly, adds 2 to 5 capacity.
-
-[b]█▓▒░ Arcane Alchemy Potions ░▒▓█[/b]
-
-[b]► Dark Matter ◄[/b]
-Add black holes or damage field spells.
-[b]► Stop Hitting Yourself ◄[/b]
-Add tentacle spells and spells that can hit you.
-[b]► Shrinkium ◄[/b]
-Make wand tiny, reduce capacity, max mana and mana recharge speed slightly, but cut cast delay and recharge in half.
-[b]► Static Charge ◄[/b]
-Add lightning related spells, increase max mana, mana recharge rate slightly and increase spread.
-[b]► Repultium ◄[/b]
-Add spells related to reflection, avoidance and knockback, increase speed multiplier of the wand by 30% to 60% and spread by 10 to 20 degrees.
-[b]► Hungry Slime ◄[/b]
-Add trigger spells and matter eater and reduce the wands speed multiplier by 10% to 30%.
-[b]► Arborium ◄[/b]
-Add spells related to wood (burning, sawing, branching), increase max mana and mana recharge speed and capacity slightly.
-
-[b]█▓▒░ Misc items ░▒▓█[/b]
-
-[b]► Broken Wand ◄[/b]
-Counts as a random level 2 wand.
-[b]► Runestone of Edges ◄[/b]
-Increase capacity by 1 - 2 and add 4 - 6 disc spells.
-[b]► Runestone of Weight ◄[/b]
-Add always cast "Decelerating shot"
-[b]► Runestone of Light ◄[/b]
-Improve spead by 20% and add 4 - 6 laser spells.
-[b]► Runestone of Fire ◄[/b]
-Add 4 - 6 fireball spells.
-[b]► Runestone of Emptiness ◄[/b]
-Reduce spells per cast to 1 and increase capacity up to 16 for each spell on the wand, spells on the wand will be thrown off (not destroyed).
-[b]► Runestone of Magma ◄[/b]
-Same effect as lava potion.
-[b]► Runestone of Metal ◄[/b]
-Add metal/poison related spells.
-[b]► Chest ◄[/b]
-Increases capacity by 5 - 7 up to a max of 16 and adds 10 random spells.
-[b]► Rare Chest ◄[/b]
-Increases capacity by 6 - 8 up to a max of 26 and adds 16 random spells.
-[b]► Refreshing Gourd ◄[/b]
-Add 4 - 6 healing bolt spells.
-[b]► Chaos Die ◄[/b]
-Completely shuffle all stats of the wand.
-[b]► Kammi ◄[/b]
-Turn wand into no-shuffle, increase capacity by 4 - 6 and add 4 - 6 healing bolt spells.
-[b]► Kiuaskivi (Brimstone) ◄[/b]
-Same effect as liquid fire potion.
-[b]► Ukkoskivi (Thunder Stone) ◄[/b]
-Add always cast "Electric charge", increase capacity by 1 - 3 and spread by 3 - 7.
-[b]► Vuoksikivi (Water Stone) ◄[/b]
-Same effect as water potion.
-[b]► Sauvan Ydin (Wand Stone) ◄[/b]
-Add a lot of spells good for wand building (endgame) and increase capacity by 4 to 6.
-[b]► Sädekivi (Beam Stone) ◄[/b]
-Add beam/laser spells, add always cast Plasma Beam Enhancer, improve recharge time and cast delay.
-[b]► Kuulokivi (Music Stone) ◄[/b]
-Add either all ocarina or kantele notes to the wand (make sure to have enough room).
-[b]► Tannerkivi (Stone Stone) ◄[/b]
-Add earth/stone related spells, increase capacity.
-[b]► Tannerkivi (Poop Stone) ◄[/b]
-Add air spells, remove shuffle, improve cast delay, recharge time and capacity.
-[b]► Any egg ◄[/b]
-Adds 4 - 6 egg spells.
-[b]► Kuu (Moon) ◄[/b]
-Add gravity related spells.
-[b]► Auringonsiemen (Sunseed) ◄[/b]
-Add fire/explosion spells, increase max mana by 150 to 300, mana charge speed by 40 to 60, capacity by 3 to 5.
-[b]► Aurinkokivi (Sun Stone) ◄[/b]
-Add fire/explosion spells, increase max mana by 200 to 400, mana charge speed by 60 to 80, capacity by 3 to 5.
-[b]► Paha Silmä (Evil Eye) ◄[/b]
-Add curse/vision/accuracy related spells, improve spread.
-[b]► Shiny Orb ◄[/b]
-Add gold related spells, increase max mana by 75 to 150, improve cast delay and recharge time.
-[b]► Cruel Orb ◄[/b]
-Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
-[b]► Greed Die ◄[/b]
-Add curse/blood/gold related spells and shuffles all stats randomly (higher chance to get an improvement, but it can get worse).
-[b]► Broken Portal Spell ◄[/b]
-Repairs the spell and adds it to your wand (as long as you have 1 free slot).
-[b]► Crystal Key ◄[/b]
-Add spells that you usually get with the key, remove shuffle, improve max mana, mana charge speed and capacity.
+Check out the potion/item recipe effects here:
+https://github.com/TheHorscht/Anvil-of-Destiny/wiki/Recipe-effects
 
 -----------------------
 
-You can tweak the anvil spawn chance, buff amount and reusability in the mod settings.
-
 [h1]!! Attention !![/h1]
-If you find any bugs let me know so I can fix them, just open a thread in the [url=steamcommunity.com/sharedfiles/filedetails/discussions/1974488139]Discussions tab[/url], thanks!
+If you find any bugs let me know so I can fix them, either post them in the comments or open a thread in the [url=steamcommunity.com/sharedfiles/filedetails/discussions/1974488139]Discussions tab[/url], thanks!
