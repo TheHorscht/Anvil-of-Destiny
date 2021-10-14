@@ -170,6 +170,13 @@ breaking compatibility.]],
 		},
 	},
 	{
+		id = "reduce_one_stat",
+		label = "Reduce one stat",
+		description = "This is for balance and more interesting random results. When merging two wands, will reduce one of the stats at random, otherwise the buff might be too good.",
+		value_default = true,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
+	{
 		id = "reusable",
 		label = "Anvil reusable",
 		description = "Makes the anvil reusable by resetting it after picking up the reward",
