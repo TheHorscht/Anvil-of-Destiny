@@ -64,11 +64,3 @@ config_altar_room_occurences_vault = ModSettingGet("anvil_of_destiny.room_occure
 config_altar_room_occurences_crypt = ModSettingGet("anvil_of_destiny.room_occurences_crypt")
 -- VolcanoBiome (Mod)
 config_altar_room_occurences_volcanobiome = ModSettingGet("anvil_of_destiny.room_occurences_volcanobiome")
-
--- By how much the resulting wand of "Wand+Wand" will get buffed after merging
-config_regular_wand_buff = ModSettingGet("anvil_of_destiny.buff_amount")
--- By how much a wand should get buffed with 2 tablets
-config_improved_wand_buff = ModSettingGet("anvil_of_destiny.buff_amount_special")
-
--- Should the anvil be reusable? true or false, default false
-config_anvil_reusable = ModSettingGet("anvil_of_destiny.reusable")

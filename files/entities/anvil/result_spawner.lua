@@ -25,7 +25,7 @@ if result_entity_id == -1 then
 else
   EntityRemoveFromParent(result_entity_id)
   EZWand(result_entity_id):PlaceAt(x + 4, y - 10)
-  if config_anvil_reusable then
+  if ModSettingGet("anvil_of_destiny.reusable") then
     EntityAddComponent2(result_entity_id, "LuaComponent", {
       script_item_picked_up = "mods/anvil_of_destiny/files/entities/anvil/result_pickup.lua",
       execute_every_n_frame = -1,

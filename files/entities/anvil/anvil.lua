@@ -170,10 +170,15 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 		spell_stats.average_spell_level,
 		spell_stats.average_attached_spell_level,
 		Randomf()*1000, Randomf()*1000)
-	buff_wand(new_wand, config_regular_wand_buff, config_regular_wand_buff * 2, true)
+	local buff = ModSettingGet("anvil_of_destiny.buff_amount")
+	buff_wand(new_wand, buff, buff * 2, ModSettingGet("anvil_of_destiny.reduce_one_stat"))
 	local wand_level = wand_compute_level(new_wand.entity_id)
 	for i=1, attach_spells_count do
-		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		local action_type = ACTION_TYPE_MODIFIER
+		local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+		if not only_modifiers then
+			action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		end
 		local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
 		new_wand:AttachSpells(action)
 	end
@@ -251,7 +256,11 @@ function feed_anvil(anvil_id, what, context_data)
 		potion_bonuses[state.potion_material](wand)
 		local wand_level = wand_compute_level(wand.entity_id)
 		for i=1, state.tablets do
-			local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+			local action_type = ACTION_TYPE_MODIFIER
+			local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+			if not only_modifiers then
+				action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+			end
 			local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
 			wand:AttachSpells(action)
 		end
@@ -347,7 +356,8 @@ function buff_stored_wand(anvil_id)
   local success, new_wand_id = pcall(function()
     set_random_seed_with_player_position()
     local variation = 0.1 - Random() * 0.2
-    return buff_wand(stored_wand, config_improved_wand_buff + variation, config_improved_wand_buff * 1.25, false)
+		local buff = ModSettingGet("anvil_of_destiny.buff_amount_special")
+    return buff_wand(stored_wand, buff + variation, buff * 1.25, false)
   end)
   if not success then
     -- If the call was not successful, new_wand_id contains the error message
