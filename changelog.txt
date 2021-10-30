@@ -1,3 +1,6 @@
+v1.16.2:
+- Add setting for making tablets only add modifier always casts spells
+
 v1.16.1:
 - Add setting for disabling the reducing of one stat when merging two wands
 

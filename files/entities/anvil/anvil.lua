@@ -174,7 +174,11 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 	buff_wand(new_wand, buff, buff * 2, ModSettingGet("anvil_of_destiny.reduce_one_stat"))
 	local wand_level = wand_compute_level(new_wand.entity_id)
 	for i=1, attach_spells_count do
-		local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		local action_type = ACTION_TYPE_MODIFIER
+		local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+		if not only_modifiers then
+			action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+		end
 		local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
 		new_wand:AttachSpells(action)
 	end
@@ -252,7 +256,11 @@ function feed_anvil(anvil_id, what, context_data)
 		potion_bonuses[state.potion_material](wand)
 		local wand_level = wand_compute_level(wand.entity_id)
 		for i=1, state.tablets do
-			local action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+			local action_type = ACTION_TYPE_MODIFIER
+			local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+			if not only_modifiers then
+				action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+			end
 			local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
 			wand:AttachSpells(action)
 		end

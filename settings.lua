@@ -177,6 +177,13 @@ breaking compatibility.]],
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 	{
+		id = "only_modifiers",
+		label = "Modifier-type always casts only",
+		description = "When using a tablet to add an always cast, will only choose from modifier type spells.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
+	{
 		id = "reusable",
 		label = "Anvil reusable",
 		description = "Makes the anvil reusable by resetting it after picking up the reward",
