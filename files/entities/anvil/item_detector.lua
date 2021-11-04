@@ -1,6 +1,7 @@
 -- Necessary to differentiate between items that use the same physics image
 local check_material = {
   ["data/items_gfx/goldnugget_01.png"] = true,
+  ["data/items_gfx/goldnugget_9px.png"] = true,
 }
 
 local by_physics_image = {
@@ -28,7 +29,7 @@ local by_physics_image = {
   ["data/items_gfx/waterstone.png"] = { "potion", "water" },
   ["data/items_gfx/goldnugget_01.png_gem_box2d_turquoise"] = { "potion", "wandstone", material = "spark_teal" },
   ["data/items_gfx/goldnugget_01.png_gem_box2d_white"] = { "potion", "sunseed", material = "spark_red" },
-  ["data/items_gfx/goldnugget_9px.png"] = { "potion", "sunstone", material = "liquid_fire_weak" },
+  ["data/items_gfx/goldnugget_9px.png_gem_box2d_red_float"] = { "potion", "sunstone", material = "liquid_fire_weak" },
   ["data/items_gfx/beamstone.png"] = { "potion", "beamstone", material = "spark_teal" },
   ["data/items_gfx/evil_eye.png"] = { "potion", "evil_eye", material = "spark_red" },
   ["data/items_gfx/musicstone.png"] = { "potion", "musicstone", material = "spark_teal" },
