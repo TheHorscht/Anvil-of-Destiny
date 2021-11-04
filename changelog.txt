@@ -1,3 +1,6 @@
+v1.16.3:
+- FIX: The 50 gold goldnugget was being wrongly detected as a sunstone
+
 v1.16.2:
 - Add setting for making tablets only add modifier always casts spells
 
