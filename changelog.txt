@@ -1,3 +1,6 @@
+v1.16.4:
+- FIX: Healthium would not add heal spells on high level wands
+
 v1.16.3:
 - FIX: The 50 gold goldnugget was being wrongly detected as a sunstone
 

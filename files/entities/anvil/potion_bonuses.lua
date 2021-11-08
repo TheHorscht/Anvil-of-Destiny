@@ -231,7 +231,7 @@ end,
       remove_after_executed="1"
     })
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(50, 70)
-    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
+    add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)), true)
   end,
   magic_liquid_polymorph = function(wand)
     -- transform all spells in wand into random ones
