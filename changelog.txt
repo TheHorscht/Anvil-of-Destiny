@@ -1,3 +1,6 @@
+v1.16.5:
+- FIX: Errors with custom wands when capacity or mana recharge speed is less than or equal to 0
+
 v1.16.4:
 - FIX: Healthium would not add heal spells on high level wands
 

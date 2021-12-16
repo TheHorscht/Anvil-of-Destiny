@@ -1,0 +1,3 @@
+[submodule "lib/EZWand"]
+	path = lib/EZWand
+	url = https://github.com/TheHorscht/EZWand
