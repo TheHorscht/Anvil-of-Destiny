@@ -1,0 +1,128 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
+
+:root {
+  --text-color1: #cce5f5;
+  --text-color2: #ed8741;
+  --tile-color1: #181615;
+  --tile-color2: #22201e;
+  --bg-color: #07141c;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  background: var(--bg-color);
+  color: var(--text-color1);
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  font-family: 'Archivo Narrow', sans-serif;
+}
+
+a, a:active, a:visited {
+  color: var(--text-color2);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-color1);
+}
+
+.navigation {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  text-decoration: none;
+  font-size: 1.3em;
+}
+
+.navigation > span {
+  font-size: 1.2em;
+}
+
+.navigation > a {
+  display: block;
+}
+
+.pageWrapper {
+  width: 900px;
+  margin: auto;
+  padding-bottom: 20px;
+}
+
+.info {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.runeListings>div {
+  padding: 20px;
+  background: var(--tile-color1);
+}
+
+.runeListings>div:nth-child(even) {
+  background: var(--tile-color2);
+}
+
+h1 {
+  font-size: 40px;
+  color: var(--text-color2);
+}
+
+h2 {
+  margin-top: 0px;
+  margin-bottom: 15px;
+  color: var(--text-color2);
+  font-size: 1.4em;
+}
+
+.dropChance {
+  color: var(--text-color1);
+  font-size: 0.7em;
+  font-weight: normal;
+  margin-left: 20px;
+  vertical-align: middle;
+}
+
+.iconWithText {
+  display: flex;
+  align-items: center;
+  font-size: 1.2em;
+  color: var(--text-color2);
+}
+
+.iconWithText img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  margin-right: 5px;
+}
+
+.bonusTable {
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+}
+
+.potionEffectTable {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+.potionEffectTable > * {
+  padding: 4px 10px;
+}
+.potionEffectTable > :nth-child(2n+1) {
+  padding-left: 20px;
+}
+.potionEffectTable > :nth-child(2n+2) {
+  padding-right: 20px;
+}
+.potionEffectTable :nth-child(1), .potionEffectTable :nth-child(2) {
+  font-size: 1.6em;
+  color: var(--text-color2);
+  background: var(--tile-color1);
+}
+.potionEffectTable :nth-child(4n+1), .potionEffectTable :nth-child(4n+2) {
+  background: var(--tile-color1);
+}
+.potionEffectTable :nth-child(4n+3), .potionEffectTable :nth-child(4n+4) {
+  background: var(--tile-color2);
+}
