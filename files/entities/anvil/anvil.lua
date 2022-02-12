@@ -10,6 +10,7 @@ dofile_once("mods/anvil_of_destiny/files/entities/anvil/item_detector.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/spawn_hammer_animation.lua")
 dofile_once("mods/anvil_of_destiny/files/entities/anvil/wand_utils.lua")
 local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
+local spells_evolutions = dofile_once("mods/anvil_of_destiny/files/scripts/spells_evolutions.lua")
 
 -- Diminishes the bonus by scale if it's above threshold
 local function limit_buff(value, threshold, scale)
@@ -158,6 +159,20 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 	local spell_stats = get_wand_average_spell_count_and_spell_level(wand1, wand2)
 	local wand1_spell_count = #wand1:GetSpells()
 	local wand2_spell_count = #wand2:GetSpells()
+
+	local evo_spell_level_counts, evo_ac_spell_level_counts
+	if ModIsEnabled("spells_evolutions") then
+		local se_counts1 = spells_evolutions.get_spell_level_counts(wand1)
+		local se_counts2 = spells_evolutions.get_spell_level_counts(wand2)
+		evo_spell_level_counts = se_counts1.spells
+		for spell_level, count in ipairs(se_counts2.spells) do
+			evo_spell_level_counts[spell_level] = evo_spell_level_counts[spell_level] + count
+		end
+		evo_ac_spell_level_counts = se_counts1.always_casts
+		for spell_level, count in ipairs(se_counts2.always_casts) do
+			evo_ac_spell_level_counts[spell_level] = evo_ac_spell_level_counts[spell_level] + count
+		end
+	end
 	-- 100% of the highest spellcount wand and 50% of the lower, so if wand1 has 20 spells and wand2 has 20, result should have 30
 	local spell_count_to_add = math.max(wand1_spell_count, wand2_spell_count) + math.floor(math.min(wand1_spell_count, wand2_spell_count) / 2)
 	spell_count_to_add = spell_count_to_add + Random(-1, 3)
@@ -169,6 +184,8 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 		spell_stats.average_attached_spell_count,
 		spell_stats.average_spell_level,
 		spell_stats.average_attached_spell_level,
+		evo_spell_level_counts,
+		evo_ac_spell_level_counts,
 		Randomf()*1000, Randomf()*1000)
 	local buff = ModSettingGet("anvil_of_destiny.buff_amount")
 	buff_wand(new_wand, buff, buff * 2, ModSettingGet("anvil_of_destiny.reduce_one_stat"))

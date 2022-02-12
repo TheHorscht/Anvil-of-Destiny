@@ -1,6 +1,7 @@
 dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
 dofile_once("data/scripts/gun/gun_actions.lua")
 local EZWand = dofile_once("mods/anvil_of_destiny/lib/EZWand/EZWand.lua")
+local spells_evolutions = dofile_once("mods/anvil_of_destiny/files/scripts/spells_evolutions.lua")
 
 -- Returns a spells average "level" based on spawn_level, which is the level of wands it can spawn in, for instance "3,4,5"
 function action_get_level(action)
@@ -75,6 +76,7 @@ end
 function get_average_spell_level(spells)
 	local spell_levels = {}
 	for i,v in ipairs(spells) do
+		v.action_id = spells_evolutions.get_spell_base_id(v.action_id)
 		local action = action_get_by_id(v.action_id)
 		table.insert(spell_levels, action_get_level(action))
 	end
@@ -104,12 +106,24 @@ end
 
 -- Fills a wand with spells that aren't too chaotic, based on level and "controlled" randomness
 -- wand_fill_with_semi_random_spells(new_wand, spells_to_add_count, attached_spells_to_add_count, average_spell_level, average_attached_spells_level)
-function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_spells_count, spells_level, attached_spells_level, seed_x, seed_y)
+function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_spells_count, spells_level, attached_spells_level, evo_spell_level_counts, evo_ac_spell_level_counts, seed_x, seed_y)
 	spell_amount_to_add = math.min(wand.capacity - wand:GetSpellsCount(), spell_amount_to_add)
 	SetRandomSeed(seed_x, seed_y)
+
+	local function evolve_spell_if_possible(action_id, evo_spell_level_counts)
+		if spells_evolutions.spell_has_evolution(action_id) then
+			local spells_evolution_level = spells_evolutions.get_next_spells_evolution_level(evo_spell_level_counts)
+			if spells_evolution_level then
+				action_id = spells_evolutions.upgrade_to_spells_evolution_level(action_id, spells_evolution_level)
+			end
+		end
+		return action_id
+	end
+
   for i=1, attached_spells_count do
 		local action_type = get_random_action_type(8, 2, 2)
 		local action = GetRandomActionWithType(seed_x + i, seed_y - i, attached_spells_level, action_type, i)
+		action = evolve_spell_if_possible(action, evo_ac_spell_level_counts)
     wand:AttachSpells(action)
 	end
 	-- This is so we get more variety, which might be interesting
@@ -145,7 +159,9 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 			action_type = get_random_action_type(8, 2, 2)
 			action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level), action_type, i)
 		end
-    wand:AddSpells(action)
+		-- (Spells Evolution Mod) Upgrade the projectile if there were any evolved spells
+		local evolved_action = evolve_spell_if_possible(action, evo_spell_level_counts)
+    wand:AddSpells(evolved_action)
   end
 end
 

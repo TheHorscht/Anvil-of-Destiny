@@ -1,3 +1,6 @@
+NEW:
+- Add compatibility with the "Spells Evolutions" mod
+
 v1.16.5:
 - FIX: Errors with custom wands when capacity or mana recharge speed is less than or equal to 0
 
