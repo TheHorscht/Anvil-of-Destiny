@@ -233,7 +233,7 @@ function feed_anvil(anvil_id, what, context_data)
 
 	update_emitters(anvil_id, what)
 	GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "jingle", x, y)
-	
+	-- TODO: Spit out wands and show sorry message when something goes wrong
   local current_state = state.potions
   current_state = current_state .. "_" .. state.tablets
 	current_state = current_state .. "_" .. state.wands

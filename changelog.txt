@@ -1,4 +1,4 @@
-NEW:
+v1.16.6:
 - Add compatibility with the "Spells Evolutions" mod
 
 v1.16.5:
