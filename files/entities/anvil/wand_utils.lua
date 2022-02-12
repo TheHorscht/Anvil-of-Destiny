@@ -156,6 +156,7 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 				end
 				-- If not then reroll with lower level
 				action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level-(i-1)), ACTION_TYPE_PROJECTILE, Random(500,999))
+				action_info = action_get_by_id(action)
 			end
 		elseif action == nil or action_type ~= ACTION_TYPE_PROJECTILE or Random() > 0.7 then
 			-- Repeat some projectiles based on RNG so that we neither get a chaotic array of spells nor the same ones over and over
