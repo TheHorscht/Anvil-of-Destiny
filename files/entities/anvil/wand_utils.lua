@@ -5,6 +5,9 @@ local spells_evolutions = dofile_once("mods/anvil_of_destiny/files/scripts/spell
 
 -- Returns a spells average "level" based on spawn_level, which is the level of wands it can spawn in, for instance "3,4,5"
 function action_get_level(action)
+	if not action.spawn_level then
+		return 3
+	end
 	local levels = string_split(action.spawn_level, ",")
 	local avg = math.ceil(math_average(levels))
 	return math.min(6, math.max(1, avg))
