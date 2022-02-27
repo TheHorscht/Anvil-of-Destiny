@@ -15,6 +15,16 @@ function get_active_item()
   end
 end
 
+function scroll_inventory()
+  local ent = EntityCreateNew()
+  EntityAddComponent2(ent, "LuaComponent", {
+    script_source_file="mods/anvil_of_destiny/files/scripts/scroll_inventory.lua",
+    execute_every_n_frame=-1,
+    execute_on_added=true,
+    enable_coroutines=true,
+  })
+end
+
 function interacting(entity_who_interacted, entity_interacted, interactable_name)
   local anvil_id
   local x, y = EntityGetTransform(entity_interacted)
@@ -49,6 +59,16 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
         AddMaterialInventoryMaterial(active_item, material_name, 0)
         play_pouring_animation(anvil_id, material_name, x, y)
         EntityKill(entity_interacted)
+        if ModSettingGet("anvil_of_destiny.destroy_potion_on_insert") then
+          local chance = ModSettingGet("anvil_of_destiny.destroy_potion_on_insert_chance")
+          local cx, cy = GameGetCameraPos()
+          math.randomseed(cx + cy + GameGetFrameNum())
+          if math.random() <= chance then
+            GamePrintImportant("How unfortunate", "Your potion broke")
+            EntityKill(active_item)
+            scroll_inventory()
+          end
+        end
       end
     end
   end
