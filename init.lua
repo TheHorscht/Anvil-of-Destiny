@@ -10,6 +10,18 @@ ModLuaFileAppend("data/scripts/biomes/vault.lua", "mods/anvil_of_destiny/files/b
 if ModIsEnabled("VolcanoBiome") then
   ModLuaFileAppend("mods/VolcanoBiome/files/biome/inside.lua", "mods/anvil_of_destiny/files/biomes/volcanobiome.lua")
 end
+
+if ModIsEnabled("biome-plus") then
+  ModLuaFileAppend("data/scripts/biomes/mod/blast_pit.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/blast_pit.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/floodcave.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/floodcave.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/frozen_passages.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/frozen_passages.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/holy_temple.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/holy_temple.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/rainforest_wormy.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/rainforest_wormy.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/robofactory.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/robofactory.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/snowvillage.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/snowvillage.lua")
+  ModLuaFileAppend("data/scripts/biomes/mod/swamp.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/swamp.lua")
+end
+
 ModMaterialsFileAdd("mods/anvil_of_destiny/files/materials.xml")
 
 function build_spell_level_lookup_table()
@@ -55,3 +67,35 @@ function OnMagicNumbersAndWorldSeedInitialized()
     ModLuaFileAppend("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua", "mods/anvil_of_destiny/files/_virtual/potion_bonuses_append.lua")
   end
 end
+
+-- -- For debugging purposes, shows arrow to the nearest anvil
+-- local anvil_content = ModTextFileGetContent("mods/anvil_of_destiny/files/entities/anvil/anvil.xml")
+-- anvil_content = anvil_content:gsub([[<Entity name="anvil_of_destiny">]], [[<Entity name="anvil_of_destiny" tags="anvil_of_destiny>]])
+-- ModTextFileSetContent("mods/anvil_of_destiny/files/entities/anvil/anvil.xml", anvil_content)
+-- local draw_arrow = dofile_once("mods/anvil_of_destiny/files/scripts/draw_arrow.lua")
+-- local function get_distance2( x1, y1, x2, y2 )
+-- 	local result = ( x2 - x1 ) ^ 2 + ( y2 - y1 ) ^ 2
+-- 	return result
+-- end
+-- function OnWorldPreUpdate()
+--   -- Draw an arrow poiting to the nearest anvil
+--   local closest = { dist2 = 99999999999999 }
+--   for i, anvil in ipairs(EntityGetWithTag("anvil_of_destiny")) do
+--     local x, y = EntityGetTransform(anvil)
+--     local cx, cy = GameGetCameraPos()
+--     local dist2 = get_distance2(x, y, cx, cy)
+--     if dist2 < closest.dist2 then
+--       closest.dist2 = dist2
+--       closest.x = x
+--       closest.y = y
+--     end
+--   end
+--   if closest.x then
+--     draw_arrow(closest.x, closest.y)
+--     gui = gui or GuiCreate()
+--     GuiStartFrame(gui)
+--     if GuiButton(gui, 2, 0, 200, "Jump to nearest anvil") then
+--       GameSetCameraPos(closest.x, closest.y)
+--     end
+--   end
+-- end

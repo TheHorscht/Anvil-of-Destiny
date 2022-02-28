@@ -64,3 +64,12 @@ config_altar_room_occurences_vault = ModSettingGet("anvil_of_destiny.room_occure
 config_altar_room_occurences_crypt = ModSettingGet("anvil_of_destiny.room_occurences_crypt")
 -- VolcanoBiome (Mod)
 config_altar_room_occurences_volcanobiome = ModSettingGet("anvil_of_destiny.room_occurences_volcanobiome")
+-- ========== Alternate Biomes (Mod) ==========
+config_altar_room_occurences_blast_pit = ModSettingGet("anvil_of_destiny.room_occurences_blast_pit")
+config_altar_room_occurences_floodcave = ModSettingGet("anvil_of_destiny.room_occurences_floodcave")
+config_altar_room_occurences_frozen_passages = ModSettingGet("anvil_of_destiny.room_occurences_frozen_passages")
+config_altar_room_occurences_holy_temple = ModSettingGet("anvil_of_destiny.room_occurences_holy_temple")
+config_altar_room_occurences_rainforest_wormy = ModSettingGet("anvil_of_destiny.room_occurences_rainforest_wormy")
+config_altar_room_occurences_robofactory = ModSettingGet("anvil_of_destiny.room_occurences_robofactory")
+config_altar_room_occurences_snowvillage = ModSettingGet("anvil_of_destiny.room_occurences_snowvillage")
+config_altar_room_occurences_swamp = ModSettingGet("anvil_of_destiny.room_occurences_swamp")
