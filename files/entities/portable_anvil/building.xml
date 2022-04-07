@@ -1,0 +1,16 @@
+<Entity>
+	<PixelSceneComponent
+		pixel_scene="mods/anvil_of_destiny/files/entities/portable_anvil/room.png"
+		pixel_scene_visual="mods/anvil_of_destiny/files/entities/portable_anvil/room_visual.png"
+		pixel_scene_background="mods/anvil_of_destiny/files/entities/portable_anvil/room_background.png"
+    background_z_index="-50"
+		offset_x="-100"
+		offset_y="-80"
+		skip_biome_checks="1"
+		>
+	</PixelSceneComponent>
+	<LifetimeComponent
+		lifetime="2"
+		>
+	</LifetimeComponent>
+</Entity>

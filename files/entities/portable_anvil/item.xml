@@ -1,0 +1,139 @@
+<Entity tags="hittable,teleportable_NOT,item_physics" >
+	<Base file="data/entities/base_item_projectile.xml" />
+
+  <!-- This mostly just copies the Kammi (data/entities/items/pickup/safe_haven.xml) -->
+
+	<!-- physical presence -->
+	
+	<PhysicsBodyComponent 
+		_tags="enabled_in_world"
+		uid="1" 
+		allow_sleep="1" 
+		angular_damping="1.6" 
+		linear_damping="0.8"
+		fixed_rotation="0" 
+		is_bullet="1" 
+		auto_clean="0"
+		on_death_leave_physics_body="1"
+		hax_fix_going_through_ground="1"
+		>
+	</PhysicsBodyComponent>
+	
+	<PhysicsImageShapeComponent 
+		body_id="1"
+		centered="1"
+		image_file="mods/anvil_of_destiny/files/entities/portable_anvil/item.png"
+		material="item_box2d_anvil_of_destiny"
+		>
+	</PhysicsImageShapeComponent>
+	
+	<PhysicsThrowableComponent
+		max_throw_speed="180"
+		throw_force_coeff="1.25"
+		min_torque="4"
+		max_torque="10"
+		>
+	</PhysicsThrowableComponent>
+
+	<VelocityComponent
+		_tags="enabled_in_world"
+		>
+	</VelocityComponent>
+
+	<!-- safe haven functionality -->
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="player_hp"
+		value_float="4.0" >
+	</VariableStorageComponent>
+
+	<VariableStorageComponent
+		_tags="enabled_in_world"
+		name="throw_time"
+		value_int="-1" >
+	</VariableStorageComponent>
+
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/spawn.lua"
+		execute_every_n_frame="1"
+		>
+	</LuaComponent>
+	
+	<LuaComponent
+		script_throw_item="mods/anvil_of_destiny/files/entities/portable_anvil/throw.lua"
+		execute_every_n_frame="-1" >
+	</LuaComponent>
+	
+	<!-- item -->
+
+	<SpriteComponent
+		_tags="enabled_in_hand"
+		_enabled="0"
+		offset_x="8"
+		offset_y="8"
+		image_file="mods/anvil_of_destiny/files/entities/portable_anvil/item.png"
+		>
+	</SpriteComponent>
+
+	<ItemComponent
+		_tags="enabled_in_world"
+		item_name="Portable Anvil of Destiny"
+		ui_description="Throw it on the ground to spawn a room with an Anvil of Destiny"
+		max_child_items="0"
+		is_pickable="1"
+		is_equipable_forced="1"
+		ui_sprite="mods/anvil_of_destiny/files/entities/portable_anvil/ui_icon.png"
+		preferred_inventory="QUICK"
+		>
+	</ItemComponent>
+
+	<UIInfoComponent
+		_tags="enabled_in_world"
+		name="Portable Anvil of Destiny">
+	</UIInfoComponent>
+	
+	<!-- <ParticleEmitterComponent 
+		_tags="enabled_on_throw"
+		_enabled="0"
+		emitted_material_name="spark_green"
+		gravity.y="0.0"
+		lifetime_min="8"
+		lifetime_max="15"
+		count_min="1"
+		count_max="1"
+		render_on_grid="1"
+		collide_with_grid="0"
+		collide_with_gas_and_fire="0"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="3"
+		airflow_force="0.251"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent> -->
+	
+	<AbilityComponent
+		ui_name="Portable Anvil of Destiny"
+		throw_as_item="1"
+		>
+		<gun_config
+			deck_capacity="0">
+		</gun_config>
+	</AbilityComponent>
+
+	<!-- FX -->
+
+	<LightComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		radius="70"
+		r="50"
+		g="50"
+		b="50"
+		>
+	</LightComponent>
+</Entity>

@@ -1,5 +1,5 @@
 <Materials>
-  
+
   <CellData
     name="anvilofdestinium"
     ui_name="Anvil of Destiny"
@@ -14,12 +14,23 @@
     liquid_static="1"
     solid_static_type="2"
     wang_noise_percent="0.15"
-    hp="100000000" 
+    hp="100000000"
     platform_type="1"
     durability="14"
     audio_physics_material_wall="metalwall"
     audio_physics_material_solid="metalwall"
-    >
-  </CellData>
+  ></CellData>
+
+  <CellDataChild
+  	_parent="item_box2d"
+    tags="[box2d]"
+    name="item_box2d_anvil_of_destiny"
+    ui_name="Anvil of Destiny"
+    wang_color="ff6F5743A"
+    stainable="0"
+    solid_restitution="0.2"
+    audio_physics_material_wall="metalwall"
+    audio_physics_material_solid="metalwall"
+  ></CellDataChild>
 
 </Materials>
