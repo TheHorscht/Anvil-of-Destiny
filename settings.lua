@@ -319,6 +319,16 @@ breaking compatibility.]],
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 	{
+		id = "portable_anvil_spawn_chance",
+		label = "Portable anvil spawn chance",
+		description = "The number is not a specific unit, but dependent on the total amount of items already registered.\nI recommend a value of 1, at 100 it has roughly 50% chance of spawning on a pedestal.",
+		value_default = 0,
+		value_min = 0,
+		value_max = 100,
+		type = "fine_tuner",
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
 		id = "start_with_portable_anvil",
 		label = "Start with portable anvil",
 		description = "You start each game with an item that lets you spawn a room with an Anvil of Destiny in it.",
@@ -442,9 +452,51 @@ function ModSettingsGui( gui, in_main_menu )
 				if right_clicked then
 					ModSettingSetNextValue(get_setting_id(setting.id), setting.value_default, false)
 				end
+			elseif setting.type == "fine_tuner" then
+				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+				local new_value = next_value
+				GuiLayoutBeginHorizontal(gui, 0, 0)
+				GuiText(gui, 0, 0, setting.label .. " ")
+				if setting.description then
+					GuiTooltip(gui, setting.description, "")
+				end
+				local function revert_to_default()
+					new_value = setting.value_default or 0
+				end
+				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[--]")
+				if left_clicked then
+					new_value = new_value - 10
+				elseif right_clicked then
+					revert_to_default()
+				end
+				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[-]")
+				if left_clicked then
+					new_value = new_value - 1
+				elseif right_clicked then
+					revert_to_default()
+				end
+				new_value = math.max(setting.value_min or -999999, new_value)
+				GuiText(gui, 0, 0, (" %s "):format(new_value))
+				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[+]")
+				if left_clicked then
+					new_value = new_value + 1
+				elseif right_clicked then
+					revert_to_default()
+				end
+				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[++]")
+				if left_clicked then
+					new_value = new_value + 10
+				elseif right_clicked then
+					revert_to_default()
+				end
+				GuiLayoutEnd(gui)
+				new_value = math.min(setting.value_max or 999999, new_value)
+				if new_value ~= next_value then
+					ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
+				end				
 			elseif type(setting.value_default) == "number" then
 				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local new_value = GuiSlider(gui, get_id(), 0, 0, setting.label, next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier, setting.value_display_formatting, 80)
+				local new_value = GuiSlider(gui, get_id(), 0, 0, setting.label .. " ", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier or 1, setting.value_display_formatting or " $0", 80)
 				if new_value ~= next_value then
 					ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
 				end

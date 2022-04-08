@@ -61,13 +61,15 @@ function build_spells_evolution_lookup_table()
   return s
 end
 
+ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/anvil_of_destiny/files/scripts/item_spawnlists_append.lua")
+
 function OnMagicNumbersAndWorldSeedInitialized()
   ModTextFileSetContent("mods/anvil_of_destiny/files/scripts/spell_level_lookup.lua", build_spell_level_lookup_table())
   ModTextFileSetContent("mods/anvil_of_destiny/files/scripts/spells_evolution_lookup.lua", build_spells_evolution_lookup_table())
   if ModTextFileGetContent("mods/anvil_of_destiny/files/_virtual/potion_bonuses_append.lua") then
     ModLuaFileAppend("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua", "mods/anvil_of_destiny/files/_virtual/potion_bonuses_append.lua")
   end
-  if true or ModSettingGet("anvil_of_destiny.add_anvil_to_lavalake") then
+  if ModSettingGet("anvil_of_destiny.add_anvil_to_lavalake") then
     ModLuaFileAppend("data/scripts/biomes/hills.lua", "mods/anvil_of_destiny/files/biomes/hills.lua")
 
     local nxml = dofile_once("mods/anvil_of_destiny/lib/nxml.lua")
