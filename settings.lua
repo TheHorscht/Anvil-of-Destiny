@@ -318,6 +318,27 @@ breaking compatibility.]],
 		value_default = false,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
+	{
+		id = "start_with_portable_anvil",
+		label = "Start with portable anvil",
+		description = "You start each game with an item that lets you spawn a room with an Anvil of Destiny in it.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
+		id = "add_anvil_to_lavalake",
+		label = "Anvil Room at Lava Lake",
+		description = "Adds an anvil room to the left of the lava lake.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
+	{
+		id = "never_spawn_naturally",
+		label = "Never spawn naturally",
+		description = "Will never spawn anvils in the biomes,\nonly through portable anvil or at the lava lake, if the option is enabled.",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_NEW_GAME,
+	},
 }
 
 function ModSettingsGuiCount()
@@ -410,7 +431,7 @@ function ModSettingsGui( gui, in_main_menu )
 		else
 			if type(setting.value_default) == "boolean" then
 				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local text = setting.label .. ": " .. GameTextGet(next_value and "$option_on" or "$option_off")
+				local text = ("(%s) %s"):format(next_value and "*" or "  ", setting.label)
 				local clicked, right_clicked = GuiButton(gui, 0, 0, text, get_id())
 				if setting.description then
 					GuiTooltip(gui, setting.description, "")
