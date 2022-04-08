@@ -1,3 +1,10 @@
+v1.17.0:
+- Add an item that can spawn a portable anvil room, needs to be enabled in the mod settings.
+- Add setting for starting with a portable anvil room.
+- Add setting for portable anvil spawn chance on item pedestals (default is 0).
+- Add setting to have an anvil spawn near the lava lake.
+- Add setting to make anvil never spawn naturally.
+
 v1.16.8:
 - Add compatibility with Alternate Biomes mod.
 
