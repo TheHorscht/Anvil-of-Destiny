@@ -21,6 +21,9 @@ if not ModSettingGet("anvil_of_destiny.never_spawn_naturally") then
     ModLuaFileAppend("data/scripts/biomes/mod/snowvillage.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/snowvillage.lua")
     ModLuaFileAppend("data/scripts/biomes/mod/swamp.lua", "mods/anvil_of_destiny/files/biomes/biome-plus/swamp.lua")
   end
+  if ModIsEnabled("noitavania") then
+    ModLuaFileAppend("data/scripts/biomes/coalmine_alt.lua", "mods/anvil_of_destiny/files/biomes/coalmine_alt.lua")
+  end
 end  
 
 ModMaterialsFileAdd("mods/anvil_of_destiny/files/materials.xml")
