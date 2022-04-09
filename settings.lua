@@ -287,6 +287,18 @@ breaking compatibility.]],
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 	{
+		id = "reusable_chance",
+		label = "Reusable chance",
+		description = "Chance for the anvil to be able to be used again.",
+		requires = { id = "reusable", value = true },
+		value_default = 1.0,
+		value_min = 0.0,
+		value_max = 1.0,
+		value_display_multiplier = 100.0,
+		value_display_formatting = " $0%",
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
+	{
 		id = "destroy_potion_on_insert",
 		label = "Remove potion after use",
 		description = "Can be used to balance out reusable anvil,\ndoesn't leave you with an empty flask but instead\ndestroys it after pouring it's contents on the anvil.",
@@ -297,6 +309,7 @@ breaking compatibility.]],
 		id = "destroy_potion_on_insert_chance",
 		label = "Potion removal chance",
 		description = "Can be used to balance out reusable anvil, doesn't leave you with an empty flask but instead destroys it after pouring it's contents on the anvil.",
+		requires = { id = "destroy_potion_on_insert", value = true },
 		value_default = 1.0,
 		value_min = 0.0,
 		value_max = 1.0,
@@ -394,111 +407,112 @@ function ModSettingsGui( gui, in_main_menu )
 	end
 
 	for i, setting in ipairs(settings) do
-		if setting.type == "group" then
-			GuiOptionsAddForNextWidget(gui, GUI_OPTION.DrawSemiTransparent)
-			-- GuiText(gui, 0, 0, "--- " .. setting.label .. " " .. ("-"):rep(50))
-			GuiText(gui, 0, 0, setting.label)
-			if setting.description then
-				GuiTooltip(gui, setting.description, "")
-			end
-			GuiLayoutBeginHorizontal(gui, 0, 0)
-			local offset = setting.offset or 0
-
-			-- Render labels
-			GuiLayoutBeginVertical(gui, 0, 0)
-			for i, setting in ipairs(setting.items) do
+		if not setting.requires or (setting.requires and (ModSettingGetNextValue(get_setting_id(setting.requires.id)) == setting.requires.value)) then
+			if setting.type == "group" then
+				GuiOptionsAddForNextWidget(gui, GUI_OPTION.DrawSemiTransparent)
 				GuiText(gui, 0, 0, setting.label)
-			end
-			GuiLayoutEnd(gui)
-
-			-- Render sliders
-			GuiLayoutBeginVertical(gui, 0, 0)
-			for i, setting in ipairs(setting.items) do
-				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local new_value = GuiSlider(gui, get_id(), 10 + offset, 2, "", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier, " " or setting.value_display_formatting, 80)
-				GuiLayoutAddVerticalSpacing(gui, 1)
-				if new_value ~= next_value then
-					ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
-				end
-			end
-			GuiLayoutEnd(gui)
-
-			-- Render values
-			GuiLayoutBeginVertical(gui, 0, 0)
-			for i, setting in ipairs(setting.items) do
-				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				GuiText(gui, offset + 30, 0, setting.format_fn and setting.format_fn(next_value) or tostring(next_value))
-			end
-			GuiLayoutEnd(gui)
-
-			GuiLayoutEnd(gui)
-			-- Need to do this because the game doesn't count how many items are in the vertical group
-			for i=2, #setting.items do
-				GuiText(gui, 0, 0, " ")
-			end
-			-- A little margin at the bottom before the next group or items
-			GuiLayoutAddVerticalSpacing(gui, 5)
-		else
-			if type(setting.value_default) == "boolean" then
-				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local text = ("(%s) %s"):format(next_value and "*" or "  ", setting.label)
-				local clicked, right_clicked = GuiButton(gui, 0, 0, text, get_id())
 				if setting.description then
 					GuiTooltip(gui, setting.description, "")
 				end
-				if clicked then
-					ModSettingSetNextValue(get_setting_id(setting.id), not next_value, false)
-				end
-				if right_clicked then
-					ModSettingSetNextValue(get_setting_id(setting.id), setting.value_default, false)
-				end
-			elseif setting.type == "fine_tuner" then
-				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local new_value = next_value
 				GuiLayoutBeginHorizontal(gui, 0, 0)
-				GuiText(gui, 0, 0, setting.label .. " ")
-				if setting.description then
-					GuiTooltip(gui, setting.description, "")
-				end
-				local function revert_to_default()
-					new_value = setting.value_default or 0
-				end
-				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[--]")
-				if left_clicked then
-					new_value = new_value - 10
-				elseif right_clicked then
-					revert_to_default()
-				end
-				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[-]")
-				if left_clicked then
-					new_value = new_value - 1
-				elseif right_clicked then
-					revert_to_default()
-				end
-				new_value = math.max(setting.value_min or -999999, new_value)
-				GuiText(gui, 0, 0, (" %s "):format(new_value))
-				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[+]")
-				if left_clicked then
-					new_value = new_value + 1
-				elseif right_clicked then
-					revert_to_default()
-				end
-				local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[++]")
-				if left_clicked then
-					new_value = new_value + 10
-				elseif right_clicked then
-					revert_to_default()
+				local offset = setting.offset or 0
+	
+				-- Render labels
+				GuiLayoutBeginVertical(gui, 0, 0)
+				for i, setting in ipairs(setting.items) do
+					GuiText(gui, 0, 0, setting.label)
 				end
 				GuiLayoutEnd(gui)
-				new_value = math.min(setting.value_max or 999999, new_value)
-				if new_value ~= next_value then
-					ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
-				end				
-			elseif type(setting.value_default) == "number" then
-				local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
-				local new_value = GuiSlider(gui, get_id(), 0, 0, setting.label .. " ", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier or 1, setting.value_display_formatting or " $0", 80)
-				if new_value ~= next_value then
-					ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
+	
+				-- Render sliders
+				GuiLayoutBeginVertical(gui, 0, 0)
+				for i, setting in ipairs(setting.items) do
+					local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+					local new_value = GuiSlider(gui, get_id(), 10 + offset, 2, "", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier, " " or setting.value_display_formatting, 80)
+					GuiLayoutAddVerticalSpacing(gui, 1)
+					if new_value ~= next_value then
+						ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
+					end
+				end
+				GuiLayoutEnd(gui)
+	
+				-- Render values
+				GuiLayoutBeginVertical(gui, 0, 0)
+				for i, setting in ipairs(setting.items) do
+					local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+					GuiText(gui, offset + 30, 0, setting.format_fn and setting.format_fn(next_value) or tostring(next_value))
+				end
+				GuiLayoutEnd(gui)
+	
+				GuiLayoutEnd(gui)
+				-- Need to do this because the game doesn't count how many items are in the vertical group
+				for i=2, #setting.items do
+					GuiText(gui, 0, 0, " ")
+				end
+				-- A little margin at the bottom before the next group or items
+				GuiLayoutAddVerticalSpacing(gui, 5)
+			else
+				if type(setting.value_default) == "boolean" then
+					local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+					local text = ("(%s) %s"):format(next_value and "*" or "  ", setting.label)
+					local clicked, right_clicked = GuiButton(gui, 0, 0, text, get_id())
+					if setting.description then
+						GuiTooltip(gui, setting.description, "")
+					end
+					if clicked then
+						ModSettingSetNextValue(get_setting_id(setting.id), not next_value, false)
+					end
+					if right_clicked then
+						ModSettingSetNextValue(get_setting_id(setting.id), setting.value_default, false)
+					end
+				elseif setting.type == "fine_tuner" then
+					local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+					local new_value = next_value
+					GuiLayoutBeginHorizontal(gui, 0, 0)
+					GuiText(gui, 0, 0, setting.label .. " ")
+					if setting.description then
+						GuiTooltip(gui, setting.description, "")
+					end
+					local function revert_to_default()
+						new_value = setting.value_default or 0
+					end
+					local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[--]")
+					if left_clicked then
+						new_value = new_value - 10
+					elseif right_clicked then
+						revert_to_default()
+					end
+					local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[-]")
+					if left_clicked then
+						new_value = new_value - 1
+					elseif right_clicked then
+						revert_to_default()
+					end
+					new_value = math.max(setting.value_min or -999999, new_value)
+					GuiText(gui, 0, 0, (" %s "):format(new_value))
+					local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[+]")
+					if left_clicked then
+						new_value = new_value + 1
+					elseif right_clicked then
+						revert_to_default()
+					end
+					local left_clicked, right_clicked = GuiButton(gui, get_id(), 0, 0, "[++]")
+					if left_clicked then
+						new_value = new_value + 10
+					elseif right_clicked then
+						revert_to_default()
+					end
+					GuiLayoutEnd(gui)
+					new_value = math.min(setting.value_max or 999999, new_value)
+					if new_value ~= next_value then
+						ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
+					end
+				elseif type(setting.value_default) == "number" then
+					local next_value = ModSettingGetNextValue(get_setting_id(setting.id))
+					local new_value = GuiSlider(gui, get_id(), 0, 0, setting.label .. " ", next_value, setting.value_min, setting.value_max, setting.value_default, setting.value_display_multiplier or 1, setting.value_display_formatting or " $0", 80)
+					if new_value ~= next_value then
+						ModSettingSetNextValue(get_setting_id(setting.id), new_value, false)
+					end
 				end
 			end
 		end
