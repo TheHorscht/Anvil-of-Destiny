@@ -1,7 +1,11 @@
-function spawn_anvil_altar(x, y)
+function spawn_anvil_altar(x, y, no_spawner_pixels)
 	local w = 184
 	local h = 96
-	LoadPixelScene("mods/anvil_of_destiny/files/entities/altar/altar.png", "mods/anvil_of_destiny/files/entities/altar/altar_visual.png", x - (w / 2), y - h + 1, "", true )
+	local s = ""
+	if no_spawner_pixels == true then
+		s = "_no_spawner_pixels"
+	end
+	LoadPixelScene("mods/anvil_of_destiny/files/entities/altar/altar" .. s .. ".png", "mods/anvil_of_destiny/files/entities/altar/altar_visual.png", x - (w / 2), y - h + 1, "", true )
 end
 
 function spawn_anvil(x, y)

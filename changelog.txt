@@ -1,3 +1,6 @@
+v1.17.3:
+- FIX: Portable anvil room spawning two anvils inside each other.
+
 v1.17.2:
 - Add setting for anvil reusability chance.
 

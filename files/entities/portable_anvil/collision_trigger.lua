@@ -11,7 +11,7 @@ function collision_trigger( colliding_entity_id )
     "mods/anvil_of_destiny/files/entities/portable_anvil/room_visual.png",
     pos_x - 125, pos_y - 100 + 9 + offset, "mods/anvil_of_destiny/files/entities/portable_anvil/room_background.png", true, false, {}, -50)
 	
-  spawn_anvil_altar(pos_x, pos_y + 100 + offset)
+  spawn_anvil_altar(pos_x, pos_y + 100 + offset, true)
   spawn_statue_facing_right(pos_x - 71, pos_y - 12 + 100 + offset)
   spawn_statue_facing_left(pos_x + 70, pos_y - 12 + 100 + offset)
   spawn_anvil(pos_x, pos_y - 30 + 3 + 100 + offset)
