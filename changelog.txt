@@ -1,3 +1,7 @@
+v1.17.1:
+- Add compatibility with Noitavania mod when adding the lava lake room.
+- Remove some tiny leftover pixels in the lava room room.
+
 v1.17.0:
 - Add an item that can spawn a portable anvil room, needs to be enabled in the mod settings.
 - Add setting for starting with a portable anvil room.
