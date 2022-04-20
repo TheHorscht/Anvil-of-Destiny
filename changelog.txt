@@ -1,3 +1,6 @@
+v1.17.4:
+- Make portable anvil particle emitter look nicer. (Made by Spoopy Magic Boy)
+
 v1.17.3:
 - FIX: Portable anvil room spawning two anvils inside each other.
 
