@@ -56,7 +56,7 @@ local bonuses = {
       count_min=2,
       count_max=3,
       draw_as_long=true,
-      is_trail=true,
+      is_trail=false,
       trail_gap=1,
       collide_with_grid=false,
       x_vel_min=70,
@@ -64,7 +64,6 @@ local bonuses = {
       y_vel_min=-5,
       y_vel_max=5,
     })
-    EntitySetComponentIsEnabled(new_entity, emitter, false)
     EntitySetComponentIsEnabled(new_entity, emitter, false)
     EntityAddChild(wand.entity_id, new_entity)
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
