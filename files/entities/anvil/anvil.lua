@@ -213,7 +213,9 @@ function feed_anvil(anvil_id, what, context_data)
 	end
 
 	if what == "tablet" then
-		EntityKill(context_data)
+		if context_data then
+			EntityKill(context_data)
+		end
 		if state.tablets == 2 then
 			remove_potion_input_place(anvil_id)
 		end

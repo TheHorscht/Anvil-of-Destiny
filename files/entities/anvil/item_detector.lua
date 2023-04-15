@@ -60,3 +60,79 @@ function get_equivalent(item_id)
   end
   return unpack(by_physics_image[image_file] or {})
 end
+
+function register_physics_item(args)
+  -- #region Parameter validation
+  if type(args) ~= "table" then
+    error("Expected arguments as a table.", 2)
+  end
+
+  if #args > 0 then
+    error("Table should consist of key/value pairs. e.g.: physics_image_file = 'data/items_gfx/smallgem_03.png'", 2)
+  end
+
+  -- The physics image file by which it is identified
+  local physics_image_file = args.physics_image_file
+  if type(physics_image_file) ~= "string" then
+    error("Parameter 'physics_image_file' is required and must be the path to the physics image file used by the item: PhysicsImageShapeComponent:image_file", 2)
+  end
+
+  -- What this item should count as, "potion"/effect tablet or wand
+  local equivalent_type = args.type
+  local valid_types = { effect = true, tablet = true, wand = true }
+  if type(equivalent_type) ~= "string" or not valid_types[equivalent_type] then
+    error("Parameter 'type' is required and must be one of the following: 'effect', 'tablet', 'wand'", 2)
+  end
+
+  -- Which wand entity should be fed into the anvil
+  local wand_entity_file = args.wand_entity_file
+  if equivalent_type == "wand" and type(wand_entity_file) ~= "string" then
+    error("Parameter 'wand_entity_file' is required when type = 'wand'", 2)
+  end
+
+  -- Which effect registered with append_effect should be used
+  local effect_name = args.effect_name
+  if equivalent_type == "effect" and type(effect_name) ~= "string" then
+    error("Parameter 'effect_name' is required when type = 'effect'", 2)
+  end
+
+  -- Which material should be used for the particle effect
+  local emitter_material = args.emitter_material
+  if equivalent_type == "effect" and type(emitter_material) ~= "string" then
+    error("Parameter 'emitter_material' is required when type = 'effect'", 2)
+  end
+
+  -- If there are multiple items with the same physics image,
+  -- we need to differentiate them by their material
+  local check_physics_material = args.check_physics_material
+  if check_physics_material and type(check_physics_material) ~= "boolean" then
+    error("Parameter 'check_physics_material' must be a boolean (true/false)", 2)
+  end
+
+  local physics_material = args.physics_material
+  if check_physics_material and type(physics_material) ~= "string" then
+    error("Parameter 'physics_material' is required when check_physics_material = true", 2)
+  end
+  -- #endregion Parameter validation
+
+  if check_physics_material then
+    check_material[physics_image_file] = true
+    physics_image_file = physics_image_file .. "_" .. physics_material
+  end
+  if equivalent_type == "effect" then
+    equivalent_type = "potion"
+  end
+  by_physics_image[physics_image_file] = { equivalent_type, effect_name }
+  if equivalent_type == "wand" then
+    by_physics_image[physics_image_file][2] = wand_entity_file
+  end
+  if emitter_material then
+    material_emitter_lookup[effect_name] = emitter_material
+  end
+end
+
+-- Set up some dummy functions that aren't available here but in potion_bonuses.lua,
+-- but will be called from the appended functions by other mods
+function add_spells_to_effect() end
+function append_effect() end
+dofile("mods/anvil_of_destiny/files/scripts/modded_content.lua")

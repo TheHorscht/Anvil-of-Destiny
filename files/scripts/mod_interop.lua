@@ -1,5 +1,7 @@
+-- DEPRECATED, use the new method, check files/scripts/modded_content_example.lua!
 function potion_recipe_add_spells(material_name, spells, version)
   local api_version = 1
+  version = version or 1
   if version ~= api_version then
     error("potion_recipe_add_spells function usage has changed, please read update notes \
 and update version argument to " .. api_version .. " after you adapted your code", 2)
