@@ -20,6 +20,6 @@
   "dependencies": {},
   "devDependencies": {
     "adm-zip": "^0.4.16",
-    "minimatch": "^3.0.4"
+    "minimatch": "^3.0.5"
   }
 }
