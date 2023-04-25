@@ -1,5 +1,14 @@
--- In your init.lua:
--- ModLuaFileAppend("mods/anvil_of_destiny/files/scripts/modded_content.lua", "mods/your_mod/files/aod_modded_content_append.lua")
+-- ####################
+-- # In your init.lua #
+-- ####################
+if ModIsEnabled("anvil_of_destiny") then
+  -- Change the second argument to the path of your own lua script
+  ModLuaFileAppend("mods/anvil_of_destiny/files/scripts/modded_content.lua", "mods/your_mod/files/aod_modded_content_append.lua")
+end
+
+-- #####################################
+-- # In your aod_modded_content_append #
+-- #####################################
 
 -- If you want to add your new spells to an existing potion/item recipe
 add_spells_to_effect("blood", { "WAVE_OF_AGONY", "BLOOD_BALL" })
