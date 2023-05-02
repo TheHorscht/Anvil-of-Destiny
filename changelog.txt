@@ -1,3 +1,6 @@
+v1.18.1:
+- FIX: Fungal shifts not being taken into account.
+
 v1.18.0:
 - Add methods to allow other mods to add their own materials and items to recipes. (Check files\scripts\modded_content_example.lua)
 

@@ -25,6 +25,23 @@ function scroll_inventory()
   })
 end
 
+function get_fungal_shifted_material_name(material_name, shifts)
+  if not shifts then
+    local world_state_entity_id = GameGetWorldStateEntity()
+    local world_state_component = EntityGetFirstComponentIncludingDisabled(world_state_entity_id, "WorldStateComponent")
+    shifts = ComponentGetValue2(world_state_component, "changed_materials")
+  end
+  local target = material_name
+  for i=#shifts-1, 1, -2 do
+    local from = shifts[i]
+    local to = shifts[i+1]
+    if target == from or target == from then
+      target = to
+    end
+  end
+  return target
+end
+
 function interacting(entity_who_interacted, entity_interacted, interactable_name)
   local anvil_id
   local x, y = EntityGetTransform(entity_interacted)
@@ -53,11 +70,12 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
           break
         end
       end
-      if material_name == nil then return end
-      if potion_bonuses[material_name] ~= nil then -- It's a potion and it has enough material inside
+      local shifted_material_name = get_fungal_shifted_material_name(material_name)
+      if shifted_material_name == nil then return end
+      if potion_bonuses[shifted_material_name] ~= nil then -- It's a potion and it has enough material inside
         -- Remove the material from the potion
         AddMaterialInventoryMaterial(active_item, material_name, 0)
-        play_pouring_animation(anvil_id, material_name, x, y)
+        play_pouring_animation(anvil_id, shifted_material_name, x, y)
         EntityKill(entity_interacted)
         if ModSettingGet("anvil_of_destiny.destroy_potion_on_insert") then
           local chance = ModSettingGet("anvil_of_destiny.destroy_potion_on_insert_chance")
