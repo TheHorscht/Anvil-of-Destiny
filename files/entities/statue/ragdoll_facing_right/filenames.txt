@@ -1,0 +1,7 @@
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/1.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/2.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/3.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/4.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/5.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/6.png
+mods/anvil_of_destiny/files/entities/statue/ragdoll_facing_right/7.png

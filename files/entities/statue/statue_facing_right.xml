@@ -8,8 +8,8 @@
     </SpriteComponent>
 
     <ParticleEmitterComponent
-      x_pos_offset_min="11"
-      x_pos_offset_max="11"
+      x_pos_offset_min="-7"
+      x_pos_offset_max="-7"
       >
     </ParticleEmitterComponent>
 

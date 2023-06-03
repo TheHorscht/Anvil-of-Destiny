@@ -1,0 +1,156 @@
+<Entity name="anvil_of_destiny" tags="hittable">
+
+  <!--  GAME BUG: For now (Feb 28th 2020), setting PhysicsImageShapeComponent::centered with a static PhysicsBodyComponent does not work properly, same with offets -->
+  <!--  Which means if we use a static PhysicsBodyComponent, we can't use centered or offsets, so we have to shift it manually with InheritTransformComponent -->
+
+  <PhysicsBody2Component
+    fixed_rotation="1"
+    auto_clean="0"
+    is_static="1"
+    destroy_body_if_entity_destroyed="1"
+    root_offset_x="39"
+    init_offset_x="39"
+  ></PhysicsBody2Component>
+
+  <PhysicsImageShapeComponent
+    centered="0"
+    is_root="1"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/mimic/visual.png"
+    material="anvilofdestinium_mimic"
+  ></PhysicsImageShapeComponent>
+
+  <!-- The size is irrelevant, will take the shape of the physicsbody -->
+  <HitboxComponent
+    aabb_min_x="0"
+    aabb_max_x="1"
+    aabb_min_y="5"
+    aabb_max_y="6"
+    is_enemy="0"
+    is_item="0"
+    is_player="0"
+  ></HitboxComponent>
+
+    <!-- ragdoll_offset_x="39" -->
+    <!-- ragdoll_material="anvilofdestinium" -->
+  <DamageModelComponent
+    hp="20"
+    fire_probability_of_ignition="0"
+    create_ragdoll="0"
+    >
+    <damage_multipliers
+      explosion="0"
+    ></damage_multipliers>
+  </DamageModelComponent>
+
+  <!-- God rays -->
+
+  <SpriteComponent
+    image_file="mods/anvil_of_destiny/files/entities/anvil/god_rays.png"
+    z_index="255"
+    additive="1"
+    alpha="0.5"
+    offset_x="128"
+    offset_y="81"
+  ></SpriteComponent>
+
+  <!-- Divine sparkles -->
+
+  <ParticleEmitterComponent
+    _enabled="1"
+    emitted_material_name="spark_white_bright"
+    x_pos_offset_min="-40"
+    x_pos_offset_max="40"
+    y_pos_offset_min="-60"
+    y_pos_offset_max="40"
+    x_vel_min="-1"
+    x_vel_max="1"
+    y_vel_min="0"
+    y_vel_max="1"
+    gravity.y="10"
+    lifetime_min="2"
+    lifetime_max="5"
+    count_min="1"
+    count_max="1"
+    render_on_grid="1"
+    collide_with_grid="0"
+    fade_based_on_lifetime="1"
+    cosmetic_force_create="1"
+    emit_cosmetic_particles="1"
+    airflow_force="0"
+    airflow_time="0"
+    airflow_scale="0"
+    emission_interval_min_frames="1"
+    emission_interval_max_frames="1"
+    is_emitting="1"
+  ></ParticleEmitterComponent>
+
+  <!-- the _enabled attribute MUST be present and set to 1 otherwise it doesn't work -->
+
+	<AudioLoopComponent
+		_enabled="1"
+		auto_play="1"
+		calculate_material_lowpass="0"
+    file="mods/anvil_of_destiny/audio/anvil_of_destiny.bank"
+    event_name="high_drone"
+  ></AudioLoopComponent>
+
+  <!-- Hitbox goes out from the center in a rectangle, max width/height seems to be around 60? Maybe 64? -->
+
+  <CollisionTriggerComponent
+    width="30"
+    height="20"
+    required_tag="player_unit"
+    destroy_this_entity_when_triggered="0"
+  ></CollisionTriggerComponent>
+
+    <!-- script_damage_about_to_be_received="mods/anvil_of_destiny/files/entities/anvil/mimic/trigger.lua" -->
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/trigger.lua"
+    script_collision_trigger_hit="mods/anvil_of_destiny/files/entities/anvil/mimic/trigger.lua"
+    script_damage_received="mods/anvil_of_destiny/files/entities/anvil/mimic/trigger.lua"
+    execute_on_added="1"
+    execute_times="1"
+    enable_coroutines="1"
+  ></LuaComponent>
+
+    <!-- color="FF3232DA" -->
+  <ParticleEmitterComponent
+		_enabled="0"
+		emitted_material_name="fire"
+		y_pos_offset_min="19"
+    y_pos_offset_max="19"
+		gravity.y="-80.0"
+    emission_chance="70"
+		lifetime_min="0.5"
+    color="DAFF3232"
+		lifetime_max="0.5"
+		count_min="1"
+		count_max="1"
+		render_on_grid="0"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="1"
+    collide_with_grid="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="2"
+		emit_cosmetic_particles="1"
+    airflow_force="0.8"
+    airflow_time="0.5"
+    airflow_scale="0.25"
+		image_animation_file="mods/anvil_of_destiny/files/entities/anvil/mimic/aura.png"
+		image_animation_speed="2"
+		image_animation_loop="1"
+		render_back="1"
+		is_emitting="1"
+  ></ParticleEmitterComponent>
+
+  <!-- Physics body damage checker -->
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/damage_checker.lua"
+    execute_on_added="0"
+    execute_every_n_frame="30"
+    execute_times="-1"
+  ></LuaComponent>
+
+</Entity>

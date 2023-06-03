@@ -1,0 +1,38 @@
+<Entity>
+
+  <InheritTransformComponent
+  ></InheritTransformComponent>
+
+  <ParticleEmitterComponent
+		emitted_material_name="fire"
+		gravity.y="0.0"
+		lifetime_min="0.7"
+		lifetime_max="1"
+		count_min="2"
+		count_max="3"
+		render_on_grid="1"
+    y_pos_offset_min="-18"
+    y_pos_offset_max="-18"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+    airflow_force="0.1"
+    airflow_scale="0.1"
+    airflow_time="0.8"
+		cosmetic_force_create="1"
+    collide_with_grid="0"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		render_back="1"
+		is_emitting="1"
+    x_pos_offset_min="6"
+    x_pos_offset_max="6"
+  ></ParticleEmitterComponent>
+   Anvil of Density
+
+  <LifetimeComponent
+    lifetime="5"
+  ></LifetimeComponent>
+
+</Entity>

@@ -1,0 +1,48 @@
+<Entity name="anvil_of_destiny" tags="hittable">
+
+  <DamageModelComponent
+    hp="20"
+    air_needed="0"
+    ragdoll_offset_y="19"
+    ragdoll_filenames_file="mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/filenames.txt"
+    fire_probability_of_ignition="0"
+    >
+    <damage_multipliers
+      physics_hit="0"
+    ></damage_multipliers>
+  </DamageModelComponent>
+
+  <SpriteComponent
+    _tags="character"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/mimic/anim_1.png"
+    offset_x="40"
+    offset_y="38"
+  ></SpriteComponent>
+
+  <!-- Make it destroy tablets, otherwise flying into a tablet kan just kill it... -->
+	<MagicConvertMaterialComponent
+    from_material="rock_box2d_hard"
+    to_material="air"
+    steps_per_frame="15"
+    loop="1"
+		is_circle="1"
+    radius="50"
+  ></MagicConvertMaterialComponent>
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/phase2.lua"
+    execute_every_n_frame="1"
+  ></LuaComponent>
+
+  <LuaComponent
+    script_death="mods/anvil_of_destiny/files/entities/anvil/mimic/death.lua"
+    execute_every_n_frame="-1"
+  ></LuaComponent>
+
+	<LuaComponent
+    script_death="data/scripts/items/drop_money.lua"
+    execute_every_n_frame="-1"
+    remove_after_executed="1"
+  ></LuaComponent>
+
+</Entity>

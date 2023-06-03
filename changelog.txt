@@ -1,3 +1,6 @@
+v1.19.0:
+- Add a mod setting to enable anvil mimics to spawn (disabled by default)
+
 v1.18.2:
 - FIX: Portable anvil should now be given only once on spawn, as intended, not every time you reload the game.
 

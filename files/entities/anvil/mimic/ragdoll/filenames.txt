@@ -1,0 +1,7 @@
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/1.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/2.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/3.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/4.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/5.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/6.png
+mods/anvil_of_destiny/files/entities/anvil/mimic/ragdoll/7.png

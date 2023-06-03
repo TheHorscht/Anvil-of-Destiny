@@ -1,0 +1,34 @@
+<Entity>
+
+  <SpriteComponent 
+    image_file="mods/anvil_of_destiny/files/entities/hammer_animation/hammer_sprite.xml"
+    offset_x="14"
+    offset_y="50"
+    z_index="-100"
+  ></SpriteComponent>
+
+  <HotspotComponent
+    _tags="shoot_pos"
+    sprite_hotspot_name="sparks_origin"
+  ></HotspotComponent>
+
+  <!-- The sparks will be spawned at this entities position.
+  Since it inherits the hotspot position we can essentially spawn the sparks at the hotspot position. -->
+
+  <Entity>
+
+    <InheritTransformComponent
+      parent_hotspot_tag="shoot_pos"
+    ></InheritTransformComponent>
+
+  </Entity>
+
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/hammer.lua"
+		enable_coroutines="1"
+		execute_on_added="1"
+		execute_every_n_frame="-1"
+		execute_times="1"
+  ></LuaComponent>
+
+</Entity>

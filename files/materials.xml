@@ -22,6 +22,15 @@
   ></CellData>
 
   <CellDataChild
+    _parent="anvilofdestinium"
+    name="anvilofdestinium_mimic"
+    ui_name="Anvil of Density"
+    wang_color="ff6F5740"
+    audio_physics_material_wall="meat"
+    audio_physics_material_solid="meat"
+  ></CellDataChild>
+
+  <CellDataChild
   	_parent="item_box2d"
     tags="[box2d]"
     name="item_box2d_anvil_of_destiny"

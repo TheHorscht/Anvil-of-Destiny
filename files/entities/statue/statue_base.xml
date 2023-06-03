@@ -3,6 +3,8 @@
   <SpriteComponent
     _enabled="1"
     _tags="enabled_at_start"
+		offset_x="18"
+		offset_y="23"
     >
   </SpriteComponent>
 
@@ -15,8 +17,8 @@
 		count_min="1"
 		count_max="1"
 		render_on_grid="1"
-    y_pos_offset_min="5"
-    y_pos_offset_max="5"
+    y_pos_offset_min="-18"
+    y_pos_offset_max="-18"
 		fade_based_on_lifetime="0"
 		area_circle_radius.min="0"
 		area_circle_radius.max="0"

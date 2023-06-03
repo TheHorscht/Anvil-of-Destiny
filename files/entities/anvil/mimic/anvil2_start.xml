@@ -1,0 +1,27 @@
+<Entity name="anvil_of_destiny">
+
+  <SpriteComponent
+    _tags="character"
+    image_file="mods/anvil_of_destiny/files/entities/anvil/mimic/anim.xml"
+    offset_x="0"
+    offset_y="0"
+  ></SpriteComponent>
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/phase2_start.lua"
+    enable_coroutines="1"
+    execute_on_added="1"
+    execute_every_n_frame="-1"
+    execute_times="1"
+  ></LuaComponent>
+
+  <LuaComponent
+    script_source_file="mods/anvil_of_destiny/files/entities/anvil/mimic/spawn_anvil2.lua"
+    execute_every_n_frame="-1"
+    execute_on_removed="1"
+  ></LuaComponent>
+
+  <LifetimeComponent
+    lifetime="240"
+  ></LifetimeComponent>
+</Entity>
