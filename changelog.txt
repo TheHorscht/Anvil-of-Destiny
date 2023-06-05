@@ -1,3 +1,6 @@
+v1.18.2:
+- FIX: Portable anvil should now be given only once on spawn, as intended, not every time you reload the game.
+
 v1.18.1:
 - FIX: Fungal shifts not being taken into account.
 

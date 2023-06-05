@@ -139,7 +139,9 @@ end
 -- ModMagicNumbersFileAdd("mods/anvil_of_destiny/_virtual/magic_numbers.xml")
 
 function OnPlayerSpawned(player)
-  if ModSettingGet("anvil_of_destiny.start_with_portable_anvil") then
+  if ModSettingGet("anvil_of_destiny.start_with_portable_anvil")
+    and not GameHasFlagRun("anvil_of_destiny_portable_anvil_given") then
+      GameAddFlagRun("anvil_of_destiny_portable_anvil_given")
     local item = EntityLoad("mods/anvil_of_destiny/files/entities/portable_anvil/item.xml")
     for i, child in ipairs(EntityGetAllChildren(player) or {}) do
       if EntityGetName(child) == "inventory_quick" then
