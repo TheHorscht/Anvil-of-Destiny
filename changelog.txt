@@ -1,3 +1,6 @@
+v1.20.0:
+- Add a failsafe that spits out the wand/s, tablet/s and an error message if something goes wrong.
+
 v1.19.0:
 - Add a mod setting to enable anvil mimics to spawn (disabled by default)
 

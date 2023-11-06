@@ -1,8 +1,6 @@
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/gun/gun_actions.lua")
 dofile_once("data/scripts/gun/gun_enums.lua")
-dofile_once("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
-dofile_once("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
 dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("mods/anvil_of_destiny/config.lua")
 dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
@@ -49,19 +47,6 @@ function buff_wand(wand, buff_amount, mana_charge_speed_bonus_scale, reduce_one_
 	end
 	-- Limit capacity to 26 but not if the old capacity is higher, we don't want to reduce it
 	wand.capacity = math.max(old_capacity, math.min(26, wand.capacity))
-end
-
-function get_state(anvil_id)
-	local entity_id = anvil_id
-	local state = stringstore.open_store(stringstore.noita.variable_storage_components(entity_id))
-	
-	if state.wands == nil then
-		state.wands = 0
-		state.tablets = 0
-		state.potions = 0
-	end
-
-	return state
 end
 
 function set_runes_enabled(entity_id, which, enabled)
@@ -203,9 +188,14 @@ function combine_two_wands(x, y, wand1, wand2, attach_spells_count)
 	return new_wand.entity_id
 end
 
+local skip_feed_frame = 0
+
 function feed_anvil(anvil_id, what, context_data)
+	if skip_feed_frame == GameGetFrameNum() then
+		return
+	end
 	-- context_data contains the entity_id in case of wand and tablet or the material name in case of potion
-	local state = get_state(anvil_id)
+	local state = get_anvil_state(anvil_id)
 	local x, y = EntityGetTransform(anvil_id)
 	state[what.."s"] = state[what.."s"] + 1
 	if what == "wand" then
@@ -235,63 +225,102 @@ function feed_anvil(anvil_id, what, context_data)
 
 	update_emitters(anvil_id, what)
 	GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "jingle", x, y)
-	-- TODO: Spit out wands and show sorry message when something goes wrong
   local current_state = state.potions
   current_state = current_state .. "_" .. state.tablets
 	current_state = current_state .. "_" .. state.wands
 	local result = state_strings[current_state]
-	if result == "ww" or result == "tww" then
-		-- Combine wands and buff the result slightly
-		local stored_wand_id1 = retrieve_wand(anvil_id, 1)
-		local stored_wand_id2 = retrieve_wand(anvil_id, 2)
-		local success, new_wand_id = pcall(function()
-			return combine_two_wands(x, y, EZWand(stored_wand_id1), EZWand(stored_wand_id2), state.tablets)
-		end)
-		if not success then
-			error("Anvil of Destiny error: " .. new_wand_id)
-		end
-		EntityKill(stored_wand_id1)
-		EntityKill(stored_wand_id2)
-		EntityAddChild(get_output_storage(anvil_id), new_wand_id)
-		spawn_result_spawner(anvil_id, x, y)
-		disable_interactivity(anvil_id)
-	elseif result == "ttw" then
-		local wand_id = buff_stored_wand(anvil_id, x, y)
-		-- Move wand from wand_storage to output_storage
-		EZWand(wand_id).shuffle = false
-		EntityRemoveFromParent(wand_id)
-		EntityAddChild(get_output_storage(anvil_id), wand_id)
-		spawn_result_spawner(anvil_id, x, y)
-		disable_interactivity(anvil_id)
-	elseif result == "ttt" then
-		spawn_result_spawner2(anvil_id, x, y)
-		disable_interactivity(anvil_id)
-	elseif result == "pw" or result == "ptw" then
-		local stored_wand_id = retrieve_wand(anvil_id, 1)
-		set_random_seed_with_player_position()
-		local wand = EZWand(stored_wand_id)
-		-- Call function to apply bonus based on material
-		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-		potion_bonuses[state.potion_material](wand)
-		local wand_level = wand_compute_level(wand.entity_id)
-		for i=1, state.tablets do
-			local action_type = ACTION_TYPE_MODIFIER
-			local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
-			if not only_modifiers then
-				action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+	xpcall(function()
+		if result == "ww" or result == "tww" then
+			-- Combine wands and buff the result slightly
+			local stored_wand_id1 = retrieve_wand(anvil_id, 1)
+			local stored_wand_id2 = retrieve_wand(anvil_id, 2)
+			local success, new_wand_id = pcall(function()
+				return combine_two_wands(x, y, EZWand(stored_wand_id1), EZWand(stored_wand_id2), state.tablets)
+			end)
+			if not success then
+				error("Anvil of Destiny error: " .. new_wand_id)
 			end
-			local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
-			wand:AttachSpells(action)
+			EntityKill(stored_wand_id1)
+			EntityKill(stored_wand_id2)
+			EntityAddChild(get_output_storage(anvil_id), new_wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+		elseif result == "ttw" then
+			local wand_id = buff_stored_wand(anvil_id, x, y)
+			-- Move wand from wand_storage to output_storage
+			EZWand(wand_id).shuffle = false
+			EntityRemoveFromParent(wand_id)
+			EntityAddChild(get_output_storage(anvil_id), wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+		elseif result == "ttt" then
+			spawn_result_spawner2(anvil_id, x, y)
+			disable_interactivity(anvil_id)
+		elseif result == "pw" or result == "ptw" then
+			local stored_wand_id = retrieve_wand(anvil_id, 1)
+			set_random_seed_with_player_position()
+			local wand = EZWand(stored_wand_id)
+			-- Call function to apply bonus based on material
+			local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
+			potion_bonuses[state.potion_material](wand)
+			local wand_level = wand_compute_level(wand.entity_id)
+			for i=1, state.tablets do
+				local action_type = ACTION_TYPE_MODIFIER
+				local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+				if not only_modifiers then
+					action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+				end
+				local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
+				wand:AttachSpells(action)
+			end
+			EntityRemoveFromParent(stored_wand_id)
+			EntityAddChild(get_output_storage(anvil_id), stored_wand_id)
+			spawn_result_spawner(anvil_id, x, y)
+			disable_interactivity(anvil_id)
 		end
-		EntityRemoveFromParent(stored_wand_id)
-		EntityAddChild(get_output_storage(anvil_id), stored_wand_id)
-		spawn_result_spawner(anvil_id, x, y)
+	end,
+	function(err_msg)
+		print("Anvil of Destiny error:", err_msg)
+		-- Disable the anvil until the wands have been picked up
 		disable_interactivity(anvil_id)
-	end
+		-- Work around stupid behaviour where it eats up the wand instantly as soon as it is removed from storage
+		skip_feed_frame = GameGetFrameNum()
+		local error_sign = EntityLoad("mods/anvil_of_destiny/files/entities/error_book.xml", x + 5, y - 15)
+		local item_component = EntityGetFirstComponentIncludingDisabled(error_sign, "ItemComponent")
+		if item_component then
+			ComponentSetValue2(item_component, "ui_description", [[
+Something went wrong, please take a screenshot of this error message and send it to me on the Steam Workshop page,
+on Discord (_horscht) or by opening an issue on Github: https://github.com/TheHorscht/Anvil-of-Destiny 
+ 
+]] .. err_msg)
+		end
+		local function add_reenable_checker(entity_id)
+			EntityAddComponent2(entity_id, "LuaComponent", {
+				script_item_picked_up="mods/anvil_of_destiny/files/scripts/reenable_checker.lua",
+				execute_every_n_frame=-1,
+				remove_after_executed=true
+			})
+			-- EntityAddComponent2(entity_id, "VariableStorageComponent", { name = "is_aod_output" })
+			EntityAddComponent2(entity_id, "VariableStorageComponent", { name = "aod_location", value_int = x, value_float = y })
+		end
+		for i=1, 2 do
+			-- Remove wands from storage and place them above the anvil for pickup
+			local stored_wand_id = retrieve_wand(anvil_id, 1)
+			if stored_wand_id then
+				EntityRemoveFromParent(stored_wand_id)
+				EZWand(stored_wand_id):PlaceAt(x - 20 + (i-1)*40, y - 10)
+				-- Adds a pickup script that checks if all output wands have been picked up and if so, re-enables the anvil
+				add_reenable_checker(stored_wand_id)
+			end
+		end
+		for i=1, state.tablets do
+			add_reenable_checker(EntityLoad("data/entities/items/books/book_01.xml", x - 25 + (i-1) * 55, y - 10))
+		end
+	end)
 end
 
 function is_valid_anvil_input(anvil_id, what, material)
-	local state = get_state(anvil_id)
+	local state = get_anvil_state(anvil_id)
 
 	if what == "potion" then
 		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
@@ -393,7 +422,7 @@ function disable_interactivity(entity_id)
 	end
 	local collision_trigger_components = EntityGetComponentIncludingDisabled(entity_id, "CollisionTriggerComponent") or {}
 	for i, comp in ipairs(collision_trigger_components) do
-		local state = get_state(entity_id)
+		local state = get_anvil_state(entity_id)
 		state.is_disabled = true
 		EntitySetComponentIsEnabled(entity_id, comp, false)
 	end
@@ -460,11 +489,11 @@ function retrieve_wand(anvil_id, index)
   local wand_storage = get_wand_storage(anvil_id)
   local stored_wands = EntityGetAllChildren(wand_storage)
 
-  return stored_wands[index]
+  return stored_wands and stored_wands[index] or nil
 end
 
 function update_emitters(anvil_id, what)
-	local state = get_state(anvil_id)
+	local state = get_anvil_state(anvil_id)
 	local emitter_color = ""
   if state.tablets >= 2 then
     emitter_color = "_powered"

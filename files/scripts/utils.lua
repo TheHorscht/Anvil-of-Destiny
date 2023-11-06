@@ -147,3 +147,58 @@ end
 function is_debug()
   return GlobalsGetValue("anvil_of_destiny_debug", "0") == "1"
 end
+
+function get_variable_storage_component(entity_id, name)
+  for i,comp_id in ipairs(EntityGetComponentIncludingDisabled(entity_id, "VariableStorageComponent") or {}) do
+    local var_name = ComponentGetValue2(comp_id, "name")
+    if var_name == name then
+      return comp_id
+    end
+  end
+end
+
+function get_anvil_state(anvil_id)
+  dofile_once("mods/anvil_of_destiny/lib/StringStore/stringstore.lua")
+  dofile_once("mods/anvil_of_destiny/lib/StringStore/noitavariablestore.lua")
+	local state = stringstore.open_store(stringstore.noita.variable_storage_components(anvil_id))
+
+	if state.wands == nil then
+		state.wands = 0
+		state.tablets = 0
+		state.potions = 0
+	end
+
+	return state
+end
+
+function reenable_anvil(anvil_id)
+  local anvil_x, anvil_y = EntityGetTransform(anvil_id)
+  local state = get_anvil_state(anvil_id)
+  state.wands = 0
+  state.potions = 0
+  state.tablets = 0
+  state.is_disabled = false
+  set_outline_emitter(anvil_id, false, {})
+  set_runes_enabled(anvil_id, "emitter1_powered", false)
+  set_runes_enabled(anvil_id, "emitter2_powered", false)
+  set_runes_enabled(anvil_id, "emitter1", false)
+  set_runes_enabled(anvil_id, "emitter2", false)
+  set_runes_enabled(anvil_id, "base", false)
+  EntityLoad("mods/anvil_of_destiny/files/entities/anvil/potion_place.xml", anvil_x + 5, anvil_y - 10)
+
+  local audio_loop_component = EntityGetFirstComponentIncludingDisabled(anvil_id, "AudioLoopComponent")
+  if audio_loop_component then
+    EntitySetComponentIsEnabled(anvil_id, audio_loop_component, true)
+  end
+  local collision_trigger_components = EntityGetComponentIncludingDisabled(anvil_id, "CollisionTriggerComponent") or {}
+  for i, comp in ipairs(collision_trigger_components) do
+    EntitySetComponentIsEnabled(anvil_id, comp, true)
+  end
+  local lua_components = EntityGetComponentIncludingDisabled(anvil_id, "LuaComponent") or {}
+  for i, comp in ipairs(lua_components) do
+    if ComponentGetValue2(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+      EntitySetComponentIsEnabled(anvil_id, comp, true)
+      break
+    end
+  end
+end
