@@ -1,3 +1,6 @@
+v1.20.1:
+- FIX: A handful of high level spells (mostly touch of X) could incorrectly appear on low level wands.
+
 v1.20.0:
 - Add a failsafe that spits out the wand/s, tablet/s and an error message if something goes wrong.
 

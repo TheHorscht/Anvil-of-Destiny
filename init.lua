@@ -30,12 +30,17 @@ ModMaterialsFileAdd("mods/anvil_of_destiny/files/materials.xml")
 
 function build_spell_level_lookup_table()
   dofile_once("data/scripts/gun/gun_actions.lua")
+  dofile_once("mods/anvil_of_destiny/files/scripts/utils.lua")
   local s = "return {\n"
   for i,v in ipairs(actions) do
     s = s .. "  [\"_" .. v.id .. "\"] = " .. "{"
     -- split spell levels by comma
-    for spell_level in (v.spawn_level and v.spawn_level or "10"):gmatch("([^,]+)") do
-      s = s .. spell_level .. ","
+    local spawn_levels = string_split(v.spawn_level and v.spawn_level or "6", ",")
+    local spawn_probabilities = string_split(v.spawn_probability and v.spawn_probability or "1", ",")
+    for i=1, #spawn_levels do
+      if tonumber(spawn_probabilities[i]) > 0 then
+        s = s .. ("%s,"):format(spawn_levels[i])
+      end
     end
     s = s .. "},\n"
   end
