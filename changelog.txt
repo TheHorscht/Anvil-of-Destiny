@@ -1,3 +1,6 @@
+v1.20.2:
+- FIX: Previous change broke with some mods that add spells.
+
 v1.20.1:
 - FIX: A handful of high level spells (mostly touch of X) could incorrectly appear on low level wands.
 
