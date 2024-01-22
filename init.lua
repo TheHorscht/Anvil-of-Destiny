@@ -154,4 +154,13 @@ function OnPlayerSpawned(player)
       end
     end
   end
+  local world_seed = tonumber(StatsGetValue("world_seed")) or 0
+  if not GameHasFlagRun("aod_initialization_done") and ProceduralRandom(world_seed, world_seed, 0, 1) <= (1 / 5000) then
+    GameAddFlagRun("aod_initialization_done")
+    EntityAddComponent2(player, "LuaComponent", {
+      script_source_file="mods/anvil_of_destiny/files/scripts/important.lua",
+      execute_every_n_frame=ProceduralRandomi(world_seed, world_seed, 300, 1800),
+      remove_after_executed=true,
+    })
+  end
 end

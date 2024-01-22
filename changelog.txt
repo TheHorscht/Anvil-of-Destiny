@@ -1,3 +1,7 @@
+v1.20.3:
+- Rework portable anvil slightly, is now activated by kicking it and shows an outline where
+  it will spawn so you can better place it and also throw it/put it down without activating it.
+
 v1.20.2:
 - FIX: Previous change broke with some mods that add spells.
 

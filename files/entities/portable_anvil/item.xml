@@ -1,70 +1,84 @@
 <Entity tags="hittable,teleportable_NOT,item_physics" >
 	<Base file="data/entities/base_item_projectile.xml" />
 
-  <!-- This mostly just copies the Kammi (data/entities/items/pickup/safe_haven.xml) -->
-
 	<!-- physical presence -->
-	
-	<PhysicsBodyComponent 
+
+	<PhysicsBodyComponent
 		_tags="enabled_in_world"
-		uid="1" 
-		allow_sleep="1" 
-		angular_damping="1.6" 
-		linear_damping="0.8"
-		fixed_rotation="0" 
-		is_bullet="1" 
+		uid="1"
+		allow_sleep="1"
+		angular_damping="0.5"
+		linear_damping="0"
+		fixed_rotation="0"
+		is_bullet="1"
 		auto_clean="0"
 		on_death_leave_physics_body="1"
 		hax_fix_going_through_ground="1"
-		>
-	</PhysicsBodyComponent>
-	
-	<PhysicsImageShapeComponent 
+	></PhysicsBodyComponent>
+
+	<PhysicsImageShapeComponent
 		body_id="1"
 		centered="1"
 		image_file="mods/anvil_of_destiny/files/entities/portable_anvil/item.png"
 		material="item_box2d_anvil_of_destiny"
-		>
-	</PhysicsImageShapeComponent>
-	
+	></PhysicsImageShapeComponent>
+
 	<PhysicsThrowableComponent
-		max_throw_speed="180"
-		throw_force_coeff="1.25"
+		max_throw_speed="130"
+		throw_force_coeff="1.5"
 		min_torque="4"
 		max_torque="10"
-		>
-	</PhysicsThrowableComponent>
+	></PhysicsThrowableComponent>
 
 	<VelocityComponent
 		_tags="enabled_in_world"
-		>
-	</VelocityComponent>
+	></VelocityComponent>
 
 	<!-- safe haven functionality -->
-	<VariableStorageComponent
-		_tags="enabled_in_world"
-		name="player_hp"
-		value_float="4.0" >
-	</VariableStorageComponent>
 
-	<VariableStorageComponent
-		_tags="enabled_in_world"
-		name="throw_time"
-		value_int="-1" >
-	</VariableStorageComponent>
+	<Entity name="outline">
+
+		<InheritTransformComponent
+			_tags="enabled_in_world"
+			only_position="1"
+		></InheritTransformComponent>
+
+		<SpriteComponent
+			_tags="enabled_in_world"
+			image_file="mods/anvil_of_destiny/files/entities/portable_anvil/outline.png"
+			offset_x="113"
+			offset_y="147"
+		></SpriteComponent>
+
+	</Entity>
 
 	<LuaComponent
 		_tags="enabled_in_world"
-		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/spawn.lua"
+		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/init.lua"
+		execute_every_n_frame="-1"
+		execute_on_added="1"
+	></LuaComponent>
+
+	<LuaComponent
+		_tags="enabled_in_hand,enabled_in_inventory,enabled_in_world"
+		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/always_enable_child_components.lua"
 		execute_every_n_frame="1"
-		>
-	</LuaComponent>
-	
+	></LuaComponent>
+
+	<!-- sets the alpha of the outline based on movement and proximity -->
 	<LuaComponent
-		script_throw_item="mods/anvil_of_destiny/files/entities/portable_anvil/throw.lua"
-		execute_every_n_frame="-1" >
-	</LuaComponent>
-	
+		_tags="enabled_in_world"
+		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/outline_proximity_checker.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
+
+	<!-- destroy the portable anvil and spawns the buildup entity -->
+	<LuaComponent
+		_tags="enabled_in_world"
+		script_kick="mods/anvil_of_destiny/files/entities/portable_anvil/kick.lua"
+		execute_every_n_frame="-1"
+	></LuaComponent>
+
 	<!-- item -->
 
 	<SpriteComponent
@@ -92,31 +106,7 @@
 		_tags="enabled_in_world"
 		name="Portable Anvil of Destiny">
 	</UIInfoComponent>
-	
-	<!-- <ParticleEmitterComponent 
-		_tags="enabled_on_throw"
-		_enabled="0"
-		emitted_material_name="spark_green"
-		gravity.y="0.0"
-		lifetime_min="8"
-		lifetime_max="15"
-		count_min="1"
-		count_max="1"
-		render_on_grid="1"
-		collide_with_grid="0"
-		collide_with_gas_and_fire="0"
-		fade_based_on_lifetime="1"
-		area_circle_radius.min="0"
-		area_circle_radius.max="3"
-		airflow_force="0.251"
-		airflow_time="1.01"
-		airflow_scale="0.05"
-		emission_interval_min_frames="1"
-		emission_interval_max_frames="1"
-		emit_cosmetic_particles="1"
-		is_emitting="1" >
-	</ParticleEmitterComponent> -->
-	
+
 	<AbilityComponent
 		ui_name="Portable Anvil of Destiny"
 		throw_as_item="1"

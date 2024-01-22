@@ -33,15 +33,13 @@
   ></ParticleEmitterComponent>
 
 	<LifetimeComponent
-		lifetime="260"
+		lifetime="121"
   ></LifetimeComponent>
 
-	<!--
-    <AudioComponent
-      file="data/audio/Desktop/event_cues.bank"
-      event_root="event_cues/spell_refresh">
-    </AudioComponent>
-	-->
+	<LuaComponent
+		script_source_file="mods/anvil_of_destiny/files/entities/portable_anvil/spawn.lua"
+		execute_every_n_frame="100"
+	></LuaComponent>
 
   <AudioLoopComponent
 		file="data/audio/Desktop/misc.bank"

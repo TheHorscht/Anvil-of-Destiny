@@ -1,0 +1,40 @@
+<Entity name="kick_me_indicator">
+
+  <InheritTransformComponent
+    only_position="1"
+  ></InheritTransformComponent>
+
+  <SpriteComponent
+    image_file="mods/anvil_of_destiny/files/entities/portable_anvil/kick_me.png"
+    offset_x="7"
+    offset_y="10"
+    transform_offset.x="-14"
+    transform_offset.y="-8"
+  ></SpriteComponent>
+
+  <SpriteComponent
+    image_file="mods/anvil_of_destiny/files/entities/portable_anvil/kick_me_arrow.png"
+    offset_x="7.5"
+    offset_y="13"
+    transform_offset.x="0"
+    transform_offset.y="-15"
+  ></SpriteComponent>
+
+  <SpriteComponent
+    image_file="data/fonts/font_pixel_white.xml"
+    is_text_sprite="1"
+    offset_x="-10"
+    offset_y="16"
+    update_transform="1"
+    update_transform_rotation="0"
+    text="Kick to activate!"
+    z_index="-1"
+  ></SpriteComponent>
+
+  <SpriteOffsetAnimatorComponent
+    sprite_id="1"
+    y_amount="5"
+    y_speed="6"
+  ></SpriteOffsetAnimatorComponent>
+
+</Entity>
