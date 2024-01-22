@@ -1,3 +1,6 @@
+v1.20.4:
+- FIX: Portable anvil should no longer activate just by existing in the inventory when kicking.
+
 v1.20.3:
 - Rework portable anvil slightly, is now activated by kicking it and shows an outline where
   it will spawn so you can better place it and also throw it/put it down without activating it.
