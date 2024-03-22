@@ -47,9 +47,9 @@ if player_entity ~= nil and player_entity[1] ~= nil then
   local statue_eyes_pos = nil
 
   if get_stored_entity_type(entity_id) == "statue_facing_left" then
-    statue_eyes_pos = { x = x + 24, y = y + 5 }
+    statue_eyes_pos = { x = x + 6, y = y - 18 }
   else
-    statue_eyes_pos = { x = x + 11, y = y + 5 }
+    statue_eyes_pos = { x = x - 7, y = y - 18 }
   end
 
   local function point_can_be_seen(vec_origin, vec_destination, distance_max)
