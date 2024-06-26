@@ -1,3 +1,6 @@
+v1.20.6:
+- Make physics item detection area a little bit bigger
+
 v1.20.5:
 - FIX: Firing position of laser eyes
 

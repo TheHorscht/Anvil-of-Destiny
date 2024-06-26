@@ -9,7 +9,7 @@ function collision_trigger(colliding_entity_id)
     local entities = EntityGetInRadiusWithTag(x, y, 28, tag)
     for i, v in ipairs(entities) do
       local tx, ty = EntityGetTransform(v)
-      if ty > y + 5 or ty < y - 10 then
+      if ty > y + 5 or ty < y - 14 then
         table.remove(entities, i)
       end
     end

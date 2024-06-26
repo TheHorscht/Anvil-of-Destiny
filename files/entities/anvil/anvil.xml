@@ -226,7 +226,7 @@
 
   <CollisionTriggerComponent
     width="60"
-    height="20" 
+    height="24" 
     required_tag="item_physics"
     destroy_this_entity_when_triggered="0"
     >
