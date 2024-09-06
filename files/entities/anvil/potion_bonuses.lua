@@ -41,6 +41,9 @@ local bonuses = {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     apply_mod_effects("blood", wand)
   end,
+  pre_water = function()
+    print("haiii!")
+  end,
   water = function(wand)
     local spells = merge_spells("water", {
       "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
@@ -50,11 +53,20 @@ local bonuses = {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     apply_mod_effects("water", wand)
   end,
+  tablet_water = function(wand)
+    local spells = merge_spells("water", {
+      "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
+      "CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
+    })
+    wand.manaMax = (wand.manaMax + Random(50, 100)) * 3
+    add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+    apply_mod_effects("tablet_water", wand)
+  end,
   urine = function(wand)
     local spells = merge_spells("urine", {})
     -- Make wand piss constantly
     local new_entity = EntityCreateNew()
-    EntityAddComponent(new_entity, "InheritTransformComponent", {
+    EntityAddComponent2(new_entity, "InheritTransformComponent", {
       _tags="enabled_in_world,enabled_in_hand",
       parent_hotspot_tag="shoot_pos"
     })
@@ -247,14 +259,14 @@ end,
   magic_liquid_hp_regeneration = function(wand)
     local spells = merge_spells("magic_liquid_hp_regeneration", { "HEAL_BULLET", "REGENERATION_FIELD" })
     -- on pickup, spawn 4 hiisi healers
-    EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
+    EntityAddComponent2(wand.entity_id, "VariableStorageComponent", {
       name="material",
       value_string="magic_liquid_hp_regeneration",
     })
-    EntityAddComponent(wand.entity_id, "LuaComponent", {
+    EntityAddComponent2(wand.entity_id, "LuaComponent", {
       script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-      execute_every_n_frame="-1",
-      remove_after_executed="1"
+      execute_every_n_frame=-1,
+      remove_after_executed=true
     })
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(50, 70)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)), true)
@@ -324,11 +336,10 @@ end,
   magic_liquid_worm_attractor = function(wand)
     local spells = merge_spells("magic_liquid_worm_attractor", { "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "HOMING", "HOMING_SHOOTER" })
     -- While wand is held spawn worms randomly and apply worm attractor game effect to the player
-    local comp = EntityAddComponent(wand.entity_id, "LuaComponent", {
+    local comp = EntityAddComponent2(wand.entity_id, "LuaComponent", {
       _tags="enabled_in_hand",
       script_source_file="mods/anvil_of_destiny/files/scripts/worm_spawner_and_attractor.lua",
-      execute_every_n_frame="60",
-      execute_on_added="0",
+      execute_every_n_frame=60,
     })
     EntitySetComponentIsEnabled(wand.entity_id, comp, false)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
@@ -485,6 +496,7 @@ end,
   AA_MAT_SHRINKIUM = function(wand)
     -- Shrink the wand sprite and hotspots, reduce capacity, increase firing rate and recharge speed
     local sprite_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "SpriteComponent")
+    if not sprite_component then return end
     ComponentSetValue2(sprite_component, "has_special_scale", true)
     ComponentSetValue2(sprite_component, "special_scale_x", 0.5)
     ComponentSetValue2(sprite_component, "special_scale_y", 0.5)
@@ -497,6 +509,7 @@ end,
       end
     end
     local hotspot_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "HotspotComponent", "shoot_pos")
+    if not hotspot_component then return end
     local offset_x, offset_y = ComponentGetValue2(hotspot_component, "offset")
     if not var_store_offset then
       ComponentSetValue2(hotspot_component, "offset", math.floor(offset_x * 0.5), math.floor(offset_y * 0.5))
@@ -549,6 +562,7 @@ end,
     for i, spell in ipairs(spells) do
       local item_entity = CreateItemActionEntity(spell.action_id, x, y - 3)
       local velocity_component = EntityGetFirstComponentIncludingDisabled(item_entity, "VelocityComponent")
+      if not velocity_component then return end
       ComponentSetValue2(velocity_component, "mVelocity", Random(-80, 80), Random(-160, -200))
     end
     wand:RemoveSpells()
