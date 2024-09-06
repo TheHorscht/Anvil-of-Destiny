@@ -2,7 +2,7 @@
 
   <CellData
     name="anvilofdestinium"
-    ui_name="Anvil of Destiny"
+    ui_name="$mat_AoD_anvilofdestinium"
     tags="[box2d],[static],[solid]"
     burnable="0"
     on_fire="0"
@@ -24,7 +24,7 @@
   <CellDataChild
     _parent="anvilofdestinium"
     name="anvilofdestinium_mimic"
-    ui_name="Anvil of Density"
+    ui_name="$mat_AoD_anvilofdestinium_mimic"
     wang_color="ff6F5740"
     audio_physics_material_wall="meat"
     audio_physics_material_solid="meat"
@@ -34,7 +34,7 @@
   	_parent="item_box2d"
     tags="[box2d]"
     name="item_box2d_anvil_of_destiny"
-    ui_name="Anvil of Destiny"
+    ui_name="$mat_AoD_anvilofdestinium"
     wang_color="ff6F5743A"
     stainable="0"
     solid_restitution="0.2"

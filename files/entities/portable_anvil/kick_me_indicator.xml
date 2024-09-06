@@ -27,7 +27,7 @@
     offset_y="16"
     update_transform="1"
     update_transform_rotation="0"
-    text="Kick to activate!"
+    text="$item_AoD_portable_anvil_prompt"
     z_index="-1"
   ></SpriteComponent>
 

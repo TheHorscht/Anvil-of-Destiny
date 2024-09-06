@@ -20,7 +20,7 @@ end
 local result_entity_id = retrieve_result()
 if result_entity_id == -1 then
   EntityLoad("mods/anvil_of_destiny/files/entities/holy_bomb/floating.xml", x + 3, y - 22)
-  GamePrintImportant("A gift from the gods...?", "Or is it?")
+  GamePrintImportant("$log_AoD_anvil_overcharged", "$log_AoD_anvil_overcharged_desc")
   GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "fanfare", x + 4, y - 10)
 else
   EntityRemoveFromParent(result_entity_id)
@@ -33,6 +33,6 @@ else
       execute_every_n_frame = -1,
     })
   end
-  GamePrintImportant("A gift from the gods", "")
+  GamePrintImportant("$log_AoD_anvil_success", "")
   GamePlaySound("mods/anvil_of_destiny/audio/anvil_of_destiny.bank", "fanfare", x + 4, y - 10)
 end
