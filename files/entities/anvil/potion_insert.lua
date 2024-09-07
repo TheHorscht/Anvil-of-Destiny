@@ -73,8 +73,10 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
       end
       local shifted_material_name = get_fungal_shifted_material_name(material_name)
       if shifted_material_name == nil then return end
-      if state.tablets > 0 and potion_bonuses["tablet_" .. shifted_material_name] == nil then --[[ print("INPUT tablet_" .. shifted_material_name .. " REJECTED. state.tablets == " .. state.tablets) ]] return end
-      if potion_bonuses[shifted_material_name] ~= nil then -- It's a potion and it has enough material inside
+      if state.tablets > 0 and potion_bonuses[shifted_material_name].tablet == nil then return end --if there is a tablet and there is no valid tablet recipe, cancel interaction
+      if potion_bonuses[shifted_material_name].bonus ~= nil then -- It's a potion and it has enough material inside
+      
+      if potion_bonuses[shifted_material_name]:on_interact(state, anvil_id) == false then return end
         -- Remove the material from the potion
         AddMaterialInventoryMaterial(active_item, material_name, 0)
         play_pouring_animation(anvil_id, shifted_material_name, x, y)

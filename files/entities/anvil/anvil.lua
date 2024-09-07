@@ -214,7 +214,7 @@ function feed_anvil(anvil_id, what, context_data)
 	if what == "potion" then
 		local material_name = context_data
 		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-		if potion_bonuses["pre_"..material_name] then potion_bonuses["pre_"..material_name]() else print("no pre_function!!!!!!!!!!!!!!!!") end
+		if potion_bonuses[material_name].on_pour then potion_bonuses[material_name]:on_pour(state, anvil_id) end
 		if not potion_bonuses[material_name] then return end
 		state.potion_material = material_name
 		remove_potion_input_place(anvil_id)
@@ -263,10 +263,10 @@ function feed_anvil(anvil_id, what, context_data)
 			local wand = EZWand(stored_wand_id)
 			-- Call function to apply bonus based on material
 			local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-			if result == "ptw" then
-				state.potion_material = "tablet_" .. state.potion_material
-			end
-			potion_bonuses[state.potion_material](wand)
+
+			if result == "ptw" then potion_bonuses[state.potion_material]:tablet(wand, anvil_id)
+			else potion_bonuses[state.potion_material]:bonus(wand, anvil_id) end
+
 			print(state.potion_material .. " " .. result)
 			EntityRemoveFromParent(stored_wand_id)
 			EntityAddChild(get_output_storage(anvil_id), stored_wand_id)
@@ -320,10 +320,11 @@ function is_valid_anvil_input(anvil_id, what, material) --material is always nil
 
 
 	if what == "potion" then --this is specifically called for items
+		if state.tablets > 0 and potion_bonuses[material].tablet == nil then return false end --if there is 1 or more tablets and no viable tablet func is found, reject item input
 		return state.tablets < 2 and state.potions == 0 and (not material or material and potion_bonuses[material])
 	elseif what == "tablet" then
 		if state.potions > 0 and state.tablets < 1 then
-			return potion_bonuses["tablet_" .. state.potion_material] ~= nil
+			return potion_bonuses[state.potion_material].tablet ~= nil
 		else
 			return true
 		end

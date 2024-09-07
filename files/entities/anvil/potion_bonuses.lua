@@ -1,9 +1,9 @@
 mod_additional_spells = {}
 mod_effects = {}
 
-local function apply_mod_effects(material_name, wand)
+local function apply_mod_effects(material_name, wand, is_tablet)
   for i, func in ipairs(mod_effects[material_name] or {}) do
-    func(wand)
+    func(wand, is_tablet)
   end
 end
 
@@ -28,6 +28,74 @@ local function merge_spells(material_name, spells)
   end
 	return spells
 end
+
+local materials = {
+
+  example_material = {
+
+    --Note: I pass material into the functions because there actually isn't really another way to grab it to my knowledge- except via the anvil state, but that isn't always an option. Technically this isnt necessary but it means you can have duplicate tables that still function even if called by a different material, specifically i decided to do that when i saw how Horscht ran "bonuses.sima = bonuses.alcohol", since this would mean the function that calls on alcohol to add the related spells would not work in sima's case.
+
+
+    --this is where you can designate a custom tooltip for the "Insert Potion" prompt when you stand on the anvil
+    custom_held_tooltip = "this is a custom message telling you to press E to insert the material potion!",
+
+    on_interact = function(self, state, anvil_id, material) --this function runs as soon as the player interacts with the anvil with their potion.
+      print(tostring(self.name))
+      print("Player has started pouring their potion! The Anvil ID is " .. anvil_id .. " and it has " .. state.tablets .. " tablets!")
+      return true --returning false will prevent the player from inserting the potion. anything that isn't "false" such as "nil" lets the potion be inserted as normal, so you can remove this line if you dont need it
+    end,
+
+    on_pour = function(self, state, anvil_id) --this function runs after the pouring animation with the large flask
+      print("Player's potion has finished pouring!")
+    end,
+
+
+    spells = { --this is the list of spell IDs you wish to apply to the wand
+      "MIST_INFORMATION", "MATERIAL_DEEZIUM", "TOUCH_GRASS", "CRITICAL_SKILL_ISSUE", "ETC"
+    },
+
+    bonus = function(self, wand, anvil_id, material) --this function runs for the POTION + WAND recipe. You can make changes to the input wand here
+      wand.manaChargeSpeed = wand.manaChargeSpeed + 8000
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2))) --function format is ([wand], [list of spell id strings], [number of spells to add]). This here is the default standard used for most potion bonuses
+      apply_mod_effects(material, wand) --I believe this is a hook for mods to add their own effects to existing potion bonuses
+    end,
+
+    tablet = function(self, wand, anvil_id, material) --this function runs for the POTION + TABLET + WAND recipe, this runs in place of the bonus function above. You can make changes to the input wand here
+      self:bonus(wand) --You can run/access other data values or functions using "self:" like this, it is used here to apply a regular bonus before the tablet bonus 
+      wand.manaChargeSpeed = wand.manaChargeSpeed * 5
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+      apply_mod_effects(material, wand, true)
+    end, --I don't include the apply_mod_effects() hook here cuz it would basically break the whole reversing concept 9 times out of 10, so its honestly better to just not include here
+
+    remove_tablet = function(self, material) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
+      print(self.tablet)
+    end,
+  },
+
+
+  water = {
+
+    spells = {
+      "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
+      "CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
+    },
+
+    bonus = function(self, wand)
+      wand.manaMax = wand.manaMax + Random(40, 100)
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+      apply_mod_effects("water", wand)
+    end,
+
+    tablet = function(self, wand)
+      self:bonus(wand)
+      wand.manaMax = wand.manaMax * 3
+    end,
+  },
+
+
+}
+
+
 
 local bonuses = {
   blood = function(wand)
@@ -819,7 +887,7 @@ function append_effect(material_name, func)
 end
 
 -- This doesn't take into account that merge_spells("alcohol", { "HEAL_BULLET" }) will still mention alcohol
--- fix some time later maybe... too lazy right now, would require a big rewrite
+-- fix some time later maybe... too lazy right now, would require a big rewrite   -- a big rewrite you say? :eyes: (-UserK)
 bonuses.sima = bonuses.alcohol
 bonuses.juhannussima = bonuses.alcohol
 bonuses.magic_liquid_hp_regeneration_unstable = bonuses.magic_liquid_hp_regeneration
