@@ -29,67 +29,124 @@ local function merge_spells(material_name, spells)
 	return spells
 end
 
+function add_tbonus(wand, material, stats)
+  stats =
+  {
+    int = stats.int == nil and 0 or stats.int,
+    bool = stats.int == nil and false or stats.bool,
+    float = stats.float == nil and 0 or stats.float,
+  }
+  EntityAddComponent2(wand, "VariableStorageComponent", {
+    name = "tablet_bonus",
+    value_string=material,
+    value_int=stats.int,
+    value_bool=stats.bool,
+    value_float=stats.float,
+  })
+end
+
+function get_tbonus(wand)
+  varcomp = get_variable_storage_component(wand, "tablet_bonus")
+  if varcomp == nil then return false end
+  stats = {
+    name = ComponentGetValue2(varcomp, "name"),
+    string= ComponentGetValue2(varcomp, "value_string"),
+    int= ComponentGetValue2(varcomp, "value_int"),
+    bool= ComponentGetValue2(varcomp, "value_bool"),
+    float= ComponentGetValue2(varcomp, "value_float"),
+  }
+  return stats
+end
+
 local materials = {
 
   example_material = {
 
-    --Note: I pass material into the functions because there actually isn't really another way to grab it to my knowledge- except via the anvil state, but that isn't always an option. Technically this isnt necessary but it means you can have duplicate tables that still function even if called by a different material, specifically i decided to do that when i saw how Horscht ran "bonuses.sima = bonuses.alcohol", since this would mean the function that calls on alcohol to add the related spells would not work in sima's case.
+    material = "example_material", --the material used, this should be identical to the table name. This is here because the functions have no other way to grab the name of the table they're in, this helps with things like if you want 2 materials to have the same functionality, specifically worked on this seeing the issues Horscht had with Sima not inheriting Alcohol's spells
+    
+    spells = { --this is the list of spell IDs you wish to apply to the wand
+      "MIST_INFORMATION", "MATERIAL_DEEZIUM", "TOUCH_GRASS", "CRITICAL_SKILL_ISSUE", "ETC"
+    },
+
+    bonus = function(self, wand, anvil_id) --this function runs for the POTION + WAND recipe. You can make changes to the input wand here
+      wand.manaChargeSpeed = wand.manaChargeSpeed + 8000
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2))) --function format is ([wand], [list of spell id strings], [number of spells to add]). This here is the default standard used for most potion bonuses
+      apply_mod_effects(self.material, wand) --I believe this is a hook for mods to add their own effects to existing potion bonuses
+    end,
+
+    tablet = function(self, wand, anvil_id) --this function runs for the POTION + TABLET + WAND recipe, this runs in place of the bonus function above. You can make changes to the input wand here
+      self:bonus(wand) --You can run/access other data values or functions using "self:" like this, it is used here to apply a regular bonus before the tablet bonus 
+      
+      local increase = {int = wand.manaChargeSpeed * 2 }
+      add_tbonus(wand, material, increase)
+
+      wand.manaChargeSpeed = wand.manaChargeSpeed + increase
+
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+      apply_mod_effects(self.material, wand, true) --I wasn't going to add this here since adding your own stuff is *very* likely to break the whole "reversing tablet bonus" gimmick, but I thought I might as well give the option, just know i would *very much* recommend against touching this stuff
+    end, 
+
+    remove_tablet = function(self) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
+      local stats = get_tbonus()
+      if stats ~= nil then
+        wand.manaChargeSpeed = wand.manaChargeSpeed - stats.int
+      else print("TABLET BONUS IS NIL? MATERIAL IS " .. material) end
+    end,
+
+
+    -- Above are the recommended/necessary parts. You should include the material field, and either the bonus, or the tablet and (ideally) remove_tablet functions. Below are options more designed for "special behaviours", designed with my CC compatibility ideas in mind.
 
 
     --this is where you can designate a custom tooltip for the "Insert Potion" prompt when you stand on the anvil
     custom_held_tooltip = "this is a custom message telling you to press E to insert the material potion!",
 
-    on_interact = function(self, state, anvil_id, material) --this function runs as soon as the player interacts with the anvil with their potion.
+    on_interact = function(self, state, anvil_id, is_item) --this function runs as soon as the player interacts with the anvil with their potion or throws an item on the anvil.
       print(tostring(self.name))
-      print("Player has started pouring their potion! The Anvil ID is " .. anvil_id .. " and it has " .. state.tablets .. " tablets!")
-      return true --returning false will prevent the player from inserting the potion. anything that isn't "false" such as "nil" lets the potion be inserted as normal, so you can remove this line if you dont need it
+      print("Player has started pouring their potion or has thrown their item into the anvil! The Anvil ID is " .. anvil_id .. " and it has " .. state.tablets .. " tablets! It " .. (is_item and "IS"or "is NOT") .. " an item!")
+      return true --returning false will prevent the player from inserting the potion. anything that isn't "false" such as "nil" lets the potion or item be inserted as normal, so you can remove this line if you dont need it
     end,
 
     on_pour = function(self, state, anvil_id) --this function runs after the pouring animation with the large flask
       print("Player's potion has finished pouring!")
-    end,
-
-
-    spells = { --this is the list of spell IDs you wish to apply to the wand
-      "MIST_INFORMATION", "MATERIAL_DEEZIUM", "TOUCH_GRASS", "CRITICAL_SKILL_ISSUE", "ETC"
-    },
-
-    bonus = function(self, wand, anvil_id, material) --this function runs for the POTION + WAND recipe. You can make changes to the input wand here
-      wand.manaChargeSpeed = wand.manaChargeSpeed + 8000
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2))) --function format is ([wand], [list of spell id strings], [number of spells to add]). This here is the default standard used for most potion bonuses
-      apply_mod_effects(material, wand) --I believe this is a hook for mods to add their own effects to existing potion bonuses
-    end,
-
-    tablet = function(self, wand, anvil_id, material) --this function runs for the POTION + TABLET + WAND recipe, this runs in place of the bonus function above. You can make changes to the input wand here
-      self:bonus(wand) --You can run/access other data values or functions using "self:" like this, it is used here to apply a regular bonus before the tablet bonus 
-      wand.manaChargeSpeed = wand.manaChargeSpeed * 5
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-      apply_mod_effects(material, wand, true)
-    end, --I don't include the apply_mod_effects() hook here cuz it would basically break the whole reversing concept 9 times out of 10, so its honestly better to just not include here
-
-    remove_tablet = function(self, material) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
-      print(self.tablet)
     end,
   },
 
 
   water = {
 
+    material = "water",
+
     spells = {
       "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
       "CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
     },
 
-    bonus = function(self, wand)
+    bonus = function(self, wand, anvil_id, material)
       wand.manaMax = wand.manaMax + Random(40, 100)
       add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-      apply_mod_effects("water", wand)
+      apply_mod_effects(material, wand)
     end,
 
-    tablet = function(self, wand)
+    tablet = function(self, wand, anvil_id, material)
       self:bonus(wand)
-      wand.manaMax = wand.manaMax * 3
+            
+      local increase = {int = wand.manaMax * 2 }
+      add_tbonus(wand, self.material, increase)
+      
+      wand.manaMax = wand.manaMax + increase
+
+      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
+      apply_mod_effects(material, wand, true)
     end,
+
+    remove_tablet = function(self) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
+      local stats = get_tbonus()
+      if stats ~= nil then
+        wand.manaMax = wand.manaMax - stats.int
+      else print("TABLET BONUS IS NIL? MATERIAL IS " .. material) end
+    end,
+
+
   },
 
 
@@ -129,7 +186,12 @@ local bonuses = {
     wand.manaMax = (wand.manaMax + Random(50, 100)) * 3
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     apply_mod_effects("tablet_water", wand)
+
+
+
+    
   end,
+
   urine = function(wand)
     local spells = merge_spells("urine", {})
     -- Make wand piss constantly

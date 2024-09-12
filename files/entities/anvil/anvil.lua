@@ -264,7 +264,9 @@ function feed_anvil(anvil_id, what, context_data)
 			-- Call function to apply bonus based on material
 			local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 
-			if result == "ptw" then potion_bonuses[state.potion_material]:tablet(wand, anvil_id)
+			if result == "ptw" then 
+				if get_variable_storage_component(wand, "tablet_bonus") then potion_bonuses[state.potion_material]:remove_tablet(wand, anvil_id) end
+				potion_bonuses[state.potion_material]:tablet(wand, anvil_id)
 			else potion_bonuses[state.potion_material]:bonus(wand, anvil_id) end
 
 			print(state.potion_material .. " " .. result)
@@ -329,6 +331,7 @@ function is_valid_anvil_input(anvil_id, what, material) --material is always nil
 			return true
 		end
 	elseif what == "wand" then
+		if get_variable_storage_component(wand, "tablet_bonus") and ModSettingGet("anvil_of_destiny.overwrite_tablet_bonuses") == false and state.tablets > 0 and state.potions > 0 then return false end --if it has a tablet bonuses and overwriting tablet bonuses is disabled, reject wand
 		return true
 	end
 
