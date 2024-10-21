@@ -152,7 +152,7 @@ local materials = {
 
 }
 
-
+bonuses = {}
 
 local bonuses = {
   blood = function(wand)
@@ -929,6 +929,29 @@ end,
   end,
 }
 
+
+if ModSettingGet("anvil_of_destiny.use_old_bonuses") then
+  for key, value in pairs(old_bonuses) do
+    bonuses[key] = value
+  end
+else materials = new_bonuses
+end
+
+for key, value in pairs(bonuses) do
+  materials[key].bonus = value
+  materials[key].tablet = function(wand) --old Always Cast code used for PTW recipes
+    local action_type = ACTION_TYPE_MODIFIER
+    local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+    if not only_modifiers then
+      action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+    end
+    local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
+    wand:AttachSpells(action)
+  end
+end
+
+
+
 function add_spells_to_effect(effect_name, spells)
   mod_additional_spells[effect_name] = mod_additional_spells[effect_name] or {}
   for i, spell in ipairs(spells) do
@@ -959,4 +982,4 @@ bonuses.magic_liquid_hp_regeneration_unstable = bonuses.magic_liquid_hp_regenera
 function register_physics_item() end
 dofile("mods/anvil_of_destiny/files/scripts/modded_content.lua")
 
-return bonuses
+return materials
