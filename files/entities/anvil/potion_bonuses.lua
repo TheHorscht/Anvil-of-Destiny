@@ -50,10 +50,10 @@ function get_tbonus(wand)
   if varcomp == nil then return false end
   stats = {
     name = ComponentGetValue2(varcomp, "name"),
-    string= ComponentGetValue2(varcomp, "value_string"),
-    int= ComponentGetValue2(varcomp, "value_int"),
-    bool= ComponentGetValue2(varcomp, "value_bool"),
-    float= ComponentGetValue2(varcomp, "value_float"),
+    material = ComponentGetValue2(varcomp, "value_string"),
+    int = ComponentGetValue2(varcomp, "value_int"),
+    bool = ComponentGetValue2(varcomp, "value_bool"),
+    float = ComponentGetValue2(varcomp, "value_float"),
   }
   return stats
 end
@@ -86,7 +86,7 @@ local materials = {
       apply_mod_effects(self.material, wand, true) --I wasn't going to add this here since adding your own stuff is *very* likely to break the whole "reversing tablet bonus" gimmick, but I thought I might as well give the option, just know i would *very much* recommend against touching this stuff
     end, 
 
-    remove_tablet = function(self) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
+    remove_tablet = function(self) --this function should be able to undo the tablet function above. If not included,
       local stats = get_tbonus()
       if stats ~= nil then
         wand.manaChargeSpeed = wand.manaChargeSpeed - stats.int
