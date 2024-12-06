@@ -214,7 +214,6 @@ function feed_anvil(anvil_id, what, context_data)
 	if what == "potion" then
 		local material_name = context_data
 		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-		if potion_bonuses[material_name].on_pour then potion_bonuses[material_name]:on_pour(state, anvil_id) end
 		if not potion_bonuses[material_name] then return end
 		state.potion_material = material_name
 		remove_potion_input_place(anvil_id)
@@ -263,13 +262,17 @@ function feed_anvil(anvil_id, what, context_data)
 			local wand = EZWand(stored_wand_id)
 			-- Call function to apply bonus based on material
 			local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
-
-			if result == "ptw" then 
-				if get_variable_storage_component(wand, "tablet_bonus") then potion_bonuses[state.potion_material]:remove_tablet(wand, anvil_id) end
-				potion_bonuses[state.potion_material]:tablet(wand, anvil_id)
-			else potion_bonuses[state.potion_material]:bonus(wand, anvil_id) end
-
-			print(state.potion_material .. " " .. result)
+			potion_bonuses[state.potion_material](wand)
+			local wand_level = wand_compute_level(wand.entity_id)
+			for i=1, state.tablets do
+				local action_type = ACTION_TYPE_MODIFIER
+				local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
+				if not only_modifiers then
+					action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
+				end
+				local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
+				wand:AttachSpells(action)
+			end
 			EntityRemoveFromParent(stored_wand_id)
 			EntityAddChild(get_output_storage(anvil_id), stored_wand_id)
 			spawn_result_spawner(anvil_id, x, y)
@@ -316,22 +319,19 @@ on Discord (_horscht) or by opening an issue on Github: https://github.com/TheHo
 	end)
 end
 
-function is_valid_anvil_input(anvil_id, what, material) --material is always nil afaik, probs from before Horscht made a separate material input system.
+function is_valid_anvil_input(anvil_id, what, material)
 	local state = get_anvil_state(anvil_id)
-	local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 
-
-	if what == "potion" then --this is specifically called for items
-		if state.tablets > 0 and potion_bonuses[material].tablet == nil then return false end --if there is 1 or more tablets and no viable tablet func is found, reject item input
+	if what == "potion" then
+		local potion_bonuses = dofile_once("mods/anvil_of_destiny/files/entities/anvil/potion_bonuses.lua")
 		return state.tablets < 2 and state.potions == 0 and (not material or material and potion_bonuses[material])
 	elseif what == "tablet" then
-		if state.potions > 0 and state.tablets < 1 then
-			return potion_bonuses[state.potion_material].tablet ~= nil
+		if state.potions > 0 then
+			return state.tablets < 1
 		else
 			return true
 		end
 	elseif what == "wand" then
-		if get_variable_storage_component(wand, "tablet_bonus") and ModSettingGet("anvil_of_destiny.overwrite_tablet_bonuses") == false and state.tablets > 0 and state.potions > 0 then return false end --if it has a tablet bonuses and overwriting tablet bonuses is disabled, reject wand
 		return true
 	end
 
@@ -341,7 +341,7 @@ end
 function EntityLoadDelayed(file_path, x, y, delay)
   local entity_id = EntityCreateNew()
   EntitySetTransform(entity_id, x, y)
-  local comp = EntityAddComponent2(entity_id, "LoadEntitiesComponent", {
+  local comp = EntityAddComponent(entity_id, "LoadEntitiesComponent", {
     entity_file=file_path,
     timeout_frames=tostring(delay),
     kill_entity="1",
@@ -356,7 +356,7 @@ function spawn_result_spawner(entity_id, x, y)
   	spawn_hammer_animation(offset_x, offset_y, 1, 0)
 		spawn_hammer_animation(offset_x, offset_y, -1, 55)
 	end
-  EntityAddComponent(entity_id, "LuaComponent", { --do NOT update to EntityAddComponent2(), this deprecated function annoys nathan and thats funny
+  EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
     execute_on_added="0",
     execute_every_n_frame=is_debug() and "1" or "125",
@@ -389,7 +389,7 @@ function spawn_result_spawner2(entity_id, x, y)
   --   execute_every_n_frame=tostring(total_delay + 200),
   --   remove_after_executed="1",
   -- })
-  EntityAddComponent2(entity_id, "LuaComponent", {
+  EntityAddComponent(entity_id, "LuaComponent", {
     script_source_file="mods/anvil_of_destiny/files/entities/anvil/result_spawner.lua",
     execute_on_added="0",
     execute_every_n_frame=is_debug() and "1" or tostring(total_delay + 110),
@@ -429,7 +429,7 @@ function disable_interactivity(entity_id)
 	-- Remove damage checker component
   local lua_components = EntityGetComponent(entity_id, "LuaComponent") or {}
 	for i, v in ipairs(lua_components) do
-		if ComponentGetValue2(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+		if ComponentGetValue(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
 			EntitySetComponentIsEnabled(entity_id, v, false)
 			break
 		end

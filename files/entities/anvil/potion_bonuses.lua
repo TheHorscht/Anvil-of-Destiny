@@ -1,9 +1,9 @@
 mod_additional_spells = {}
 mod_effects = {}
 
-local function apply_mod_effects(material_name, wand, is_tablet)
+local function apply_mod_effects(material_name, wand)
   for i, func in ipairs(mod_effects[material_name] or {}) do
-    func(wand, is_tablet)
+    func(wand)
   end
 end
 
@@ -29,131 +29,6 @@ local function merge_spells(material_name, spells)
 	return spells
 end
 
-function add_tbonus(wand, material, stats)
-  stats =
-  {
-    int = stats.int == nil and 0 or stats.int,
-    bool = stats.int == nil and false or stats.bool,
-    float = stats.float == nil and 0 or stats.float,
-  }
-  EntityAddComponent2(wand, "VariableStorageComponent", {
-    name = "tablet_bonus",
-    value_string=material,
-    value_int=stats.int,
-    value_bool=stats.bool,
-    value_float=stats.float,
-  })
-end
-
-function get_tbonus(wand)
-  varcomp = get_variable_storage_component(wand, "tablet_bonus")
-  if varcomp == nil then return false end
-  stats = {
-    name = ComponentGetValue2(varcomp, "name"),
-    material = ComponentGetValue2(varcomp, "value_string"),
-    int = ComponentGetValue2(varcomp, "value_int"),
-    bool = ComponentGetValue2(varcomp, "value_bool"),
-    float = ComponentGetValue2(varcomp, "value_float"),
-  }
-  return stats
-end
-
-local materials = {
-
-  example_material = {
-
-    material = "example_material", --the material used, this should be identical to the table name. This is here because the functions have no other way to grab the name of the table they're in, this helps with things like if you want 2 materials to have the same functionality, specifically worked on this seeing the issues Horscht had with Sima not inheriting Alcohol's spells
-    
-    spells = { --this is the list of spell IDs you wish to apply to the wand
-      "MIST_INFORMATION", "MATERIAL_DEEZIUM", "TOUCH_GRASS", "CRITICAL_SKILL_ISSUE", "ETC"
-    },
-
-    bonus = function(self, wand, anvil_id) --this function runs for the POTION + WAND recipe. You can make changes to the input wand here
-      wand.manaChargeSpeed = wand.manaChargeSpeed + 8000
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2))) --function format is ([wand], [list of spell id strings], [number of spells to add]). This here is the default standard used for most potion bonuses
-      apply_mod_effects(self.material, wand) --I believe this is a hook for mods to add their own effects to existing potion bonuses
-    end,
-
-    tablet = function(self, wand, anvil_id) --this function runs for the POTION + TABLET + WAND recipe, this runs in place of the bonus function above. You can make changes to the input wand here
-      self:bonus(wand) --You can run/access other data values or functions using "self:" like this, it is used here to apply a regular bonus before the tablet bonus 
-      
-      local increase = {int = wand.manaChargeSpeed * 2 }
-      add_tbonus(wand, material, increase)
-
-      wand.manaChargeSpeed = wand.manaChargeSpeed + increase
-
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-      apply_mod_effects(self.material, wand, true) --I wasn't going to add this here since adding your own stuff is *very* likely to break the whole "reversing tablet bonus" gimmick, but I thought I might as well give the option, just know i would *very much* recommend against touching this stuff
-    end, 
-
-    remove_tablet = function(self) --this function should be able to undo the tablet function above. If not included,
-      local stats = get_tbonus()
-      if stats ~= nil then
-        wand.manaChargeSpeed = wand.manaChargeSpeed - stats.int
-      else print("TABLET BONUS IS NIL? MATERIAL IS " .. material) end
-    end,
-
-
-    -- Above are the recommended/necessary parts. You should include the material field, and either the bonus, or the tablet and (ideally) remove_tablet functions. Below are options more designed for "special behaviours", designed with my CC compatibility ideas in mind.
-
-
-    --this is where you can designate a custom tooltip for the "Insert Potion" prompt when you stand on the anvil
-    custom_held_tooltip = "this is a custom message telling you to press E to insert the material potion!",
-
-    on_interact = function(self, state, anvil_id, is_item) --this function runs as soon as the player interacts with the anvil with their potion or throws an item on the anvil.
-      print(tostring(self.name))
-      print("Player has started pouring their potion or has thrown their item into the anvil! The Anvil ID is " .. anvil_id .. " and it has " .. state.tablets .. " tablets! It " .. (is_item and "IS"or "is NOT") .. " an item!")
-      return true --returning false will prevent the player from inserting the potion. anything that isn't "false" such as "nil" lets the potion or item be inserted as normal, so you can remove this line if you dont need it
-    end,
-
-    on_pour = function(self, state, anvil_id) --this function runs after the pouring animation with the large flask
-      print("Player's potion has finished pouring!")
-    end,
-  },
-
-
-  water = {
-
-    material = "water",
-
-    spells = {
-      "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
-      "CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
-    },
-
-    bonus = function(self, wand, anvil_id, material)
-      wand.manaMax = wand.manaMax + Random(40, 100)
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-      apply_mod_effects(material, wand)
-    end,
-
-    tablet = function(self, wand, anvil_id, material)
-      self:bonus(wand)
-            
-      local increase = {int = wand.manaMax * 2 }
-      add_tbonus(wand, self.material, increase)
-      
-      wand.manaMax = wand.manaMax + increase
-
-      add_spells_to_wand(wand, self.spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-      apply_mod_effects(material, wand, true)
-    end,
-
-    remove_tablet = function(self) --this function should be able to undo the tablet function above. You do not need to add this, if you remove this function the anvil will just block the recipe
-      local stats = get_tbonus()
-      if stats ~= nil then
-        wand.manaMax = wand.manaMax - stats.int
-      else print("TABLET BONUS IS NIL? MATERIAL IS " .. material) end
-    end,
-
-
-  },
-
-
-}
-
-bonuses = {}
-
 local bonuses = {
   blood = function(wand)
     local spells = merge_spells("blood", {
@@ -166,9 +41,6 @@ local bonuses = {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     apply_mod_effects("blood", wand)
   end,
-  pre_water = function()
-    print("haiii!")
-  end,
   water = function(wand)
     local spells = merge_spells("water", {
       "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
@@ -178,25 +50,11 @@ local bonuses = {
     add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
     apply_mod_effects("water", wand)
   end,
-  tablet_water = function(wand)
-    local spells = merge_spells("water", {
-      "CIRCLE_WATER", "MATERIAL_WATER", "TOUCH_WATER", "WATER_TO_POISON", "SEA_WATER",
-      "CLOUD_WATER", "HITFX_CRITICAL_WATER", "WATER_TRAIL"
-    })
-    wand.manaMax = (wand.manaMax + Random(50, 100)) * 3
-    add_spells_to_wand(wand, spells, math.min(Random(2,4), math.floor(wand.capacity / 2)))
-    apply_mod_effects("tablet_water", wand)
-
-
-
-    
-  end,
-
   urine = function(wand)
     local spells = merge_spells("urine", {})
     -- Make wand piss constantly
     local new_entity = EntityCreateNew()
-    EntityAddComponent2(new_entity, "InheritTransformComponent", {
+    EntityAddComponent(new_entity, "InheritTransformComponent", {
       _tags="enabled_in_world,enabled_in_hand",
       parent_hotspot_tag="shoot_pos"
     })
@@ -389,14 +247,14 @@ end,
   magic_liquid_hp_regeneration = function(wand)
     local spells = merge_spells("magic_liquid_hp_regeneration", { "HEAL_BULLET", "REGENERATION_FIELD" })
     -- on pickup, spawn 4 hiisi healers
-    EntityAddComponent2(wand.entity_id, "VariableStorageComponent", {
+    EntityAddComponent(wand.entity_id, "VariableStorageComponent", {
       name="material",
       value_string="magic_liquid_hp_regeneration",
     })
-    EntityAddComponent2(wand.entity_id, "LuaComponent", {
+    EntityAddComponent(wand.entity_id, "LuaComponent", {
       script_item_picked_up="mods/anvil_of_destiny/files/entities/anvil/wand_pickup_custom_effect.lua",
-      execute_every_n_frame=-1,
-      remove_after_executed=true
+      execute_every_n_frame="-1",
+      remove_after_executed="1"
     })
     wand.manaChargeSpeed = wand.manaChargeSpeed + Random(50, 70)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)), true)
@@ -466,10 +324,11 @@ end,
   magic_liquid_worm_attractor = function(wand)
     local spells = merge_spells("magic_liquid_worm_attractor", { "SUMMON_EGG", "SUMMON_HOLLOW_EGG", "HOMING", "HOMING_SHOOTER" })
     -- While wand is held spawn worms randomly and apply worm attractor game effect to the player
-    local comp = EntityAddComponent2(wand.entity_id, "LuaComponent", {
+    local comp = EntityAddComponent(wand.entity_id, "LuaComponent", {
       _tags="enabled_in_hand",
       script_source_file="mods/anvil_of_destiny/files/scripts/worm_spawner_and_attractor.lua",
-      execute_every_n_frame=60,
+      execute_every_n_frame="60",
+      execute_on_added="0",
     })
     EntitySetComponentIsEnabled(wand.entity_id, comp, false)
     add_spells_to_wand(wand, spells, math.min(Random(3, 5), math.floor(wand.capacity / 2)))
@@ -626,7 +485,6 @@ end,
   AA_MAT_SHRINKIUM = function(wand)
     -- Shrink the wand sprite and hotspots, reduce capacity, increase firing rate and recharge speed
     local sprite_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "SpriteComponent")
-    if not sprite_component then return end
     ComponentSetValue2(sprite_component, "has_special_scale", true)
     ComponentSetValue2(sprite_component, "special_scale_x", 0.5)
     ComponentSetValue2(sprite_component, "special_scale_y", 0.5)
@@ -639,7 +497,6 @@ end,
       end
     end
     local hotspot_component = EntityGetFirstComponentIncludingDisabled(wand.entity_id, "HotspotComponent", "shoot_pos")
-    if not hotspot_component then return end
     local offset_x, offset_y = ComponentGetValue2(hotspot_component, "offset")
     if not var_store_offset then
       ComponentSetValue2(hotspot_component, "offset", math.floor(offset_x * 0.5), math.floor(offset_y * 0.5))
@@ -692,7 +549,6 @@ end,
     for i, spell in ipairs(spells) do
       local item_entity = CreateItemActionEntity(spell.action_id, x, y - 3)
       local velocity_component = EntityGetFirstComponentIncludingDisabled(item_entity, "VelocityComponent")
-      if not velocity_component then return end
       ComponentSetValue2(velocity_component, "mVelocity", Random(-80, 80), Random(-160, -200))
     end
     wand:RemoveSpells()
@@ -929,29 +785,6 @@ end,
   end,
 }
 
-
-if ModSettingGet("anvil_of_destiny.use_old_bonuses") then
-  for key, value in pairs(old_bonuses) do
-    bonuses[key] = value
-  end
-else materials = new_bonuses
-end
-
-for key, value in pairs(bonuses) do
-  materials[key].bonus = value
-  materials[key].tablet = function(wand) --old Always Cast code used for PTW recipes
-    local action_type = ACTION_TYPE_MODIFIER
-    local only_modifiers = ModSettingGet("anvil_of_destiny.only_modifiers")
-    if not only_modifiers then
-      action_type = get_random_action_type(8, 1, 2, Random()*100, Random()*100, Random()*100)
-    end
-    local action = GetRandomActionWithType(Random()*100, Random()*100, wand_level, action_type, Random()*100)
-    wand:AttachSpells(action)
-  end
-end
-
-
-
 function add_spells_to_effect(effect_name, spells)
   mod_additional_spells[effect_name] = mod_additional_spells[effect_name] or {}
   for i, spell in ipairs(spells) do
@@ -972,7 +805,7 @@ function append_effect(material_name, func)
 end
 
 -- This doesn't take into account that merge_spells("alcohol", { "HEAL_BULLET" }) will still mention alcohol
--- fix some time later maybe... too lazy right now, would require a big rewrite   -- a big rewrite you say? :eyes: (-UserK)
+-- fix some time later maybe... too lazy right now, would require a big rewrite
 bonuses.sima = bonuses.alcohol
 bonuses.juhannussima = bonuses.alcohol
 bonuses.magic_liquid_hp_regeneration_unstable = bonuses.magic_liquid_hp_regeneration
@@ -982,4 +815,4 @@ bonuses.magic_liquid_hp_regeneration_unstable = bonuses.magic_liquid_hp_regenera
 function register_physics_item() end
 dofile("mods/anvil_of_destiny/files/scripts/modded_content.lua")
 
-return materials
+return bonuses
