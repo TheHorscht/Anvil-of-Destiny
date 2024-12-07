@@ -82,7 +82,7 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
           local cx, cy = GameGetCameraPos()
           math.randomseed(cx + cy + GameGetFrameNum())
           if math.random() <= chance then
-            GamePrintImportant("How unfortunate", "Your potion broke")
+            GamePrintImportant("$log_AoD_potion_broke", "$log_AoD_potion_broke_desc")
             EntityKill(active_item)
             scroll_inventory()
           end

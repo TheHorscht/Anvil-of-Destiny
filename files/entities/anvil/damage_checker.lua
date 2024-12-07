@@ -33,7 +33,7 @@ if physics_body ~= nil then
     disable_all_components(entity_id, "SpriteComponent")
     GameScreenshake(100)
     GamePlaySound("data/audio/Desktop/event_cues.bank", "event_cues/sampo_pick/create", x, y)
-    GamePrintImportant("A holy artifact has been defiled!", "This vile act shall not go unpunished")
+    GamePrintImportant("$log_AoD_anvil_defiled", "$log_AoD_anvil_defiled_desc")
     -- Get the statues and enable their glowing eyes
     local entities_in_radius = EntityGetInRadius(x, y, 100)
     local statues = {}

@@ -164,3 +164,10 @@ function OnPlayerSpawned(player)
     })
   end
 end
+
+--Add Translations
+local translations = ModTextFileGetContent("data/translations/common.csv")
+local new_translations = ModTextFileGetContent("mods/anvil_of_destiny/translations.csv")
+translations = translations .. "\n" .. new_translations .. "\n"
+translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
+ModTextFileSetContent("data/translations/common.csv", translations)

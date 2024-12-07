@@ -92,8 +92,8 @@
 
 	<ItemComponent
 		_tags="enabled_in_world"
-		item_name="Portable Anvil of Destiny"
-		ui_description="Throw it on the ground to spawn a room with an Anvil of Destiny"
+		item_name="$item_AoD_portable_anvil"
+		ui_description="$itemdesc_AoD_portable_anvil"
 		max_child_items="0"
 		is_pickable="1"
 		is_equipable_forced="1"
