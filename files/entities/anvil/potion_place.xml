@@ -11,7 +11,7 @@
 
 	<InteractableComponent
     radius="10"
-		ui_text="$AoD_interact_potion"
+		ui_text="$ui_AoD_interact_potion"
     name="potion"
     >
 	</InteractableComponent>
