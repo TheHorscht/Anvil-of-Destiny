@@ -196,7 +196,7 @@ function reenable_anvil(anvil_id)
   end
   local lua_components = EntityGetComponentIncludingDisabled(anvil_id, "LuaComponent") or {}
   for i, comp in ipairs(lua_components) do
-    if ComponentGetValue2(v, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
+    if ComponentGetValue2(comp, "script_source_file") == "mods/anvil_of_destiny/files/entities/anvil/damage_checker.lua" then
       EntitySetComponentIsEnabled(anvil_id, comp, true)
       break
     end
