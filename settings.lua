@@ -548,14 +548,14 @@ function ModSettingsGui( gui, in_main_menu )
 				end
 				GuiLayoutBeginHorizontal(gui, 0, 0)
 				local offset = setting.offset or 0
-	
+
 				-- Render labels
 				GuiLayoutBeginVertical(gui, 0, 0)
 				for i, setting in ipairs(setting.items) do
 					GuiText(gui, 0, 0, setting.label)
 				end
 				GuiLayoutEnd(gui)
-	
+
 				-- Render sliders
 				GuiLayoutBeginVertical(gui, 0, 0)
 				for i, setting in ipairs(setting.items) do
@@ -567,7 +567,7 @@ function ModSettingsGui( gui, in_main_menu )
 					end
 				end
 				GuiLayoutEnd(gui)
-	
+
 				-- Render values
 				GuiLayoutBeginVertical(gui, 0, 0)
 				for i, setting in ipairs(setting.items) do
@@ -575,7 +575,7 @@ function ModSettingsGui( gui, in_main_menu )
 					GuiText(gui, offset + 30, 0, setting.format_fn and setting.format_fn(next_value) or tostring(next_value))
 				end
 				GuiLayoutEnd(gui)
-	
+
 				GuiLayoutEnd(gui)
 				-- Need to do this because the game doesn't count how many items are in the vertical group
 				for i=2, #setting.items do
