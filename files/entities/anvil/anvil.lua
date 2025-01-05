@@ -405,7 +405,17 @@ function buff_stored_wand(anvil_id)
     set_random_seed_with_player_position()
     local variation = 0.1 - Random() * 0.2
 		local buff = ModSettingGet("anvil_of_destiny.buff_amount_special")
-    return buff_wand(stored_wand, buff + variation, buff * 1.25, false)
+    buff_wand(stored_wand, buff + variation, buff * 1.25, false)
+		if ModSettingGet("anvil_of_destiny.promote_spell_to_always_cast") then
+			-- Make one of the spells of the wand an always cast
+			local spells, always_casts = stored_wand:GetSpells()
+			if #spells > 0 then
+				local random_index = Random(1, #spells)
+				local random_spell = spells[random_index].action_id
+				stored_wand:RemoveSpells(random_spell)
+				stored_wand:AttachSpells(random_spell)
+			end
+		end
   end)
   if not success then
     -- If the call was not successful, new_wand_id contains the error message

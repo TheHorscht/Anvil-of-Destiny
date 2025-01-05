@@ -145,6 +145,10 @@ breaking compatibility.]],
 		en = "Enable wand editing",
 		en_desc = "Let's you tinker with your wands while being near the anvil.",
 	},
+	promote_spell_to_always_cast = {
+		en = "2 Tablets AC",
+		en_desc = "When buffing a wand with 2 tablets (1W + 2T):\nWill promote one randomly picked spell on the wand to an always cast.",
+	},
 	portable_anvil_spawn_chance = {
 		en = "Portable anvil spawn chance",
 		en_desc = "The number is not a specific unit, but dependent on the total amount of items already registered.\nI recommend a value of 1, at 100 it has roughly 50% chance of spawning on a pedestal.",
@@ -437,6 +441,11 @@ local settings = {
 	},
 	{
 		id = "allow_wand_editing",
+		value_default = false,
+		scope = MOD_SETTING_SCOPE_RUNTIME,
+	},
+	{
+		id = "promote_spell_to_always_cast",
 		value_default = false,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},

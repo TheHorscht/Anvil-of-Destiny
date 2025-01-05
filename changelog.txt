@@ -1,3 +1,6 @@
+v1.22.0:
+- Add mod setting for promoting a spell to AC when buffing a wand with 2 tablets.
+
 v1.21.0:
 - (By UserK) Add translation support
 
