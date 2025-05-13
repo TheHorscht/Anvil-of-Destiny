@@ -104,11 +104,11 @@
 
 	<UIInfoComponent
 		_tags="enabled_in_world"
-		name="Portable Anvil of Destiny">
+		name="$item_AoD_portable_anvil">
 	</UIInfoComponent>
 
 	<AbilityComponent
-		ui_name="Portable Anvil of Destiny"
+		ui_name="$item_AoD_portable_anvil"
 		throw_as_item="1"
 		>
 		<gun_config
