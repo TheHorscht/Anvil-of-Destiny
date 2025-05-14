@@ -22,3 +22,7 @@ https://github.com/TheHorscht/Anvil-of-Destiny/wiki/Recipe-effects
 
 [h1]!! Attention !![/h1]
 If you find any bugs let me know so I can fix them, either post them in the comments or open a thread in the [url=steamcommunity.com/sharedfiles/filedetails/discussions/1974488139]Discussions tab[/url], thanks!
+Also Anvil of Destiny now supports translation! Please go to the GitHub page for more info if you would like to assist in translating the mod
+
+[h3] Additional Credits [/h3]
+[b] Russian Translation [/b] - 1corpse2

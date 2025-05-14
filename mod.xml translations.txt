@@ -1,0 +1,8 @@
+saving this on the very slight off-chance Nolla gives us the ability to translate mod.xml stuff in-game in the future
+i just dont like the idea of throwing away perfectly good translation idk, feel free to delete this if you dont like it Horscht, -K
+
+Добавляет в большинство биомов полуредкую комнату с наковальней, где вы можете улучшить свои жезлы!
+Просто откройте инвентарь и бросьте жезлы на наковальню.
+Жезл + Жезл = новый улучшенный жезл.
+Табличка + Жезл + Жезл = новый улучшенный жезл с 1 дополнительным случайным заклинанием.
+Табличка + Табличка + Жезл = Получите обратно ту же палочку с улучшенными статами!"

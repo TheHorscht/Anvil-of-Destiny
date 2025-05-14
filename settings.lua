@@ -44,16 +44,25 @@ overwrite the biome files and make my mod
 incompatible with world altering mods.
 This is the highest it can get without
 breaking compatibility.]],
+        ru = "Шансы появления на область 512x512 (в среднем, не гарантируется)",
+        ru_desc = [[Почему такой маленький лимит?
+Потому что для более высоких значений
+мне пришлось бы переписать файлы биомов
+и сделать мой мод несовместимым с модами,
+изменяющими мир.
+Это самый крайний лимит,
+который может быть достигнут
+без нарушения совместимости.]],
 		room_occurences_coalmine = {
-			en = "Mines", --you can consider this an example of translations, or us getting around the fact $biome_coalmine is lowercase for no reason, your pick
-			ru = "Шахты", --i am sorry if my attempt at capitalisation correction is incorrect, i wanted to add capitalisation to the other langs too. do correct this if any of it is wrong
+			en = "Mines", --you can consider this an example of translations, or us getting around the fact $biome_coalmine translation is lowercase for no reason, your pick
+			ru = "Шахты",
 			ptbr = "Minas",
 			eses = "Minas",
 			de = "Minen",
 			frfr = "Mines",
 			it = "Miniere",
 			pl = "Kopalnie",
-			zhcn = "矿场",
+			zhcn = "矿场", --i dont think the concept of capital letters really applies to the following languages...
 			jp = "鉱山",
 			ko = "광산",
 		},
@@ -97,73 +106,107 @@ breaking compatibility.]],
 	buff = {
 		en = "Buff amount",
 		en_desc = "These values don't have any particular scale",
+		ru = "Количество баффов",
+		ru_desc = "Эти значения не имеют определенной шкалы",
 		buff_amount = {
-			en = "2 wands"
+			en = "2 wands",
+			ru = "2 жезла",
 		},
 		buff_amount_special = {
-			en = "2 tablets"
+            en = "2 tablets",
+			ru = "2 таблички",
 		},
 	},
 
 	reduce_one_stat = {
 		en = "Reduce one stat",
 		en_desc = "This is for balance and more interesting random results.\nWhen merging two wands, will reduce one of the stats at random, otherwise the buff might be too good.",
+		ru = "Уменьшить одну стату",
+		ru_desc = "Это сделано для баланса и более интересных случайных результатов.\nПри объединении двух жезлов будет случайным образом уменьшаться один из статов,\nиначе бафф может оказаться слишком хорошим.",
 	},
 	only_modifiers = {
 		en = "Modifier-type always casts only",
 		en_desc = "When using a tablet to add an always cast, will only choose from modifier type spells.",
+        ru = "Всегда кастуемые заклинания - Модификаторы",
+		ru_desc = "При использовании таблички\nдля добавления всегда кастуемого заклинания,\nможно выбрать только заклинания - модификаторы.",
 	},
 	mimic = {
 		en = "Mimic",
 		en_desc = "Anvil can be a mimic",
+        ru = "Мимик",
+		ru_desc = "Наковальня может быть мимиком",
 	},
 	mimic_chance = {
 		en = "Mimic chance",
 		en_desc = "Chance for the anvil to be a mimic.",
+        ru = "Шанс на мимика",
+		ru_desc = "Шанс того, что наковальня будет мимиком.",
 	},
 	reusable = {
 		en = "Anvil reusable",
 		en_desc = "Makes the anvil reusable by resetting it after picking up the reward",
+		ru = "Реюз наковальни",
+		ru_desc = "Делает наковальню многоразовой,\nсбросив ее после получения награды",
 	},
 	reusable_chance = {
 		en = "Reusable chance",
 		en_desc = "Chance for the anvil to be able to be used again.",
+		ru = "Шанс на реюз",
+		ru_desc = "Шанс на то, что наковальню можно будет использовать снова.",
 	},
 	destroy_potion_on_insert = {
 		en = "Remove potion after use",
 		en_desc = "Can be used to balance out reusable anvil,\ndoesn't leave you with an empty flask but instead\ndestroys it after pouring it's contents on the anvil.",
+		ru = "Удалить зелье после использования",
+		ru_desc = "Может использоваться для баланса многоразовой наковальни,\nне оставляет пустую колбу,\nа уничтожает ее после выливания содержимого на наковальню.",
 	},
 	destroy_potion_on_insert_chance = {
 		en = "Potion removal chance",
 		en_desc = "Can be used to balance out reusable anvil, doesn't leave you with an empty flask but instead destroys it after pouring it's contents on the anvil.",
+		ru = "Шанс удаления зелья",
+		ru_desc = "Шанс на то, что зелье будет уничтожено.",
 	},
 	fog_of_war_hole = {
 		en = "Shine through fog of war",
 		en_desc = "The light of the anvil will shine lightly through unexplored areas, making it easier to find.",
+		ru = "Сияние сквозь туман войны",
+		ru_desc = "Свет наковальни будет слегка освещать неизведанные места, облегчая ее поиск.",
 	},
 	allow_wand_editing = {
 		en = "Enable wand editing",
 		en_desc = "Let's you tinker with your wands while being near the anvil.",
+		ru = "Включить изменение жезлов",
+		ru_desc = "Позволяет изменять жезлы, находясь рядом с наковальней.",
 	},
 	promote_spell_to_always_cast = {
 		en = "2 Tablets AC",
 		en_desc = "When buffing a wand with 2 tablets (1W + 2T):\nWill promote one randomly picked spell on the wand to an always cast.",
+		ru = "2 Таблички AC",
+		ru_desc = "При баффе жезла 2 табличками (1Ж + 2Т),\nпревращает одно случайно выбранное заклинание на палочке в всегда кастуемое.",
 	},
 	portable_anvil_spawn_chance = {
 		en = "Portable anvil spawn chance",
 		en_desc = "The number is not a specific unit, but dependent on the total amount of items already registered.\nI recommend a value of 1, at 100 it has roughly 50% chance of spawning on a pedestal.",
+		ru = "Шанс спавна переносной наковальни",
+		ru_desc = "Число не является конкретной единицей,\nа зависит от общего количества уже зарегистрированных предметов.\nЯ рекомендую значение 1.",
 	},
 	start_with_portable_anvil = {
 		en = "Start with portable anvil",
 		en_desc = "You start each game with an item that lets you spawn a room with an Anvil of Destiny in it.",
+		ru = "Старт с переносной наковальней",
+		ru_desc = "В начале каждой игры вы получаете предмет,\nкоторый спавнит Наковальню Судьбы.",
 	},
 	add_anvil_to_lavalake = {
 		en = "Anvil Room at Lava Lake",
 		en_desc = "Adds an anvil room to the left of the lava lake.",
+		ru = "Наковальня у лавового озера",
+		ru_desc = "Добавляет наковальню слева от лавового озера.",
 	},
 	never_spawn_naturally = {
 		en = "Never spawn naturally",
 		en_desc = "Will never spawn anvils in the biomes,\nonly through portable anvil or at the lava lake, if the option is enabled.",
+		ru = "Никогда не спаунится естественным образом",
+		ru_desc = "Наковальня никогда не будет появляться в биомах,\nтолько через переносную наковальню или у лавового озера,\nесли опция включена.",
 	},
 }
 

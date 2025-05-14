@@ -20,3 +20,11 @@ The output is based on the stats and rough spell level of the input wand
 ### 🌟 2 Tablets + 1 Wand = Just buff the input wand's stats
 
 ## That's it, have fun forging with the holy 🙏 __Anvil of DESTINY__ 🙏!
+
+
+# Translation Support
+Anvil of Destiny can support translations being added to the mod. If you would like to contribute to translations, they can be added in anvil_of_destiny/translations.csv and the top of anvil_of_destiny/settings.lua
+If you have any questions, suggestions or issues, contact @_Horscht or @UserK on Discord
+
+# Additional Credits
+Russian Translation - 1corpse2
