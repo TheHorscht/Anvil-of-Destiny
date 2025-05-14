@@ -113,7 +113,8 @@ breaking compatibility.]],
 			ru = "2 жезла",
 		},
 		buff_amount_special = {
-			ru = "2 таблички"
+            en = "2 tablets",
+			ru = "2 таблички",
 		},
 	},
 
