@@ -20,6 +20,7 @@
     transform_offset.y="-15"
   ></SpriteComponent>
 
+  <!-- Can't translate this because apparently doesn't support non english fonts :( -->
   <SpriteComponent
     image_file="data/fonts/font_pixel_white.xml"
     is_text_sprite="1"
@@ -27,7 +28,7 @@
     offset_y="16"
     update_transform="1"
     update_transform_rotation="0"
-    text="$item_AoD_portable_anvil_prompt"
+    text="Kick to activate!"
     z_index="-1"
   ></SpriteComponent>
 
