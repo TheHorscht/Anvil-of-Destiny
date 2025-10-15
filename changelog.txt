@@ -1,3 +1,6 @@
+v1.22.3:
+- Add some particles to the portable anvil like other items have.
+
 v1.22.2:
 - FIX: Anvil kick prompt didn't get translated and also can't, so now it just stays in english.
 
