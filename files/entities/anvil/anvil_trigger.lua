@@ -46,10 +46,11 @@ function collision_trigger(colliding_entity_id)
     for i, item_id in ipairs(physics_items) do
       if EntityGetParent(item_id) == 0 then
         local equivalent, thing = get_equivalent(item_id)
-        if equivalent and is_valid_anvil_input(entity_id, equivalent, thing) then
+        if equivalent and is_valid_anvil_input(entity_id, equivalent, thing) and entity_id_marked_for_deletion ~= item_id then
           EntityKill(item_id)
+          entity_id_marked_for_deletion = item_id
           if equivalent == "wand" then
-            thing = EntityLoad(thing)
+            thing = EntityLoad(thing, 0, GameGetFrameNum())
           end
           feed_anvil(entity_id, equivalent, thing)
         end
