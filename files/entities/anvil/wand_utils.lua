@@ -124,7 +124,7 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 	end
 
   for i=1, attached_spells_count do
-		local action_type = get_random_action_type(8, 2, 2)
+		local action_type = get_random_action_type({ projectile = 8, modifier = 2, draw_many = 2 })
 		local action = GetRandomActionWithType(seed_x + i, seed_y - i, attached_spells_level, action_type, i)
 		action = evolve_spell_if_possible(action, evo_ac_spell_level_counts)
     wand:AttachSpells(action)
@@ -160,7 +160,7 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
 			end
 		elseif action == nil or action_type ~= ACTION_TYPE_PROJECTILE or Random() > 0.7 then
 			-- Repeat some projectiles based on RNG so that we neither get a chaotic array of spells nor the same ones over and over
-			action_type = get_random_action_type(8, 2, 2)
+			action_type = get_random_action_type({ projectile = 8, modifier = 2, draw_many = 2 })
 			action = GetRandomActionWithType(seed_x + i, seed_y - i, randomly_alter_level(spells_level), action_type, i)
 		end
 		-- (Spells Evolution Mod) Upgrade the projectile if there were any evolved spells
@@ -169,21 +169,52 @@ function wand_fill_with_semi_random_spells(wand, spell_amount_to_add, attached_s
   end
 end
 
-function get_random_action_type(chance_projectile, chance_modifier, chance_draw_many)
+-- Oooooh fancy annotations, wow so professional!
+
+-- Numbers are weighted, so for example 8, 1, 1 would make the first one 8 times more likely than the other two
+---@alias ProjectileTypeChances {
+---  projectile?: integer,
+---  static_projectile?: integer,
+---  modifier?: integer,
+---  draw_many?: integer,
+---  material?: integer,
+---  other?: integer,
+---  utility?: integer,
+---  passive?: integer,
+---}
+
+---@param chances ProjectileTypeChances
+---@return integer
+function get_random_action_type(chances)
+	local c = {
+		chances.projectile or 0,
+		chances.static_projectile or 0,
+		chances.modifier or 0,
+		chances.draw_many or 0,
+		chances.material or 0,
+		chances.other or 0,
+		chances.utility or 0,
+		chances.passive or 0,
+	}
+	normalize_table(c)
+	local action_types = {
+		ACTION_TYPE_PROJECTILE,
+		ACTION_TYPE_STATIC_PROJECTILE,
+		ACTION_TYPE_MODIFIER,
+		ACTION_TYPE_DRAW_MANY,
+		ACTION_TYPE_MATERIAL,
+		ACTION_TYPE_OTHER,
+		ACTION_TYPE_UTILITY,
+		ACTION_TYPE_PASSIVE,
+	}
   local rand_spell_roll = Random()
-  local chances = { chance_projectile, chance_modifier, chance_draw_many }
-	normalize_table(chances)
-	local action_type = nil
-
-  if rand_spell_roll < chances[1] then
-		action_type = ACTION_TYPE_PROJECTILE
-	elseif rand_spell_roll < chances[1] + chances[2] then
-		action_type = ACTION_TYPE_MODIFIER
-  else
-    action_type = ACTION_TYPE_DRAW_MANY
+	for i=1, #c do
+		if rand_spell_roll < c[i] then
+			return action_types[i]
+		end
+		rand_spell_roll = rand_spell_roll - c[i]
 	end
-
-  return action_type
+	return 0
 end
 
 -- Returns an entry of data/scripts/gun/gun_actions.lua

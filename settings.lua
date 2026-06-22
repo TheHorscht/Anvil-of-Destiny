@@ -2,7 +2,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 dofile_once("data/scripts/lib/mod_settings.lua")
 
 local mod_id = "anvil_of_destiny"
-mod_settings_version = 1
+mod_settings_version = 2
 
 local function get_setting_id(name)
 	return mod_id .. "." .. name
@@ -10,6 +10,10 @@ end
 
 local function format_fn_occurence(val)
 	return string.format("%.f%%", val * 100)
+end
+
+local function format_fn_integer(val)
+	return string.format("%i", val)
 end
 
 local function format_fn_buffamount(val)
@@ -117,18 +121,59 @@ breaking compatibility.]],
 			ru = "2 таблички",
 		},
 	},
-
 	reduce_one_stat = {
 		en = "Reduce one stat",
 		en_desc = "This is for balance and more interesting random results.\nWhen merging two wands, will reduce one of the stats at random, otherwise the buff might be too good.",
 		ru = "Уменьшить одну стату",
 		ru_desc = "Это сделано для баланса и более интересных случайных результатов.\nПри объединении двух жезлов будет случайным образом уменьшаться один из статов,\nиначе бафф может оказаться слишком хорошим.",
 	},
-	only_modifiers = {
-		en = "Modifier-type always casts only",
-		en_desc = "When using a tablet to add an always cast, will only choose from modifier type spells.",
-		ru = "Всегда кастуемые заклинания - Модификаторы",
-		ru_desc = "При использовании таблички\nдля добавления всегда кастуемого заклинания,\nможно выбрать только заклинания - модификаторы.",
+	ac_type_chances = {
+		en = "Weighted probabilites for ACs",
+		ru = "Вероятности типов постоянных заклинаний",
+		en_desc = [[These are the weighted probabilities for each spell type
+when adding an always cast using a tablet in a recipe.
+------------------------------------
+For example in a list like 10, 2, 1:
+The first entry is 10 times as likely as the third entry
+and 5 times more likely than the 2nd entry.]],
+	ru_desc = [[Это весовые вероятности для каждого типа заклинаний
+при добавлении постоянного заклинания с помощью таблички в рецепте.
+------------------------------------
+Например, для списка 10, 2, 1:
+первый элемент выпадет в 10 раз чаще третьего
+и в 5 раз чаще второго.]],
+		ac_chance_projectile = {
+			en = "Projectile",
+			ru = "Снаряд",
+		},
+		ac_chance_static_projectile = {
+			en = "Static proj.",
+			ru = "Стат. снаряд",
+		},
+		ac_chance_draw_many = {
+			en = "Multicast",
+			ru = "Множ. налож.",
+		},
+		ac_chance_material = {
+			en = "Material",
+			ru = "Материал",
+		},
+		ac_chance_other = {
+			en = "Other",
+			ru = "Другое",
+		},
+		ac_chance_utility = {
+			en = "Utility",
+			ru = "Полезное",
+		},
+		ac_chance_passive = {
+			en = "Passive",
+			ru = "Пассивное",
+		},
+		ac_chance_modifier = {
+			en = "Proj. modifier",
+			ru = "Модиф. снаряда",
+		},
 	},
 	mimic = {
 		en = "Mimic",
@@ -423,13 +468,94 @@ local settings = {
 		},
 	},
 	{
-		id = "reduce_one_stat",
-		value_default = true,
-		scope = MOD_SETTING_SCOPE_RUNTIME,
+		type = "group",
+		id = "ac_type_chances",
+		items = {
+			{
+				id = "ac_chance_projectile",
+				value_default = 8,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_static_projectile",
+				value_default = 0,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_modifier",
+				value_default = 1,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_draw_many",
+				value_default = 2,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_material",
+				value_default = 0,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_other",
+				value_default = 0,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_utility",
+				value_default = 0,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+			{
+				id = "ac_chance_passive",
+				value_default = 0,
+				value_min = 0,
+				value_max = 10,
+				value_display_multiplier = 100,
+				value_display_formatting = "",
+				format_fn = format_fn_integer,
+				scope = MOD_SETTING_SCOPE_RUNTIME,
+			},
+		},
 	},
 	{
-		id = "only_modifiers",
-		value_default = false,
+		id = "reduce_one_stat",
+		value_default = true,
 		scope = MOD_SETTING_SCOPE_RUNTIME,
 	},
 	{
@@ -570,6 +696,20 @@ function ModSettingsUpdate(init_scope)
 	for i, setting in ipairs(settings) do
 		set_defaults(setting)
 		save_setting(setting)
+	end
+	if mod_settings_version == 1 then
+		local only_modifiers = ModSettingGet(get_setting_id("only_modifiers"))
+		if only_modifiers then
+			ModSettingSetNextValue(get_setting_id("ac_chance_projectile"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_static_projectile"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_modifier"), 10, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_draw_many"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_material"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_other"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_utility"), 0, false)
+			ModSettingSetNextValue(get_setting_id("ac_chance_passive"), 0, false)
+		end
+		ModSettingRemove(get_setting_id("only_modifiers"))
 	end
 	ModSettingSet(get_setting_id("_version"), mod_settings_version)
 end

@@ -1,3 +1,6 @@
+v1.23.0:
+- Add mod settings to set the probabilities for the spell types that using a tablet in a recipe can add as an always cast.
+
 v1.22.4:
 - FIX: Broken wand no longer counts as two wands. Also, its equivalent level 2 wand is more random.
 
