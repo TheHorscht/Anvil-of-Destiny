@@ -5,11 +5,11 @@ local random_number = Random(1, 1000)
 local spawn_direction_angle = Random(-3.1415, 3.1415)
 local entity_to_spawn = nil
 
-if random_number <= 2 then -- 2%
+if random_number <= 2 then -- 0.2%
   entity_to_spawn = "data/entities/animals/worm_big.xml"
-elseif random_number <= 10 then -- 8%
+elseif random_number <= 10 then -- 1.0%
   entity_to_spawn = "data/entities/animals/worm.xml"
-elseif random_number <= 30 then -- 20%
+elseif random_number <= 30 then -- 3.0%
   entity_to_spawn = "data/entities/animals/worm_tiny.xml"
 end
 
